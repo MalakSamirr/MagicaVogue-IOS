@@ -1,0 +1,6 @@
+framework module Pods_MagicaVogue_MagicaVogueUITests {
+  umbrella header "Pods-MagicaVogue-MagicaVogueUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

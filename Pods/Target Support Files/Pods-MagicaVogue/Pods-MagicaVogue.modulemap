@@ -1,0 +1,6 @@
+framework module Pods_MagicaVogue {
+  umbrella header "Pods-MagicaVogue-umbrella.h"
+
+  export *
+  module * { export * }
+}

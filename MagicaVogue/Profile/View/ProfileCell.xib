@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileCell" rowHeight="82" id="KGk-i7-Jjw" customClass="ProfileCell" customModule="MagicaVogue" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WHb-kH-kzp">
+                        <rect key="frame" x="15" y="24.666666666666657" width="30" height="33.333333333333329"/>
+                        <color key="tintColor" red="0.43958434460000001" green="0.31088450550000002" blue="0.2196745574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="rTg-lk-B0v"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbq-jj-i69">
+                        <rect key="frame" x="61" y="23" width="212" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jkZ-o9-iCO">
+                        <rect key="frame" x="283" y="23" width="28" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="sz6-gR-7jI"/>
+                        </constraints>
+                        <color key="tintColor" red="0.43958434460000001" green="0.31088450550000002" blue="0.2196745574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" title="">
+                            <backgroundConfiguration key="background"/>
+                        </buttonConfiguration>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jkZ-o9-iCO" firstAttribute="leading" secondItem="vbq-jj-i69" secondAttribute="trailing" constant="10" id="BEK-Xm-9vZ"/>
+                    <constraint firstAttribute="bottom" secondItem="WHb-kH-kzp" secondAttribute="bottom" constant="23" id="Efo-oS-nps"/>
+                    <constraint firstItem="jkZ-o9-iCO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="23" id="Gfx-Xr-gRW"/>
+                    <constraint firstItem="WHb-kH-kzp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Ih7-Z2-5ZR"/>
+                    <constraint firstItem="vbq-jj-i69" firstAttribute="leading" secondItem="WHb-kH-kzp" secondAttribute="trailing" constant="16" id="JlH-0U-SgQ"/>
+                    <constraint firstAttribute="trailing" secondItem="jkZ-o9-iCO" secondAttribute="trailing" constant="9" id="V4U-IJ-0hd"/>
+                    <constraint firstAttribute="bottom" secondItem="vbq-jj-i69" secondAttribute="bottom" constant="23" id="VJ3-XP-aLQ"/>
+                    <constraint firstItem="WHb-kH-kzp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="23" id="f1e-gU-OzI"/>
+                    <constraint firstAttribute="bottom" secondItem="jkZ-o9-iCO" secondAttribute="bottom" constant="23" id="hap-zs-ert"/>
+                    <constraint firstItem="vbq-jj-i69" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="23" id="sdr-pm-oKL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="img" destination="WHb-kH-kzp" id="cGa-7i-tCz"/>
+                <outlet property="title" destination="vbq-jj-i69" id="5RB-rd-VLI"/>
+            </connections>
+            <point key="canvasLocation" x="180.15267175572518" y="32.394366197183103"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <image name="person" catalog="system" width="128" height="121"/>
+    </resources>
+</document>
