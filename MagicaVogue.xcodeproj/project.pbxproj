@@ -233,24 +233,13 @@
 		45A095D82ADFE48E00C297C9 /* MagicaVogue */ = {
 			isa = PBXGroup;
 			children = (
-				59F4E7B52AE2CAE0002A5BFF /* Cart */,
-				59F4E79B2AE2CACE002A5BFF /* Address */,
-				45EADB8F2AE2845600943BE7 /* Copouns */,
-				EEB023412AE1A0DD0069F998 /* PasswordManager */,
-				EEE3A0BD2AE17779009956BC /* Settings */,
-				EEE3A0B32AE15768009956BC /* Profile */,
-				EEC3F7342AE05062004D22C1 /* ProductDetails */,
-				EEE356832AE01E5B000B8742 /* Login */,
-				EEE3567D2AE00BB6000B8742 /* Signup */,
-				59AF4EDF2AE11C0400B4B8EE /* Brands */,
-				5947D9422AE036970005E94C /* Extension */,
-				5947D9262AE008910005E94C /* Home */,
-				45A095D92ADFE48E00C297C9 /* AppDelegate.swift */,
-				45A095DB2ADFE48E00C297C9 /* SceneDelegate.swift */,
-				45A095DD2ADFE48E00C297C9 /* ViewController.swift */,
-				45A095DF2ADFE48E00C297C9 /* Main.storyboard */,
-				45A095E52ADFE48F00C297C9 /* Assets.xcassets */,
-				45A095E72ADFE48F00C297C9 /* LaunchScreen.storyboard */,
+				5959D6B52AE2E67D00582F0F /* ViewModel */,
+				5959D6B42AE2E67500582F0F /* Model */,
+				5959D6B32AE2E66300582F0F /* Assets */,
+				5959D6B12AE2E62300582F0F /* SuppotingFiles */,
+				5959D6B02AE2E60B00582F0F /* Module */,
+				5904EED12AE2E79500800752 /* Additions */,
+				5959D6B22AE2E65400582F0F /* View */,
 				45A095EA2ADFE48F00C297C9 /* Info.plist */,
 				45A095E22ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld */,
 			);
@@ -289,6 +278,15 @@
 				45EADB922AE2845600943BE7 /* CopounsViewController.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5904EED12AE2E79500800752 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				45A095DD2ADFE48E00C297C9 /* ViewController.swift */,
+				45A095D92ADFE48E00C297C9 /* AppDelegate.swift */,
+			);
+			path = Additions;
 			sourceTree = "<group>";
 		};
 		5947D9262AE008910005E94C /* Home */ = {
@@ -344,6 +342,64 @@
 				5947D9432AE036BE0005E94C /* UIView + dropShadow.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		5959D6B02AE2E60B00582F0F /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				59F4E7B52AE2CAE0002A5BFF /* Cart */,
+				59F4E79B2AE2CACE002A5BFF /* Address */,
+				45EADB8F2AE2845600943BE7 /* Copouns */,
+				EEB023412AE1A0DD0069F998 /* PasswordManager */,
+				EEE3A0BD2AE17779009956BC /* Settings */,
+				EEE3A0B32AE15768009956BC /* Profile */,
+				EEC3F7342AE05062004D22C1 /* ProductDetails */,
+				EEE356832AE01E5B000B8742 /* Login */,
+				EEE3567D2AE00BB6000B8742 /* Signup */,
+				59AF4EDF2AE11C0400B4B8EE /* Brands */,
+				5947D9422AE036970005E94C /* Extension */,
+				5947D9262AE008910005E94C /* Home */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		5959D6B12AE2E62300582F0F /* SuppotingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				45A095DB2ADFE48E00C297C9 /* SceneDelegate.swift */,
+			);
+			path = SuppotingFiles;
+			sourceTree = "<group>";
+		};
+		5959D6B22AE2E65400582F0F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				45A095DF2ADFE48E00C297C9 /* Main.storyboard */,
+				45A095E72ADFE48F00C297C9 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5959D6B32AE2E66300582F0F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				45A095E52ADFE48F00C297C9 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		5959D6B42AE2E67500582F0F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5959D6B52AE2E67D00582F0F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		59AF4EDF2AE11C0400B4B8EE /* Brands */ = {

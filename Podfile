@@ -11,6 +11,7 @@ target 'MagicaVogue' do
    pod 'lottie-ios'
    pod "Connectivity"
    pod 'Kingfisher'
+   pod 'Cosmos'
 
   target 'MagicaVogueTests' do
     inherit! :search_paths

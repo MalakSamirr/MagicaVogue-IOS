@@ -1,12 +1,14 @@
 PODS:
   - Alamofire (5.8.0)
   - Connectivity (6.1.1)
+  - Cosmos (23.0.0)
   - Kingfisher (7.9.1)
   - lottie-ios (4.3.3)
 
 DEPENDENCIES:
   - Alamofire
   - Connectivity
+  - Cosmos
   - Kingfisher
   - lottie-ios
 
@@ -14,15 +16,17 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Connectivity
+    - Cosmos
     - Kingfisher
     - lottie-ios
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   Connectivity: 8f70b8506f45632756348d40c6a46ae6f4732652
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
 
-PODFILE CHECKSUM: 893996c4454e76e8756bd8c8a180ca4612fc9953
+PODFILE CHECKSUM: 4d16625b6083a174f5917157468457d3b3bb2343
 
 COCOAPODS: 1.13.0
