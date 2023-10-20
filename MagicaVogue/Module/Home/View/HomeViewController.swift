@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var brandsCollectioView: UICollectionView!
     var currentCell = 0
-    let arrOfImgs = ["Coupons","Adi", "ad","a","Adidas", "b"]
+    let arrOfImgs = ["CouponBackground","CouponBackground2", "CouponBackground3"]
     private var timer: Timer?
     override func viewDidLoad() {
         
