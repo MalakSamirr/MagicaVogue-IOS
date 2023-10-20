@@ -25,8 +25,19 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     }
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
-        let myAddressesVC = MyAddressesVC()
-        navigationController?.pushViewController(myAddressesVC, animated: true)
+        let paymentViewController = PaymentViewController()
+            
+            let nav = UINavigationController(rootViewController: paymentViewController)
+            
+            nav.modalPresentationStyle = .pageSheet
+
+            if let sheet = nav.presentationController as? UISheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                sheet.largestUndimmedDetentIdentifier = .medium
+            }
+            
+            present(nav, animated: true, completion: nil)
     }
     // MARK: - TABLE VIEW FUNCTIONS
     

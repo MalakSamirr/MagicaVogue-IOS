@@ -19,6 +19,12 @@
 		45A096002ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095FF2ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift */; };
 		45EADB932AE2845600943BE7 /* CopounsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EADB912AE2845600943BE7 /* CopounsViewController.swift */; };
 		45EADB942AE2845600943BE7 /* CopounsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45EADB922AE2845600943BE7 /* CopounsViewController.xib */; };
+		45ECE7AD2AE2F3B800488682 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ECE7AB2AE2F3B800488682 /* PaymentViewController.swift */; };
+		45ECE7AE2AE2F3B800488682 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45ECE7AC2AE2F3B800488682 /* PaymentViewController.xib */; };
+		45ECE7B22AE2F3EE00488682 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ECE7B02AE2F3EE00488682 /* PaymentCell.swift */; };
+		45ECE7B32AE2F3EE00488682 /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45ECE7B12AE2F3EE00488682 /* PaymentCell.xib */; };
+		45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ECE7B52AE3058D00488682 /* SuccessViewController.swift */; };
+		45ECE7B82AE3058D00488682 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45ECE7B62AE3058D00488682 /* SuccessViewController.xib */; };
 		5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947D92C2AE008EC0005E94C /* HomeViewController.swift */; };
 		5947D92F2AE008EC0005E94C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5947D92D2AE008EC0005E94C /* HomeViewController.xib */; };
 		5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947D9302AE016C70005E94C /* HomeViewModel.swift */; };
@@ -113,6 +119,12 @@
 		45A095FF2ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicaVogueUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		45EADB912AE2845600943BE7 /* CopounsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopounsViewController.swift; sourceTree = "<group>"; };
 		45EADB922AE2845600943BE7 /* CopounsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CopounsViewController.xib; sourceTree = "<group>"; };
+		45ECE7AB2AE2F3B800488682 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		45ECE7AC2AE2F3B800488682 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
+		45ECE7B02AE2F3EE00488682 /* PaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
+		45ECE7B12AE2F3EE00488682 /* PaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentCell.xib; sourceTree = "<group>"; };
+		45ECE7B52AE3058D00488682 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		45ECE7B62AE3058D00488682 /* SuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
 		4FD0D2781A9FDC6222418069 /* Pods-MagicaVogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogueTests.debug.xcconfig"; path = "Target Support Files/Pods-MagicaVogueTests/Pods-MagicaVogueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5947D92C2AE008EC0005E94C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5947D92D2AE008EC0005E94C /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -290,6 +302,43 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		45ECE7A92AE2F26600488682 /* Pyment */ = {
+			isa = PBXGroup;
+			children = (
+				45ECE7AF2AE2F3C900488682 /* Components */,
+				45ECE7AA2AE2F39300488682 /* View */,
+			);
+			path = Pyment;
+			sourceTree = "<group>";
+		};
+		45ECE7AA2AE2F39300488682 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				45ECE7B42AE3057400488682 /* Success */,
+				45ECE7AB2AE2F3B800488682 /* PaymentViewController.swift */,
+				45ECE7AC2AE2F3B800488682 /* PaymentViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		45ECE7AF2AE2F3C900488682 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				45ECE7B02AE2F3EE00488682 /* PaymentCell.swift */,
+				45ECE7B12AE2F3EE00488682 /* PaymentCell.xib */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		45ECE7B42AE3057400488682 /* Success */ = {
+			isa = PBXGroup;
+			children = (
+				45ECE7B52AE3058D00488682 /* SuccessViewController.swift */,
+				45ECE7B62AE3058D00488682 /* SuccessViewController.xib */,
+			);
+			path = Success;
+			sourceTree = "<group>";
+		};
 		5904EED12AE2E79500800752 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,9 +406,12 @@
 		5959D6B02AE2E60B00582F0F /* Module */ = {
 			isa = PBXGroup;
 			children = (
+
+				45ECE7A92AE2F26600488682 /* Pyment */,
 				59BAF36D2AE312CB00772630 /* Category */,
 				59BAF36A2AE30BC500772630 /* TabBarController */,
 				59BAF3642AE2F31B00772630 /* Order */,
+
 				59F4E7B52AE2CAE0002A5BFF /* Cart */,
 				59F4E79B2AE2CACE002A5BFF /* Address */,
 				45EADB8F2AE2845600943BE7 /* Copouns */,
@@ -858,6 +910,7 @@
 			files = (
 				59F4E7AF2AE2CACE002A5BFF /* MyAddressesCell.xib in Resources */,
 				59AF4EF02AE122C100B4B8EE /* SubCategoryCell.xib in Resources */,
+				45ECE7B82AE3058D00488682 /* SuccessViewController.xib in Resources */,
 				59F4E7B12AE2CACE002A5BFF /* MyAddressesVC.xib in Resources */,
 				59AF4EEC2AE1212700B4B8EE /* MainCategoryCell.xib in Resources */,
 				5947D93C2AE0177C0005E94C /* CouponCell.xib in Resources */,
@@ -866,6 +919,7 @@
 				59BAF3692AE2F35B00772630 /* OrderViewController.xib in Resources */,
 				59F4E7C22AE2CAE0002A5BFF /* CartViewController.xib in Resources */,
 				45A095E62ADFE48F00C297C9 /* Assets.xcassets in Resources */,
+				45ECE7B32AE2F3EE00488682 /* PaymentCell.xib in Resources */,
 				59AF4EE82AE11DC900B4B8EE /* ItemCell.xib in Resources */,
 				59F4E7AC2AE2CACE002A5BFF /* NewAddressCell.xib in Resources */,
 				45A095E12ADFE48E00C297C9 /* Main.storyboard in Resources */,
@@ -880,6 +934,7 @@
 				EEE356882AE01E8C000B8742 /* LoginViewController.xib in Resources */,
 				45A095E92ADFE48F00C297C9 /* LaunchScreen.storyboard in Resources */,
 				45A095E62ADFE48F00C297C9 /* Assets.xcassets in Resources */,
+				45ECE7AE2AE2F3B800488682 /* PaymentViewController.xib in Resources */,
 				EEB023462AE1A11D0069F998 /* PasswordManagerViewController.xib in Resources */,
 				EEE3A0C22AE177B9009956BC /* SettingsTableViewController.xib in Resources */,
 				EEE356812AE00C0B000B8742 /* SignupViewController.xib in Resources */,
@@ -1021,8 +1076,10 @@
 				59F4E7B02AE2CACE002A5BFF /* MyAddressesVC.swift in Sources */,
 				59F4E7C02AE2CAE0002A5BFF /* CartModel.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
+				45ECE7AD2AE2F3B800488682 /* PaymentViewController.swift in Sources */,
 				59F4E7C12AE2CAE0002A5BFF /* CartViewController.swift in Sources */,
 				59F4E7B32AE2CACE002A5BFF /* CheckoutVC.swift in Sources */,
+				45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */,
 				59F4E7BF2AE2CAE0002A5BFF /* CartCell.swift in Sources */,
 				59AF4EE72AE11DC900B4B8EE /* ItemCell.swift in Sources */,
 				45EADB932AE2845600943BE7 /* CopounsViewController.swift in Sources */,
@@ -1040,6 +1097,7 @@
 				EEDE61E82AE11F19006565A5 /* ProductImageCell.swift in Sources */,
 				45A095DA2ADFE48E00C297C9 /* AppDelegate.swift in Sources */,
 				5947D9442AE036BE0005E94C /* UIView + dropShadow.swift in Sources */,
+				45ECE7B22AE2F3EE00488682 /* PaymentCell.swift in Sources */,
 				5947D9402AE01DC60005E94C /* BrandCell.swift in Sources */,
 				59BAF3682AE2F35B00772630 /* OrderViewController.swift in Sources */,
 				59AF4EF62AE18A8100B4B8EE /* File.swift in Sources */,
