@@ -1,16 +1,15 @@
 //
-//  BrandViewController.swift
+//  CategoryViewController.swift
 //  MagicaVogue
 //
-//  Created by Hoda Elnaghy on 10/19/23.
+//  Created by Hoda Elnaghy on 10/20/23.
 //
 
 import UIKit
 
-class BrandViewController: UIViewController{
-    
-    @IBOutlet weak var BrandCollectionViewDetails: UICollectionView!
-    
+class CategoryViewController: UIViewController {
+
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
     static let sectionHeaderElementKind = "section-header-element-kind"
     
     let mainCategoriesArray = ["All", "Men", "Women", "Kids"]
@@ -21,26 +20,32 @@ class BrandViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Pull&Bear"
+        let logoImageView = UIImageView(image: UIImage(named: "Logo"))
+        logoImageView.contentMode = .scaleAspectFit
+        
+        self.navigationItem.titleView = logoImageView
         
 
-        BrandCollectionViewDetails.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
-        BrandCollectionViewDetails.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: "MainCategoryCell")
-        BrandCollectionViewDetails.register(UINib(nibName: "SubCategoryCell", bundle: nil), forCellWithReuseIdentifier: "SubCategoryCell")
+        categoryCollectionView.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
+        categoryCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: "MainCategoryCell")
+        categoryCollectionView.register(UINib(nibName: "SubCategoryCell", bundle: nil), forCellWithReuseIdentifier: "SubCategoryCell")
         
-        self.BrandCollectionViewDetails.register( SectionHeader.self, forSupplementaryViewOfKind: BrandViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)
+        self.categoryCollectionView.register( SectionHeader.self, forSupplementaryViewOfKind: BrandViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)
         
-        BrandCollectionViewDetails.delegate = self
-        BrandCollectionViewDetails.dataSource = self
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
         
         let layout = UICollectionViewCompositionalLayout { sectionIndex, enviroment in
             
             switch sectionIndex {
                 
-            
-            case 0:
+            case 0 :
                 
-                return self.sortingCategorie()
+                return self.mainCategories()
+                
+            case 1 :
+                
+                return self.subCategories()
 
             default:
                 return self.items()
@@ -50,7 +55,7 @@ class BrandViewController: UIViewController{
             
         }
         
-        BrandCollectionViewDetails.setCollectionViewLayout(layout, animated: true)
+        categoryCollectionView.setCollectionViewLayout(layout, animated: true)
         
         
         // Do any additional setup after loading the view.
@@ -140,12 +145,7 @@ class BrandViewController: UIViewController{
         section.orthogonalScrollingBehavior = .continuous
         
         // section.boundarySupplementaryItems = [self.supplementtryHeader()]
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
-
-        section.boundarySupplementaryItems = [sectionHeader]
+       
         
         
         return section
@@ -187,12 +187,7 @@ class BrandViewController: UIViewController{
         section.orthogonalScrollingBehavior = .continuous
         
         // section.boundarySupplementaryItems = [self.supplementtryHeader()]
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
-
-        section.boundarySupplementaryItems = [sectionHeader]
+        
         
         
         return section
@@ -245,13 +240,16 @@ class BrandViewController: UIViewController{
 }
 
 
-extension BrandViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2
+            return mainCategoriesArray.count
         case 1:
-            return 6
+            return SubCategoriesArray.count
+        case 2:
+            return 10
+
         default:
             return 0
         }
@@ -262,28 +260,35 @@ extension BrandViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         switch indexPath.section {
         case 0:
-            let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
-            cell.mainCategoryLabel.text = sortingArray[indexPath.row]
+            let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
+            
+            cell.mainCategoryLabel.text = mainCategoriesArray[indexPath.row]
             return cell
+            
         case 1:
-            let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
+            let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "SubCategoryCell", for: indexPath) as! SubCategoryCell
+            cell.subCategoryItemImage.image = UIImage(named: SubCategoriesArray[indexPath.row])
+            return cell
+       
+        case 2:
+            let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
             return cell
         default:
-            let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
+            let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
             return cell        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        3
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: 100, height: 50) // Adjust the height as needed
+        return CGSize(width: 5, height: 0) // Adjust the height as needed
     }
     
     // Provide the view for the section header
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let sectionHeaderArray: [String] = ["Sort by:",""]
+        let sectionHeaderArray: [String] = ["", "", "",""]
         
         if kind == BrandViewController.sectionHeaderElementKind {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
@@ -297,11 +302,30 @@ extension BrandViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        BrandCollectionViewDetails.deselectItem(at: indexPath, animated: true)
+        categoryCollectionView.deselectItem(at: indexPath, animated: true)
 
         switch indexPath.section {
-            
         case 0:
+            if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
+                // Modify the appearance of the selected cell
+                let backgroundColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
+                
+                cell.mainCategoryLabel.textColor = .white
+                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
+                
+                // Reload the selected item to reflect the changes
+                collectionView.reloadItems(at: [indexPath])
+            }
+            
+        case 1:
+            if let cell = collectionView.cellForItem(at: indexPath) as? SubCategoryCell {
+                // Modify the appearance of the selected cell
+                let backgroundColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
+                cell.subCategoryBackgroundView.layer.borderWidth = 1.0 // Adjust the border width as needed
+                cell.subCategoryBackgroundView.layer.borderColor = backgroundColor.cgColor
+            }
+            
+        case 2:
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
                 // Modify the appearance of the selected cell
                 let backgroundColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
@@ -319,26 +343,4 @@ extension BrandViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
 }
     
-
-
-
-
-    
-
-
-
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 

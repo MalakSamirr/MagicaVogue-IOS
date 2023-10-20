@@ -38,6 +38,11 @@
 		59AF4EF42AE12D9400B4B8EE /* BrandViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59AF4EF22AE12D9400B4B8EE /* BrandViewController.xib */; };
 		59AF4EF62AE18A8100B4B8EE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AF4EF52AE18A8100B4B8EE /* File.swift */; };
 		59AF4EF92AE19E6300B4B8EE /* SectionHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AF4EF82AE19E6300B4B8EE /* SectionHeaderCollectionReusableView.swift */; };
+		59BAF3682AE2F35B00772630 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAF3662AE2F35B00772630 /* OrderViewController.swift */; };
+		59BAF3692AE2F35B00772630 /* OrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59BAF3672AE2F35B00772630 /* OrderViewController.xib */; };
+		59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAF36B2AE30BE000772630 /* TabBarController.swift */; };
+		59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAF3702AE3130B00772630 /* CategoryViewController.swift */; };
+		59BAF3732AE3130B00772630 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59BAF3712AE3130B00772630 /* CategoryViewController.xib */; };
 		59F4E7AC2AE2CACE002A5BFF /* NewAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */; };
 		59F4E7AD2AE2CACE002A5BFF /* NewAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */; };
 		59F4E7AE2AE2CACE002A5BFF /* MyAddressesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */; };
@@ -128,6 +133,11 @@
 		59AF4EF22AE12D9400B4B8EE /* BrandViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrandViewController.xib; sourceTree = "<group>"; };
 		59AF4EF52AE18A8100B4B8EE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		59AF4EF82AE19E6300B4B8EE /* SectionHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		59BAF3662AE2F35B00772630 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+		59BAF3672AE2F35B00772630 /* OrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderViewController.xib; sourceTree = "<group>"; };
+		59BAF36B2AE30BE000772630 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		59BAF3702AE3130B00772630 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		59BAF3712AE3130B00772630 /* CategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
 		59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAddressCell.xib; sourceTree = "<group>"; };
 		59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressCell.swift; sourceTree = "<group>"; };
 		59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAddressesCell.swift; sourceTree = "<group>"; };
@@ -347,6 +357,9 @@
 		5959D6B02AE2E60B00582F0F /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				59BAF36D2AE312CB00772630 /* Category */,
+				59BAF36A2AE30BC500772630 /* TabBarController */,
+				59BAF3642AE2F31B00772630 /* Order */,
 				59F4E7B52AE2CAE0002A5BFF /* Cart */,
 				59F4E79B2AE2CACE002A5BFF /* Address */,
 				45EADB8F2AE2845600943BE7 /* Copouns */,
@@ -465,6 +478,48 @@
 				59AF4EF82AE19E6300B4B8EE /* SectionHeaderCollectionReusableView.swift */,
 			);
 			path = SectionHeader;
+			sourceTree = "<group>";
+		};
+		59BAF3642AE2F31B00772630 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				59BAF3652AE2F32C00772630 /* View */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		59BAF3652AE2F32C00772630 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				59BAF3662AE2F35B00772630 /* OrderViewController.swift */,
+				59BAF3672AE2F35B00772630 /* OrderViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		59BAF36A2AE30BC500772630 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				59BAF36B2AE30BE000772630 /* TabBarController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		59BAF36D2AE312CB00772630 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				59BAF36E2AE312E900772630 /* View */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		59BAF36E2AE312E900772630 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				59BAF3702AE3130B00772630 /* CategoryViewController.swift */,
+				59BAF3712AE3130B00772630 /* CategoryViewController.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		59F4E79B2AE2CACE002A5BFF /* Address */ = {
@@ -808,6 +863,7 @@
 				5947D93C2AE0177C0005E94C /* CouponCell.xib in Resources */,
 				5947D9412AE01DC60005E94C /* BrandCell.xib in Resources */,
 				45A095E92ADFE48F00C297C9 /* LaunchScreen.storyboard in Resources */,
+				59BAF3692AE2F35B00772630 /* OrderViewController.xib in Resources */,
 				59F4E7C22AE2CAE0002A5BFF /* CartViewController.xib in Resources */,
 				45A095E62ADFE48F00C297C9 /* Assets.xcassets in Resources */,
 				59AF4EE82AE11DC900B4B8EE /* ItemCell.xib in Resources */,
@@ -829,6 +885,7 @@
 				EEE356812AE00C0B000B8742 /* SignupViewController.xib in Resources */,
 				EEC3F7392AE05089004D22C1 /* ProductDetailsViewController.xib in Resources */,
 				45A095E12ADFE48E00C297C9 /* Main.storyboard in Resources */,
+				59BAF3732AE3130B00772630 /* CategoryViewController.xib in Resources */,
 				EEE3A0BC2AE16593009956BC /* ProfileCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -973,8 +1030,10 @@
 				EEE356872AE01E8C000B8742 /* LoginViewController.swift in Sources */,
 				EEB023452AE1A11D0069F998 /* PasswordManagerViewController.swift in Sources */,
 				EEE3A0B72AE157BA009956BC /* ProfileViewController.swift in Sources */,
+				59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */,
 				EEE3A0BB2AE16593009956BC /* ProfileCell.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
+				59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */,
 				45A095DE2ADFE48E00C297C9 /* ViewController.swift in Sources */,
 				EEE356802AE00C0B000B8742 /* SignupViewController.swift in Sources */,
 				EEE3A0C12AE177B9009956BC /* SettingsTableViewController.swift in Sources */,
@@ -982,6 +1041,7 @@
 				45A095DA2ADFE48E00C297C9 /* AppDelegate.swift in Sources */,
 				5947D9442AE036BE0005E94C /* UIView + dropShadow.swift in Sources */,
 				5947D9402AE01DC60005E94C /* BrandCell.swift in Sources */,
+				59BAF3682AE2F35B00772630 /* OrderViewController.swift in Sources */,
 				59AF4EF62AE18A8100B4B8EE /* File.swift in Sources */,
 				59AF4EEB2AE1212700B4B8EE /* MainCategoryCell.swift in Sources */,
 				59AF4EF92AE19E6300B4B8EE /* SectionHeaderCollectionReusableView.swift in Sources */,
