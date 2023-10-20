@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -115,6 +116,7 @@
                 <outlet property="productNameLabel" destination="Z30-fq-mYJ" id="WO6-kT-j5a"/>
                 <outlet property="productPriceLabel" destination="vEz-YL-r3P" id="4H0-in-2re"/>
                 <outlet property="quantityLabel" destination="Iti-XA-a8d" id="UkI-nx-syV"/>
+                <outlet property="sizeLabel" destination="aef-4G-K62" id="IcN-Tl-diS"/>
             </connections>
             <point key="canvasLocation" x="-111.45038167938931" y="55.281690140845072"/>
         </tableViewCell>

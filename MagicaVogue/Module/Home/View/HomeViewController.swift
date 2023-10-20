@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var brandsCollectioView: UICollectionView!
     var currentCell = 0
-    let arrOfImgs = ["CouponBackground","CouponBackground2", "CouponBackground3"]
+    let arrOfImgs = ["CouponBackground","CouponBackground", "CouponBackground"]
     private var timer: Timer?
     override func viewDidLoad() {
         
@@ -118,6 +118,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         switch collectionView {
             case couponCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CouponCell", for: indexPath) as! CouponCell
+            
             cell.couponImage.image = UIImage(named: arrOfImgs[indexPath.row])
             return cell
         case brandsCollectioView:

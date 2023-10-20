@@ -312,6 +312,8 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
                 
                 cell.mainCategoryLabel.textColor = .white
                 cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
+                print(cell.mainCategoryLabel.text)
+
                 
                 // Reload the selected item to reflect the changes
                 collectionView.reloadItems(at: [indexPath])
@@ -323,19 +325,9 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
                 let backgroundColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
                 cell.subCategoryBackgroundView.layer.borderWidth = 1.0 // Adjust the border width as needed
                 cell.subCategoryBackgroundView.layer.borderColor = backgroundColor.cgColor
-            }
+                            }
             
-        case 2:
-            if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
-                // Modify the appearance of the selected cell
-                let backgroundColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
-                
-                cell.mainCategoryLabel.textColor = .white
-                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
-                
-                // Reload the selected item to reflect the changes
-                collectionView.reloadItems(at: [indexPath])
-            }
+        
         default:
             return
             
