@@ -109,20 +109,6 @@
 		45EADB912AE2845600943BE7 /* CopounsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopounsViewController.swift; sourceTree = "<group>"; };
 		45EADB922AE2845600943BE7 /* CopounsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CopounsViewController.xib; sourceTree = "<group>"; };
 		4FD0D2781A9FDC6222418069 /* Pods-MagicaVogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogueTests.debug.xcconfig"; path = "Target Support Files/Pods-MagicaVogueTests/Pods-MagicaVogueTests.debug.xcconfig"; sourceTree = "<group>"; };
-		591A7AAE2AE2C1CB00F3E34D /* NewAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAddressCell.xib; sourceTree = "<group>"; };
-		591A7AAF2AE2C1CB00F3E34D /* NewAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAddressCell.swift; sourceTree = "<group>"; };
-		591A7AB12AE2C1CB00F3E34D /* MyAddressesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressesCell.swift; sourceTree = "<group>"; };
-		591A7AB22AE2C1CB00F3E34D /* MyAddressesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyAddressesCell.xib; sourceTree = "<group>"; };
-		591A7AB62AE2C1CB00F3E34D /* MyAddressesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressesVC.swift; sourceTree = "<group>"; };
-		591A7AB72AE2C1CB00F3E34D /* MyAddressesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyAddressesVC.xib; sourceTree = "<group>"; };
-		591A7AB92AE2C1CB00F3E34D /* CheckoutVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckoutVC.xib; sourceTree = "<group>"; };
-		591A7ABA2AE2C1CB00F3E34D /* CheckoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutVC.swift; sourceTree = "<group>"; };
-		591A7ABC2AE2C1CB00F3E34D /* CheckoutvViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckoutvViewController.xib; sourceTree = "<group>"; };
-		591A7AC12AE2C21000F3E34D /* CartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartCell.xib; sourceTree = "<group>"; };
-		591A7AC22AE2C21000F3E34D /* CartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
-		591A7AC42AE2C21000F3E34D /* CartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
-		591A7AC62AE2C21000F3E34D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
-		591A7AC72AE2C21000F3E34D /* CartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
 		5947D92C2AE008EC0005E94C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5947D92D2AE008EC0005E94C /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		5947D9302AE016C70005E94C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -225,7 +211,6 @@
 		45A095CD2ADFE48D00C297C9 = {
 			isa = PBXGroup;
 			children = (
-				591A7ABD2AE2C1F500F3E34D /* missing files */,
 				45A095D82ADFE48E00C297C9 /* MagicaVogue */,
 				45A095F22ADFE49000C297C9 /* MagicaVogueTests */,
 				45A095FC2ADFE49000C297C9 /* MagicaVogueUITests */,
@@ -302,147 +287,6 @@
 			children = (
 				45EADB912AE2845600943BE7 /* CopounsViewController.swift */,
 				45EADB922AE2845600943BE7 /* CopounsViewController.xib */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		591A7AAA2AE2C1CB00F3E34D /* Address */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AAB2AE2C1CB00F3E34D /* ModelView */,
-				591A7AAC2AE2C1CB00F3E34D /* Components */,
-				591A7AB32AE2C1CB00F3E34D /* Model */,
-				591A7AB42AE2C1CB00F3E34D /* View */,
-			);
-			path = Address;
-			sourceTree = "<group>";
-		};
-		591A7AAB2AE2C1CB00F3E34D /* ModelView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ModelView;
-			sourceTree = "<group>";
-		};
-		591A7AAC2AE2C1CB00F3E34D /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AAD2AE2C1CB00F3E34D /* NewAddress */,
-				591A7AB02AE2C1CB00F3E34D /* MyAddressCell */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		591A7AAD2AE2C1CB00F3E34D /* NewAddress */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AAE2AE2C1CB00F3E34D /* NewAddressCell.xib */,
-				591A7AAF2AE2C1CB00F3E34D /* NewAddressCell.swift */,
-			);
-			path = NewAddress;
-			sourceTree = "<group>";
-		};
-		591A7AB02AE2C1CB00F3E34D /* MyAddressCell */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AB12AE2C1CB00F3E34D /* MyAddressesCell.swift */,
-				591A7AB22AE2C1CB00F3E34D /* MyAddressesCell.xib */,
-			);
-			path = MyAddressCell;
-			sourceTree = "<group>";
-		};
-		591A7AB32AE2C1CB00F3E34D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		591A7AB42AE2C1CB00F3E34D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AB52AE2C1CB00F3E34D /* MyAddress */,
-				591A7AB82AE2C1CB00F3E34D /* Checkout */,
-				591A7ABB2AE2C1CB00F3E34D /* New Group */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		591A7AB52AE2C1CB00F3E34D /* MyAddress */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AB62AE2C1CB00F3E34D /* MyAddressesVC.swift */,
-				591A7AB72AE2C1CB00F3E34D /* MyAddressesVC.xib */,
-			);
-			path = MyAddress;
-			sourceTree = "<group>";
-		};
-		591A7AB82AE2C1CB00F3E34D /* Checkout */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AB92AE2C1CB00F3E34D /* CheckoutVC.xib */,
-				591A7ABA2AE2C1CB00F3E34D /* CheckoutVC.swift */,
-			);
-			path = Checkout;
-			sourceTree = "<group>";
-		};
-		591A7ABB2AE2C1CB00F3E34D /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				591A7ABC2AE2C1CB00F3E34D /* CheckoutvViewController.xib */,
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		591A7ABD2AE2C1F500F3E34D /* missing files */ = {
-			isa = PBXGroup;
-			children = (
-				591A7ABE2AE2C21000F3E34D /* Cart */,
-				591A7AAA2AE2C1CB00F3E34D /* Address */,
-			);
-			path = "missing files";
-			sourceTree = "<group>";
-		};
-		591A7ABE2AE2C21000F3E34D /* Cart */ = {
-			isa = PBXGroup;
-			children = (
-				591A7ABF2AE2C21000F3E34D /* ViewModel */,
-				591A7AC02AE2C21000F3E34D /* Components */,
-				591A7AC32AE2C21000F3E34D /* Model */,
-				591A7AC52AE2C21000F3E34D /* View */,
-			);
-			path = Cart;
-			sourceTree = "<group>";
-		};
-		591A7ABF2AE2C21000F3E34D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		591A7AC02AE2C21000F3E34D /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AC12AE2C21000F3E34D /* CartCell.xib */,
-				591A7AC22AE2C21000F3E34D /* CartCell.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		591A7AC32AE2C21000F3E34D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AC42AE2C21000F3E34D /* CartModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		591A7AC52AE2C21000F3E34D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				591A7AC62AE2C21000F3E34D /* CartViewController.swift */,
-				591A7AC72AE2C21000F3E34D /* CartViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
