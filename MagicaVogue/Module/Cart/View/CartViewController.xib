@@ -19,40 +19,59 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hF4-7y-RRT">
-                    <rect key="frame" x="59" y="747" width="275" height="51"/>
-                    <color key="backgroundColor" red="0.4392156862745098" green="0.30980392156862746" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Checkout">
-                        <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                        <color key="baseForegroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
-                    </buttonConfiguration>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="25"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="Checkout:" destination="-1" eventType="touchUpInside" id="Tsa-LF-cZ1"/>
-                    </connections>
-                </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rb3-li-H7Z">
-                    <rect key="frame" x="0.0" y="59" width="393" height="663"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="685"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <color key="sectionIndexBackgroundColor" red="0.86274522539999998" green="0.34901961679999999" blue="0.13333329560000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyq-EL-i30">
+                    <rect key="frame" x="144.66666666666663" y="760" width="232.33333333333337" height="58"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Checkout">
+                        <backgroundConfiguration key="background" cornerRadius="20">
+                            <color key="backgroundColor" red="0.43958434460000001" green="0.31088450550000002" blue="0.2196745574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </backgroundConfiguration>
+                        <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="Checkout:" destination="-1" eventType="touchUpInside" id="eM0-Kk-laY"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fkv-6X-m8J">
+                    <rect key="frame" x="32.000000000000007" y="762" width="90.666666666666686" height="22"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$87.59" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwP-Zk-lZI">
+                    <rect key="frame" x="32" y="792" width="101" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="101" id="5er-jN-mkl"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="101" id="aC5-tE-IsN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="XwP-Zk-lZI" secondAttribute="bottom" constant="5" id="4uL-r0-ek7"/>
                 <constraint firstItem="rb3-li-H7Z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="59" id="5Sc-fR-4sU"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hF4-7y-RRT" secondAttribute="bottom" constant="20" id="6zT-lI-oRI"/>
+                <constraint firstItem="XwP-Zk-lZI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="7ly-aO-Amp"/>
+                <constraint firstItem="Fkv-6X-m8J" firstAttribute="top" secondItem="rb3-li-H7Z" secondAttribute="bottom" constant="18" id="CdD-Cx-j7J"/>
                 <constraint firstItem="rb3-li-H7Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="GRV-Vv-Cfy"/>
-                <constraint firstItem="hF4-7y-RRT" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.06" id="GlA-x2-bbY"/>
+                <constraint firstItem="yyq-EL-i30" firstAttribute="top" secondItem="rb3-li-H7Z" secondAttribute="bottom" constant="16" id="J8X-0f-vma"/>
+                <constraint firstItem="XwP-Zk-lZI" firstAttribute="top" secondItem="Fkv-6X-m8J" secondAttribute="bottom" constant="8" id="Lo8-5q-Ji7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rb3-li-H7Z" secondAttribute="trailing" id="SoT-3f-80r"/>
-                <constraint firstItem="hF4-7y-RRT" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="bzB-UF-AHU"/>
-                <constraint firstItem="hF4-7y-RRT" firstAttribute="top" secondItem="rb3-li-H7Z" secondAttribute="bottom" constant="25" id="fPX-g6-IBB"/>
-                <constraint firstItem="hF4-7y-RRT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="rbt-im-Fei"/>
+                <constraint firstItem="yyq-EL-i30" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="brC-Uq-jfI"/>
+                <constraint firstItem="Fkv-6X-m8J" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="gCW-yA-men"/>
+                <constraint firstItem="yyq-EL-i30" firstAttribute="leading" secondItem="Fkv-6X-m8J" secondAttribute="trailing" constant="22" id="iyS-WC-VAB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yyq-EL-i30" secondAttribute="trailing" constant="16" id="wV7-GW-u7a"/>
+                <constraint firstItem="XwP-Zk-lZI" firstAttribute="top" secondItem="Fkv-6X-m8J" secondAttribute="bottom" constant="8" id="zWs-gu-M5M"/>
             </constraints>
             <point key="canvasLocation" x="43.511450381679388" y="19.718309859154932"/>
         </view>

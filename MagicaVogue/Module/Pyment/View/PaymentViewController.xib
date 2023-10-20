@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaymentViewController" customModule="MagicaVogue" customModuleProvider="target">
+            <connections>
+                <outlet property="paymentBackgroundView" destination="KDO-t7-KEG" id="eso-sa-hdX"/>
+                <outlet property="paymentTable" destination="7QR-uP-CnJ" id="wQl-Ba-OoH"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDO-t7-KEG">
+                    <rect key="frame" x="0.0" y="64" width="393" height="709"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7QR-uP-CnJ">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="200" id="Yng-vi-woq"/>
+                            </constraints>
+                        </tableView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WwC-GM-RU3">
+                            <rect key="frame" x="30" y="220.00000000000003" width="333" height="106.33333333333334"/>
+                            <color key="backgroundColor" red="0.43921568630000002" green="0.30980392159999998" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Confirm Payment">
+                                <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <color key="baseForegroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </buttonConfiguration>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="7QR-uP-CnJ" firstAttribute="leading" secondItem="KDO-t7-KEG" secondAttribute="leading" id="0Uc-6v-Pvi"/>
+                        <constraint firstItem="7QR-uP-CnJ" firstAttribute="top" secondItem="KDO-t7-KEG" secondAttribute="top" id="6SC-bO-Hza"/>
+                        <constraint firstItem="WwC-GM-RU3" firstAttribute="height" secondItem="KDO-t7-KEG" secondAttribute="height" multiplier="0.15" id="9Tp-wD-Mch"/>
+                        <constraint firstAttribute="trailing" secondItem="7QR-uP-CnJ" secondAttribute="trailing" id="Ka8-Ti-3Vt"/>
+                        <constraint firstItem="WwC-GM-RU3" firstAttribute="leading" secondItem="KDO-t7-KEG" secondAttribute="leading" constant="30" id="UeW-5R-dUr"/>
+                        <constraint firstItem="WwC-GM-RU3" firstAttribute="top" secondItem="7QR-uP-CnJ" secondAttribute="bottom" constant="20" id="ZCT-X3-wtX"/>
+                        <constraint firstAttribute="trailing" secondItem="WwC-GM-RU3" secondAttribute="trailing" constant="30" id="pVs-Gp-jfP"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="KDO-t7-KEG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ABe-OD-brS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="KDO-t7-KEG" secondAttribute="bottom" constant="10" id="B47-Ua-LCi"/>
+                <constraint firstItem="KDO-t7-KEG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="Nzh-u8-ZQa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KDO-t7-KEG" secondAttribute="trailing" id="vvi-UX-5qa"/>
+            </constraints>
+            <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="64.885496183206101" y="20.422535211267608"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

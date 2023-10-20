@@ -40,16 +40,19 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
   
     @IBAction func Checkout(_ sender: UIButton) {
+//        let copounsViewController = CopounsViewController()
+//        let nav = UINavigationController(rootViewController: copounsViewController)
+//        nav.modalPresentationStyle = .pageSheet
+//
+//        if let sheet = nav.sheetPresentationController {
+//            sheet.detents = [.medium()]
+//            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+//            sheet.largestUndimmedDetentIdentifier = .medium
+//        }
+//        present(nav , animated: true , completion: nil)
         let copounsViewController = CopounsViewController()
-        let nav = UINavigationController(rootViewController: copounsViewController)
-        nav.modalPresentationStyle = .pageSheet
+          navigationController?.pushViewController(copounsViewController, animated: true)
         
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.largestUndimmedDetentIdentifier = .medium
-        }
-        present(nav , animated: true , completion: nil)
     }
     
 
