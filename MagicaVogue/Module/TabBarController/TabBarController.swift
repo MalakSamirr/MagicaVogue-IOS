@@ -12,7 +12,7 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let homeController = HomeViewController()
-        let favoriteController = OrderViewController()
+        let favoriteController = WishListViewController()
         let categoryController = CategoryViewController()
         let profileController = ProfileViewController()
         let cartController = CartViewController()

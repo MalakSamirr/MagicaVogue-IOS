@@ -9,9 +9,22 @@ import UIKit
 
 class PaymentCell: UITableViewCell {
 
+    @IBOutlet weak var payPalBackgroundView: UIView!
+    @IBOutlet weak var cashBackgroundView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        payPalBackgroundView.layer.cornerRadius = 16
+        payPalBackgroundView.clipsToBounds = true
+        payPalBackgroundView.dropShadow()
+        
+        cashBackgroundView.layer.cornerRadius = 16
+        cashBackgroundView.clipsToBounds = true
+        cashBackgroundView.dropShadow()
+        
+        
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

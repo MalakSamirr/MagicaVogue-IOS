@@ -9,11 +9,13 @@ import UIKit
 
 class ProfileCell: UITableViewCell {
 
+    @IBOutlet weak var profileCellBackgroundView: UIView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var img: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        profileCellBackgroundView.layer.cornerRadius = 8
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -51,6 +51,8 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate, UICol
         cell.plus.isHidden = true
         cell.quantityLabel.isHidden = true
         cell.sizeLabel.text = "Size:XL || Qty:13"
+        cell.productPriceLabel.isHidden = true
+        cell.orderTotalLabel.isHidden = false
         cell.sizeLabel.textColor = .systemGray
         return cell
            

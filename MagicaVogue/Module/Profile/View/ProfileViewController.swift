@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController {
    
 
 }
-extension ProfileViewController : UITableViewDataSource,UITableViewDelegate{
+extension ProfileViewController : UITableViewDataSource,UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -62,6 +62,9 @@ extension ProfileViewController : UITableViewDataSource,UITableViewDelegate{
             cell.title.text = "Logout"
         }
                return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     

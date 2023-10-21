@@ -8,15 +8,20 @@
 import UIKit
 
 class PaymentViewController: UIViewController , UITableViewDelegate , UITableViewDataSource {
-  
+    @IBOutlet var payementParentView: UIView!
+    
     @IBOutlet weak var paymentBackgroundView: UIView!
     
     @IBOutlet weak var paymentTable: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        paymentBackgroundView.layer.cornerRadius = 16
+        navigationController?.isNavigationBarHidden = true
+        payementParentView.layer.cornerRadius = 24
+        payementParentView.clipsToBounds = true
+        paymentBackgroundView.layer.cornerRadius = 24
         paymentBackgroundView.clipsToBounds = true
-        paymentBackgroundView.dropShadow()
+       
+        payementParentView.dropShadow()
         paymentTable.delegate = self
         paymentTable.dataSource = self
         paymentTable.register(UINib(nibName: "PaymentCell", bundle: nil), forCellReuseIdentifier: "PaymentCell")

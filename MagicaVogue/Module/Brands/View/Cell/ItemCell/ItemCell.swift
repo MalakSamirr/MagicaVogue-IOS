@@ -9,6 +9,7 @@ import UIKit
 
 class ItemCell: UICollectionViewCell {
 
+    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var brandItemImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -156,22 +156,27 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let width = view.frame.width
         
         switch collectionView {
-            case couponCollectionView:
-                return CGSize(width: collectionView.frame.width-5, height: collectionView.frame.height)
-       
-            case brandsCollectioView:
-                let numberOfRows = ceil(150/2)
-                let cellHeight = (width - 15)/2-5
-                let height = cellHeight*numberOfRows
+        case couponCollectionView:
+            return CGSize(width: collectionView.frame.width-5, height: collectionView.frame.height)
+            
+        case brandsCollectioView:
+            let numberOfRows = ceil(150/2)
+            let cellHeight = (width - 15)/2-5
+            let height = cellHeight*numberOfRows
             branCollectionViewHeight.constant = CGFloat(height)
             brandsCollectioView.layoutIfNeeded()
-                
-                return CGSize(width: (width - 15)/2-15, height: (width - 15)/2-15)
             
-            default:
-                return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+            return CGSize(width: (width - 15)/2-15, height: (width - 15)/2-15)
+            
+        default:
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         }
-
+        
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let brandViewController = BrandViewController()
+            self.navigationController?.pushViewController(brandViewController, animated: true)
+        }
+    
 }
 

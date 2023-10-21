@@ -25,6 +25,8 @@
 		45ECE7B32AE2F3EE00488682 /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45ECE7B12AE2F3EE00488682 /* PaymentCell.xib */; };
 		45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ECE7B52AE3058D00488682 /* SuccessViewController.swift */; };
 		45ECE7B82AE3058D00488682 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45ECE7B62AE3058D00488682 /* SuccessViewController.xib */; };
+		5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906E0C32AE3C44E003A456C /* WishListViewController.swift */; };
+		5906E0C62AE3C44E003A456C /* WishListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5906E0C42AE3C44E003A456C /* WishListViewController.xib */; };
 		5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947D92C2AE008EC0005E94C /* HomeViewController.swift */; };
 		5947D92F2AE008EC0005E94C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5947D92D2AE008EC0005E94C /* HomeViewController.xib */; };
 		5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947D9302AE016C70005E94C /* HomeViewModel.swift */; };
@@ -126,6 +128,8 @@
 		45ECE7B52AE3058D00488682 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		45ECE7B62AE3058D00488682 /* SuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
 		4FD0D2781A9FDC6222418069 /* Pods-MagicaVogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogueTests.debug.xcconfig"; path = "Target Support Files/Pods-MagicaVogueTests/Pods-MagicaVogueTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5906E0C32AE3C44E003A456C /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
+		5906E0C42AE3C44E003A456C /* WishListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListViewController.xib; sourceTree = "<group>"; };
 		5947D92C2AE008EC0005E94C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5947D92D2AE008EC0005E94C /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		5947D9302AE016C70005E94C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -348,6 +352,23 @@
 			path = Additions;
 			sourceTree = "<group>";
 		};
+		5906E0C12AE3C433003A456C /* WishList */ = {
+			isa = PBXGroup;
+			children = (
+				5906E0C22AE3C43A003A456C /* View */,
+			);
+			path = WishList;
+			sourceTree = "<group>";
+		};
+		5906E0C22AE3C43A003A456C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5906E0C32AE3C44E003A456C /* WishListViewController.swift */,
+				5906E0C42AE3C44E003A456C /* WishListViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		5947D9262AE008910005E94C /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,12 +427,11 @@
 		5959D6B02AE2E60B00582F0F /* Module */ = {
 			isa = PBXGroup;
 			children = (
-
+				5906E0C12AE3C433003A456C /* WishList */,
 				45ECE7A92AE2F26600488682 /* Pyment */,
 				59BAF36D2AE312CB00772630 /* Category */,
 				59BAF36A2AE30BC500772630 /* TabBarController */,
 				59BAF3642AE2F31B00772630 /* Order */,
-
 				59F4E7B52AE2CAE0002A5BFF /* Cart */,
 				59F4E79B2AE2CACE002A5BFF /* Address */,
 				45EADB8F2AE2845600943BE7 /* Copouns */,
@@ -909,6 +929,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59F4E7AF2AE2CACE002A5BFF /* MyAddressesCell.xib in Resources */,
+				5906E0C62AE3C44E003A456C /* WishListViewController.xib in Resources */,
 				59AF4EF02AE122C100B4B8EE /* SubCategoryCell.xib in Resources */,
 				45ECE7B82AE3058D00488682 /* SuccessViewController.xib in Resources */,
 				59F4E7B12AE2CACE002A5BFF /* MyAddressesVC.xib in Resources */,
@@ -1090,6 +1111,7 @@
 				59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */,
 				EEE3A0BB2AE16593009956BC /* ProfileCell.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
+				5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */,
 				59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */,
 				45A095DE2ADFE48E00C297C9 /* ViewController.swift in Sources */,
 				EEE356802AE00C0B000B8742 /* SignupViewController.swift in Sources */,

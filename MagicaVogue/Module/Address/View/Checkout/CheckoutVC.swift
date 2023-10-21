@@ -66,22 +66,22 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        
-        let headerLabel = UILabel()
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 17)
-        headerLabel.text = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: section)
-        
-        headerView.addSubview(headerLabel)
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let inset: CGFloat = 20.0
-        let leftConstraint = headerLabel.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: inset)
-        leftConstraint.isActive = true
-        
-        return headerView
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        
+//        let headerLabel = UILabel()
+//        headerLabel.font = UIFont.boldSystemFont(ofSize: 17)
+//        headerLabel.text = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: section)
+//        
+//        headerView.addSubview(headerLabel)
+//        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        let inset: CGFloat = 20.0
+//        let leftConstraint = headerLabel.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: inset)
+//        leftConstraint.isActive = true
+//        
+//        return headerView
+//    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
@@ -94,9 +94,9 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 100
+            return 90
         } else {
-            return 150
+            return 120
         }
     }
     

@@ -47,7 +47,7 @@
                             <backgroundConfiguration key="background" cornerRadius="70">
                                 <color key="backgroundColor" red="0.96470588450000005" green="0.92549020049999997" blue="0.87843137979999997" alpha="0.58164321192052981" colorSpace="custom" customColorSpace="displayP3"/>
                             </backgroundConfiguration>
-                            <color key="baseForegroundColor" red="0.39607840779999998" green="0.29803922770000002" blue="0.2352941036" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="baseForegroundColor" red="0.31764706970000001" green="0.070588238540000001" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </buttonConfiguration>
                     </button>
                 </subviews>
@@ -67,6 +67,7 @@
             <size key="customSize" width="270" height="347"/>
             <connections>
                 <outlet property="brandItemImage" destination="JYb-Bt-6ez" id="OBC-rs-hxg"/>
+                <outlet property="favoriteButton" destination="72W-fe-7TT" id="Gn8-vq-Mlx"/>
             </connections>
             <point key="canvasLocation" x="203.0534351145038" y="63.732394366197184"/>
         </collectionViewCell>

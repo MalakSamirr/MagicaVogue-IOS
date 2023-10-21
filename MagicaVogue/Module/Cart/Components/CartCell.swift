@@ -23,6 +23,8 @@ class CartCell: UITableViewCell {
     
     @IBOutlet weak var plus: UIButton!
     
+    @IBOutlet weak var orderTotalLabel: UILabel!
+    
     var quantity: Int = 1
     
     
@@ -30,6 +32,16 @@ class CartCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         quantityLabel.text = String(quantity)
+        
+        plus.layer.cornerRadius = 8
+        plus.layer.borderWidth = 1
+        plus.layer.borderColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0).cgColor
+        plus.setTitle("", for: .normal)
+        
+        minus.layer.cornerRadius = 8
+        minus.layer.borderWidth = 1
+        minus.layer.borderColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0).cgColor
+        minus.setTitle("", for: .normal)
         
         productImageView.layer.cornerRadius = 10
         productImageView.clipsToBounds = true
