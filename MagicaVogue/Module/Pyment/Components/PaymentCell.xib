@@ -20,27 +20,27 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfV-vP-U8M">
                         <rect key="frame" x="10" y="9.9999999999999964" width="440" height="59.666666666666657"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="DfJ-VR-gUA">
-                                <rect key="frame" x="3" y="2" width="396" height="53.666666666666664"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DfJ-VR-gUA">
+                                <rect key="frame" x="8" y="2" width="396" height="53.666666666666664"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="money-icon-cash-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Hnr-QI-hWa">
-                                        <rect key="frame" x="0.0" y="0.0" width="79.333333333333329" height="53.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="47.666666666666664" height="53.666666666666664"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cash On Delivery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1t-Wn-mBL">
-                                        <rect key="frame" x="81.333333333333329" y="0.0" width="131.33333333333337" height="53.666666666666664"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Cash On Delivery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1t-Wn-mBL">
+                                        <rect key="frame" x="51.666666666666686" y="0.0" width="153" height="53.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzm-45-Fb0">
-                                        <rect key="frame" x="214.66666666666663" y="0.0" width="181.33333333333337" height="53.666666666666664"/>
+                                        <rect key="frame" x="208.66666666666663" y="0.0" width="187.33333333333337" height="53.666666666666664"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Hnr-QI-hWa" firstAttribute="width" secondItem="DfJ-VR-gUA" secondAttribute="width" multiplier="0.2" id="J6V-pu-B0x"/>
+                                    <constraint firstItem="Hnr-QI-hWa" firstAttribute="width" secondItem="DfJ-VR-gUA" secondAttribute="width" multiplier="0.12" id="J6V-pu-B0x"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -50,7 +50,7 @@
                             <constraint firstItem="DfJ-VR-gUA" firstAttribute="top" secondItem="jfV-vP-U8M" secondAttribute="top" constant="2" id="2k0-5y-P7f"/>
                             <constraint firstItem="DfJ-VR-gUA" firstAttribute="width" secondItem="jfV-vP-U8M" secondAttribute="width" multiplier="0.9" id="Esc-zU-jls"/>
                             <constraint firstItem="DfJ-VR-gUA" firstAttribute="height" secondItem="jfV-vP-U8M" secondAttribute="height" multiplier="0.9" id="MkA-OR-iw9"/>
-                            <constraint firstItem="DfJ-VR-gUA" firstAttribute="leading" secondItem="jfV-vP-U8M" secondAttribute="leading" constant="3" id="PAo-66-cde"/>
+                            <constraint firstItem="DfJ-VR-gUA" firstAttribute="leading" secondItem="jfV-vP-U8M" secondAttribute="leading" constant="8" id="PAo-66-cde"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -61,27 +61,27 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNv-4R-Euf">
                         <rect key="frame" x="10" y="79.666666666666671" width="440" height="59.666666666666671"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="q6o-Lm-u5H">
-                                <rect key="frame" x="3" y="2" width="396" height="53.666666666666664"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="q6o-Lm-u5H">
+                                <rect key="frame" x="8" y="2" width="396" height="53.666666666666664"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paypal-computer" translatesAutoresizingMaskIntoConstraints="NO" id="EoN-M7-XkB">
-                                        <rect key="frame" x="0.0" y="0.0" width="79.333333333333329" height="53.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="47.666666666666664" height="53.666666666666664"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PayPal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KM-eQ-0qL">
-                                        <rect key="frame" x="107.33333333333333" y="0.0" width="50.333333333333329" height="53.666666666666664"/>
+                                        <rect key="frame" x="76.666666666666671" y="0.0" width="50.333333333333329" height="53.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPR-fA-hj5">
-                                        <rect key="frame" x="185.66666666666663" y="0.0" width="210.33333333333337" height="53.666666666666664"/>
+                                        <rect key="frame" x="156" y="0.0" width="240" height="53.666666666666664"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="EoN-M7-XkB" firstAttribute="width" secondItem="q6o-Lm-u5H" secondAttribute="width" multiplier="0.2" id="fMd-IA-t4L"/>
+                                    <constraint firstItem="EoN-M7-XkB" firstAttribute="width" secondItem="q6o-Lm-u5H" secondAttribute="width" multiplier="0.12" id="fMd-IA-t4L"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -89,7 +89,7 @@
                         <constraints>
                             <constraint firstItem="q6o-Lm-u5H" firstAttribute="width" secondItem="KNv-4R-Euf" secondAttribute="width" multiplier="0.9" id="MMV-EY-MI3"/>
                             <constraint firstItem="q6o-Lm-u5H" firstAttribute="top" secondItem="KNv-4R-Euf" secondAttribute="top" constant="2" id="Srf-7O-16n"/>
-                            <constraint firstItem="q6o-Lm-u5H" firstAttribute="leading" secondItem="KNv-4R-Euf" secondAttribute="leading" constant="3" id="cte-lZ-VVP"/>
+                            <constraint firstItem="q6o-Lm-u5H" firstAttribute="leading" secondItem="KNv-4R-Euf" secondAttribute="leading" constant="8" id="cte-lZ-VVP"/>
                             <constraint firstItem="q6o-Lm-u5H" firstAttribute="height" secondItem="KNv-4R-Euf" secondAttribute="height" multiplier="0.9" id="koj-59-j9K"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
