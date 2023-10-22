@@ -6,9 +6,10 @@
 //
 
 import UIKit
-
+import Alamofire
+import Kingfisher
 class HomeViewController: UIViewController {
-    
+    var brandArray: [SmartCollection]?
     // MARK: - Outlets
     
     @IBOutlet weak var branCollectionViewHeight: NSLayoutConstraint!
@@ -24,7 +25,7 @@ class HomeViewController: UIViewController {
         
         super.viewDidLoad()
         searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBar.frame.origin.y, width: searchBar.frame.size.width, height: 120)
-
+        fetchBrands()
         automaticSlide()
         setupPageControl()
 
@@ -81,6 +82,9 @@ class HomeViewController: UIViewController {
             couponCollectionView?.scrollRectToVisible(frame, animated: true)
         }
     }
+    func getBrands() {
+        
+    }
 }
 
     /*
@@ -103,7 +107,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             sliderControlPage.isHidden = !(arrOfImgs.count > 1)
             return arrOfImgs.count
         default:
-            return 150
+            print(brandArray?.count)
+            return brandArray?.count ?? 5
         }
     }
     
@@ -124,6 +129,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         case brandsCollectioView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandCell", for: indexPath) as! BrandCell
             // cell.brandImage.image = UIImage(named: arrOfImgs[indexPath.row])
+            
+            
+            if let brand = brandArray?[indexPath.row], let imageUrl = URL(string: brand.image.src ?? "heart") {
+                
+                    cell.brandImage.kf.setImage(with: imageUrl)
+                } else {
+                    // Handle the case when the image URL is invalid or missing
+                    cell.brandImage.image = UIImage(named: "CouponBackground")
+                }
+                        
+                        
             return cell
         default:
             return UICollectionViewCell()
@@ -160,13 +176,14 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: collectionView.frame.width-5, height: collectionView.frame.height)
             
         case brandsCollectioView:
-            let numberOfRows = ceil(150/2)
+            let count = Int(brandArray?.count ?? 0)
+            let numberOfRows = ceil(Double(count/2))
             let cellHeight = (width - 15)/2-5
             let height = cellHeight*numberOfRows
             branCollectionViewHeight.constant = CGFloat(height)
             brandsCollectioView.layoutIfNeeded()
             
-            return CGSize(width: (width - 15)/2-15, height: (width - 15)/2-15)
+            return CGSize(width: (width - 15)/2-15, height: (width - 15)/2-25)
             
         default:
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
@@ -177,6 +194,42 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let brandViewController = BrandViewController()
             self.navigationController?.pushViewController(brandViewController, animated: true)
         }
-    
+    func fetchBrands() {
+        let url = "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/smart_collections.json"
+
+        AF.request(url, method: .get)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    if let data = response.data {
+                        // Convert data to a string for printing
+                        if let jsonString = String(data: data, encoding: .utf8) {
+                            
+                        }
+                        do {
+                            let decoder = JSONDecoder()
+                            let apiResponse = try decoder.decode(HomeModel.self, from: data)
+                            
+                            // print(apiResponse)
+                            self.brandArray = apiResponse.smart_collections
+                            print(self.brandArray)
+                            
+                            DispatchQueue.main.async {
+                                self.brandsCollectioView.reloadData()
+                            }
+                            } catch {
+                                print("Error decoding JSON: \(error)")
+                                                // Handle the decoding error as needed.
+                                            }
+                        
+                    }
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                    // Handle the request failure as needed.
+                }
+            }
+    }
+
 }
 

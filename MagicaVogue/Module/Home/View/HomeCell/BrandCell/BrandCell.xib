@@ -19,31 +19,32 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnS-Ke-R1J">
-                        <rect key="frame" x="0.0" y="0.0" width="285" height="313"/>
+                        <rect key="frame" x="2" y="2" width="281" height="309"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Adi" translatesAutoresizingMaskIntoConstraints="NO" id="1yh-hA-bQR">
-                                <rect key="frame" x="0.0" y="0.0" width="285" height="313"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Adi" translatesAutoresizingMaskIntoConstraints="NO" id="1yh-hA-bQR">
+                                <rect key="frame" x="40" y="40" width="201" height="229"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="1yh-hA-bQR" secondAttribute="bottom" id="6Gp-yK-CO1"/>
-                            <constraint firstAttribute="trailing" secondItem="1yh-hA-bQR" secondAttribute="trailing" id="P6F-IN-P8B"/>
-                            <constraint firstItem="1yh-hA-bQR" firstAttribute="leading" secondItem="XnS-Ke-R1J" secondAttribute="leading" id="gGP-Gp-LkN"/>
-                            <constraint firstItem="1yh-hA-bQR" firstAttribute="top" secondItem="XnS-Ke-R1J" secondAttribute="top" id="iEX-YN-jJb"/>
+                            <constraint firstAttribute="bottom" secondItem="1yh-hA-bQR" secondAttribute="bottom" constant="40" id="6Gp-yK-CO1"/>
+                            <constraint firstAttribute="trailing" secondItem="1yh-hA-bQR" secondAttribute="trailing" constant="40" id="P6F-IN-P8B"/>
+                            <constraint firstItem="1yh-hA-bQR" firstAttribute="leading" secondItem="XnS-Ke-R1J" secondAttribute="leading" constant="40" id="gGP-Gp-LkN"/>
+                            <constraint firstItem="1yh-hA-bQR" firstAttribute="top" secondItem="XnS-Ke-R1J" secondAttribute="top" constant="40" id="iEX-YN-jJb"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="XnS-Ke-R1J" secondAttribute="bottom" id="4t0-F0-hfa"/>
-                <constraint firstItem="XnS-Ke-R1J" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Z1s-wP-Uop"/>
-                <constraint firstAttribute="trailing" secondItem="XnS-Ke-R1J" secondAttribute="trailing" id="fn4-Di-GVY"/>
-                <constraint firstItem="XnS-Ke-R1J" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="guR-Yi-ToC"/>
+                <constraint firstAttribute="bottom" secondItem="XnS-Ke-R1J" secondAttribute="bottom" constant="2" id="4t0-F0-hfa"/>
+                <constraint firstItem="XnS-Ke-R1J" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="Z1s-wP-Uop"/>
+                <constraint firstAttribute="trailing" secondItem="XnS-Ke-R1J" secondAttribute="trailing" constant="2" id="fn4-Di-GVY"/>
+                <constraint firstItem="XnS-Ke-R1J" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="guR-Yi-ToC"/>
             </constraints>
             <size key="customSize" width="285" height="313"/>
             <connections>
+                <outlet property="brandCellBackgroundView" destination="XnS-Ke-R1J" id="iBb-WF-tqt"/>
                 <outlet property="brandImage" destination="1yh-hA-bQR" id="w6T-Hf-7Rc"/>
             </connections>
             <point key="canvasLocation" x="194.6564885496183" y="58.098591549295776"/>

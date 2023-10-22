@@ -17,11 +17,17 @@ class MyAddressesCell: UITableViewCell {
 //
 //        changeButton.layer.borderColor = UIColor.brown.cgColor
         
-        changeButton.layer.borderWidth = 2.0
-        changeButton.layer.borderColor = UIColor.systemBrown.cgColor
         myAdressBackgrounView.layer.cornerRadius = 16
         myAdressBackgrounView.clipsToBounds = true
         myAdressBackgrounView.dropShadow()
+        
+        changeButton.layer.shadowColor = UIColor.black.cgColor // Shadow color
+            changeButton.layer.shadowOpacity = 0.2 // Shadow opacity
+            changeButton.layer.shadowOffset = CGSize(width: 0, height: 4) // Shadow offset (adjust as needed)
+            changeButton.layer.shadowRadius = 2 // Shadow radius (adjust as needed)
+            
+            // Optionally, you can also set a corner radius for the button to make it rounded
+            changeButton.layer.cornerRadius = 8
         // Initialization code
     }
 

@@ -80,11 +80,10 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         default:
             return UITableViewCell()
 
-            
-            
         }
 
     }
+    
     
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let headerView = UIView()

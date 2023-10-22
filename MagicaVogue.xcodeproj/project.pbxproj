@@ -56,6 +56,12 @@
 		59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAF36B2AE30BE000772630 /* TabBarController.swift */; };
 		59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAF3702AE3130B00772630 /* CategoryViewController.swift */; };
 		59BAF3732AE3130B00772630 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59BAF3712AE3130B00772630 /* CategoryViewController.xib */; };
+		59DDBDB22AE538DC00898513 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDB12AE538DC00898513 /* TargetType.swift */; };
+		59DDBDB42AE538FE00898513 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDB32AE538FE00898513 /* URLs.swift */; };
+		59DDBDB62AE5392500898513 /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDB52AE5392500898513 /* BaseAPI.swift */; };
+		59DDBDB92AE5397200898513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDB82AE5397200898513 /* Constants.swift */; };
+		59DDBDBC2AE539ED00898513 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDBB2AE539ED00898513 /* HomeModel.swift */; };
+		59DDBDC22AE542ED00898513 /* Network2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDC12AE542ED00898513 /* Network2.swift */; };
 		59F4E7AC2AE2CACE002A5BFF /* NewAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */; };
 		59F4E7AD2AE2CACE002A5BFF /* NewAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */; };
 		59F4E7AE2AE2CACE002A5BFF /* MyAddressesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */; };
@@ -164,6 +170,12 @@
 		59BAF36B2AE30BE000772630 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		59BAF3702AE3130B00772630 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		59BAF3712AE3130B00772630 /* CategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
+		59DDBDB12AE538DC00898513 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		59DDBDB32AE538FE00898513 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
+		59DDBDB52AE5392500898513 /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
+		59DDBDB82AE5397200898513 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		59DDBDBB2AE539ED00898513 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		59DDBDC12AE542ED00898513 /* Network2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network2.swift; sourceTree = "<group>"; };
 		59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAddressCell.xib; sourceTree = "<group>"; };
 		59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressCell.swift; sourceTree = "<group>"; };
 		59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAddressesCell.swift; sourceTree = "<group>"; };
@@ -269,6 +281,7 @@
 		45A095D82ADFE48E00C297C9 /* MagicaVogue */ = {
 			isa = PBXGroup;
 			children = (
+				59DDBDAE2AE538B600898513 /* Services */,
 				5959D6B52AE2E67D00582F0F /* ViewModel */,
 				5959D6B42AE2E67500582F0F /* Model */,
 				5959D6B32AE2E66300582F0F /* Assets */,
@@ -409,6 +422,7 @@
 		5947D9262AE008910005E94C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				59DDBDBA2AE539D800898513 /* Model */,
 				5947D9342AE016F90005E94C /* View */,
 				5947D9302AE016C70005E94C /* HomeViewModel.swift */,
 				5947D9322AE016E00005E94C /* View.swift */,
@@ -631,6 +645,50 @@
 				59BAF3712AE3130B00772630 /* CategoryViewController.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		59DDBDAE2AE538B600898513 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				59DDBDC02AE542DC00898513 /* Networking2 */,
+				59DDBDB72AE5395E00898513 /* Constants */,
+				59DDBDAF2AE538BF00898513 /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		59DDBDAF2AE538BF00898513 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				59DDBDB12AE538DC00898513 /* TargetType.swift */,
+				59DDBDB32AE538FE00898513 /* URLs.swift */,
+				59DDBDB52AE5392500898513 /* BaseAPI.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		59DDBDB72AE5395E00898513 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				59DDBDB82AE5397200898513 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		59DDBDBA2AE539D800898513 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				59DDBDBB2AE539ED00898513 /* HomeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		59DDBDC02AE542DC00898513 /* Networking2 */ = {
+			isa = PBXGroup;
+			children = (
+				59DDBDC12AE542ED00898513 /* Network2.swift */,
+			);
+			path = Networking2;
 			sourceTree = "<group>";
 		};
 		59F4E79B2AE2CACE002A5BFF /* Address */ = {
@@ -1148,18 +1206,24 @@
 				45E347152AE47D5A00DD679B /* Inspectables.swift in Sources */,
 				EEC3F7382AE05089004D22C1 /* ProductDetailsViewController.swift in Sources */,
 				EEE356872AE01E8C000B8742 /* LoginViewController.swift in Sources */,
+				59DDBDB42AE538FE00898513 /* URLs.swift in Sources */,
 				EEB023452AE1A11D0069F998 /* PasswordManagerViewController.swift in Sources */,
 				EEE3A0B72AE157BA009956BC /* ProfileViewController.swift in Sources */,
+				59DDBDBC2AE539ED00898513 /* HomeModel.swift in Sources */,
 				59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */,
+				59DDBDB22AE538DC00898513 /* TargetType.swift in Sources */,
 				EEE3A0BB2AE16593009956BC /* ProfileCell.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
+				59DDBDB92AE5397200898513 /* Constants.swift in Sources */,
 				5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */,
 				59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */,
+				59DDBDC22AE542ED00898513 /* Network2.swift in Sources */,
 				45A095DE2ADFE48E00C297C9 /* ViewController.swift in Sources */,
 				EEE356802AE00C0B000B8742 /* SignupViewController.swift in Sources */,
 				EEE3A0C12AE177B9009956BC /* SettingsTableViewController.swift in Sources */,
 				EEDE61E82AE11F19006565A5 /* ProductImageCell.swift in Sources */,
 				45A095DA2ADFE48E00C297C9 /* AppDelegate.swift in Sources */,
+				59DDBDB62AE5392500898513 /* BaseAPI.swift in Sources */,
 				5947D9442AE036BE0005E94C /* UIView + dropShadow.swift in Sources */,
 				45ECE7B22AE2F3EE00488682 /* PaymentCell.swift in Sources */,
 				5947D9402AE01DC60005E94C /* BrandCell.swift in Sources */,

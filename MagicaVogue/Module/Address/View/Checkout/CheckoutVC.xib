@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckoutVC" customModule="MagicaVogue" customModuleProvider="target">
             <connections>
-                <outlet property="addressTableView" destination="Whj-Bi-Wit" id="dz6-3i-l1k"/>
+                <outlet property="addressTableView" destination="7fb-AL-8RI" id="MsF-6B-AZM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,13 +20,12 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Whj-Bi-Wit">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="727"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRU-uq-CFN">
-                    <rect key="frame" x="59" y="747" width="275" height="51"/>
+                    <rect key="frame" x="59" y="742" width="275" height="60"/>
                     <color key="backgroundColor" red="0.31764706970000001" green="0.070588238540000001" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="ecG-OI-hMO"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Continue to Payment">
                         <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
@@ -40,18 +40,31 @@
                         <action selector="paymentButtonPressed:" destination="-1" eventType="touchUpInside" id="eDD-zn-UDQ"/>
                     </connections>
                 </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7fb-AL-8RI">
+                    <rect key="frame" x="0.0" y="59" width="393" height="664"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gS1-H0-H9C">
+                    <rect key="frame" x="0.0" y="723" width="393" height="3"/>
+                    <color key="backgroundColor" red="0.94509804249999996" green="0.94509804249999996" blue="0.94509804249999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="3" id="Zjy-UI-zit"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="cRU-uq-CFN" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.06" id="0uC-E6-IbH"/>
-                <constraint firstItem="Whj-Bi-Wit" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8tu-YI-89n"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cRU-uq-CFN" secondAttribute="bottom" constant="20" id="Chd-wr-XvY"/>
-                <constraint firstItem="cRU-uq-CFN" firstAttribute="top" secondItem="Whj-Bi-Wit" secondAttribute="bottom" constant="20" id="HQ4-Vo-B4m"/>
-                <constraint firstItem="Whj-Bi-Wit" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Ltz-Bj-0vW"/>
-                <constraint firstItem="cRU-uq-CFN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="foG-9R-P9e"/>
-                <constraint firstItem="Whj-Bi-Wit" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jIi-nw-f4D"/>
-                <constraint firstItem="cRU-uq-CFN" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="zYx-N5-K37"/>
+                <constraint firstItem="cRU-uq-CFN" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.699746" id="LPI-0i-4oc"/>
+                <constraint firstItem="gS1-H0-H9C" firstAttribute="top" secondItem="7fb-AL-8RI" secondAttribute="bottom" id="Nvi-Ez-RsW"/>
+                <constraint firstItem="gS1-H0-H9C" firstAttribute="trailing" secondItem="7fb-AL-8RI" secondAttribute="trailing" id="ORk-XI-Tra"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cRU-uq-CFN" secondAttribute="bottom" constant="16" id="RHx-q5-pVq"/>
+                <constraint firstItem="7fb-AL-8RI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Rdd-kR-fsg"/>
+                <constraint firstItem="gS1-H0-H9C" firstAttribute="centerX" secondItem="cRU-uq-CFN" secondAttribute="centerX" id="T5b-Kk-LXB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7fb-AL-8RI" secondAttribute="trailing" id="UWP-GC-MLd"/>
+                <constraint firstItem="gS1-H0-H9C" firstAttribute="leading" secondItem="7fb-AL-8RI" secondAttribute="leading" id="nP2-eg-RrS"/>
+                <constraint firstItem="cRU-uq-CFN" firstAttribute="top" secondItem="gS1-H0-H9C" secondAttribute="bottom" constant="16" id="nqf-Lw-e0L"/>
+                <constraint firstItem="7fb-AL-8RI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="z5q-pb-fAx"/>
             </constraints>
             <point key="canvasLocation" x="58.778625954198468" y="19.718309859154932"/>
         </view>
