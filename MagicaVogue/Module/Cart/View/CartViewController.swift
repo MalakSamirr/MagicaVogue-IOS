@@ -50,8 +50,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 //            sheet.largestUndimmedDetentIdentifier = .medium
 //        }
 //        present(nav , animated: true , completion: nil)
-        let copounsViewController = CopounsViewController()
-          navigationController?.pushViewController(copounsViewController, animated: true)
+        let checkoutVC = CheckoutVC()
+          navigationController?.pushViewController(checkoutVC, animated: true)
         
     }
     

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -103,9 +102,6 @@
                             <constraint firstAttribute="trailing" secondItem="yqT-so-dmk" secondAttribute="trailing" constant="15" id="x5W-Rk-e5k"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                 <color key="value" name="Light Grey"/>
                             </userDefinedRuntimeAttribute>
@@ -125,6 +121,7 @@
             <viewLayoutGuide key="safeArea" id="kVx-UA-fZ5"/>
             <connections>
                 <outlet property="changeButton" destination="0rk-x9-De3" id="m3Q-eJ-sLs"/>
+                <outlet property="myAdressBackgrounView" destination="PHI-eY-aKp" id="4pp-p0-5Mg"/>
             </connections>
             <point key="canvasLocation" x="222.90076335877862" y="5.6338028169014089"/>
         </tableViewCell>

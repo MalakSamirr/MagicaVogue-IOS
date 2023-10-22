@@ -17,6 +17,9 @@
 		45A095F42ADFE49000C297C9 /* MagicaVogueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095F32ADFE49000C297C9 /* MagicaVogueTests.swift */; };
 		45A095FE2ADFE49000C297C9 /* MagicaVogueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095FD2ADFE49000C297C9 /* MagicaVogueUITests.swift */; };
 		45A096002ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095FF2ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift */; };
+		45E347112AE479FE00DD679B /* ShippingDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3470F2AE479FD00DD679B /* ShippingDetailsVC.swift */; };
+		45E347122AE479FE00DD679B /* ShippingDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E347102AE479FD00DD679B /* ShippingDetailsVC.xib */; };
+		45E347152AE47D5A00DD679B /* Inspectables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E347142AE47D5A00DD679B /* Inspectables.swift */; };
 		45EADB932AE2845600943BE7 /* CopounsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EADB912AE2845600943BE7 /* CopounsViewController.swift */; };
 		45EADB942AE2845600943BE7 /* CopounsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45EADB922AE2845600943BE7 /* CopounsViewController.xib */; };
 		45ECE7AD2AE2F3B800488682 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ECE7AB2AE2F3B800488682 /* PaymentViewController.swift */; };
@@ -25,6 +28,8 @@
 		45ECE7B32AE2F3EE00488682 /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45ECE7B12AE2F3EE00488682 /* PaymentCell.xib */; };
 		45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ECE7B52AE3058D00488682 /* SuccessViewController.swift */; };
 		45ECE7B82AE3058D00488682 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45ECE7B62AE3058D00488682 /* SuccessViewController.xib */; };
+		45F8D3B12AE4F86000F950DE /* PromoCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F8D3AF2AE4F86000F950DE /* PromoCodeCell.swift */; };
+		45F8D3B22AE4F86000F950DE /* PromoCodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45F8D3B02AE4F86000F950DE /* PromoCodeCell.xib */; };
 		5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906E0C32AE3C44E003A456C /* WishListViewController.swift */; };
 		5906E0C62AE3C44E003A456C /* WishListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5906E0C42AE3C44E003A456C /* WishListViewController.xib */; };
 		5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947D92C2AE008EC0005E94C /* HomeViewController.swift */; };
@@ -119,6 +124,9 @@
 		45A095F92ADFE49000C297C9 /* MagicaVogueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicaVogueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A095FD2ADFE49000C297C9 /* MagicaVogueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicaVogueUITests.swift; sourceTree = "<group>"; };
 		45A095FF2ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicaVogueUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		45E3470F2AE479FD00DD679B /* ShippingDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingDetailsVC.swift; sourceTree = "<group>"; };
+		45E347102AE479FD00DD679B /* ShippingDetailsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShippingDetailsVC.xib; sourceTree = "<group>"; };
+		45E347142AE47D5A00DD679B /* Inspectables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspectables.swift; sourceTree = "<group>"; };
 		45EADB912AE2845600943BE7 /* CopounsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopounsViewController.swift; sourceTree = "<group>"; };
 		45EADB922AE2845600943BE7 /* CopounsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CopounsViewController.xib; sourceTree = "<group>"; };
 		45ECE7AB2AE2F3B800488682 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +135,8 @@
 		45ECE7B12AE2F3EE00488682 /* PaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentCell.xib; sourceTree = "<group>"; };
 		45ECE7B52AE3058D00488682 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		45ECE7B62AE3058D00488682 /* SuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
+		45F8D3AF2AE4F86000F950DE /* PromoCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeCell.swift; sourceTree = "<group>"; };
+		45F8D3B02AE4F86000F950DE /* PromoCodeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromoCodeCell.xib; sourceTree = "<group>"; };
 		4FD0D2781A9FDC6222418069 /* Pods-MagicaVogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogueTests.debug.xcconfig"; path = "Target Support Files/Pods-MagicaVogueTests/Pods-MagicaVogueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5906E0C32AE3C44E003A456C /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		5906E0C42AE3C44E003A456C /* WishListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListViewController.xib; sourceTree = "<group>"; };
@@ -289,9 +299,27 @@
 			path = MagicaVogueUITests;
 			sourceTree = "<group>";
 		};
+		45E3470E2AE479D200DD679B /* Shipping */ = {
+			isa = PBXGroup;
+			children = (
+				45E3470F2AE479FD00DD679B /* ShippingDetailsVC.swift */,
+				45E347102AE479FD00DD679B /* ShippingDetailsVC.xib */,
+			);
+			path = Shipping;
+			sourceTree = "<group>";
+		};
+		45E347132AE47D3100DD679B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				45E347142AE47D5A00DD679B /* Inspectables.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		45EADB8F2AE2845600943BE7 /* Copouns */ = {
 			isa = PBXGroup;
 			children = (
+				45F8D3AE2AE4F83A00F950DE /* Components */,
 				45EADB902AE2845600943BE7 /* View */,
 			);
 			path = Copouns;
@@ -341,6 +369,15 @@
 				45ECE7B62AE3058D00488682 /* SuccessViewController.xib */,
 			);
 			path = Success;
+			sourceTree = "<group>";
+		};
+		45F8D3AE2AE4F83A00F950DE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				45F8D3AF2AE4F86000F950DE /* PromoCodeCell.swift */,
+				45F8D3B02AE4F86000F950DE /* PromoCodeCell.xib */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		5904EED12AE2E79500800752 /* Additions */ = {
@@ -427,6 +464,8 @@
 		5959D6B02AE2E60B00582F0F /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				45E347132AE47D3100DD679B /* Extensions */,
+				45E3470E2AE479D200DD679B /* Shipping */,
 				5906E0C12AE3C433003A456C /* WishList */,
 				45ECE7A92AE2F26600488682 /* Pyment */,
 				59BAF36D2AE312CB00772630 /* Category */,
@@ -643,8 +682,8 @@
 		59F4E7A42AE2CACE002A5BFF /* MyAddress */ = {
 			isa = PBXGroup;
 			children = (
-				59F4E7A52AE2CACE002A5BFF /* MyAddressesVC.swift */,
 				59F4E7A62AE2CACE002A5BFF /* MyAddressesVC.xib */,
+				59F4E7A52AE2CACE002A5BFF /* MyAddressesVC.swift */,
 			);
 			path = MyAddress;
 			sourceTree = "<group>";
@@ -939,6 +978,7 @@
 				45A095E92ADFE48F00C297C9 /* LaunchScreen.storyboard in Resources */,
 				59BAF3692AE2F35B00772630 /* OrderViewController.xib in Resources */,
 				59F4E7C22AE2CAE0002A5BFF /* CartViewController.xib in Resources */,
+				45E347122AE479FE00DD679B /* ShippingDetailsVC.xib in Resources */,
 				45A095E62ADFE48F00C297C9 /* Assets.xcassets in Resources */,
 				45ECE7B32AE2F3EE00488682 /* PaymentCell.xib in Resources */,
 				59AF4EE82AE11DC900B4B8EE /* ItemCell.xib in Resources */,
@@ -961,6 +1001,7 @@
 				EEE356812AE00C0B000B8742 /* SignupViewController.xib in Resources */,
 				EEC3F7392AE05089004D22C1 /* ProductDetailsViewController.xib in Resources */,
 				45A095E12ADFE48E00C297C9 /* Main.storyboard in Resources */,
+				45F8D3B22AE4F86000F950DE /* PromoCodeCell.xib in Resources */,
 				59BAF3732AE3130B00772630 /* CategoryViewController.xib in Resources */,
 				EEE3A0BC2AE16593009956BC /* ProfileCell.xib in Resources */,
 			);
@@ -1104,6 +1145,7 @@
 				59F4E7BF2AE2CAE0002A5BFF /* CartCell.swift in Sources */,
 				59AF4EE72AE11DC900B4B8EE /* ItemCell.swift in Sources */,
 				45EADB932AE2845600943BE7 /* CopounsViewController.swift in Sources */,
+				45E347152AE47D5A00DD679B /* Inspectables.swift in Sources */,
 				EEC3F7382AE05089004D22C1 /* ProductDetailsViewController.swift in Sources */,
 				EEE356872AE01E8C000B8742 /* LoginViewController.swift in Sources */,
 				EEB023452AE1A11D0069F998 /* PasswordManagerViewController.swift in Sources */,
@@ -1121,6 +1163,7 @@
 				5947D9442AE036BE0005E94C /* UIView + dropShadow.swift in Sources */,
 				45ECE7B22AE2F3EE00488682 /* PaymentCell.swift in Sources */,
 				5947D9402AE01DC60005E94C /* BrandCell.swift in Sources */,
+				45F8D3B12AE4F86000F950DE /* PromoCodeCell.swift in Sources */,
 				59BAF3682AE2F35B00772630 /* OrderViewController.swift in Sources */,
 				59AF4EF62AE18A8100B4B8EE /* File.swift in Sources */,
 				59AF4EEB2AE1212700B4B8EE /* MainCategoryCell.swift in Sources */,
@@ -1129,6 +1172,7 @@
 				59F4E7AE2AE2CACE002A5BFF /* MyAddressesCell.swift in Sources */,
 				5947D9332AE016E00005E94C /* View.swift in Sources */,
 				45A095DC2ADFE48E00C297C9 /* SceneDelegate.swift in Sources */,
+				45E347112AE479FE00DD679B /* ShippingDetailsVC.swift in Sources */,
 				5947D93B2AE0177C0005E94C /* CouponCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

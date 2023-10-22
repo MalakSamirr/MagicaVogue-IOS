@@ -42,8 +42,8 @@ class SettingsTableViewController: UITableViewController {
         }
         else if(indexPath.row == 2){
             
-            cell.img.image = UIImage(systemName: "location")
-            cell.title.text = "Location"
+            cell.img.image = UIImage(systemName: "delete.right")
+            cell.title.text = "Delete Account"
         }
         
                return cell

@@ -9,6 +9,7 @@ import UIKit
 
 class MyAddressesCell: UITableViewCell {
 
+    @IBOutlet weak var myAdressBackgrounView: UIView!
     @IBOutlet weak var changeButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,6 +19,9 @@ class MyAddressesCell: UITableViewCell {
         
         changeButton.layer.borderWidth = 2.0
         changeButton.layer.borderColor = UIColor.systemBrown.cgColor
+        myAdressBackgrounView.layer.cornerRadius = 16
+        myAdressBackgrounView.clipsToBounds = true
+        myAdressBackgrounView.dropShadow()
         // Initialization code
     }
 

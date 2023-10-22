@@ -22,6 +22,9 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         addressTableView.dataSource = self
         addressTableView.register(UINib(nibName: "MyAddressesCell", bundle: nil), forCellReuseIdentifier: "MyAddressesCell")
         addressTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
+        addressTableView.register(UINib(nibName: "PromoCodeCell", bundle: nil), forCellReuseIdentifier: "PromoCodeCell")
+        addressTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+
     }
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
@@ -42,28 +45,45 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     // MARK: - TABLE VIEW FUNCTIONS
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        switch section {
+        case 0:
             return 1
-        } else {
+        case 1:
             return 3
+        case 2:
+            return 1
+        default:
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        switch indexPath.section {
+        case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyAddressesCell", for: indexPath) as! MyAddressesCell
-            return cell
-        } else {
+                return cell
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
             cell.minus.isHidden = true
             cell.plus.isHidden = true
             cell.quantityLabel.isHidden = true
+            cell.orderTotalLabel.isHidden = false
+            cell.productPriceLabel.isHidden = true
             return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PromoCodeCell", for: indexPath) as! PromoCodeCell
+            return cell
+        default:
+            return UITableViewCell()
+
+            
+            
         }
+
     }
     
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -84,19 +104,30 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
 //    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+        switch section {
+        case 0:
             return "Shipping Address"
-        } else if section == 1 {
-            return "Order List"
+        case 1:
+            return "Order list"
+        case 2:
+            return "Promocode"
+        default:
+            return nil
         }
-        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
+        
+        switch indexPath.section {
+        case 0:
             return 90
-        } else {
+        case 1:
             return 120
+        case 2:
+            return 300
+            
+        default:
+            return 0
         }
     }
     
