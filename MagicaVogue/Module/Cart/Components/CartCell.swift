@@ -35,12 +35,12 @@ class CartCell: UITableViewCell {
         
         plus.layer.cornerRadius = 8
         plus.layer.borderWidth = 1
-        plus.layer.borderColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0).cgColor
+        plus.layer.borderColor = UIColor(red: 0.26, green: 0.36, blue:0.32, alpha: 1.0).cgColor
         plus.setTitle("", for: .normal)
         
         minus.layer.cornerRadius = 8
         minus.layer.borderWidth = 1
-        minus.layer.borderColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0).cgColor
+        minus.layer.borderColor = UIColor(red: 0.26, green: 0.36, blue:0.32, alpha: 1.0).cgColor
         minus.setTitle("", for: .normal)
         
         productImageView.layer.cornerRadius = 10

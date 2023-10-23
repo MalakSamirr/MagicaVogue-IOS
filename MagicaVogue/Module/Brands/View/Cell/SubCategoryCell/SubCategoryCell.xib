@@ -24,7 +24,7 @@
                                 <rect key="frame" x="10" y="10" width="135" height="135"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.92156863209999995" green="0.89411771299999998" blue="0.86274516580000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.18255898178807947" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ISm-3E-kyN" secondAttribute="bottom" constant="10" id="UwR-jM-55q"/>
                             <constraint firstAttribute="trailing" secondItem="ISm-3E-kyN" secondAttribute="trailing" constant="10" id="VYM-pd-Ebz"/>
@@ -51,6 +51,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="bag" width="501" height="498"/>
+        <image name="bag" width="500" height="500"/>
     </resources>
 </document>

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class CategoryViewController: UIViewController {
 
     @IBOutlet weak var categoryCollectionView: UICollectionView!
@@ -15,11 +15,11 @@ class CategoryViewController: UIViewController {
     let mainCategoriesArray = ["All", "Men", "Women", "Kids"]
     let SubCategoriesArray = ["tshirt", "dress", "bag","shoe", "pants"]
     let sortingArray = ["Price", "Popular"]
-    
+    var productArray: [Products]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        fetchBrands()
         let logoImageView = UIImageView(image: UIImage(named: "Logo"))
         logoImageView.contentMode = .scaleAspectFit
         
@@ -248,7 +248,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         case 1:
             return SubCategoriesArray.count
         case 2:
-            return 10
+            return productArray?.count ?? 0
 
         default:
             return 0
@@ -269,13 +269,24 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "SubCategoryCell", for: indexPath) as! SubCategoryCell
             cell.subCategoryItemImage.image = UIImage(named: SubCategoriesArray[indexPath.row])
             return cell
-       
+            
         case 2:
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
+            if let product = productArray?[indexPath.row], let imageUrl = URL(string: product.image?.src ?? "heart") {
+                
+                cell.brandItemImage.kf.setImage(with: imageUrl)
+                } else {
+                    // Handle the case when the image URL is invalid or missing
+                    cell.brandItemImage.image = UIImage(named: "CouponBackground")
+                }
+            
+            
+            // cell.brandItemImage.image
             return cell
         default:
-            let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
-            return cell        }
+            
+            return UICollectionViewCell()
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -308,7 +319,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         case 0:
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
                 // Modify the appearance of the selected cell
-                let backgroundColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
+                let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
                 
                 cell.mainCategoryLabel.textColor = .white
                 cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
@@ -322,7 +333,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         case 1:
             if let cell = collectionView.cellForItem(at: indexPath) as? SubCategoryCell {
                 // Modify the appearance of the selected cell
-                let backgroundColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
+                let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
                 cell.subCategoryBackgroundView.layer.borderWidth = 1.0 // Adjust the border width as needed
                 cell.subCategoryBackgroundView.layer.borderColor = backgroundColor.cgColor
                             }
@@ -333,6 +344,46 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             
         }
     }
+    
+    func fetchBrands() {
+        let url = "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json"
+
+        AF.request(url, method: .get)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    if let data = response.data {
+                        // Convert data to a string for printing
+                        if let jsonString = String(data: data, encoding: .utf8) {
+                            
+                        }
+                        do {
+                            let decoder = JSONDecoder()
+                            let apiResponse = try decoder.decode(Product.self, from: data)
+                            
+                            // print(apiResponse)
+                            self.productArray = apiResponse.products
+                            print(self.productArray)
+                            
+                            DispatchQueue.main.async {
+                                self.categoryCollectionView.reloadData()
+                            }
+                            } catch {
+                                print("Error decoding JSON: \(error)")
+                                                // Handle the decoding error as needed.
+                                            }
+                        
+                    }
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                    // Handle the request failure as needed.
+                }
+            }
+    }
+    
+    
+    
 }
     
 

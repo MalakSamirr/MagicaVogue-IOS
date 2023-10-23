@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QH4-Mx-O0a">
                         <rect key="frame" x="5" y="5" width="457" height="192"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CouponBackground" translatesAutoresizingMaskIntoConstraints="NO" id="FGJ-aa-Bz5">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="couponBackground5" translatesAutoresizingMaskIntoConstraints="NO" id="FGJ-aa-Bz5">
                                 <rect key="frame" x="0.0" y="0.0" width="457" height="192"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Copy the promocode and enjoy you discounts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AqK-gM-lHp">
@@ -30,12 +29,16 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGq-uu-lIp">
-                                <rect key="frame" x="13" y="101" width="82" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGq-uu-lIp">
+                                <rect key="frame" x="13" y="101" width="120" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="F10-Ve-evR"/>
+                                    <constraint firstAttribute="width" constant="120" id="bGe-N6-OH4"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="E619">
                                     <backgroundConfiguration key="background" cornerRadius="8">
-                                        <color key="backgroundColor" red="0.31764706970000001" green="0.070588238540000001" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.27971354953902594" green="0.31597195008788448" blue="0.30389602541319188" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </backgroundConfiguration>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
@@ -43,11 +46,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Enjoy MagicVogue coupons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVB-Cz-lf4">
                                 <rect key="frame" x="12" y="42" width="266" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
-                                <color key="textColor" red="0.11793718434343436" green="0.11793718434343436" blue="0.11793718434343436" alpha="0.83624793046357615" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" white="0.0" alpha="0.67184913079470199" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="TVB-Cz-lf4" firstAttribute="top" secondItem="FGJ-aa-Bz5" secondAttribute="top" constant="42" id="0LO-Fg-Xyf"/>
                             <constraint firstItem="AqK-gM-lHp" firstAttribute="leading" secondItem="TVB-Cz-lf4" secondAttribute="leading" id="48F-5B-Bvb"/>
@@ -75,13 +78,10 @@
                 <outlet property="couponImage" destination="FGJ-aa-Bz5" id="6cg-F1-SmE"/>
                 <outlet property="couponUIView" destination="QH4-Mx-O0a" id="C4d-Su-M5t"/>
             </connections>
-            <point key="canvasLocation" x="240.45801526717557" y="35.91549295774648"/>
+            <point key="canvasLocation" x="409.92366412213738" y="32.394366197183103"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="CouponBackground" width="1308" height="736"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="couponBackground5" width="1104" height="736"/>
     </resources>
 </document>

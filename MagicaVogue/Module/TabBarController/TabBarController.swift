@@ -37,7 +37,7 @@ class TabBarController: UITabBarController {
         for i in 0...4 {
             items[i].image = UIImage(systemName: images[i])
         }
-        self.tabBar.tintColor = UIColor(red: 89/255.0, green: 10/255.0, blue: 4/255.0, alpha: 1.0)
+        self.tabBar.tintColor = UIColor(red: 0.26, green: 0.36, blue:0.32, alpha: 1.0)
         self.tabBar.backgroundColor = .white
     }
     

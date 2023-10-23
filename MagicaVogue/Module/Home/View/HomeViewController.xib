@@ -54,7 +54,7 @@
                                 <pageControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="lYu-yR-HyP">
                                     <rect key="frame" x="138.66666666666666" y="260" width="115.66666666666666" height="25.666666666666686"/>
                                     <color key="pageIndicatorTintColor" systemColor="opaqueSeparatorColor"/>
-                                    <color key="currentPageIndicatorTintColor" red="0.39607840779999998" green="0.29803922770000002" blue="0.2352941036" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="currentPageIndicatorTintColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </pageControl>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover Your Style Playground" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajd-M6-nnb">
                                     <rect key="frame" x="15.999999999999986" y="293.66666666666669" width="248.66666666666663" height="20.333333333333314"/>

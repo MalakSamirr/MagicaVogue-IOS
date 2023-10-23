@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,26 +19,30 @@
                 <rect key="frame" x="0.0" y="0.0" width="270" height="347"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="outfit" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Bt-6ez">
-                        <rect key="frame" x="0.0" y="0.0" width="270" height="270"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afe-wS-PfJ">
+                        <rect key="frame" x="0.0" y="0.0" width="270" height="347"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bag" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Bt-6ez">
+                        <rect key="frame" x="40" y="40" width="190" height="190"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="JYb-Bt-6ez" secondAttribute="height" id="Cqe-mJ-APZ"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brown dress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1Y-7n-ChF">
-                        <rect key="frame" x="0.0" y="275" width="95" height="21"/>
+                        <rect key="frame" x="20" y="270" width="95" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98 $" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1h-jQ-e4i">
-                        <rect key="frame" x="0.0" y="296" width="36.333333333333336" height="20.333333333333314"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                        <rect key="frame" x="19.999999999999996" y="291" width="32.666666666666657" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72W-fe-7TT">
-                        <rect key="frame" x="203" y="17" width="51" height="51"/>
+                        <rect key="frame" x="189.33333333333334" y="29.999999999999996" width="50.666666666666657" height="50.666666666666657"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="72W-fe-7TT" secondAttribute="height" id="cKb-XM-KCm"/>
                         </constraints>
@@ -45,24 +50,29 @@
                         <buttonConfiguration key="configuration" style="plain">
                             <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
                             <backgroundConfiguration key="background" cornerRadius="70">
-                                <color key="backgroundColor" red="0.96470588450000005" green="0.92549020049999997" blue="0.87843137979999997" alpha="0.58164321192052981" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.8264266827548612" green="0.82536760490744188" blue="0.84386705689960051" alpha="0.37197330298013243" colorSpace="custom" customColorSpace="displayP3"/>
                             </backgroundConfiguration>
-                            <color key="baseForegroundColor" red="0.31764706970000001" green="0.070588238540000001" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="baseForegroundColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </buttonConfiguration>
                     </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="JYb-Bt-6ez" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="34F-nJ-uRp"/>
+                <constraint firstItem="JYb-Bt-6ez" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="40" id="34F-nJ-uRp"/>
                 <constraint firstItem="z1h-jQ-e4i" firstAttribute="leading" secondItem="H1Y-7n-ChF" secondAttribute="leading" id="4JL-E1-cCl"/>
-                <constraint firstItem="JYb-Bt-6ez" firstAttribute="top" secondItem="72W-fe-7TT" secondAttribute="bottom" constant="-68" id="8Kv-tr-D1Z"/>
+                <constraint firstAttribute="trailing" secondItem="afe-wS-PfJ" secondAttribute="trailing" id="Aln-eW-1Er"/>
                 <constraint firstItem="z1h-jQ-e4i" firstAttribute="top" secondItem="H1Y-7n-ChF" secondAttribute="bottom" id="Bys-OS-8kc"/>
-                <constraint firstItem="JYb-Bt-6ez" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="MXC-oG-jyr"/>
-                <constraint firstAttribute="trailing" secondItem="JYb-Bt-6ez" secondAttribute="trailing" id="NQg-5U-kZh"/>
-                <constraint firstItem="72W-fe-7TT" firstAttribute="trailing" secondItem="JYb-Bt-6ez" secondAttribute="trailing" constant="-16" id="ZwW-x7-9rA"/>
-                <constraint firstItem="H1Y-7n-ChF" firstAttribute="top" secondItem="JYb-Bt-6ez" secondAttribute="bottom" constant="5" id="eXA-Gq-ZaW"/>
-                <constraint firstItem="H1Y-7n-ChF" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="qez-ln-aRE"/>
+                <constraint firstItem="JYb-Bt-6ez" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="40" id="MXC-oG-jyr"/>
+                <constraint firstAttribute="trailing" secondItem="JYb-Bt-6ez" secondAttribute="trailing" constant="40" id="NQg-5U-kZh"/>
+                <constraint firstItem="afe-wS-PfJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="NWr-bZ-BhP"/>
+                <constraint firstItem="72W-fe-7TT" firstAttribute="trailing" secondItem="afe-wS-PfJ" secondAttribute="trailing" constant="-30" id="Rxy-DS-Oph"/>
+                <constraint firstItem="72W-fe-7TT" firstAttribute="top" secondItem="afe-wS-PfJ" secondAttribute="top" constant="30" id="aKS-1A-FTw"/>
+                <constraint firstItem="H1Y-7n-ChF" firstAttribute="top" secondItem="JYb-Bt-6ez" secondAttribute="bottom" constant="40" id="eXA-Gq-ZaW"/>
+                <constraint firstItem="H1Y-7n-ChF" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="20" id="qez-ln-aRE"/>
+                <constraint firstAttribute="bottom" secondItem="afe-wS-PfJ" secondAttribute="bottom" id="r6Z-2S-KGB"/>
+                <constraint firstItem="afe-wS-PfJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rPq-9t-o2g"/>
             </constraints>
             <size key="customSize" width="270" height="347"/>
             <connections>
@@ -73,7 +83,10 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="bag" width="500" height="500"/>
         <image name="heart" catalog="system" width="128" height="107"/>
-        <image name="outfit" width="736" height="980"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
