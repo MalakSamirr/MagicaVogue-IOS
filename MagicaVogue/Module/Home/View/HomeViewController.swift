@@ -22,6 +22,9 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     var currentCell = 0
     let arrOfImgs = ["couponBackground5","couponBackground5", "couponBackground5"]
     private var timer: Timer?
+ 
+
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -56,9 +59,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+       
         brandsCollectioView.reloadData()
         viewDidLayoutSubviews()
+       
+
+        
+        
     }
     
     private func setupPageControl() {
@@ -115,7 +122,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return arrOfImgs.count
         default:
             print(brandArray?.count)
-            return brandArray?.count ?? 5
+            return brandArray?.count ?? 0
         }
     }
     
@@ -141,7 +148,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             if let brand = brandArray?[indexPath.row], let imageUrl = URL(string: brand.image.src ?? "heart") {
                 
                     cell.brandImage.kf.setImage(with: imageUrl)
-                print("branddd \(brand)")
+                    print("branddd \(imageUrl)")
                 } else {
                     print("Errorrrrrrrrrrrrrrrrrrr")
                     // Handle the case when the image URL is invalid or missing
@@ -186,13 +193,16 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             
         case brandsCollectioView:
             let count = Int(brandArray?.count ?? 0)
-            let numberOfRows = ceil(Double(count/2))
+            let numberOfRows = ceil((Double(count)/2.0))
+            
             let cellHeight = (width - 15)/2-5
             let height = cellHeight*numberOfRows
-            branCollectionViewHeight.constant = CGFloat(height)
-            brandsCollectioView.layoutIfNeeded()
             
-            return CGSize(width: (width - 15)/2-15, height: (width - 15)/2-25)
+            branCollectionViewHeight.constant = CGFloat(height)
+            
+            brandsCollectioView.layoutIfNeeded()
+           
+            return CGSize(width: (width - 15)/2-15, height: (width-30)/2-25)
             
         default:
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
@@ -252,7 +262,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
                 
                 DispatchQueue.main.async {
                     self.brandsCollectioView.reloadData()
-                    print(self.brandArray)
+                    // print(self.brandArray)
                 }
             case .failure(let error):
                 print("Error: \(error)")
