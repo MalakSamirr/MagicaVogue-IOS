@@ -62,8 +62,9 @@
 		59DDBDB62AE5392500898513 /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDB52AE5392500898513 /* BaseAPI.swift */; };
 		59DDBDB92AE5397200898513 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDB82AE5397200898513 /* Constants.swift */; };
 		59DDBDBC2AE539ED00898513 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDBB2AE539ED00898513 /* HomeModel.swift */; };
-		59DDBDC22AE542ED00898513 /* Network2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDC12AE542ED00898513 /* Network2.swift */; };
 		59DDBDC52AE64B2900898513 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDC42AE64B2900898513 /* ProductModel.swift */; };
+		59DDBDC72AE6AC5700898513 /* MainCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDC62AE6AC5700898513 /* MainCategoryModel.swift */; };
+		59DDBDC92AE6FCB600898513 /* SubCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDC82AE6FCB600898513 /* SubCategoryModel.swift */; };
 		59F4E7AC2AE2CACE002A5BFF /* NewAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */; };
 		59F4E7AD2AE2CACE002A5BFF /* NewAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */; };
 		59F4E7AE2AE2CACE002A5BFF /* MyAddressesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */; };
@@ -178,8 +179,9 @@
 		59DDBDB52AE5392500898513 /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
 		59DDBDB82AE5397200898513 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		59DDBDBB2AE539ED00898513 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
-		59DDBDC12AE542ED00898513 /* Network2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network2.swift; sourceTree = "<group>"; };
 		59DDBDC42AE64B2900898513 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		59DDBDC62AE6AC5700898513 /* MainCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoryModel.swift; sourceTree = "<group>"; };
+		59DDBDC82AE6FCB600898513 /* SubCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryModel.swift; sourceTree = "<group>"; };
 		59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAddressCell.xib; sourceTree = "<group>"; };
 		59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressCell.swift; sourceTree = "<group>"; };
 		59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAddressesCell.swift; sourceTree = "<group>"; };
@@ -700,6 +702,8 @@
 			isa = PBXGroup;
 			children = (
 				59DDBDC42AE64B2900898513 /* ProductModel.swift */,
+				59DDBDC62AE6AC5700898513 /* MainCategoryModel.swift */,
+				59DDBDC82AE6FCB600898513 /* SubCategoryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1205,12 +1209,14 @@
 				59AF4EF32AE12D9400B4B8EE /* BrandViewController.swift in Sources */,
 				59AF4EEF2AE122C100B4B8EE /* SubCategoryCell.swift in Sources */,
 				5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */,
+				59DDBDC72AE6AC5700898513 /* MainCategoryModel.swift in Sources */,
 				5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */,
 				59F4E7B02AE2CACE002A5BFF /* MyAddressesVC.swift in Sources */,
 				59F4E7C02AE2CAE0002A5BFF /* CartModel.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
 				45ECE7AD2AE2F3B800488682 /* PaymentViewController.swift in Sources */,
 				59F4E7C12AE2CAE0002A5BFF /* CartViewController.swift in Sources */,
+				59DDBDC92AE6FCB600898513 /* SubCategoryModel.swift in Sources */,
 				59F4E7B32AE2CACE002A5BFF /* CheckoutVC.swift in Sources */,
 				45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */,
 				59F4E7BF2AE2CAE0002A5BFF /* CartCell.swift in Sources */,

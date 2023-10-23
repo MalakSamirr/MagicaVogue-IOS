@@ -12,7 +12,8 @@ class BrandViewController: UIViewController{
     @IBOutlet weak var BrandCollectionViewDetails: UICollectionView!
     
     static let sectionHeaderElementKind = "section-header-element-kind"
-    
+    var selectedIndexPath: IndexPath?
+    var selectedIndexPathForSubCategory: IndexPath?
     let mainCategoriesArray = ["All", "Men", "Women", "Kids"]
     let SubCategoriesArray = ["tshirt", "dress", "bag","shoe", "pants"]
     let sortingArray = ["Price", "Popular"]
@@ -97,7 +98,7 @@ class BrandViewController: UIViewController{
             layoutSize: headerSize,
             elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
 
-        section.boundarySupplementaryItems = [sectionHeader]
+        // section.boundarySupplementaryItems = [sectionHeader]
         
         // section.boundarySupplementaryItems = [self.supplementtryHeader()]
         
@@ -264,6 +265,7 @@ extension BrandViewController: UICollectionViewDelegate, UICollectionViewDataSou
         case 0:
             let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
             cell.mainCategoryLabel.text = sortingArray[indexPath.row]
+            
             return cell
         case 1:
             let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
@@ -303,13 +305,19 @@ extension BrandViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         case 0:
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
-                // Modify the appearance of the selected cell
-//                let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
-//                
-//                cell.mainCategoryLabel.textColor = .white
-//                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
-//                
-//                BrandCollectionViewDetails.reloadData()
+                if let previousSelectedIndexPath = selectedIndexPath {
+                            if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? MainCategoryCell {
+                                previousSelectedCell.isSelected = false
+                               
+                            }
+                        }
+                        
+                        // Select the new cell
+                        cell.isSelected = true
+                print(cell.mainCategoryLabel.text)
+                        // Update the selectedIndexPath
+                        selectedIndexPath = indexPath
+
             }
         default:
             return

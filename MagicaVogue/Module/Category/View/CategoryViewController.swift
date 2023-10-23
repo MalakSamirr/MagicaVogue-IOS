@@ -8,18 +8,32 @@
 import UIKit
 import Alamofire
 class CategoryViewController: UIViewController {
-
+    var selectedIndexPath: IndexPath?
+    let mainCategoryArray: [mainCategoryModel] = [mainCategoryModel(name: "All", isSelected: true, imageName: nil), mainCategoryModel(name: "Men", isSelected: false, imageName: nil),mainCategoryModel(name: "Women", isSelected: false, imageName: nil), mainCategoryModel(name: "Kids", isSelected: false, imageName: nil)
+    ]
+    
+    var subCategoryArray: [SubCategoryModel] = [SubCategoryModel(type: "All", isSelected: true), SubCategoryModel(type: "T-SHIRTS", isSelected: false), SubCategoryModel(type: "dress", isSelected: false), SubCategoryModel(type: "ACCESSORIES", isSelected: false), SubCategoryModel(type: "SHOES", isSelected: false), SubCategoryModel(type: "pants", isSelected: false)
+        ]
+    
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     static let sectionHeaderElementKind = "section-header-element-kind"
-    
+    var selectedIndexPathForSubCategory: IndexPath?
     let mainCategoriesArray = ["All", "Men", "Women", "Kids"]
-    let SubCategoriesArray = ["tshirt", "dress", "bag","shoe", "pants"]
+    let SubCategoriesArray = ["T-SHIRTS", "dress", "ACCESSORIES","SHOES", "pants"]
     let sortingArray = ["Price", "Popular"]
     var productArray: [Products]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchBrands()
+        
+  
+
+            // Assuming collectionView is your UICollectionView instance
+       
+        
+
+        
         let logoImageView = UIImageView(image: UIImage(named: "Logo"))
         logoImageView.contentMode = .scaleAspectFit
         
@@ -56,8 +70,12 @@ class CategoryViewController: UIViewController {
         }
         
         categoryCollectionView.setCollectionViewLayout(layout, animated: true)
+        let indexPath = IndexPath(item: 0, section: 0)
+
+            // Ensure the collectionView is not nil before attempting to select an item
+           
         
-        
+
         // Do any additional setup after loading the view.
     }
     
@@ -244,9 +262,9 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return mainCategoriesArray.count
+            return mainCategoryArray.count
         case 1:
-            return SubCategoriesArray.count
+            return subCategoryArray.count
         case 2:
             return productArray?.count ?? 0
 
@@ -262,25 +280,40 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         case 0:
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
             
-            cell.mainCategoryLabel.text = mainCategoriesArray[indexPath.row]
+            cell.mainCategoryLabel.text = mainCategoryArray[indexPath.row].name
+            
+            if mainCategoryArray[indexPath.row].isSelected {
+                cell.mainCategoryLabel.textColor = .white
+                cell.mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
+                selectedIndexPath = indexPath
+            }
             return cell
             
         case 1:
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "SubCategoryCell", for: indexPath) as! SubCategoryCell
-            cell.subCategoryItemImage.image = UIImage(named: SubCategoriesArray[indexPath.row])
+            cell.subCategoryItemImage.image = UIImage(named: subCategoryArray[indexPath.row].type ?? "")
+            if subCategoryArray[indexPath.row].isSelected ?? false {
+                cell.subCategoryBackgroundView.layer.borderWidth = 1.0 // Adjust the border width as needed
+                cell.subCategoryBackgroundView.layer.borderColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0).cgColor
+                selectedIndexPathForSubCategory = indexPath
+            }
+            
             return cell
             
         case 2:
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
-            if let product = productArray?[indexPath.row], let imageUrl = URL(string: product.image?.src ?? "heart") {
+            if let product = productArray?[indexPath.row]{
                 
-                cell.brandItemImage.kf.setImage(with: imageUrl)
+                if let imageUrl = URL(string: product.image?.src ?? "heart") {
+                    
+                    cell.brandItemImage.kf.setImage(with: imageUrl)
                 } else {
                     // Handle the case when the image URL is invalid or missing
                     cell.brandItemImage.image = UIImage(named: "CouponBackground")
                 }
-            
-            
+                cell.itemLabel.text = product.title
+                
+            }
             // cell.brandItemImage.image
             return cell
         default:
@@ -319,23 +352,43 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         case 0:
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
                 // Modify the appearance of the selected cell
-                let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
-                
-//                cell.mainCategoryLabel.textColor = .white
-//                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
-//                print(cell.mainCategoryLabel.text)
-//
-//                
-//                // Reload the selected item to reflect the changes
-//                collectionView.reloadData()
+                if let previousSelectedIndexPath = selectedIndexPath {
+                            if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? MainCategoryCell {
+                                previousSelectedCell.isSelected = false
+                               
+                            }
+                        }
+                        
+                        // Select the new cell
+                        cell.isSelected = true
+                print(cell.mainCategoryLabel.text)
+               
+                        // Update the selectedIndexPath
+                        selectedIndexPath = indexPath
+
+
             }
             
         case 1:
             if let cell = collectionView.cellForItem(at: indexPath) as? SubCategoryCell {
                 // Modify the appearance of the selected cell
-                let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
-                cell.subCategoryBackgroundView.layer.borderWidth = 1.0 // Adjust the border width as needed
-                cell.subCategoryBackgroundView.layer.borderColor = backgroundColor.cgColor
+                if let previousSelectedIndexPath = selectedIndexPathForSubCategory {
+                            if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? SubCategoryCell {
+                                previousSelectedCell.isSelected = false
+                                subCategoryArray[previousSelectedIndexPath.row].isSelected = false
+                            }
+                        }
+                        
+                        // Select the new cell
+                        cell.isSelected = true
+                subCategoryArray[indexPath.row].isSelected = true
+               // print(cell.s.text)
+                        // Update the selectedIndexPath
+                        selectedIndexPathForSubCategory = indexPath
+                if indexPath.row < SubCategoriesArray.count {
+                    filterProducts(byProductType: subCategoryArray[indexPath.row].type ?? "")
+                    print(SubCategoriesArray[indexPath.row])
+                }
                             }
             
         
@@ -381,7 +434,18 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             }
     }
-    
+    func filterProducts(byProductType productTypeToFilter: String) {
+        // Filter products based on the provided product type
+        productArray = self.productArray?.filter { product in
+            return product.product_type == productTypeToFilter
+        }
+        
+        // Reload the collection view with the filtered products
+        DispatchQueue.main.async {
+            self.categoryCollectionView.reloadData()
+        }
+    }
+
     
     
 }

@@ -27,7 +27,13 @@ struct Products: Codable {
     let status: String?
     let images: [Images]?
     let image: ProductImage?
+    // ACCESSORIES , ,T-SHIRTS
+    
 }
 struct Product: Codable {
     let products: [Products]?
+}
+
+enum ProductTypes {
+    
 }

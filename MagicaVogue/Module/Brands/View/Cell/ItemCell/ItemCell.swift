@@ -9,6 +9,8 @@ import UIKit
 
 class ItemCell: UICollectionViewCell {
 
+    @IBOutlet weak var itemPrice: UILabel!
+    @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var brandItemImage: UIImageView!
     override func awakeFromNib() {

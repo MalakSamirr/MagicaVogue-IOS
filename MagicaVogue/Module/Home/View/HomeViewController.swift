@@ -8,8 +8,9 @@
 import UIKit
 import Alamofire
 import Kingfisher
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UISearchBarDelegate {
     var brandArray: [SmartCollection]?
+    var dataArray: [SmartCollection]?
     // MARK: - Outlets
     
     @IBOutlet weak var branCollectionViewHeight: NSLayoutConstraint!
@@ -28,7 +29,7 @@ class HomeViewController: UIViewController {
         fetchBrands()
         automaticSlide()
         setupPageControl()
-        
+        searchBar.delegate = self
         self.title = "Home"
 
         let logoImageView = UIImageView(image: UIImage(named: "logo4"))
@@ -140,12 +141,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             if let brand = brandArray?[indexPath.row], let imageUrl = URL(string: brand.image.src ?? "heart") {
                 
                     cell.brandImage.kf.setImage(with: imageUrl)
+                print("branddd \(brand)")
                 } else {
+                    print("Errorrrrrrrrrrrrrrrrrrr")
                     // Handle the case when the image URL is invalid or missing
                     cell.brandImage.image = UIImage(named: "CouponBackground")
                 }
                         
-                        
+            
             return cell
         default:
             return UICollectionViewCell()
@@ -245,6 +248,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             switch result {
             case .success(let apiResponse):
                 self.brandArray = apiResponse.smart_collections
+                self.dataArray = apiResponse.smart_collections
+                
                 DispatchQueue.main.async {
                     self.brandsCollectioView.reloadData()
                     print(self.brandArray)
@@ -255,6 +260,27 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             }
         }
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            self.brandArray = dataArray
+        } else {
+            self.brandArray = dataArray?.filter { brand in
+                if let title = brand.title, title.lowercased().contains(searchText.lowercased()) {
+                    return true
+                }
+                return false
+            }
+        }
+
+        DispatchQueue.main.async {
+            
+            self.brandsCollectioView.reloadData()
+        }
+    }
+
+
+
 
 }
 
