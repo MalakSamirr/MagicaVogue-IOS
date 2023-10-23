@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		459A79712AE64E2C00474738 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459A79702AE64E2C00474738 /* APIManager.swift */; };
 		45A095DA2ADFE48E00C297C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095D92ADFE48E00C297C9 /* AppDelegate.swift */; };
 		45A095DC2ADFE48E00C297C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095DB2ADFE48E00C297C9 /* SceneDelegate.swift */; };
 		45A095DE2ADFE48E00C297C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095DD2ADFE48E00C297C9 /* ViewController.swift */; };
@@ -117,6 +118,7 @@
 
 /* Begin PBXFileReference section */
 		1320A6FDB84575D6D657B06E /* Pods-MagicaVogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue/Pods-MagicaVogue.release.xcconfig"; sourceTree = "<group>"; };
+		459A79702AE64E2C00474738 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		45A095D62ADFE48E00C297C9 /* MagicaVogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicaVogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A095D92ADFE48E00C297C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A095DB2ADFE48E00C297C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -689,7 +691,7 @@
 		59DDBDC02AE542DC00898513 /* Networking2 */ = {
 			isa = PBXGroup;
 			children = (
-				59DDBDC12AE542ED00898513 /* Network2.swift */,
+				459A79702AE64E2C00474738 /* APIManager.swift */,
 			);
 			path = Networking2;
 			sourceTree = "<group>";
@@ -1223,13 +1225,13 @@
 				EEE3A0B72AE157BA009956BC /* ProfileViewController.swift in Sources */,
 				59DDBDBC2AE539ED00898513 /* HomeModel.swift in Sources */,
 				59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */,
+				459A79712AE64E2C00474738 /* APIManager.swift in Sources */,
 				59DDBDB22AE538DC00898513 /* TargetType.swift in Sources */,
 				EEE3A0BB2AE16593009956BC /* ProfileCell.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
 				59DDBDB92AE5397200898513 /* Constants.swift in Sources */,
 				5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */,
 				59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */,
-				59DDBDC22AE542ED00898513 /* Network2.swift in Sources */,
 				45A095DE2ADFE48E00C297C9 /* ViewController.swift in Sources */,
 				EEE356802AE00C0B000B8742 /* SignupViewController.swift in Sources */,
 				EEE3A0C12AE177B9009956BC /* SettingsTableViewController.swift in Sources */,
