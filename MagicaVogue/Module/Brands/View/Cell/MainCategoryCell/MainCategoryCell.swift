@@ -12,6 +12,21 @@ class MainCategoryCell: UICollectionViewCell {
     
     @IBOutlet weak var mainCategoryLabel: UILabel!
     
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                mainCategoryLabel.textColor = .white
+                mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
+            } else {
+               
+                
+            }
+        }
+        
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,5 +37,4 @@ class MainCategoryCell: UICollectionViewCell {
         
         
     }
-
 }

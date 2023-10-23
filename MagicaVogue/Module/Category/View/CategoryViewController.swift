@@ -321,13 +321,13 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
                 // Modify the appearance of the selected cell
                 let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
                 
-                cell.mainCategoryLabel.textColor = .white
-                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
-                print(cell.mainCategoryLabel.text)
-
-                
-                // Reload the selected item to reflect the changes
-                collectionView.reloadItems(at: [indexPath])
+//                cell.mainCategoryLabel.textColor = .white
+//                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
+//                print(cell.mainCategoryLabel.text)
+//
+//                
+//                // Reload the selected item to reflect the changes
+//                collectionView.reloadData()
             }
             
         case 1:

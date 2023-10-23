@@ -304,13 +304,12 @@ extension BrandViewController: UICollectionViewDelegate, UICollectionViewDataSou
         case 0:
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
                 // Modify the appearance of the selected cell
-                let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
-                
-                cell.mainCategoryLabel.textColor = .white
-                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
-                
-                // Reload the selected item to reflect the changes
-                collectionView.reloadItems(at: [indexPath])
+//                let backgroundColor = UIColor(red: 0.36, green: 0.46, blue:0.42, alpha: 1.0)
+//                
+//                cell.mainCategoryLabel.textColor = .white
+//                cell.mainCategoryBackgroundView.backgroundColor = backgroundColor
+//                
+//                BrandCollectionViewDetails.reloadData()
             }
         default:
             return

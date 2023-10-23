@@ -28,12 +28,18 @@ class HomeViewController: UIViewController {
         fetchBrands()
         automaticSlide()
         setupPageControl()
-
-
-        let logoImageView = UIImageView(image: UIImage(named: "Logo"))
-        logoImageView.contentMode = .scaleAspectFit
         
-        self.navigationItem.titleView = logoImageView
+        self.title = "Home"
+
+        let logoImageView = UIImageView(image: UIImage(named: "logo4"))
+        logoImageView.contentMode = .scaleAspectFit
+
+        // Create a custom UIBarButtonItem with the logoImageView
+        let logoBarButton = UIBarButtonItem(customView: logoImageView)
+
+        // Assign the custom UIBarButtonItem to the right bar button item
+        self.navigationItem.rightBarButtonItem = logoBarButton
+
         
         
         couponCollectionView?.isPagingEnabled = true
