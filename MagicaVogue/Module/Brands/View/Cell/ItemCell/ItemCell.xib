@@ -83,7 +83,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="bag" width="500" height="500"/>
+        <image name="bag" width="128" height="128"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

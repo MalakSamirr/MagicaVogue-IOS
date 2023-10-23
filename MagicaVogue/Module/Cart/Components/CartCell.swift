@@ -65,7 +65,7 @@ class CartCell: UITableViewCell {
     
     @IBAction func didPressMinus(_ sender: Any) {
         print("Minus button pressed")
-        if quantity > 0 {
+        if quantity > 1 {
             quantity -= 1
             print("New quantity: \(quantity)")
         }

@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var brandsCollectioView: UICollectionView!
     var currentCell = 0
-    let arrOfImgs = ["CouponBackground","CouponBackground", "CouponBackground"]
+    let arrOfImgs = ["couponBackground5","couponBackground5", "couponBackground5"]
     private var timer: Timer?
     override func viewDidLoad() {
         
@@ -241,6 +241,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
                 self.brandArray = apiResponse.smart_collections
                 DispatchQueue.main.async {
                     self.brandsCollectioView.reloadData()
+                    print(self.brandArray)
                 }
             case .failure(let error):
                 print("Error: \(error)")
