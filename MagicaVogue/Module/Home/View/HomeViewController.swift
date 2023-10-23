@@ -194,41 +194,59 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let brandViewController = BrandViewController()
             self.navigationController?.pushViewController(brandViewController, animated: true)
         }
+//    func fetchBrands() {
+//        let url = "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/smart_collections.json"
+//
+//        AF.request(url, method: .get)
+//            .validate()
+//            .responseJSON { response in
+//                switch response.result {
+//                case .success:
+//                    if let data = response.data {
+//                        // Convert data to a string for printing
+//                        if let jsonString = String(data: data, encoding: .utf8) {
+//
+//                        }
+//                        do {
+//                            let decoder = JSONDecoder()
+//                            let apiResponse = try decoder.decode(HomeModel.self, from: data)
+//
+//                            // print(apiResponse)
+//                            self.brandArray = apiResponse.smart_collections
+//                            print(self.brandArray)
+//
+//                            DispatchQueue.main.async {
+//                                self.brandsCollectioView.reloadData()
+//                            }
+//                            } catch {
+//                                print("Error decoding JSON: \(error)")
+//                                                // Handle the decoding error as needed.
+//                                            }
+//
+//                    }
+//                case .failure(let error):
+//                    print("Request failed with error: \(error)")
+//                    // Handle the request failure as needed.
+//                }
+//            }
+//    }
     func fetchBrands() {
         let url = "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/smart_collections.json"
 
-        AF.request(url, method: .get)
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success:
-                    if let data = response.data {
-                        // Convert data to a string for printing
-                        if let jsonString = String(data: data, encoding: .utf8) {
-                            
-                        }
-                        do {
-                            let decoder = JSONDecoder()
-                            let apiResponse = try decoder.decode(HomeModel.self, from: data)
-                            
-                            // print(apiResponse)
-                            self.brandArray = apiResponse.smart_collections
-                            print(self.brandArray)
-                            
-                            DispatchQueue.main.async {
-                                self.brandsCollectioView.reloadData()
-                            }
-                            } catch {
-                                print("Error decoding JSON: \(error)")
-                                                // Handle the decoding error as needed.
-                                            }
-                        
-                    }
-                case .failure(let error):
-                    print("Request failed with error: \(error)")
-                    // Handle the request failure as needed.
+        APIManager.shared.request(.get, url) { [weak self] (result: Result<HomeModel, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let apiResponse):
+                self.brandArray = apiResponse.smart_collections
+                DispatchQueue.main.async {
+                    self.brandsCollectioView.reloadData()
                 }
+            case .failure(let error):
+                print("Error: \(error)")
+                // Handle the error as needed.
             }
+        }
     }
 
 }
