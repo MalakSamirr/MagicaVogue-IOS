@@ -9,6 +9,6 @@ import Foundation
 
 struct mainCategoryModel {
     let name: String
-    let isSelected: Bool
+    var isSelected: Bool
     let imageName: String?
 }

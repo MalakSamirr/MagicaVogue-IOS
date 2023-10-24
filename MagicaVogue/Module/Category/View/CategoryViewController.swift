@@ -9,10 +9,10 @@ import UIKit
 import Alamofire
 class CategoryViewController: UIViewController {
     var selectedIndexPath: IndexPath?
-    let mainCategoryArray: [mainCategoryModel] = [mainCategoryModel(name: "All", isSelected: true, imageName: nil), mainCategoryModel(name: "Men", isSelected: false, imageName: nil),mainCategoryModel(name: "Women", isSelected: false, imageName: nil), mainCategoryModel(name: "Kids", isSelected: false, imageName: nil)
+    var mainCategoryArray: [mainCategoryModel] = [mainCategoryModel(name: "All", isSelected: true, imageName: nil), mainCategoryModel(name: "Men", isSelected: false, imageName: nil),mainCategoryModel(name: "Women", isSelected: false, imageName: nil), mainCategoryModel(name: "Kids", isSelected: false, imageName: nil)
     ]
     
-    var subCategoryArray: [SubCategoryModel] = [SubCategoryModel(type: "All", isSelected: true), SubCategoryModel(type: "T-SHIRTS", isSelected: false), SubCategoryModel(type: "dress", isSelected: false), SubCategoryModel(type: "ACCESSORIES", isSelected: false), SubCategoryModel(type: "SHOES", isSelected: false), SubCategoryModel(type: "pants", isSelected: false)
+    var subCategoryArray: [SubCategoryModel] = [SubCategoryModel(type: "T-SHIRTS", isSelected: false), SubCategoryModel(type: "dress", isSelected: false), SubCategoryModel(type: "ACCESSORIES", isSelected: false), SubCategoryModel(type: "SHOES", isSelected: false), SubCategoryModel(type: "pants", isSelected: false)
         ]
     
     @IBOutlet weak var categoryCollectionView: UICollectionView!
@@ -22,10 +22,11 @@ class CategoryViewController: UIViewController {
     let SubCategoriesArray = ["T-SHIRTS", "dress", "ACCESSORIES","SHOES", "pants"]
     let sortingArray = ["Price", "Popular"]
     var productArray: [Products]?
+    var dataArray: [Products]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchBrands()
+        fetchBrands(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
         
   
 
@@ -286,6 +287,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.mainCategoryLabel.textColor = .white
                 cell.mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
                 selectedIndexPath = indexPath
+                
             }
             return cell
             
@@ -355,16 +357,19 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
                 if let previousSelectedIndexPath = selectedIndexPath {
                             if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? MainCategoryCell {
                                 previousSelectedCell.isSelected = false
+                                mainCategoryArray[previousSelectedIndexPath.row].isSelected = false
                                
                             }
                         }
                         
                         // Select the new cell
-                        cell.isSelected = true
-                print(cell.mainCategoryLabel.text)
-               
-                        // Update the selectedIndexPath
-                        selectedIndexPath = indexPath
+                cell.isSelected = true
+                
+                mainCategoryArray[indexPath.row].isSelected = true
+                selectedIndexPath = indexPath
+                subCategoryArray[selectedIndexPathForSubCategory?.row ?? 0].isSelected = false
+               filterMainCategrories()
+                        
 
 
             }
@@ -373,33 +378,44 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             if let cell = collectionView.cellForItem(at: indexPath) as? SubCategoryCell {
                 // Modify the appearance of the selected cell
                 if let previousSelectedIndexPath = selectedIndexPathForSubCategory {
-                            if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? SubCategoryCell {
-                                previousSelectedCell.isSelected = false
-                                subCategoryArray[previousSelectedIndexPath.row].isSelected = false
+                    if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? SubCategoryCell {
+                       
+                        if subCategoryArray[indexPath.row].isSelected ?? false{
+                            previousSelectedCell.isSelected=false
+                            subCategoryArray[previousSelectedIndexPath.row].isSelected=false
+                            productArray = dataArray
+                            DispatchQueue.main.async {
+                                collectionView.reloadData()
                             }
+                            return
                         }
-                        
-                        // Select the new cell
-                        cell.isSelected = true
-                subCategoryArray[indexPath.row].isSelected = true
-               // print(cell.s.text)
-                        // Update the selectedIndexPath
-                        selectedIndexPathForSubCategory = indexPath
-                if indexPath.row < SubCategoriesArray.count {
-                    filterProducts(byProductType: subCategoryArray[indexPath.row].type ?? "")
-                    print(SubCategoriesArray[indexPath.row])
+                        previousSelectedCell.isSelected = false
+                        subCategoryArray[previousSelectedIndexPath.row].isSelected = false
+                    }
                 }
-                            }
-            
+                    cell.isSelected = true
+                    subCategoryArray[indexPath.row].isSelected = true
+                    selectedIndexPathForSubCategory = indexPath
+                DispatchQueue.main.async {
+                    collectionView.reloadData()
+                }
+                    if indexPath.row < SubCategoriesArray.count {
+                        filterProducts(byProductType: subCategoryArray[indexPath.row].type ?? "")
+                        
+                    }
+
+            }
         
         default:
             return
             
         }
+        
+        
     }
     
-    func fetchBrands() {
-        let url = "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json"
+    func fetchBrands(url: String) {
+        
 
         AF.request(url, method: .get)
             .validate()
@@ -417,7 +433,8 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
                             
                             // print(apiResponse)
                             self.productArray = apiResponse.products
-                            print(self.productArray)
+                            self.dataArray = apiResponse.products
+                            
                             
                             DispatchQueue.main.async {
                                 self.categoryCollectionView.reloadData()
@@ -436,7 +453,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     }
     func filterProducts(byProductType productTypeToFilter: String) {
         // Filter products based on the provided product type
-        productArray = self.productArray?.filter { product in
+        productArray = self.dataArray?.filter { product in
             return product.product_type == productTypeToFilter
         }
         
@@ -444,6 +461,26 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         DispatchQueue.main.async {
             self.categoryCollectionView.reloadData()
         }
+    }
+    
+    func filterMainCategrories() {
+        let selectedMainCategoryName = mainCategoryArray.first(where: { $0.isSelected })?.name
+        switch selectedMainCategoryName {
+        case "All":
+            fetchBrands(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
+                        case "Men":
+                            fetchBrands(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653141308")
+                        case "Women":
+                            fetchBrands(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653174076")
+        
+                        case "Kids":
+                            fetchBrands(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653206844")
+                        default:
+                            return
+                        }
+        
+      
+        
     }
 
     

@@ -8,6 +8,6 @@
 import Foundation
 
 struct SubCategoryModel {
-    let type: String?
-    var isSelected: Bool?
+    let type: String
+    var isSelected: Bool
 }

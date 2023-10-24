@@ -14,13 +14,11 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "My Shopping Bag"
+        self.title = "Cart"
         self.navigationController?.navigationBar.backgroundColor = .white
         CartTableView.delegate = self
         CartTableView.dataSource = self
         CartTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
-        
-
     }
   
     

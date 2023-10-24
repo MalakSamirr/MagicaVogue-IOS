@@ -16,7 +16,7 @@ class TabBarController: UITabBarController {
         let categoryController = CategoryViewController()
         let profileController = ProfileViewController()
         let cartController = CartViewController()
-        cartController.title = "My Shopping Bag"
+        cartController.title = "Cart"
         favoriteController.title = "Wishlist"
         homeController.title = "Home"
         categoryController.title = "Discover"
