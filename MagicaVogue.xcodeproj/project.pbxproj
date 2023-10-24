@@ -68,6 +68,9 @@
 		59DDBDCC2AE8314000898513 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDCB2AE8314000898513 /* CategoryViewModel.swift */; };
 		59DDBDCF2AE8668100898513 /* BrandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDCE2AE8668100898513 /* BrandViewModel.swift */; };
 		59DDBDD22AE867F200898513 /* BrandModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDD12AE867F200898513 /* BrandModel.swift */; };
+		59DDBDD42AE87E1400898513 /* favorite.json in Resources */ = {isa = PBXBuildFile; fileRef = 59DDBDD32AE87E1400898513 /* favorite.json */; };
+		59DDBDDA2AE8833E00898513 /* FavoriteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDD92AE8833E00898513 /* FavoriteProtocol.swift */; };
+		59DDBDDD2AE8881400898513 /* AddressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDBDDC2AE8881400898513 /* AddressProtocol.swift */; };
 		59F4E7AC2AE2CACE002A5BFF /* NewAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */; };
 		59F4E7AD2AE2CACE002A5BFF /* NewAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */; };
 		59F4E7AE2AE2CACE002A5BFF /* MyAddressesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */; };
@@ -188,6 +191,9 @@
 		59DDBDCB2AE8314000898513 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		59DDBDCE2AE8668100898513 /* BrandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandViewModel.swift; sourceTree = "<group>"; };
 		59DDBDD12AE867F200898513 /* BrandModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandModel.swift; sourceTree = "<group>"; };
+		59DDBDD32AE87E1400898513 /* favorite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favorite.json; sourceTree = "<group>"; };
+		59DDBDD92AE8833E00898513 /* FavoriteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProtocol.swift; sourceTree = "<group>"; };
+		59DDBDDC2AE8881400898513 /* AddressProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressProtocol.swift; sourceTree = "<group>"; };
 		59F4E79E2AE2CACE002A5BFF /* NewAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAddressCell.xib; sourceTree = "<group>"; };
 		59F4E79F2AE2CACE002A5BFF /* NewAddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddressCell.swift; sourceTree = "<group>"; };
 		59F4E7A12AE2CACE002A5BFF /* MyAddressesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAddressesCell.swift; sourceTree = "<group>"; };
@@ -605,6 +611,7 @@
 		59AF4EE42AE11DAA00B4B8EE /* ItemCell */ = {
 			isa = PBXGroup;
 			children = (
+				59DDBDD82AE8832500898513 /* FavoriteProtocol */,
 				59AF4EE52AE11DC900B4B8EE /* ItemCell.swift */,
 				59AF4EE62AE11DC900B4B8EE /* ItemCell.xib */,
 			);
@@ -658,6 +665,7 @@
 			isa = PBXGroup;
 			children = (
 				59BAF3702AE3130B00772630 /* CategoryViewController.swift */,
+				59DDBDD32AE87E1400898513 /* favorite.json */,
 				59BAF3712AE3130B00772630 /* CategoryViewController.xib */,
 			);
 			path = View;
@@ -741,9 +749,26 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		59DDBDD82AE8832500898513 /* FavoriteProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				59DDBDD92AE8833E00898513 /* FavoriteProtocol.swift */,
+			);
+			path = FavoriteProtocol;
+			sourceTree = "<group>";
+		};
+		59DDBDDB2AE887FF00898513 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				59DDBDDC2AE8881400898513 /* AddressProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		59F4E79B2AE2CACE002A5BFF /* Address */ = {
 			isa = PBXGroup;
 			children = (
+				59DDBDDB2AE887FF00898513 /* Protocol */,
 				59F4E79C2AE2CACE002A5BFF /* Components */,
 				59F4E7A32AE2CACE002A5BFF /* View */,
 			);
@@ -1104,6 +1129,7 @@
 				45A095E92ADFE48F00C297C9 /* LaunchScreen.storyboard in Resources */,
 				45A095E62ADFE48F00C297C9 /* Assets.xcassets in Resources */,
 				45ECE7AE2AE2F3B800488682 /* PaymentViewController.xib in Resources */,
+				59DDBDD42AE87E1400898513 /* favorite.json in Resources */,
 				EEB023462AE1A11D0069F998 /* PasswordManagerViewController.xib in Resources */,
 				EEE3A0C22AE177B9009956BC /* SettingsTableViewController.xib in Resources */,
 				EEE356812AE00C0B000B8742 /* SignupViewController.xib in Resources */,
@@ -1282,6 +1308,7 @@
 				59DDBDB62AE5392500898513 /* BaseAPI.swift in Sources */,
 				5947D9442AE036BE0005E94C /* UIView + dropShadow.swift in Sources */,
 				45ECE7B22AE2F3EE00488682 /* PaymentCell.swift in Sources */,
+				59DDBDDA2AE8833E00898513 /* FavoriteProtocol.swift in Sources */,
 				5947D9402AE01DC60005E94C /* BrandCell.swift in Sources */,
 				45F8D3B12AE4F86000F950DE /* PromoCodeCell.swift in Sources */,
 				59BAF3682AE2F35B00772630 /* OrderViewController.swift in Sources */,
@@ -1292,6 +1319,7 @@
 				59F4E7AE2AE2CACE002A5BFF /* MyAddressesCell.swift in Sources */,
 				5947D9332AE016E00005E94C /* View.swift in Sources */,
 				45A095DC2ADFE48E00C297C9 /* SceneDelegate.swift in Sources */,
+				59DDBDDD2AE8881400898513 /* AddressProtocol.swift in Sources */,
 				45E347112AE479FE00DD679B /* ShippingDetailsVC.swift in Sources */,
 				5947D93B2AE0177C0005E94C /* CouponCell.swift in Sources */,
 			);

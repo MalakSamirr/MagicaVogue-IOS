@@ -106,6 +106,7 @@ extension BrandViewController: UICollectionViewDataSource {
             return cell
         case 1:
             let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
+            cell.animationDelegate = self
             if let product = viewModel.productArray?[indexPath.row]{
                 if let imageUrl = URL(string: product.image?.src ?? "heart") {
                     cell.brandItemImage.kf.setImage(with: imageUrl)
@@ -172,3 +173,24 @@ extension BrandViewController {
     }
 }
 
+// MARK: - Animation
+extension BrandViewController: FavoriteProtocol {
+    func playAnimation() {
+        viewModel.animationView = .init(name: "favorite")
+        // Animation size
+        let animationSize = CGSize(width: 200, height: 200)
+        viewModel.animationView!.frame = CGRect(x: (view.bounds.width - animationSize.width) / 2, y: (view.bounds.height - animationSize.height) / 2, width: animationSize.width, height: animationSize.height)
+        viewModel.animationView!.contentMode = .scaleAspectFit
+        viewModel.animationView!.loopMode = .playOnce
+        viewModel.animationView!.alpha = 1.0
+        view.addSubview(viewModel.animationView!)
+        let startTime: CGFloat = 0.1
+        let endTime: CGFloat = 0.3
+        viewModel.animationView?.play(
+            fromProgress: startTime,
+            toProgress: endTime
+        ) { [weak self] _ in
+            self?.viewModel.animationView?.removeFromSuperview()
+        }
+    }
+}

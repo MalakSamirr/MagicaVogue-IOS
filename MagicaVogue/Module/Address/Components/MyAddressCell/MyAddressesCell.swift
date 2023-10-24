@@ -8,6 +8,7 @@
 import UIKit
 
 class MyAddressesCell: UITableViewCell {
+    var addressDelegate: AddressProtocol?
 
     @IBOutlet weak var myAdressBackgrounView: UIView!
     @IBOutlet weak var changeButton: UIButton!
@@ -40,12 +41,14 @@ class MyAddressesCell: UITableViewCell {
     }
     
     @IBAction func changeButtonPrssed(_ sender: UIButton) {
+        
+        addressDelegate?.NavigateToAddress()
 //        let myAddressesVC = MyAddressesVC()
 //        navigationController?.pushViewController(myAddressesVC, animated: true)
-        if let navigationController = self.window?.rootViewController as? UINavigationController {
-               let myAddressesVC = MyAddressesVC()
-               navigationController.pushViewController(myAddressesVC, animated: true)
-           }
-    }
+//        if let navigationController = self.window?.rootViewController as? UINavigationController {
+//               let myAddressesVC = MyAddressesVC()
+//               navigationController.pushViewController(myAddressesVC, animated: true)
+//           }
+  }
     
 }

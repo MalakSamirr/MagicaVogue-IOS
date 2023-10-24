@@ -26,7 +26,6 @@ class CategoryViewController: UIViewController {
                     self?.categoryCollectionView.reloadData()
                 }
             }
-        
         viewModel.getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
 
         let logoImageView = UIImageView(image: UIImage(named: "Logo"))
@@ -97,6 +96,7 @@ extension CategoryViewController: UICollectionViewDataSource {
             
         case 2:
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
+            cell.animationDelegate = self
             if let product = viewModel.productArray?[indexPath.row]{
                 if let imageUrl = URL(string: product.image?.src ?? "heart") {
                     cell.brandItemImage.kf.setImage(with: imageUrl)
@@ -232,4 +232,26 @@ extension CategoryViewController {
         return section
     }
     
+}
+
+// MARK: - Animation
+extension CategoryViewController: FavoriteProtocol {
+    func playAnimation() {
+        viewModel.animationView = .init(name: "favorite")
+        // Animation size
+        let animationSize = CGSize(width: 200, height: 200)
+        viewModel.animationView!.frame = CGRect(x: (view.bounds.width - animationSize.width) / 2, y: (view.bounds.height - animationSize.height) / 2, width: animationSize.width, height: animationSize.height)
+        viewModel.animationView!.contentMode = .scaleAspectFit
+        viewModel.animationView!.loopMode = .playOnce
+        viewModel.animationView!.alpha = 1.0
+        view.addSubview(viewModel.animationView!)
+        let startTime: CGFloat = 0.1
+        let endTime: CGFloat = 0.3
+        viewModel.animationView?.play(
+            fromProgress: startTime,
+            toProgress: endTime
+        ) { [weak self] _ in
+            self?.viewModel.animationView?.removeFromSuperview()
+        }
+    }
 }

@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Lottie
 
 class BrandViewModel {
+
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForSubCategory: IndexPath?
     let sortingArray = ["Price", "Popular"]
@@ -15,6 +17,7 @@ class BrandViewModel {
     var dataArray: [Products]?
     var onDataUpdate: (() -> Void)?
     var brand: SmartCollection?
+    var animationView: LottieAnimationView?
     
     func getCategories(url: String) {
         if let brandId = brand?.id {

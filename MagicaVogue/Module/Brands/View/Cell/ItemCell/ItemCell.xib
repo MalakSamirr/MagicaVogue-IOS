@@ -54,6 +54,9 @@
                             </backgroundConfiguration>
                             <color key="baseForegroundColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </buttonConfiguration>
+                        <connections>
+                            <action selector="favoriteButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="8lA-Us-CKo"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

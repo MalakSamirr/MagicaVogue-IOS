@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import Lottie
 
 class CategoryViewModel {
     // MARK: - Variables
+    
+    var animationView: LottieAnimationView?
     var selectedIndexPath: IndexPath?
     var mainCategoryArray: [mainCategoryModel] = [
         mainCategoryModel(name: "All", isSelected: true, imageName: nil),

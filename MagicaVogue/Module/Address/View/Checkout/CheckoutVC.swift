@@ -65,6 +65,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyAddressesCell", for: indexPath) as! MyAddressesCell
+            cell.addressDelegate = self
                 return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
@@ -115,6 +116,8 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         }
     }
     
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch indexPath.section {
@@ -129,5 +132,14 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
             return 0
         }
     }
+    
+}
+
+extension CheckoutVC: AddressProtocol {
+    func NavigateToAddress() {
+        let myAddressesVC = MyAddressesVC()
+        navigationController?.pushViewController(myAddressesVC, animated: true)
+    }
+    
     
 }
