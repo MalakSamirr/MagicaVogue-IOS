@@ -21,14 +21,14 @@ class BrandViewController: UIViewController{
         self.title = viewModel.brand?.title
         print(viewModel.brand?.id)
         
-    viewModel.onDataUpdate = { [weak self] in
-                DispatchQueue.main.async {
-                    self?.BrandCollectionViewDetails.reloadData()
-                }
+        viewModel.onDataUpdate = { [weak self] in
+            DispatchQueue.main.async {
+                self?.BrandCollectionViewDetails.reloadData()
             }
+        }
         viewModel.getCategories(url: "")
         print(viewModel.productArray)
-
+        
         BrandCollectionViewDetails.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
         BrandCollectionViewDetails.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: "MainCategoryCell")
         BrandCollectionViewDetails.register(UINib(nibName: "SubCategoryCell", bundle: nil), forCellWithReuseIdentifier: "SubCategoryCell")
@@ -56,8 +56,8 @@ extension BrandViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 100, height: 50) // Adjust the height as needed
     }
 }
-    
-    
+
+
 // MARK: - Delegate
 extension BrandViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -65,14 +65,33 @@ extension BrandViewController: UICollectionViewDelegate {
         switch indexPath.section {
         case 0:
             if let cell = collectionView.cellForItem(at: indexPath) as? MainCategoryCell {
-                if let previousSelectedIndexPath = viewModel.selectedIndexPath {
-                            if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? MainCategoryCell {
-                                previousSelectedCell.isSelected = false
-                            }
+                if let previousSelectedIndexPath = viewModel.selectedIndexPathForSubCategory {
+                    if let previousSelectedCell = collectionView.cellForItem(at: previousSelectedIndexPath) as? MainCategoryCell {
+                        if viewModel.sortArray[indexPath.row].isSelected {
+                            previousSelectedCell.isSelected=false
+                            viewModel.sortArray[previousSelectedIndexPath.row].isSelected=false
+                            print(viewModel.sortArray)
+                            BrandCollectionViewDetails.reloadData()
+                            return
+
+                            
                         }
-                        cell.isSelected = true
-                    viewModel.selectedIndexPath = indexPath
+                        previousSelectedCell.isSelected = false
+                        viewModel.sortArray[previousSelectedIndexPath.row].isSelected = false
+                        BrandCollectionViewDetails.reloadData()
+                        print(viewModel.sortArray)
+                    }
+                }
+                cell.isSelected = true
+                viewModel.sortArray[indexPath.row].isSelected = true
+                viewModel.selectedIndexPathForSubCategory = indexPath
+                print(viewModel.sortArray)
+
+                DispatchQueue.main.async {
+                    collectionView.reloadData()
+                }
             }
+                
         default:
             return
             
@@ -81,7 +100,7 @@ extension BrandViewController: UICollectionViewDelegate {
 }
 
 
- 
+
 // MARK: - Data Source
 extension BrandViewController: UICollectionViewDataSource {
     
@@ -101,8 +120,12 @@ extension BrandViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
-            cell.mainCategoryLabel.text = viewModel.sortingArray[indexPath.row]
-            
+            cell.mainCategoryLabel.text = viewModel.sortArray[indexPath.row].name
+            if viewModel.sortArray[indexPath.row].isSelected {
+                cell.mainCategoryLabel.textColor = .white
+                cell.mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
+                viewModel.selectedIndexPath = indexPath
+            }
             return cell
         case 1:
             let cell = BrandCollectionViewDetails.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell

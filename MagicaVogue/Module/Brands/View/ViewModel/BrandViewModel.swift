@@ -12,7 +12,10 @@ class BrandViewModel {
 
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForSubCategory: IndexPath?
-    let sortingArray = ["Price", "Popular"]
+    var sortArray: [mainCategoryModel] = [
+        mainCategoryModel(name: "Prics", isSelected: false, imageName: ""),
+        mainCategoryModel(name: "Popular", isSelected: false, imageName: "")
+    ]
     var productArray: [Products]?
     var dataArray: [Products]?
     var onDataUpdate: (() -> Void)?
