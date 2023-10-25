@@ -88,6 +88,13 @@
 		84B82390EBD83582F4AAFE61 /* Pods_MagicaVogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */; };
 		B68F16CFA756CAA94E5BBCF5 /* Pods_MagicaVogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DD317D9C3B25ACBF11AE94 /* Pods_MagicaVogue.framework */; };
 		E7D64EB87DA477CD5E193BEF /* Pods_MagicaVogue_MagicaVogueUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */; };
+		EE4CD2862AE7BA6900F2271E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE4CD2852AE7BA6900F2271E /* GoogleService-Info.plist */; };
+		EE9B0ADE2AE530660091E6B1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE9B0ADD2AE530660091E6B1 /* FirebaseAnalytics */; };
+		EE9B0AE02AE530660091E6B1 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE9B0ADF2AE530660091E6B1 /* FirebaseAnalyticsSwift */; };
+		EE9B0AE22AE530660091E6B1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE9B0AE12AE530660091E6B1 /* FirebaseAuth */; };
+		EE9B0AE52AE538860091E6B1 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = EE9B0AE42AE538860091E6B1 /* GoogleSignIn */; };
+		EE9B0AE72AE538860091E6B1 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE9B0AE62AE538860091E6B1 /* GoogleSignInSwift */; };
+		EEACB6762AE80EA200B0A776 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEACB6752AE80EA100B0A776 /* SignupViewModel.swift */; };
 		EEB023452AE1A11D0069F998 /* PasswordManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB023432AE1A11D0069F998 /* PasswordManagerViewController.swift */; };
 		EEB023462AE1A11D0069F998 /* PasswordManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB023442AE1A11D0069F998 /* PasswordManagerViewController.xib */; };
 		EEC3F7382AE05089004D22C1 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC3F7362AE05089004D22C1 /* ProductDetailsViewController.swift */; };
@@ -212,6 +219,8 @@
 		A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogueTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4A4C6D8D0B902926941E81 /* Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue-MagicaVogueUITests/Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EAB96E910AF4444E5DAF56AB /* Pods-MagicaVogue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue.debug.xcconfig"; path = "Target Support Files/Pods-MagicaVogue/Pods-MagicaVogue.debug.xcconfig"; sourceTree = "<group>"; };
+		EE4CD2852AE7BA6900F2271E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EEACB6752AE80EA100B0A776 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		EEB023432AE1A11D0069F998 /* PasswordManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordManagerViewController.swift; sourceTree = "<group>"; };
 		EEB023442AE1A11D0069F998 /* PasswordManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasswordManagerViewController.xib; sourceTree = "<group>"; };
 		EEC3F7362AE05089004D22C1 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -238,7 +247,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE9B0AE52AE538860091E6B1 /* GoogleSignIn in Frameworks */,
+				EE9B0AE02AE530660091E6B1 /* FirebaseAnalyticsSwift in Frameworks */,
+				EE9B0ADE2AE530660091E6B1 /* FirebaseAnalytics in Frameworks */,
+				EE9B0AE72AE538860091E6B1 /* GoogleSignInSwift in Frameworks */,
 				B68F16CFA756CAA94E5BBCF5 /* Pods_MagicaVogue.framework in Frameworks */,
+				EE9B0AE22AE530660091E6B1 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +322,7 @@
 				5904EED12AE2E79500800752 /* Additions */,
 				5959D6B22AE2E65400582F0F /* View */,
 				45A095EA2ADFE48F00C297C9 /* Info.plist */,
+				EE4CD2852AE7BA6900F2271E /* GoogleService-Info.plist */,
 				45A095E22ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld */,
 			);
 			path = MagicaVogue;
@@ -884,6 +899,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EEACB6742AE80D3100B0A776 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EEACB6752AE80EA100B0A776 /* SignupViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		EEB023412AE1A0DD0069F998 /* PasswordManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -923,6 +946,7 @@
 		EEE3567D2AE00BB6000B8742 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				EEACB6742AE80D3100B0A776 /* ViewModel */,
 				EEE356822AE01E23000B8742 /* View */,
 			);
 			path = Signup;
@@ -1008,6 +1032,13 @@
 			dependencies = (
 			);
 			name = MagicaVogue;
+			packageProductDependencies = (
+				EE9B0ADD2AE530660091E6B1 /* FirebaseAnalytics */,
+				EE9B0ADF2AE530660091E6B1 /* FirebaseAnalyticsSwift */,
+				EE9B0AE12AE530660091E6B1 /* FirebaseAuth */,
+				EE9B0AE42AE538860091E6B1 /* GoogleSignIn */,
+				EE9B0AE62AE538860091E6B1 /* GoogleSignInSwift */,
+			);
 			productName = MagicaVogue;
 			productReference = 45A095D62ADFE48E00C297C9 /* MagicaVogue.app */;
 			productType = "com.apple.product-type.application";
@@ -1084,6 +1115,10 @@
 				Base,
 			);
 			mainGroup = 45A095CD2ADFE48D00C297C9;
+			packageReferences = (
+				EE9B0ADC2AE530650091E6B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				EE9B0AE32AE538860091E6B1 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			productRefGroup = 45A095D72ADFE48E00C297C9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1120,6 +1155,7 @@
 				45EADB942AE2845600943BE7 /* CopounsViewController.xib in Resources */,
 				59AF4EF42AE12D9400B4B8EE /* BrandViewController.xib in Resources */,
 				5947D92F2AE008EC0005E94C /* HomeViewController.xib in Resources */,
+				EE4CD2862AE7BA6900F2271E /* GoogleService-Info.plist in Resources */,
 				EEE3A0B82AE157BA009956BC /* ProfileViewController.xib in Resources */,
 				59F4E7BE2AE2CAE0002A5BFF /* CartCell.xib in Resources */,
 				EEDE61E92AE11F19006565A5 /* ProductImageCell.xib in Resources */,
@@ -1272,6 +1308,7 @@
 				59DDBDC72AE6AC5700898513 /* MainCategoryModel.swift in Sources */,
 				5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */,
 				59F4E7B02AE2CACE002A5BFF /* MyAddressesVC.swift in Sources */,
+				EEACB6762AE80EA200B0A776 /* SignupViewModel.swift in Sources */,
 				59F4E7C02AE2CAE0002A5BFF /* CartModel.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
 				45ECE7AD2AE2F3B800488682 /* PaymentViewController.swift in Sources */,
@@ -1672,6 +1709,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EE9B0ADC2AE530650091E6B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		EE9B0AE32AE538860091E6B1 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EE9B0ADD2AE530660091E6B1 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE9B0ADC2AE530650091E6B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		EE9B0ADF2AE530660091E6B1 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE9B0ADC2AE530650091E6B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		EE9B0AE12AE530660091E6B1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE9B0ADC2AE530650091E6B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		EE9B0AE42AE538860091E6B1 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE9B0AE32AE538860091E6B1 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		EE9B0AE62AE538860091E6B1 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE9B0AE32AE538860091E6B1 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		45A095E22ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld */ = {
