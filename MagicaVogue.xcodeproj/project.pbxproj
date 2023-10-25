@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		454EE3EF2AE9818F001967B2 /* MoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */; };
+		456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */; };
+		456C39812AE9CA0700892660 /* CouponModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C39802AE9CA0700892660 /* CouponModel.swift */; };
+		457D68422AE96830008FB422 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D68402AE96830008FB422 /* UserProfileViewController.swift */; };
+		457D68432AE96830008FB422 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457D68412AE96830008FB422 /* UserProfileViewController.xib */; };
+		457D68462AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D68442AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift */; };
+		457D68472AE968D1008FB422 /* LabelAndButtonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457D68452AE968D1008FB422 /* LabelAndButtonCollectionViewCell.xib */; };
+		457D68492AE96BC7008FB422 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D68482AE96BC7008FB422 /* UserProfileViewModel.swift */; };
+		457D684C2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D684A2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.swift */; };
+		457D684D2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457D684B2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.xib */; };
 		459A79712AE64E2C00474738 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459A79702AE64E2C00474738 /* APIManager.swift */; };
 		45A095DA2ADFE48E00C297C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095D92ADFE48E00C297C9 /* AppDelegate.swift */; };
 		45A095DC2ADFE48E00C297C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095DB2ADFE48E00C297C9 /* SceneDelegate.swift */; };
@@ -18,6 +28,8 @@
 		45A095F42ADFE49000C297C9 /* MagicaVogueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095F32ADFE49000C297C9 /* MagicaVogueTests.swift */; };
 		45A095FE2ADFE49000C297C9 /* MagicaVogueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095FD2ADFE49000C297C9 /* MagicaVogueUITests.swift */; };
 		45A096002ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A095FF2ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift */; };
+		45D9B9162AE955B00040BB0F /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D9B9142AE955B00040BB0F /* UserLoginViewController.swift */; };
+		45D9B9172AE955B00040BB0F /* UserLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D9B9152AE955B00040BB0F /* UserLoginViewController.xib */; };
 		45E347112AE479FE00DD679B /* ShippingDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3470F2AE479FD00DD679B /* ShippingDetailsVC.swift */; };
 		45E347122AE479FE00DD679B /* ShippingDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E347102AE479FD00DD679B /* ShippingDetailsVC.xib */; };
 		45E347152AE47D5A00DD679B /* Inspectables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E347142AE47D5A00DD679B /* Inspectables.swift */; };
@@ -132,6 +144,16 @@
 
 /* Begin PBXFileReference section */
 		1320A6FDB84575D6D657B06E /* Pods-MagicaVogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue/Pods-MagicaVogue.release.xcconfig"; sourceTree = "<group>"; };
+		454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreProtocol.swift; sourceTree = "<group>"; };
+		456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRuleModel.swift; sourceTree = "<group>"; };
+		456C39802AE9CA0700892660 /* CouponModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponModel.swift; sourceTree = "<group>"; };
+		457D68402AE96830008FB422 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		457D68412AE96830008FB422 /* UserProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
+		457D68442AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		457D68452AE968D1008FB422 /* LabelAndButtonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelAndButtonCollectionViewCell.xib; sourceTree = "<group>"; };
+		457D68482AE96BC7008FB422 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		457D684A2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOrdersCollectionViewCell.swift; sourceTree = "<group>"; };
+		457D684B2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileOrdersCollectionViewCell.xib; sourceTree = "<group>"; };
 		459A79702AE64E2C00474738 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		45A095D62ADFE48E00C297C9 /* MagicaVogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicaVogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A095D92ADFE48E00C297C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +169,8 @@
 		45A095F92ADFE49000C297C9 /* MagicaVogueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicaVogueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A095FD2ADFE49000C297C9 /* MagicaVogueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicaVogueUITests.swift; sourceTree = "<group>"; };
 		45A095FF2ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicaVogueUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		45D9B9142AE955B00040BB0F /* UserLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginViewController.swift; sourceTree = "<group>"; };
+		45D9B9152AE955B00040BB0F /* UserLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserLoginViewController.xib; sourceTree = "<group>"; };
 		45E3470F2AE479FD00DD679B /* ShippingDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingDetailsVC.swift; sourceTree = "<group>"; };
 		45E347102AE479FD00DD679B /* ShippingDetailsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShippingDetailsVC.xib; sourceTree = "<group>"; };
 		45E347142AE47D5A00DD679B /* Inspectables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspectables.swift; sourceTree = "<group>"; };
@@ -288,6 +312,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		454EE3ED2AE98173001967B2 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		45A095CD2ADFE48D00C297C9 = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +375,23 @@
 				45A095FF2ADFE49000C297C9 /* MagicaVogueUITestsLaunchTests.swift */,
 			);
 			path = MagicaVogueUITests;
+			sourceTree = "<group>";
+		};
+		45D9B9132AE955730040BB0F /* Login4 */ = {
+			isa = PBXGroup;
+			children = (
+				454EE3ED2AE98173001967B2 /* Navigation */,
+				45D9B9142AE955B00040BB0F /* UserLoginViewController.swift */,
+				45D9B9152AE955B00040BB0F /* UserLoginViewController.xib */,
+				457D68402AE96830008FB422 /* UserProfileViewController.swift */,
+				457D68412AE96830008FB422 /* UserProfileViewController.xib */,
+				457D68482AE96BC7008FB422 /* UserProfileViewModel.swift */,
+				457D684A2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.swift */,
+				457D684B2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.xib */,
+				457D68442AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift */,
+				457D68452AE968D1008FB422 /* LabelAndButtonCollectionViewCell.xib */,
+			);
+			path = Login4;
 			sourceTree = "<group>";
 		};
 		45E3470E2AE479D200DD679B /* Shipping */ = {
@@ -511,6 +560,7 @@
 		5959D6B02AE2E60B00582F0F /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				45D9B9132AE955730040BB0F /* Login4 */,
 				45E347132AE47D3100DD679B /* Extensions */,
 				45E3470E2AE479D200DD679B /* Shipping */,
 				5906E0C12AE3C433003A456C /* WishList */,
@@ -718,6 +768,8 @@
 			isa = PBXGroup;
 			children = (
 				59DDBDBB2AE539ED00898513 /* HomeModel.swift */,
+				456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */,
+				456C39802AE9CA0700892660 /* CouponModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1140,6 +1192,7 @@
 				59AF4EF02AE122C100B4B8EE /* SubCategoryCell.xib in Resources */,
 				45ECE7B82AE3058D00488682 /* SuccessViewController.xib in Resources */,
 				59F4E7B12AE2CACE002A5BFF /* MyAddressesVC.xib in Resources */,
+				457D68432AE96830008FB422 /* UserProfileViewController.xib in Resources */,
 				59AF4EEC2AE1212700B4B8EE /* MainCategoryCell.xib in Resources */,
 				5947D93C2AE0177C0005E94C /* CouponCell.xib in Resources */,
 				5947D9412AE01DC60005E94C /* BrandCell.xib in Resources */,
@@ -1158,7 +1211,9 @@
 				EE4CD2862AE7BA6900F2271E /* GoogleService-Info.plist in Resources */,
 				EEE3A0B82AE157BA009956BC /* ProfileViewController.xib in Resources */,
 				59F4E7BE2AE2CAE0002A5BFF /* CartCell.xib in Resources */,
+				45D9B9172AE955B00040BB0F /* UserLoginViewController.xib in Resources */,
 				EEDE61E92AE11F19006565A5 /* ProductImageCell.xib in Resources */,
+				457D68472AE968D1008FB422 /* LabelAndButtonCollectionViewCell.xib in Resources */,
 				59F4E7B42AE2CACE002A5BFF /* CheckoutvViewController.xib in Resources */,
 				59F4E7B22AE2CACE002A5BFF /* CheckoutVC.xib in Resources */,
 				EEE356882AE01E8C000B8742 /* LoginViewController.xib in Resources */,
@@ -1172,6 +1227,7 @@
 				EEC3F7392AE05089004D22C1 /* ProductDetailsViewController.xib in Resources */,
 				45A095E12ADFE48E00C297C9 /* Main.storyboard in Resources */,
 				45F8D3B22AE4F86000F950DE /* PromoCodeCell.xib in Resources */,
+				457D684D2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.xib in Resources */,
 				59BAF3732AE3130B00772630 /* CategoryViewController.xib in Resources */,
 				EEE3A0BC2AE16593009956BC /* ProfileCell.xib in Resources */,
 			);
@@ -1302,10 +1358,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				59AF4EF32AE12D9400B4B8EE /* BrandViewController.swift in Sources */,
+				45D9B9162AE955B00040BB0F /* UserLoginViewController.swift in Sources */,
 				59AF4EEF2AE122C100B4B8EE /* SubCategoryCell.swift in Sources */,
 				59DDBDCC2AE8314000898513 /* CategoryViewModel.swift in Sources */,
 				5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */,
 				59DDBDC72AE6AC5700898513 /* MainCategoryModel.swift in Sources */,
+				457D68422AE96830008FB422 /* UserProfileViewController.swift in Sources */,
+				457D68462AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift in Sources */,
 				5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */,
 				59F4E7B02AE2CACE002A5BFF /* MyAddressesVC.swift in Sources */,
 				EEACB6762AE80EA200B0A776 /* SignupViewModel.swift in Sources */,
@@ -1317,6 +1376,7 @@
 				59DDBDD22AE867F200898513 /* BrandModel.swift in Sources */,
 				59F4E7B32AE2CACE002A5BFF /* CheckoutVC.swift in Sources */,
 				45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */,
+				456C39812AE9CA0700892660 /* CouponModel.swift in Sources */,
 				59F4E7BF2AE2CAE0002A5BFF /* CartCell.swift in Sources */,
 				59AF4EE72AE11DC900B4B8EE /* ItemCell.swift in Sources */,
 				45EADB932AE2845600943BE7 /* CopounsViewController.swift in Sources */,
@@ -1324,11 +1384,13 @@
 				EEC3F7382AE05089004D22C1 /* ProductDetailsViewController.swift in Sources */,
 				EEE356872AE01E8C000B8742 /* LoginViewController.swift in Sources */,
 				59DDBDB42AE538FE00898513 /* URLs.swift in Sources */,
+				457D68492AE96BC7008FB422 /* UserProfileViewModel.swift in Sources */,
 				EEB023452AE1A11D0069F998 /* PasswordManagerViewController.swift in Sources */,
 				59DDBDC52AE64B2900898513 /* ProductModel.swift in Sources */,
 				EEE3A0B72AE157BA009956BC /* ProfileViewController.swift in Sources */,
 				59DDBDBC2AE539ED00898513 /* HomeModel.swift in Sources */,
 				59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */,
+				456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */,
 				459A79712AE64E2C00474738 /* APIManager.swift in Sources */,
 				59DDBDB22AE538DC00898513 /* TargetType.swift in Sources */,
 				EEE3A0BB2AE16593009956BC /* ProfileCell.swift in Sources */,
@@ -1337,6 +1399,7 @@
 				5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */,
 				59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */,
 				45A095DE2ADFE48E00C297C9 /* ViewController.swift in Sources */,
+				457D684C2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.swift in Sources */,
 				59DDBDCF2AE8668100898513 /* BrandViewModel.swift in Sources */,
 				EEE356802AE00C0B000B8742 /* SignupViewController.swift in Sources */,
 				EEE3A0C12AE177B9009956BC /* SettingsTableViewController.swift in Sources */,
@@ -1350,6 +1413,7 @@
 				45F8D3B12AE4F86000F950DE /* PromoCodeCell.swift in Sources */,
 				59BAF3682AE2F35B00772630 /* OrderViewController.swift in Sources */,
 				59AF4EF62AE18A8100B4B8EE /* File.swift in Sources */,
+				454EE3EF2AE9818F001967B2 /* MoreProtocol.swift in Sources */,
 				59AF4EEB2AE1212700B4B8EE /* MainCategoryCell.swift in Sources */,
 				59AF4EF92AE19E6300B4B8EE /* SectionHeaderCollectionReusableView.swift in Sources */,
 				59F4E7AD2AE2CACE002A5BFF /* NewAddressCell.swift in Sources */,

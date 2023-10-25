@@ -2,7 +2,7 @@
 //  CopounsViewController.swift
 //  MagicaVogue
 //
-//  Created by Shimaa Elcc on 19.10.2023.
+//  Created by Heba Elcc on 19.10.2023.
 //
 
 import UIKit

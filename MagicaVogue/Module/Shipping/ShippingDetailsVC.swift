@@ -2,7 +2,7 @@
 //  ShippingDetailsVC.swift
 //  MagicaVogue
 //
-//  Created by Shimaa Elcc on 22.10.2023.
+//  Created by Heba Elcc on 22.10.2023.
 //
 
 import UIKit
