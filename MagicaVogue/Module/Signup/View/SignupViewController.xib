@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,9 +11,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignupViewController" customModule="MagicaVogue" customModuleProvider="target">
             <connections>
+                <outlet property="confirmPasswordImage" destination="sfy-87-plr" id="2Gt-Wr-D0J"/>
                 <outlet property="confirmPasswordTextfield" destination="96h-bQ-Ixr" id="fOz-f3-adJ"/>
                 <outlet property="emailTextfield" destination="nvS-pj-zfS" id="O0d-fw-gfQ"/>
+                <outlet property="googleSignInButton" destination="4vN-FN-zIt" id="7On-pn-Ip6"/>
                 <outlet property="nameTextfield" destination="5HA-Pp-wsS" id="KMO-rl-uag"/>
+                <outlet property="passwordImage" destination="Wtg-RY-ssw" id="LYj-Le-PSC"/>
                 <outlet property="passwordTextfield" destination="Kxn-J7-I4M" id="zW3-5D-7tl"/>
                 <outlet property="phoneTextfield" destination="xYo-vv-oK1" id="41G-1s-SkR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -93,6 +95,9 @@
                                     <buttonConfiguration key="configuration" style="plain">
                                         <imageReference key="image" image="eye.slash.fill" catalog="system" symbolScale="medium"/>
                                     </buttonConfiguration>
+                                    <connections>
+                                        <action selector="passwordButton:" destination="-1" eventType="touchUpInside" id="mDm-jK-fkh"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,6 +126,9 @@
                                     <buttonConfiguration key="configuration" style="plain">
                                         <imageReference key="image" image="eye.slash.fill" catalog="system" symbolScale="medium"/>
                                     </buttonConfiguration>
+                                    <connections>
+                                        <action selector="confirmPasswordButton:" destination="-1" eventType="touchUpInside" id="z6Z-jw-2gD"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -153,6 +161,9 @@
                                     <color key="backgroundColor" red="0.31764706970000001" green="0.070588238540000001" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </backgroundConfiguration>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="SignUpButton:" destination="-1" eventType="primaryActionTriggered" id="Yzl-xf-nII"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----or-----" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaC-WA-VKA">
                             <rect key="frame" x="4" y="450" width="353" height="19"/>
@@ -160,7 +171,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vN-FN-zIt">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vN-FN-zIt" customClass="GIDSigninButton">
                             <rect key="frame" x="155.66666666666666" y="470" width="50" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="aGG-rr-1HQ"/>
@@ -170,6 +181,9 @@
                             <buttonConfiguration key="configuration" style="plain">
                                 <imageReference key="image" image="g.circle.fill" catalog="system" symbolScale="large"/>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="googleSignUpButton:" destination="-1" eventType="primaryActionTriggered" id="Wy3-Rp-GKT"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00d-5K-b4Z">
                             <rect key="frame" x="4" y="511" width="353" height="50"/>
@@ -187,6 +201,9 @@
                                     <color key="tintColor" red="0.31764706970000001" green="0.070588238540000001" blue="0.039215687659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="Login"/>
+                                    <connections>
+                                        <action selector="loginPageButton:" destination="-1" eventType="primaryActionTriggered" id="OVX-ts-OXR"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -231,11 +248,11 @@
                 <constraint firstItem="lqm-x1-xkR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="rPO-xh-DMu"/>
                 <constraint firstItem="sEY-sY-Td4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="vv8-Vw-Ksf"/>
             </constraints>
-            <point key="canvasLocation" x="-298.47328244274809" y="-79.577464788732399"/>
+            <point key="canvasLocation" x="-450" y="2024"/>
         </view>
     </objects>
     <resources>
-        <image name="eye.slash.fill" catalog="system" width="128" height="96"/>
+        <image name="eye.slash.fill" catalog="system" width="128" height="85"/>
         <image name="g.circle.fill" catalog="system" width="128" height="123"/>
         <image name="logo" width="207" height="137"/>
         <systemColor name="systemBackgroundColor">
