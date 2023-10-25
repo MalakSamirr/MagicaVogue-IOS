@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		454EE3EA2AE9761E001967B2 /* IntrensicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454EE3E82AE9761D001967B2 /* IntrensicTableView.swift */; };
-		454EE3EB2AE9761E001967B2 /* IntrinsicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454EE3E92AE9761E001967B2 /* IntrinsicCollectionView.swift */; };
 		454EE3EF2AE9818F001967B2 /* MoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */; };
 		456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */; };
 		456C39812AE9CA0700892660 /* CouponModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C39802AE9CA0700892660 /* CouponModel.swift */; };
@@ -139,8 +137,6 @@
 
 /* Begin PBXFileReference section */
 		1320A6FDB84575D6D657B06E /* Pods-MagicaVogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue/Pods-MagicaVogue.release.xcconfig"; sourceTree = "<group>"; };
-		454EE3E82AE9761D001967B2 /* IntrensicTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntrensicTableView.swift; path = "../../../../../NomadStory/NomadStory/Utilities/Shared Components/IntrensicTableView.swift"; sourceTree = "<group>"; };
-		454EE3E92AE9761E001967B2 /* IntrinsicCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntrinsicCollectionView.swift; path = "../../../../../NomadStory/NomadStory/Utilities/Shared Components/IntrinsicCollectionView.swift"; sourceTree = "<group>"; };
 		454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreProtocol.swift; sourceTree = "<group>"; };
 		456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRuleModel.swift; sourceTree = "<group>"; };
 		456C39802AE9CA0700892660 /* CouponModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponModel.swift; sourceTree = "<group>"; };
@@ -370,8 +366,6 @@
 			isa = PBXGroup;
 			children = (
 				454EE3ED2AE98173001967B2 /* Navigation */,
-				454EE3E82AE9761D001967B2 /* IntrensicTableView.swift */,
-				454EE3E92AE9761E001967B2 /* IntrinsicCollectionView.swift */,
 				45D9B9142AE955B00040BB0F /* UserLoginViewController.swift */,
 				45D9B9152AE955B00040BB0F /* UserLoginViewController.xib */,
 				457D68402AE96830008FB422 /* UserProfileViewController.swift */,
@@ -1338,14 +1332,12 @@
 				5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */,
 				59F4E7B02AE2CACE002A5BFF /* MyAddressesVC.swift in Sources */,
 				59F4E7C02AE2CAE0002A5BFF /* CartModel.swift in Sources */,
-				454EE3EA2AE9761E001967B2 /* IntrensicTableView.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
 				45ECE7AD2AE2F3B800488682 /* PaymentViewController.swift in Sources */,
 				59F4E7C12AE2CAE0002A5BFF /* CartViewController.swift in Sources */,
 				59DDBDC92AE6FCB600898513 /* SubCategoryModel.swift in Sources */,
 				59DDBDD22AE867F200898513 /* BrandModel.swift in Sources */,
 				59F4E7B32AE2CACE002A5BFF /* CheckoutVC.swift in Sources */,
-				454EE3EB2AE9761E001967B2 /* IntrinsicCollectionView.swift in Sources */,
 				45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */,
 				456C39812AE9CA0700892660 /* CouponModel.swift in Sources */,
 				59F4E7BF2AE2CAE0002A5BFF /* CartCell.swift in Sources */,

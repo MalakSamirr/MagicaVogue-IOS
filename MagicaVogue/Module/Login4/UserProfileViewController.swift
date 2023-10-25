@@ -11,7 +11,7 @@ class UserProfileViewController: UIViewController {
     var OrderDelegate: MoreProtocol?
     var wishlistDelegate: MoreProtocol?
 
-    @IBOutlet weak var collectionView: IntrinsicCollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     var viewModel: UserProfileViewModel!
     
     convenience init(viewModel: UserProfileViewModel) {
