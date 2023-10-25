@@ -162,7 +162,7 @@ extension CategoryViewController: UICollectionViewDelegate {
                         if viewModel.subCategoryArray[indexPath.row].isSelected {
                             previousSelectedCell.isSelected=false
                             viewModel.subCategoryArray[previousSelectedIndexPath.row].isSelected=false
-                            viewModel.productArray = viewModel.dataArray
+                            viewModel.filterMainCategrories()
                             DispatchQueue.main.async {
                                 collectionView.reloadData()
                             }
@@ -179,7 +179,7 @@ extension CategoryViewController: UICollectionViewDelegate {
                     collectionView.reloadData()
                 }
                 if indexPath.row < viewModel.subCategoryArray.count {
-                    viewModel.filterProducts(byProductType: viewModel.subCategoryArray[indexPath.row].type ?? "")
+                    viewModel.filterMainCategrories("&product_type=\(viewModel.subCategoryArray[indexPath.row].type)")
                 }
             }
         default:

@@ -21,25 +21,16 @@ class CategoryViewModel {
     ]
     
     var subCategoryArray: [SubCategoryModel] = [
-        SubCategoryModel(type: "T-SHIRTS", isSelected: false),
+        SubCategoryModel(type: "t-shirts", isSelected: false),
         SubCategoryModel(type: "dress", isSelected: false),
-        SubCategoryModel(type: "ACCESSORIES", isSelected: false),
-        SubCategoryModel(type: "SHOES", isSelected: false),
+        SubCategoryModel(type: "accessories", isSelected: false),
+        SubCategoryModel(type: "shoes", isSelected: false),
         SubCategoryModel(type: "pants", isSelected: false)
     ]
     var selectedIndexPathForSubCategory: IndexPath?
     var productArray: [Products]?
     var dataArray: [Products]?
     var onDataUpdate: (() -> Void)?
-    
-    func filterProducts(byProductType productTypeToFilter: String) {
-        productArray = self.dataArray?.filter { product in
-            return product.product_type == productTypeToFilter
-        }
-        DispatchQueue.main.async {
-            self.onDataUpdate?()
-        }
-    }
     
     func getCategories(url: String) {
             APIManager.shared.request(.get, url) { (result: Result<Product, Error>) in
@@ -58,18 +49,24 @@ class CategoryViewModel {
             }
         }
     
-    func filterMainCategrories() {
+    func filterMainCategrories(_ productType: String = "") {
         let selectedMainCategoryName = mainCategoryArray.first(where: { $0.isSelected })?.name
         switch selectedMainCategoryName {
         case "All":
-            getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
+            if productType.isEmpty {
+                getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
+            }
+            else {
+                getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?\(productType)")
+          
+            }
         case "Men":
-            getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653141308")
+            getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653141308\(productType)")
         case "Women":
-            getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653174076")
+            getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653174076\(productType)")
             
         case "Kids":
-            getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653206844")
+            getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653206844\(productType)")
         default:
             return
         }

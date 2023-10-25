@@ -26,7 +26,7 @@ class BrandViewController: UIViewController{
                     self?.BrandCollectionViewDetails.reloadData()
                 }
             }
-        viewModel.getCategories(url: "470652780860")
+        viewModel.getCategories(url: "")
         print(viewModel.productArray)
 
         BrandCollectionViewDetails.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")

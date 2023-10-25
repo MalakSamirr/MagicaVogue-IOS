@@ -31,11 +31,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         setupPageControl()
         searchBar.delegate = self
         self.title = "Home"
-//        let logoImageView = UIImageView(image: UIImage(named: "logo4"))
-//        logoImageView.contentMode = .scaleAspectFit
-//        let logoBarButton = UIBarButtonItem(customView: logoImageView)
-//        self.navigationItem.rightBarButtonItem = logoBarButton
-        
         couponCollectionView?.isPagingEnabled = true
         couponCollectionView?.decelerationRate = .fast
         brandsCollectioView.delegate = self
