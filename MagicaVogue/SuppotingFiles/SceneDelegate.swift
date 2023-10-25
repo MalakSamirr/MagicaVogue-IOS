@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = UIWindow(windowScene: windowScene)
 //        let rootViewController = UserProfileViewController(viewModel: UserProfileViewModel())
         
-        let rootViewController = UserLoginViewController()
+        let rootViewController = TabBarController()
 
             window?.rootViewController = UINavigationController(rootViewController: rootViewController)
             window?.makeKeyAndVisible()
