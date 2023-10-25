@@ -21,10 +21,14 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBar.frame.origin.y, width: searchBar.frame.size.width, height: 120)
-        viewModel.getBrands(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/smart_collections.json")
-        viewModel.onDataUpdate = { [weak self] in
+        viewModel.onDataUpdateBrand = { [weak self] in
             DispatchQueue.main.async {
                 self?.brandsCollectioView.reloadData()
+            }
+        }
+        viewModel.onDataUpdateCoupon = { [weak self] in
+            DispatchQueue.main.async {
+                self?.couponCollectionView.reloadData()
             }
         }
         automaticSlide()
@@ -89,7 +93,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         case couponCollectionView:
             sliderControlPage.numberOfPages = viewModel.arrOfImgs.count
             sliderControlPage.isHidden = !(viewModel.arrOfImgs.count > 1)
-            return viewModel.arrOfImgs.count
+            return viewModel.discountCodes?.count ?? 0
         default:
             return viewModel.brandArray?.count ?? 0
         }
@@ -109,6 +113,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         case couponCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CouponCell", for: indexPath) as! CouponCell
             cell.couponImage.image = UIImage(named: viewModel.arrOfImgs[indexPath.row])
+            if let code = viewModel.discountCodes?[indexPath.item] {
+                cell.setupUI(discountCode: code)
+            }
             return cell
         case brandsCollectioView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandCell", for: indexPath) as! BrandCell

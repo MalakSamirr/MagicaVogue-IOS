@@ -2,7 +2,7 @@
 //  PaymentViewController.swift
 //  MagicaVogue
 //
-//  Created by Shimaa Elcc on 20.10.2023.
+//  Created by Heba Elcc on 20.10.2023.
 //
 
 import UIKit
