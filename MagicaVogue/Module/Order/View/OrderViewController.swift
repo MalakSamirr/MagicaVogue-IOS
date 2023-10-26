@@ -21,6 +21,7 @@ class OrderViewController: UIViewController {
         orderTableView.delegate = self
         orderTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         // Do any additional setup after loading the view.
+        self.navigationController?.isNavigationBarHidden = false
     }
 
 

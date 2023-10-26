@@ -13,7 +13,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationController?.isNavigationBarHidden = true
         profileWishlistViewController.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
         loginOrdersTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
 
@@ -30,7 +30,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 4
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,8 +67,10 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
 
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 8 // Spacing between groups
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
-
+        section.orthogonalScrollingBehavior = .continuous
+        
         return section
     }
 
@@ -92,4 +94,11 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         let wishlistVC = WishListViewController()
           navigationController?.pushViewController(wishlistVC, animated: true)
     }
+    
+    @IBAction func SettingsButton(_ sender: Any) {
+        
+        let settingsvc = SettingsTableViewController()
+        self.navigationController?.pushViewController(settingsvc, animated: true)
+    }
+    
 }

@@ -106,6 +106,9 @@ class SignupViewController: UIViewController {
                   else {
                       var user = Auth.auth().currentUser
                       add()
+                      let address = ShippingDetailsVC()
+                      self.navigationController?.setViewControllers([address], animated: true)
+                      
             
 
 
@@ -144,6 +147,8 @@ class SignupViewController: UIViewController {
                                                          accessToken: user.accessToken.tokenString)
 
           // ...
+            let tab = TabBarController()
+            self.navigationController?.setViewControllers([tab], animated: true)
         }
     }
     

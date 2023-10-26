@@ -187,7 +187,7 @@
                             </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="345-SZ-1V3">
-                            <rect key="frame" x="43.333333333333343" y="510.99999999999994" width="274.33333333333326" height="34.333333333333314"/>
+                            <rect key="frame" x="48" y="510.99999999999994" width="265" height="34.333333333333314"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account ?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qI8-e4-adU">
                                     <rect key="frame" x="0.0" y="0.0" width="199.33333333333334" height="34.333333333333336"/>
@@ -197,9 +197,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFR-fb-Lp5">
-                                    <rect key="frame" x="199.33333333333334" y="0.0" width="75.000000000000028" height="34.333333333333336"/>
+                                    <rect key="frame" x="199.33333333333331" y="0.0" width="65.666666666666686" height="34.333333333333336"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Login"/>
                                     <connections>
                                         <action selector="loginButtonPressed:" destination="-1" eventType="touchUpInside" id="h4x-d5-ylF"/>
                                     </connections>
@@ -234,6 +234,7 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="tintColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="sEY-sY-Td4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KMK-va-bvz"/>
                 <constraint firstItem="sEY-sY-Td4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="OqC-Ip-R0g"/>

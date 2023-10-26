@@ -13,6 +13,9 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.register(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "ProfileCell")
+        self.navigationController?.isNavigationBarHidden = false
+        self.title = "Settings"
+        self.navigationItem.leftBarButtonItem?.tintColor = .black
 
     }
 

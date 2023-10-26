@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryViewController" customModule="MagicaVogue" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="MagicaVogue" customModuleProvider="target">
             <connections>
-                <outlet property="categoryCollectionView" destination="qdI-z7-37t" id="Ysb-7e-lcV"/>
-                <outlet property="searchBar" destination="aNI-ft-osY" id="l1b-c0-i5M"/>
+                <outlet property="searchBar" destination="2rG-VA-DKB" id="req-tt-oKv"/>
+                <outlet property="searchCollectionView" destination="xW2-rz-FyB" id="25j-cc-bWX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,36 +21,36 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qdI-z7-37t">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="xW2-rz-FyB">
                     <rect key="frame" x="0.0" y="115" width="393" height="703"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="L1L-wk-yY8">
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6pd-cf-V8K">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="aNI-ft-osY">
+                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="2rG-VA-DKB">
                     <rect key="frame" x="0.0" y="59" width="393" height="56"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="BNN-Y2-Mge"/>
+                        <outlet property="delegate" destination="-1" id="J21-IY-bhS"/>
                     </connections>
                 </searchBar>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="qdI-z7-37t" firstAttribute="top" secondItem="aNI-ft-osY" secondAttribute="bottom" id="01i-7D-7LG"/>
-                <constraint firstItem="aNI-ft-osY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="59B-vV-MNz"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="qdI-z7-37t" secondAttribute="bottom" id="A2d-ru-283"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aNI-ft-osY" secondAttribute="trailing" id="YoU-oi-gMe"/>
-                <constraint firstItem="aNI-ft-osY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ZT3-j3-73c"/>
-                <constraint firstItem="qdI-z7-37t" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dKO-L5-D3P"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qdI-z7-37t" secondAttribute="trailing" id="jOw-I7-9rk"/>
+                <constraint firstItem="xW2-rz-FyB" firstAttribute="top" secondItem="2rG-VA-DKB" secondAttribute="bottom" id="ECU-Wt-Ymc"/>
+                <constraint firstItem="2rG-VA-DKB" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PzN-aS-TNi"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="xW2-rz-FyB" secondAttribute="bottom" id="Zbx-jT-Nik"/>
+                <constraint firstItem="2rG-VA-DKB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="b9W-9T-Z7I"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xW2-rz-FyB" secondAttribute="trailing" id="gzg-a6-rgR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2rG-VA-DKB" secondAttribute="trailing" id="n2h-Nz-FWp"/>
+                <constraint firstItem="xW2-rz-FyB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oQn-E4-2yn"/>
             </constraints>
-            <point key="canvasLocation" x="20.610687022900763" y="19.718309859154932"/>
+            <point key="canvasLocation" x="139.69465648854961" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>

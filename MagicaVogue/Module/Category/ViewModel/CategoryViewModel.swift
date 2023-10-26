@@ -22,10 +22,8 @@ class CategoryViewModel {
     
     var subCategoryArray: [SubCategoryModel] = [
         SubCategoryModel(type: "t-shirts", isSelected: false),
-        SubCategoryModel(type: "dress", isSelected: false),
         SubCategoryModel(type: "accessories", isSelected: false),
         SubCategoryModel(type: "shoes", isSelected: false),
-        SubCategoryModel(type: "pants", isSelected: false)
     ]
     var selectedIndexPathForSubCategory: IndexPath?
     var productArray: [Products]?

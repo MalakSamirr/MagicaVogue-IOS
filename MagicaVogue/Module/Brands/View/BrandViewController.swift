@@ -11,6 +11,7 @@ import Kingfisher
 class BrandViewController: UIViewController{
     
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var BrandCollectionViewDetails: UICollectionView!
     
     var viewModel: BrandViewModel = BrandViewModel()
@@ -19,8 +20,8 @@ class BrandViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = viewModel.brand?.title
-        print(viewModel.brand?.id)
-        
+        searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBar.frame.origin.y, width: searchBar.frame.size.width, height: 120)
+        searchBar.delegate = self
         viewModel.onDataUpdate = { [weak self] in
             DispatchQueue.main.async {
                 self?.BrandCollectionViewDetails.reloadData()
@@ -70,7 +71,7 @@ extension BrandViewController: UICollectionViewDelegate {
                         if viewModel.sortArray[indexPath.row].isSelected {
                             previousSelectedCell.isSelected=false
                             viewModel.sortArray[previousSelectedIndexPath.row].isSelected=false
-                            print(viewModel.sortArray)
+                            viewModel.productArray = viewModel.dataArray
                             BrandCollectionViewDetails.reloadData()
                             return
 
@@ -86,7 +87,9 @@ extension BrandViewController: UICollectionViewDelegate {
                 viewModel.sortArray[indexPath.row].isSelected = true
                 viewModel.selectedIndexPathForSubCategory = indexPath
                 print(viewModel.sortArray)
-
+                if viewModel.sortArray[indexPath.row].name == "Price" {
+                    viewModel.sortByPrice()
+                }
                 DispatchQueue.main.async {
                     collectionView.reloadData()
                 }
@@ -137,7 +140,7 @@ extension BrandViewController: UICollectionViewDataSource {
                     cell.brandItemImage.image = UIImage(named: "CouponBackground")
                 }
                 cell.itemLabel.text = product.title
-               // cell.itemPrice.text = product.variants?[0].price
+                cell.itemPrice.text = product.variants?[0].price
             }
             return cell
         default:
@@ -215,6 +218,25 @@ extension BrandViewController: FavoriteProtocol {
             toProgress: endTime
         ) { [weak self] _ in
             self?.viewModel.animationView?.removeFromSuperview()
+        }
+    }
+}
+
+// MARK: - Search
+extension BrandViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            viewModel.productArray = viewModel.dataArray
+        } else {
+            viewModel.productArray = viewModel.dataArray?.filter { brand in
+                if let title = brand.title, title.lowercased().contains(searchText.lowercased()) {
+                    return true
+                }
+                return false
+            }
+        }
+        DispatchQueue.main.async {
+            self.BrandCollectionViewDetails.reloadData()
         }
     }
 }

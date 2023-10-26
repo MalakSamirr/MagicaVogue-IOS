@@ -10,17 +10,12 @@ import UIKit
 class WishListViewController: UIViewController {
 
     @IBOutlet weak var wishListCollectionView: UICollectionView!
-    static let sectionHeaderElementKind = "section-header-element-kind"
-    
-    let mainCategoriesArray = ["All", "Men", "Women", "Kids"]
-    let SubCategoriesArray = ["tshirt", "dress", "bag","shoe", "pants"]
-    let sortingArray = ["Price", "Popular"]
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Wishlist"
+        self.navigationController?.isNavigationBarHidden = false
         
 
         wishListCollectionView.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")

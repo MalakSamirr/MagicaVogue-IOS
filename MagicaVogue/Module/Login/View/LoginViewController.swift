@@ -70,8 +70,9 @@ class LoginViewController: UIViewController {
                     
                 } else {
                    
-                    let signupVC = SignupViewController(nibName: "SignupViewController", bundle: nil)
-                    self.navigationController?.pushViewController(signupVC, animated: true)
+                    let tab = TabBarController()
+                    self.navigationController?.setViewControllers([tab], animated: true)
+                }
                     
                     
                 }
@@ -81,11 +82,12 @@ class LoginViewController: UIViewController {
             }
         }
         
-    }
+    
     
     @IBAction func signupPageButton(_ sender: Any) {
         
-      
+        let signup = SignupViewController()
+        self.navigationController?.pushViewController(signup, animated: true)
         
     }
     
@@ -114,8 +116,15 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func googleLoginButton(_ sender: Any) {
-        
-      
+        if let email = emailTextfield.text , let password = passwordTextfield.text{
+            
+            Auth.auth().signIn( withEmail: email, password: password) { result, error in
+                
+                // At this point, our user is signed in
+                let tab = TabBarController()
+                self.navigationController?.setViewControllers([tab], animated: true)
+            }
+        }
         
     }
 

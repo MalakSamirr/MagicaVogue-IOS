@@ -26,4 +26,10 @@ class CouponCell: UICollectionViewCell {
         codeButton.setTitle(discountCode.code, for: .normal)
     }
 
+    @IBAction func copyCopounButtonPressed(_ sender: UIButton) {
+        if let buttonText = sender.titleLabel?.text {
+                UIPasteboard.general.string = buttonText
+            }
+    }
+    
 }

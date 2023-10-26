@@ -20,7 +20,8 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBar.frame.origin.y, width: searchBar.frame.size.width, height: 120)
+        
+//        ToastView.show(message: "HI", in: self.view, for: 1)
         viewModel.onDataUpdateBrand = { [weak self] in
             DispatchQueue.main.async {
                 self?.brandsCollectioView.reloadData()
@@ -161,27 +162,20 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
+        
+        if collectionView == brandsCollectioView {
             let brandViewController = BrandViewController()
             brandViewController.viewModel.brand = viewModel.brandArray?[indexPath.row]
             self.navigationController?.pushViewController(brandViewController, animated: true)
-        
+        }
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            viewModel.brandArray = viewModel.dataArray
-        } else {
-            viewModel.brandArray = viewModel.dataArray?.filter { brand in
-                if let title = brand.title, title.lowercased().contains(searchText.lowercased()) {
-                    return true
-                }
-                return false
-            }
-        }
-        DispatchQueue.main.async {
-            self.brandsCollectioView.reloadData()
-        }
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        // Navigate to the SearchViewController
+        let searchViewController = SearchViewController() // Replace with your actual view controller
+        self.navigationController?.pushViewController(searchViewController, animated: true)
+        return false
     }
+
 }
 

@@ -13,14 +13,14 @@ class CategoryViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var categoryCollectionView: UICollectionView!
-    
+    @IBOutlet weak var searchBar: UISearchBar!
     // MARK: - Variables
     var viewModel: CategoryViewModel = CategoryViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        searchBar.delegate = self
         viewModel.onDataUpdate = { [weak self] in
                 DispatchQueue.main.async {
                     self?.categoryCollectionView.reloadData()
@@ -253,6 +253,25 @@ extension CategoryViewController: FavoriteProtocol {
             toProgress: endTime
         ) { [weak self] _ in
             self?.viewModel.animationView?.removeFromSuperview()
+        }
+    }
+}
+
+// MARK: - Search
+extension CategoryViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            viewModel.productArray = viewModel.dataArray
+        } else {
+            viewModel.productArray = viewModel.dataArray?.filter { brand in
+                if let title = brand.title, title.lowercased().contains(searchText.lowercased()) {
+                    return true
+                }
+                return false
+            }
+        }
+        DispatchQueue.main.async {
+            self.categoryCollectionView.reloadData()
         }
     }
 }
