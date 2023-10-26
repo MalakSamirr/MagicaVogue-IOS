@@ -31,6 +31,7 @@ class BrandViewModel {
                 case .success(let product):
                     self.productArray = product.products
                     self.dataArray = product.products
+                    print(self.productArray?[0].variants)
                     DispatchQueue.main.async {
                         self.onDataUpdate?()
                     }
@@ -39,5 +40,11 @@ class BrandViewModel {
                 }
             }
         }
+    }
+    
+    func sortByPrice() {
+       // productArray = dataArray?.sorted(by: {
+         //   dataArray[$0].
+      //  })
     }
 }

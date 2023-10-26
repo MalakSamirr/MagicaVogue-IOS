@@ -104,8 +104,9 @@ extension CategoryViewController: UICollectionViewDataSource {
                     cell.brandItemImage.image = UIImage(named: "CouponBackground")
                 }
                 cell.itemLabel.text = product.title
-                
+                cell.itemPrice.text = product.variants?[0].price
             }
+            
             return cell
         default:
             return UICollectionViewCell()

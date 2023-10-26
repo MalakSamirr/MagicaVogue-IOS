@@ -34,7 +34,7 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTextfield: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("ghjj")
         // Do any additional setup after loading the view.
         
         confirmPasswordTextfield.isSecureTextEntry = true
@@ -147,11 +147,17 @@ class SignupViewController: UIViewController {
         }
     }
     
-    @IBAction func loginPageButton(_ sender: Any) {
-        let loginVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
+    @IBAction func loginButtonPressed(_ sender: Any) {
+        print("hhhh")
+        let loginVC = LoginViewController()
         self.navigationController?.pushViewController(loginVC, animated: true)
     }
     
+    @IBAction func login(_ sender: Any) {
+        print("hhhh")
+        let loginVC = LoginViewController()
+        self.navigationController?.pushViewController(loginVC, animated: true)
+    }
     
     @IBAction func passwordButton(_ sender: AnyObject) {
         
