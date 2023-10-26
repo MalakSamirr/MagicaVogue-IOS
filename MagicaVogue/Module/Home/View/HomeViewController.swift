@@ -27,6 +27,12 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                 self?.brandsCollectioView.reloadData()
             }
         }
+        viewModel.showAlert = { [weak self] in
+            self?.show(messageAlert: "Error", message: "No internet connection", actionTitle: "Try again", action: { _ in
+                self?.viewModel.getBrands()
+            })
+        }
+        
         viewModel.onDataUpdateCoupon = { [weak self] in
             DispatchQueue.main.async {
                 self?.couponCollectionView.reloadData()
@@ -174,6 +180,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         // Navigate to the SearchViewController
         let searchViewController = SearchViewController() // Replace with your actual view controller
         self.navigationController?.pushViewController(searchViewController, animated: true)
+        
         return false
     }
 

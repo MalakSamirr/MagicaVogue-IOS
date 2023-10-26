@@ -215,10 +215,10 @@ class SignupViewController: UIViewController {
             
             let body: [String: Any] = [
                 "customer": [
-                    "first_name": nameTextfield.text ,
-                    "tags": passwordTextfield.text,
-                    "phone": phoneTextfield.text,
-                    "email": emailTextfield.text,
+                    "first_name": nameTextfield.text! ,
+                    "tags": passwordTextfield.text!,
+                    "phone": phoneTextfield.text!,
+                    "email": emailTextfield.text!,
                     "country": "CA"
                 ]
             ]

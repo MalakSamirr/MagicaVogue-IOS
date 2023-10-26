@@ -17,6 +17,7 @@ class HomeViewModel {
     let arrOfImgs = ["couponBackground5","couponBackground5", "couponBackground5"]
     var timer: Timer?
     var onDataUpdateBrand: (() -> Void)?
+    var showAlert: (() -> Void)?
     var onDataUpdateCoupon: (() -> Void)?
 
     init() {
@@ -26,6 +27,7 @@ class HomeViewModel {
     }
     
     func getBrands() {
+        if APIManager.shared.isOnline() {
             APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/smart_collections.json") { (result: Result<HomeModel, Error>) in
                 switch result {
                 case .success(let product):
@@ -36,10 +38,19 @@ class HomeViewModel {
                         self.onDataUpdateBrand?()
                     }
                 case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.showAlert?()
+                    }
                     print("Request failed with error: \(error)")
                 }
             }
         }
+        else {
+            DispatchQueue.main.async {
+                self.showAlert?()
+            }  
+        }
+    }
     
     func getDiscountCodes() {
         APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com//admin/api/2023-10/price_rules/1405087318332/discount_codes.json") { (result: Result<CouponModel, Error>) in
