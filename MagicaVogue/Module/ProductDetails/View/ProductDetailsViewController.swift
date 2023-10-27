@@ -27,10 +27,17 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate,
     
     @IBOutlet weak var large: UIButton!
     
+    var myProduct : Products!
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("-----------malak---------")
+        
+        print (myProduct.id)
+        print("-----------malak---------")
+
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: 1000)
         
@@ -98,4 +105,6 @@ class ProductDetailsViewController: UIViewController , UICollectionViewDelegate,
         cell.img.image = UIImage(named: arrOfImgs[indexPath.row])
         return cell
     }
+    
+    
 }
