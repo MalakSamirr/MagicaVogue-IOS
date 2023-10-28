@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Alamofire
+import Kingfisher
 
 class CartViewController: UIViewController , UITableViewDataSource , UITableViewDelegate {
     
-    
+    var cart: [DraftOrder] = []
+
     @IBOutlet weak var CartTableView: UITableView!
     
     override func viewDidLoad() {
@@ -19,17 +22,36 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         CartTableView.delegate = self
         CartTableView.dataSource = self
         CartTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
+        getCart()
+        print(cart)
+        CartTableView.reloadData()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getCart()
     }
   
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return cart.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-        
-        return cell
+                       
+            let draftOrder = cart[indexPath.row]
+            if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
+                cell.productNameLabel.text = lineItem.title
+            } else {
+                cell.productNameLabel.text = "Product Name Not Available"
+            }
+        if let imageUrl = URL(string: draftOrder.applied_discount.description) {
+            cell.productImageView.kf.setImage(with: imageUrl)
+        } else {
+            cell.productImageView.image = UIImage(named: "CouponBackground")
+        }
+            
+            return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -39,34 +61,43 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         return true
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-          if editingStyle == .delete {
-              // Display an alert for confirmation
-              let alertController = UIAlertController(
-                  title: "Delete Item",
-                  message: "Are you sure you want to remove this item from your shopping bag?",
-                  preferredStyle: .actionSheet
-              )
+        if editingStyle == .delete {
 
-              let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-//
-                  
-              }
+            let alertController = UIAlertController(
+                title: "Delete Item",
+                message: "Are you sure you want to remove this item from your shopping bag?",
+                preferredStyle: .actionSheet
+            )
 
-              let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+                // Get the draft order ID to delete
+                let draftOrderId = self?.cart[indexPath.row].id
+                
+                if let draftOrderId = draftOrderId {
+                    self?.deleteDraftOrder(draftOrderId: draftOrderId)
+                    DispatchQueue.main.async {
+                        self?.CartTableView.reloadData()
+                    }
+                }
+            }
 
-              alertController.addAction(deleteAction)
-              alertController.addAction(cancelAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
-              if let popoverController = alertController.popoverPresentationController {
-                  if let cell = tableView.cellForRow(at: indexPath) {
-                      popoverController.sourceView = cell
-                      popoverController.sourceRect = cell.bounds
-                  }
-              }
+            alertController.addAction(deleteAction)
+            alertController.addAction(cancelAction)
 
-              present(alertController, animated: true, completion: nil)
-          }
-      }
+            if let popoverController = alertController.popoverPresentationController {
+                if let cell = tableView.cellForRow(at: indexPath) {
+                    popoverController.sourceView = cell
+                    popoverController.sourceRect = cell.bounds
+                }
+            }
+
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+
+
 
     
     @IBAction func Checkout(_ sender: UIButton) {
@@ -85,6 +116,54 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         
     }
     
+    
+    func getCart() {
+        if APIManager.shared.isOnline() {
+            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { (result: Result<DraftOrderResponse, Error>) in
+                switch result {
+                case .success(let draftOrderResponse):
+                    // Filter draft orders with note: "cart"
+                    self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" }
+                    DispatchQueue.main.async {
+                        self.CartTableView.reloadData()
+                    }
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                }
+            }
+        } else {
+            print("Not connected")
+        }
+    }
+
+    
+    func deleteDraftOrder(draftOrderId: Int) {
+        // Your Shopify API URL
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(draftOrderId).json"
+        
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+        
+        AF.request(baseURLString, method: .delete, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    // Successfully deleted the Draft Order
+                    print("Draft Order with ID \(draftOrderId) deleted successfully.")
+                    
+                    // Update the local data source (remove the deleted item)
+                    if let index = self.cart.firstIndex(where: { $0.id == draftOrderId }) {
+                        self.cart.remove(at: index)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.CartTableView.reloadData()
+                    }
+                case .failure(let error):
+                    print("Failed to delete Draft Order with ID \(draftOrderId). Error: \(error)")
+                }
+            }
+    }
+
 
 
 }

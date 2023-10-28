@@ -69,4 +69,36 @@ class APIManager {
         
         return isReachable && !needsConnection
     }
+    func PostRequest<T: Codable>(
+        _ method: HTTPMethod = .post,
+        _ url: String,
+        parameters: Parameters? = nil,
+        headers: HTTPHeaders? = nil,
+        completionHandler: @escaping (Result<T, Error>) -> Void
+    ){
+    
+        AF.request(url, method: method, parameters: parameters, headers: headers)
+            .validate()
+            .responseJSON { response in
+                if APIManager.shared.isOnline() {
+                    switch response.result {
+                    case .success:
+                        if let data = response.data {
+                            print(data)
+                            do {
+                                let decoder = JSONDecoder()
+                                let apiResponse = try decoder.decode(T.self, from: data)
+                                completionHandler(.success(apiResponse))
+                            } catch {
+                                
+                                completionHandler(.failure(error))
+                            }
+                        }
+                    case .failure(let error):
+                        completionHandler(.failure(error))
+                    }
+                }
+                
+            }
+    }
 }

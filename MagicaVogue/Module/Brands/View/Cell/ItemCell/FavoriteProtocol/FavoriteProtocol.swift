@@ -9,4 +9,8 @@ import Foundation
 
 protocol FavoriteProtocol {
     func playAnimation()
+    func addToFavorite(_ id: Int)
+    func deleteFromFavorite(_ itemId: Int)
+    
 }
+

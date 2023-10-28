@@ -7,13 +7,15 @@
 
 import UIKit
 import Kingfisher
+import Alamofire
 
 class BrandViewController: UIViewController{
     
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var BrandCollectionViewDetails: UICollectionView!
-    
+    var myProduct : Products!
+
     var viewModel: BrandViewModel = BrandViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
     
@@ -143,7 +145,7 @@ extension BrandViewController: UICollectionViewDataSource {
                 }
                 cell.itemLabel.text = product.title
                 cell.itemPrice.text = product.variants?[0].price
-                
+                cell.id = product.id
             }
             return cell
         default:
@@ -205,6 +207,71 @@ extension BrandViewController {
 
 // MARK: - Animation
 extension BrandViewController: FavoriteProtocol {
+    func deleteFromFavorite(_ itemId: Int) {
+        print("hello")
+    }
+    
+    func addToFavorite(_ id: Int) {
+        if let product = viewModel.productArray?.first(where: { $0.id == id }) {
+            myProduct = product
+            let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
+            
+            let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+           
+            let imageSrc = myProduct.image?.src ?? "SHOES"
+
+            // Body data
+            let jsonData: [String: Any] = [
+                "draft_order": [
+                    "note": "Wishlist",
+                    "line_items": [
+                        [
+                            "title": myProduct.title ?? "",
+                            "price": myProduct.variants?[0].price,
+                            "quantity": 1,
+                        ]
+                    ],
+                    "applied_discount": [
+                        // image saved in api (description)
+                        "description": imageSrc,
+                        "value_type": "fixed_amount",
+                        "value": "10.0",
+                        "amount": "10.00",
+                        "title": "Custom"
+                    ],
+                    "customer": [
+                        "id": 7471279866172
+                    ],
+                    "use_customer_default_address": true
+                ]
+            ]
+
+            AF.request(baseURLString, method: .post, parameters: jsonData, encoding: JSONEncoding.default, headers: headers)
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        print("Product added to Wishlist successfully.")
+                        self.showSuccessAlert()
+                    case .failure(let error):
+                        print("Failed to add the product to the Wishlist. Error: \(error)")
+                    }
+                }
+        }
+    }
+
+    func showSuccessAlert() {
+        let alertController = UIAlertController(
+            title: "Success",
+            message: "Product added to Wishlist successfully!",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func playAnimation() {
         viewModel.animationView = .init(name: "favorite")
         // Animation size

@@ -6,18 +6,24 @@
 //
 
 import UIKit
+import Alamofire
+
+protocol saveItemsToCart : AnyObject{
+    func addItemsToCart()
+}
 import Kingfisher
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
-
+    
     @IBOutlet weak var optionsCollectionView: UICollectionView!
     @IBOutlet weak var sliderControlPage: UIPageControl!
     var currentCell = 0
+    var customerid = 7471279866172
     private var timer: Timer?
     var selectedIndexPathForSize: IndexPath?
     var selectedIndexPathForColor: IndexPath?
     static let sectionHeaderElementKind = "section-header-element-kind"
-
+    
     struct ProductOption {
         let name: String
         var isSelected: Bool
@@ -36,21 +42,31 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var productDetails: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     
-    var myProduct: Products!
-
+    @IBOutlet weak var small: UIButton!
+    
+    @IBOutlet weak var medium: UIButton!
+    
+    
+    @IBOutlet weak var large: UIButton!
+    
+    var myProduct : Products!
+    var cart: [Products] = []
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       // sliderControlPage.numberOfPages = arrOfProductImgs.count
+        // sliderControlPage.numberOfPages = arrOfProductImgs.count
         for image in myProduct.images! {
             arrOfProductImgs.append(image.src ?? "")
         }
         
         self.optionsCollectionView.register(SectionHeader.self, forSupplementaryViewOfKind: ProductDetailsViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)
-
+        
         
         if let values = myProduct.options?[0].values, !values.isEmpty {
             var isFirstSize = true
-
+            
             for size in values {
                 arrOfSize.append(size)
                 var productOption: ProductOption
@@ -61,7 +77,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 else {
                     productOption = ProductOption(name: size, isSelected: false)
                 }
-                    
+                
                 productSizes.append(productOption)
             }
         }
@@ -77,7 +93,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     isFirstColor = false
                 } else {
                     productOption = ProductOption(name: color, isSelected: false)
-
+                    
                 }
                 productColors.append(productOption)
             }
@@ -98,7 +114,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         optionsCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: "MainCategoryCell")
         
         // Add a section header to optionsCollectionView
-    
+        
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: collectionView.frame.width, height: 270)
@@ -124,25 +140,25 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         }
         optionsCollectionView.setCollectionViewLayout(layout1, animated: true)
         sliderControlPage.numberOfPages = arrOfProductImgs.count
-
+        
     }
-
+    
     private func setupPageControl() {
         sliderControlPage?.hidesForSinglePage = true
         sliderControlPage?.addTarget(self, action: #selector(pageControlHandle), for: .valueChanged)
     }
-
+    
     @objc private func pageControlHandle(sender: UIPageControl) {
         let indexPath = IndexPath(row: sender.currentPage, section: 0)
         if let frame = collectionView?.layoutAttributesForItem(at: indexPath)?.frame {
             collectionView?.scrollRectToVisible(frame, animated: true)
         }
     }
-
+    
     private func automaticSlide() {
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(slide), userInfo: nil, repeats: true)
     }
-
+    
     @objc func slide() {
         if currentCell < arrOfProductImgs.count - 1 {
             currentCell += 1
@@ -155,16 +171,16 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             collectionView?.scrollRectToVisible(frame, animated: true)
         }
     }
-
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = scrollView.contentOffset.x / scrollView.frame.width
         sliderControlPage?.currentPage = Int(ceil(pageNumber))
     }
-
+    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         sliderControlPage?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
-
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         switch collectionView {
         case self.collectionView:
@@ -175,12 +191,12 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             return 0
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.collectionView:
             sliderControlPage.numberOfPages = arrOfProductImgs.count
-
+            
             return arrOfProductImgs.count
         case optionsCollectionView:
             switch section {
@@ -191,12 +207,12 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             default:
                 return 0
             }
-
+            
         default:
             return 0
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
         case self.collectionView:
@@ -232,14 +248,14 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             return UICollectionViewCell()
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == optionsCollectionView {
             if (indexPath.section == 0){
                 return CGSize(width: 50, height: 50)
             }else {
                 return CGSize(width: 100, height: 50)
-
+                
             }
         }
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
@@ -286,6 +302,155 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     
+    @IBAction func AddToCartButtonPressed(_ sender: UIButton) {
+        
+        add()
+        
+        
+    }
+    
+    
+    
+    //
+    //    func add() {
+    //        // Your Shopify API URL
+    //        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
+    //
+    //        // Request headers
+    //        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+    //
+    //        let imageSrc = myProduct.image?.src ?? "SHOES"
+    //        print(imageSrc)
+    //
+    //        // Request body data
+    //        let draftOrderData: [String: Any] = [
+    //               "draft_order": [
+    //                "note": "cart",
+    //                   "line_items": [
+    //                       [
+    //                           "title": myProduct.title,
+    //                           "price": myProduct.variants?[0].price ?? "0.0",
+    //                           "quantity": 1
+    //                       ]
+    //                   ],
+    //                   "applied_discount": [
+    //                       "description": imageSrc ,
+    //                       "value_type": "fixed_amount",
+    //                       "value": "10.0",
+    //                       "amount": "10.00",
+    //                       "title": "Custom"
+    //                   ],
+    //                   "customer": [
+    //                       "id": 7471279866172
+    //                   ],
+    //                   "use_customer_default_address": true
+    //               ]
+    //           ]
+    //
+    //        AF.request(baseURLString, method: .post, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
+    //            .response { response in
+    //                switch response.result {
+    //                case .success:
+    //
+    //                    print("Product added to cart successfully.")
+    //
+    //                    self.showSuccessAlert()
+    //
+    //                case .failure(let error):
+    //                    print("Failed to add the product to the cart. Error: \(error)")
+    //                }
+    //            }
+    //    }
+    func add() {
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
+        
+        // Check if the product is already in the cart
+        if isProductInCart() {
+            showAlreadyInCartAlert()
+            return
+        }
+        
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+        
+        let imageSrc = myProduct.image?.src ?? "SHOES"
+        
+        // Request body data
+        let draftOrderData: [String: Any] = [
+            "draft_order": [
+                "note": "cart",
+                "line_items": [
+                    [
+                        "title": myProduct.title ?? "SHOES",
+                        "price": myProduct.variants?[0].price ?? "0.0",
+                        "quantity": 1
+                    ]
+                ],
+                "applied_discount": [
+                    "description": imageSrc,
+                    "value_type": "fixed_amount",
+                    "value": "10.0",
+                    "amount": "10.00",
+                    "title": "Custom"
+                ],
+                "customer": [
+                    "id": 7471279866172
+                ],
+                "use_customer_default_address": true
+            ]
+        ]
+        
+        AF.request(baseURLString, method: .post, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    print("Product added to cart successfully.")
+                    self.showSuccessAlert()
+                    
+                    // Append the product to the cart array
+                    self.cart.append(self.myProduct)
+                    
+                case .failure(let error):
+                    print("Failed to add the product to the cart. Error: \(error)")
+                }
+            }
+    }
+    
+    func isProductInCart() -> Bool {
+        // Check if the product with the same ID is already in the cart
+        if let existingProduct = cart.first(where: { $0.id == myProduct.id }) {
+            return true
+        }
+        return false
+    }
+    
+    func showAlreadyInCartAlert() {
+        let alertController = UIAlertController(
+            title: "Product Already in Cart",
+            message: "This product is already in your cart.",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func showSuccessAlert() {
+        let alertController = UIAlertController(
+            title: "Success",
+            message: "Product added to cart successfully!",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
     func colorsLayout()-> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -303,23 +468,28 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         return section
     }
     
-    func sizeLayout()-> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(50), heightDimension: .absolute(50))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0)
-        section.orthogonalScrollingBehavior = .continuous
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
-        section.boundarySupplementaryItems = [sectionHeader]
-        return section
-    }
     
     
+    
+    
+        func sizeLayout()-> NSCollectionLayoutSection {
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(50), heightDimension: .absolute(50))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0)
+            section.orthogonalScrollingBehavior = .continuous
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
+            section.boundarySupplementaryItems = [sectionHeader]
+            return section
+        }
+        
+        
+        
     
 }

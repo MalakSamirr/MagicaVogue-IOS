@@ -159,6 +159,9 @@
                             </fragment>
                         </attributedString>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="AddToCartButtonPressed:" destination="-1" eventType="touchUpInside" id="HAS-pg-wYz"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zgq-Q5-g9Q">
                     <rect key="frame" x="0.0" y="722" width="393" height="4"/>

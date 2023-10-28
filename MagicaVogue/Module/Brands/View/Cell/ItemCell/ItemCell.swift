@@ -17,25 +17,26 @@ class ItemCell: UICollectionViewCell {
     var animationDelegate: FavoriteProtocol?
     private var animationView: LottieAnimationView?
     var isFavourite: Bool?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         brandItemImage.layer.cornerRadius = 16
         brandItemImage.clipsToBounds = true
-        favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
 
     }
     
+    
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-        if !isSelected {
+        if !(favoriteButton?.isSelected ?? false) {
             animationDelegate?.playAnimation()
-            
+            animationDelegate?.addToFavorite(id ?? 0)
 
+        } else {
+            animationDelegate?.deleteFromFavorite(id ?? 0)
         }
-        isSelected.toggle() // Toggle the isSelected property
-            
-        favoriteButton.isSelected = isSelected
+        favoriteButton?.isSelected = !(favoriteButton?.isSelected ?? false)
     }
     
 }
+
