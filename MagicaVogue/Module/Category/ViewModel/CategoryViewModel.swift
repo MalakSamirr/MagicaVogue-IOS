@@ -10,7 +10,7 @@ import Lottie
 
 class CategoryViewModel {
     // MARK: - Variables
-    
+    var wishlist: [Products] = []
     var animationView: LottieAnimationView?
     var selectedIndexPath: IndexPath?
     var mainCategoryArray: [mainCategoryModel] = [

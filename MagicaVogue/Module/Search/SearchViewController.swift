@@ -99,6 +99,15 @@ extension SearchViewController {
 
 // MARK: - Animation
 extension SearchViewController: FavoriteProtocol {
+    func deleteFromFavorite(_ itemId: Int) {
+        print("cdfvgbhnjmkl")
+
+    }
+    
+    func addToFavorite(_ id: Int ) {
+        print("cdfvgbhnjmkl")
+    }
+    
     func playAnimation() {
         viewModel.animationView = .init(name: "favorite")
         // Animation size

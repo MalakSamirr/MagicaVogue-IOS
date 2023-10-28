@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -23,37 +22,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="270" height="347"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="accessories" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Bt-6ez">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ACCESSORIES" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Bt-6ez">
                         <rect key="frame" x="40" y="40" width="190" height="190"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="JYb-Bt-6ez" secondAttribute="height" id="Cqe-mJ-APZ"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brown dress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1Y-7n-ChF">
-                        <rect key="frame" x="20" y="270" width="75" height="15.666666666666686"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brown dress" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1Y-7n-ChF">
+                        <rect key="frame" x="20" y="270" width="243" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="phi-38-TfZ"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98 $" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1h-jQ-e4i">
-                        <rect key="frame" x="19.999999999999996" y="285.66666666666669" width="32.666666666666657" height="18"/>
+                        <rect key="frame" x="19.999999999999996" y="320" width="32.666666666666657" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72W-fe-7TT">
-                        <rect key="frame" x="189.33333333333334" y="29.999999999999996" width="50.666666666666657" height="50.666666666666657"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72W-fe-7TT">
+                        <rect key="frame" x="214" y="40" width="40" height="40"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="40" id="8Bv-PO-idy"/>
                             <constraint firstAttribute="width" secondItem="72W-fe-7TT" secondAttribute="height" id="cKb-XM-KCm"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain">
+                        <color key="tintColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal">
+                            <color key="titleColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
-                            <backgroundConfiguration key="background" cornerRadius="70">
-                                <color key="backgroundColor" red="0.8264266827548612" green="0.82536760490744188" blue="0.84386705689960051" alpha="0.37197330298013243" colorSpace="custom" customColorSpace="displayP3"/>
-                            </backgroundConfiguration>
-                            <color key="baseForegroundColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </buttonConfiguration>
+                        </state>
+                        <state key="selected">
+                            <imageReference key="image" image="heart.fill" catalog="system" symbolScale="large"/>
+                        </state>
                         <connections>
                             <action selector="favoriteButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="8lA-Us-CKo"/>
                         </connections>
@@ -70,12 +74,13 @@
                 <constraint firstItem="JYb-Bt-6ez" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="40" id="MXC-oG-jyr"/>
                 <constraint firstAttribute="trailing" secondItem="JYb-Bt-6ez" secondAttribute="trailing" constant="40" id="NQg-5U-kZh"/>
                 <constraint firstItem="afe-wS-PfJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="NWr-bZ-BhP"/>
-                <constraint firstItem="72W-fe-7TT" firstAttribute="trailing" secondItem="afe-wS-PfJ" secondAttribute="trailing" constant="-30" id="Rxy-DS-Oph"/>
-                <constraint firstItem="72W-fe-7TT" firstAttribute="top" secondItem="afe-wS-PfJ" secondAttribute="top" constant="30" id="aKS-1A-FTw"/>
+                <constraint firstItem="72W-fe-7TT" firstAttribute="trailing" secondItem="afe-wS-PfJ" secondAttribute="trailing" constant="-16" id="Rxy-DS-Oph"/>
+                <constraint firstItem="72W-fe-7TT" firstAttribute="top" secondItem="afe-wS-PfJ" secondAttribute="top" constant="40" id="aKS-1A-FTw"/>
                 <constraint firstItem="H1Y-7n-ChF" firstAttribute="top" secondItem="JYb-Bt-6ez" secondAttribute="bottom" constant="40" id="eXA-Gq-ZaW"/>
                 <constraint firstItem="H1Y-7n-ChF" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="20" id="qez-ln-aRE"/>
                 <constraint firstAttribute="bottom" secondItem="afe-wS-PfJ" secondAttribute="bottom" id="r6Z-2S-KGB"/>
                 <constraint firstItem="afe-wS-PfJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rPq-9t-o2g"/>
+                <constraint firstItem="H1Y-7n-ChF" firstAttribute="width" secondItem="afe-wS-PfJ" secondAttribute="width" multiplier="0.9" id="vsI-iM-jEL"/>
             </constraints>
             <size key="customSize" width="270" height="347"/>
             <connections>
@@ -88,8 +93,9 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="accessories" width="500" height="500"/>
+        <image name="ACCESSORIES" width="500" height="500"/>
         <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
