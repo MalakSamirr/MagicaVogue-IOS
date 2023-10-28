@@ -14,6 +14,17 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var sliderControlPage: UIPageControl!
     var currentCell = 0
     private var timer: Timer?
+    var selectedIndexPathForSize: IndexPath?
+    var selectedIndexPathForColor: IndexPath?
+    static let sectionHeaderElementKind = "section-header-element-kind"
+
+    struct ProductOption {
+        let name: String
+        var isSelected: Bool
+    }
+    
+    var productSizes: [ProductOption] = []
+    var productColors: [ProductOption] = []
     
     var arrOfProductImgs: [String] = []
     var arrOfSize: [String] = []
@@ -33,13 +44,43 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         for image in myProduct.images! {
             arrOfProductImgs.append(image.src ?? "")
         }
-        for size in myProduct.options![0].values! {
-            arrOfSize.append(size)
+        
+        self.optionsCollectionView.register(SectionHeader.self, forSupplementaryViewOfKind: ProductDetailsViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)
+
+        
+        if let values = myProduct.options?[0].values, !values.isEmpty {
+            var isFirstSize = true
+
+            for size in values {
+                arrOfSize.append(size)
+                var productOption: ProductOption
+                if isFirstSize {
+                    productOption = ProductOption(name: size, isSelected: true)
+                    isFirstSize = false
+                }
+                else {
+                    productOption = ProductOption(name: size, isSelected: false)
+                }
+                    
+                productSizes.append(productOption)
+            }
         }
         print(arrOfSize)
         print("--------------------")
-        for color in myProduct.options![1].values! {
-            arrOfColor.append(color)
+        if let values = myProduct.options?[1].values, !values.isEmpty {
+            var isFirstColor = true
+            for color in values {
+                arrOfColor.append(color)
+                var productOption: ProductOption
+                if isFirstColor {
+                    productOption = ProductOption(name: color, isSelected: true)
+                    isFirstColor = false
+                } else {
+                    productOption = ProductOption(name: color, isSelected: false)
+
+                }
+                productColors.append(productOption)
+            }
         }
         print(arrOfColor)
         productPrice.text = "EG\(myProduct.variants?[0].price ?? "0")"
@@ -72,6 +113,17 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         collectionView?.decelerationRate = .fast
         
         self.optionsCollectionView.register( SectionHeader.self, forSupplementaryViewOfKind: BrandViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)
+        
+        let layout1 = UICollectionViewCompositionalLayout { sectionIndex, enviroment in
+            switch sectionIndex {
+            case 0:
+                return self.sizeLayout()
+            default:
+                return self.colorsLayout()
+            }
+        }
+        optionsCollectionView.setCollectionViewLayout(layout1, animated: true)
+    
     }
 
     private func setupPageControl() {
@@ -156,7 +208,18 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             switch indexPath.section {
             case 0:
                 cell.mainCategoryLabel.text = arrOfSize[indexPath.row]
+                if (productSizes[indexPath.row].isSelected) {
+                    cell.mainCategoryLabel.textColor = .white
+                    cell.mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
+                    
+                }
             case 1:
+                if (productColors[indexPath.row].isSelected) {
+                    cell.mainCategoryLabel.textColor = .white
+                    cell.mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
+                    
+                }
+                
                 cell.mainCategoryLabel.text = arrOfColor[indexPath.row]
             default:
                 cell.mainCategoryLabel.text = "empty"
@@ -186,8 +249,74 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         return CGSize(width: 0, height: 0)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
-        
-        
+        if collectionView == optionsCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
+            
+            if indexPath.section == 0 {
+                for index in 0..<productSizes.count {
+                    productSizes[index].isSelected = false
+                }
+                
+                productSizes[indexPath.row].isSelected = true
+            }
+            else {
+                for index in 0..<productColors.count {
+                    productColors[index].isSelected = false
+                }
+                
+                productColors[indexPath.row].isSelected = true
+            }
+            collectionView.reloadData()
+        }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if collectionView == optionsCollectionView {
+            let sectionHeaderArray: [String] = ["Size", "Color"]
+            if kind == ProductDetailsViewController.sectionHeaderElementKind {
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as! SectionHeader
+                headerView.label.text = sectionHeaderArray[indexPath.section]
+                return headerView
+            }
+        }
+        return UICollectionReusableView()
+    }
+    
+    
+    func colorsLayout()-> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(50))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0)
+        section.orthogonalScrollingBehavior = .continuous
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
+        section.boundarySupplementaryItems = [sectionHeader]
+        return section
+    }
+    
+    func sizeLayout()-> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(50), heightDimension: .absolute(50))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0)
+        section.orthogonalScrollingBehavior = .continuous
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
+        section.boundarySupplementaryItems = [sectionHeader]
+        return section
+    }
+    
+    
+    
 }

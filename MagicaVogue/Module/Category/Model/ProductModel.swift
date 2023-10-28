@@ -28,7 +28,7 @@ struct Products: Codable {
     let images: [Images]?
     let image: ProductImage?
     let variants: [Variants]?
-    let options:[Options]?
+    var options:[Options]?
     
     
 }
@@ -45,8 +45,8 @@ struct Variants: Codable {
     let price: String?
 }
 struct Options:Codable{
-   let name : String?
+    let name : String?
     let values : [String]?
-    let isSelect:Bool?
+    var isSelect:Bool?
 }
 
