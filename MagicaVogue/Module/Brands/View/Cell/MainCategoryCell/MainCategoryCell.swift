@@ -20,7 +20,7 @@ class MainCategoryCell: UICollectionViewCell {
                 mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
             } else {
                
-                mainCategoryLabel.textColor = .black
+               mainCategoryLabel.textColor = .black
                 mainCategoryBackgroundView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1.0)
             }
         }

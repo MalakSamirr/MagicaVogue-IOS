@@ -21,9 +21,6 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var small: UIButton!
-    @IBOutlet weak var medium: UIButton!
-    @IBOutlet weak var large: UIButton!
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productDetails: UILabel!
     @IBOutlet weak var productPrice: UILabel!
@@ -172,9 +169,25 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == optionsCollectionView {
-            return CGSize(width: 100, height: 50)
+            if (indexPath.section == 0){
+                return CGSize(width: 50, height: 50)
+            }else {
+                return CGSize(width: 100, height: 50)
+
+            }
         }
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
-
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if (collectionView == optionsCollectionView){
+            
+            return CGSize(width: collectionView.frame.width, height: 50)
+        }
+        return CGSize(width: 0, height: 0)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
+        
+        
+    }
 }
