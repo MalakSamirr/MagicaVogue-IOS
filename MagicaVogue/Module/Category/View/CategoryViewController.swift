@@ -184,7 +184,12 @@ extension CategoryViewController: UICollectionViewDelegate {
                 }
             }
         default:
-            return
+            if let product = viewModel.productArray?[indexPath.row]{
+                let productDetailsVC = ProductDetailsViewController()
+                productDetailsVC.myProduct = product
+                
+                self.navigationController?.pushViewController(productDetailsVC, animated: true)
+            }
         }
     }
 }

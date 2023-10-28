@@ -28,6 +28,7 @@ struct Products: Codable {
     let images: [Images]?
     let image: ProductImage?
     let variants: [Variants]?
+    let options:[Options]?
     
 }
 struct Product: Codable {
@@ -42,3 +43,28 @@ struct Variants: Codable {
     let id: Int
     let price: String?
 }
+struct Options:Codable{
+   let name : String?
+    let values : [String]?
+}
+
+//"options": [
+//              {
+//                  "id": 11157004583228,
+//                  "product_id": 8857918734652,
+//                  "name": "Size",
+//                  "position": 1,
+//                  "values": [
+//                      "OS"
+//                  ]
+//              },
+//              {
+//                  "id": 11157004615996,
+//                  "product_id": 8857918734652,
+//                  "name": "Color",
+//                  "position": 2,
+//                  "values": [
+//                      "black"
+//                  ]
+//              }
+//          ]
