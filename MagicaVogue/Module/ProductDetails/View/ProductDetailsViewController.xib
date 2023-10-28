@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -76,9 +77,14 @@
                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="bL0-Kq-Xfg">
-                                    <rect key="frame" x="117" y="245" width="116" height="26"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="bL0-Kq-Xfg">
+                                    <rect key="frame" x="138.66666666666666" y="245" width="115.66666666666666" height="26"/>
+                                    <color key="currentPageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </pageControl>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPi-Ji-ckR">
                                     <rect key="frame" x="8" y="362" width="377" height="165"/>
@@ -113,9 +119,11 @@
                                 <constraint firstItem="VPi-Ji-ckR" firstAttribute="top" secondItem="EJ0-P2-ZhY" secondAttribute="top" constant="362" id="OVz-b7-sND"/>
                                 <constraint firstItem="f0G-Ev-UJd" firstAttribute="top" secondItem="EJ0-P2-ZhY" secondAttribute="top" id="XUT-e2-wmh"/>
                                 <constraint firstAttribute="trailing" secondItem="dDH-2X-h0f" secondAttribute="trailing" id="a5w-xb-1AI"/>
+                                <constraint firstItem="bL0-Kq-Xfg" firstAttribute="bottom" secondItem="f0G-Ev-UJd" secondAttribute="bottom" id="dxY-ug-IDK"/>
                                 <constraint firstItem="VPi-Ji-ckR" firstAttribute="leading" secondItem="EJ0-P2-ZhY" secondAttribute="leadingMargin" id="f7x-ul-s6f"/>
                                 <constraint firstItem="f0G-Ev-UJd" firstAttribute="leading" secondItem="EJ0-P2-ZhY" secondAttribute="leading" id="hWD-0H-lLl"/>
                                 <constraint firstAttribute="bottom" secondItem="dDH-2X-h0f" secondAttribute="bottom" constant="72" id="hal-70-aD7"/>
+                                <constraint firstItem="bL0-Kq-Xfg" firstAttribute="centerX" secondItem="f0G-Ev-UJd" secondAttribute="centerX" id="ig7-LM-Aik"/>
                                 <constraint firstAttribute="height" constant="1000" id="oow-eT-bvZ"/>
                                 <constraint firstItem="VPi-Ji-ckR" firstAttribute="leading" secondItem="0jn-e0-ewz" secondAttribute="leading" id="rmR-ih-snV"/>
                                 <constraint firstItem="dDH-2X-h0f" firstAttribute="top" secondItem="VPi-Ji-ckR" secondAttribute="bottom" constant="-9" id="rtu-fD-dSX"/>

@@ -40,7 +40,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       // sliderControlPage.numberOfPages = arrOfProductImgs.count
         for image in myProduct.images! {
             arrOfProductImgs.append(image.src ?? "")
         }
@@ -123,7 +123,8 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         optionsCollectionView.setCollectionViewLayout(layout1, animated: true)
-    
+        sliderControlPage.numberOfPages = arrOfProductImgs.count
+
     }
 
     private func setupPageControl() {
@@ -178,6 +179,8 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.collectionView:
+            sliderControlPage.numberOfPages = arrOfProductImgs.count
+
             return arrOfProductImgs.count
         case optionsCollectionView:
             switch section {
