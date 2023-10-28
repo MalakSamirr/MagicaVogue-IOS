@@ -74,8 +74,6 @@ extension BrandViewController: UICollectionViewDelegate {
                             viewModel.productArray = viewModel.dataArray
                             BrandCollectionViewDetails.reloadData()
                             return
-
-                            
                         }
                         previousSelectedCell.isSelected = false
                         viewModel.sortArray[previousSelectedIndexPath.row].isSelected = false

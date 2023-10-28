@@ -64,6 +64,14 @@ extension SearchViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let product = viewModel.productArray?[indexPath.row]{
+            let productDetailsVC = ProductDetailsViewController()
+            productDetailsVC.myProduct = product
+            
+            self.navigationController?.pushViewController(productDetailsVC, animated: true)
+        }
+    }
 }
 
 // MARK: - Flow Layout
