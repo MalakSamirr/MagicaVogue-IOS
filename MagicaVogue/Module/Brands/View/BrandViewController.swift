@@ -87,9 +87,7 @@ extension BrandViewController: UICollectionViewDelegate {
                 viewModel.sortArray[indexPath.row].isSelected = true
                 viewModel.selectedIndexPathForSubCategory = indexPath
                 print(viewModel.sortArray)
-                if viewModel.sortArray[indexPath.row].name == "Price" {
-                    viewModel.sortByPrice()
-                }
+                viewModel.sortByPrice(id: viewModel.sortArray[indexPath.row].id)
                 DispatchQueue.main.async {
                     collectionView.reloadData()
                 }
@@ -147,6 +145,7 @@ extension BrandViewController: UICollectionViewDataSource {
                 }
                 cell.itemLabel.text = product.title
                 cell.itemPrice.text = product.variants?[0].price
+                
             }
             return cell
         default:
@@ -159,7 +158,7 @@ extension BrandViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let sectionHeaderArray: [String] = ["Sort by:",""]
+        let sectionHeaderArray: [String] = ["Price:",""]
         if kind == BrandViewController.sectionHeaderElementKind {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
             headerView.label.text = sectionHeaderArray[indexPath.section]
@@ -174,7 +173,7 @@ extension BrandViewController {
     func sortingCategorie()-> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(100), heightDimension: .absolute(50))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(120), heightDimension: .absolute(50))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)

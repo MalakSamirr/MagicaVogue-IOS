@@ -13,8 +13,8 @@ class BrandViewModel {
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForSubCategory: IndexPath?
     var sortArray: [mainCategoryModel] = [
-        mainCategoryModel(name: "Price", isSelected: false, imageName: ""),
-        mainCategoryModel(name: "Popular", isSelected: false, imageName: "")
+        mainCategoryModel(id: 1, name: "Low to high", isSelected: false, imageName: ""),
+        mainCategoryModel(id: 2, name: "High to low", isSelected: false, imageName: "")
     ]
     var productArray: [Products]?
     var dataArray: [Products]?
@@ -31,7 +31,7 @@ class BrandViewModel {
                 case .success(let product):
                     self.productArray = product.products
                     self.dataArray = product.products
-                    print(self.productArray?[0].variants)
+                    print(self.productArray?[0].variants ?? "")
                     DispatchQueue.main.async {
                         self.onDataUpdate?()
                     }
@@ -42,21 +42,30 @@ class BrandViewModel {
         }
     }
     
-    func sortByPrice() {
-        // Ensure that dataArray is not nil before attempting to sort it
+    func sortByPrice(id: Int) {
         guard let dataArray = dataArray else {
             return
         }
-        
-        // Sort the dataArray based on the price of the first variant (assuming prices are in string format)
-        productArray = dataArray.sorted { (product1, product2) in
-            if let price1 = Double(product1.variants?[0].price ?? ""),
-               let price2 = Double(product2.variants?[0].price ?? "") {
-                return price1 < price2
-            } else {
-                // Handle cases where price conversion fails (e.g., non-numeric strings)
-                return false // You can customize this behavior if needed
+        if id == 1 {
+            productArray = dataArray.sorted { (product1, product2) in
+                if let price1 = Double(product1.variants?[0].price ?? ""),
+                   let price2 = Double(product2.variants?[0].price ?? "") {
+                    return price1 < price2
+                } else {
+                    return false
+                }
             }
+        }
+            else {
+                
+                productArray = dataArray.sorted { (product1, product2) in
+                    if let price1 = Double(product1.variants?[0].price ?? ""),
+                       let price2 = Double(product2.variants?[0].price ?? "") {
+                        return price1 > price2
+                    } else {
+                        return false
+                    }
+                }
         }
     }
 
