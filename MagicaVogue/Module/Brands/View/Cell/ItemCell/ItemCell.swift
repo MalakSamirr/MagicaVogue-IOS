@@ -13,7 +13,7 @@ class ItemCell: UICollectionViewCell {
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var brandItemImage: UIImageView!
-    
+    var id: Int?
     var animationDelegate: FavoriteProtocol?
     private var animationView: LottieAnimationView?
     var isFavourite: Bool?
@@ -30,6 +30,7 @@ class ItemCell: UICollectionViewCell {
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
         if !isSelected {
             animationDelegate?.playAnimation()
+            
 
         }
         isSelected.toggle() // Toggle the isSelected property

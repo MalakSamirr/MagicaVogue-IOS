@@ -8,6 +8,7 @@
 import Foundation
 
 struct mainCategoryModel {
+    let id: Int
     let name: String
     var isSelected: Bool
     let imageName: String?

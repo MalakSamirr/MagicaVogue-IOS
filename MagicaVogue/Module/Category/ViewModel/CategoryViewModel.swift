@@ -14,10 +14,10 @@ class CategoryViewModel {
     var animationView: LottieAnimationView?
     var selectedIndexPath: IndexPath?
     var mainCategoryArray: [mainCategoryModel] = [
-        mainCategoryModel(name: "All", isSelected: true, imageName: nil),
-        mainCategoryModel(name: "Men", isSelected: false, imageName: nil),
-        mainCategoryModel(name: "Women", isSelected: false, imageName: nil),
-        mainCategoryModel(name: "Kids", isSelected: false, imageName: nil)
+        mainCategoryModel(id: 1, name: "All", isSelected: true, imageName: nil),
+        mainCategoryModel(id: 2, name: "Men", isSelected: false, imageName: nil),
+        mainCategoryModel(id: 3, name: "Women", isSelected: false, imageName: nil),
+        mainCategoryModel(id: 4, name: "Kids", isSelected: false, imageName: nil)
     ]
     
     var subCategoryArray: [SubCategoryModel] = [
