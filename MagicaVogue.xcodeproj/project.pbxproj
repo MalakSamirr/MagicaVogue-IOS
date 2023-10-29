@@ -102,6 +102,7 @@
 		59F4E7C02AE2CAE0002A5BFF /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7BA2AE2CAE0002A5BFF /* CartModel.swift */; };
 		59F4E7C12AE2CAE0002A5BFF /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7BC2AE2CAE0002A5BFF /* CartViewController.swift */; };
 		59F4E7C22AE2CAE0002A5BFF /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59F4E7BD2AE2CAE0002A5BFF /* CartViewController.xib */; };
+		74800AD92AEE5CE500A96735 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */; };
 		84B82390EBD83582F4AAFE61 /* Pods_MagicaVogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */; };
 		B68F16CFA756CAA94E5BBCF5 /* Pods_MagicaVogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DD317D9C3B25ACBF11AE94 /* Pods_MagicaVogue.framework */; };
 		E7D64EB87DA477CD5E193BEF /* Pods_MagicaVogue_MagicaVogueUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */; };
@@ -249,6 +250,7 @@
 		59F4E7BA2AE2CAE0002A5BFF /* CartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
 		59F4E7BC2AE2CAE0002A5BFF /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		59F4E7BD2AE2CAE0002A5BFF /* CartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
+		74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogue_MagicaVogueUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogueTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4A4C6D8D0B902926941E81 /* Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue-MagicaVogueUITests/Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -972,6 +974,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		74800AD72AEE5CBB00A96735 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		CFF90E282096CBA3171563AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1010,6 +1020,7 @@
 		EEC3F7342AE05062004D22C1 /* ProductDetails */ = {
 			isa = PBXGroup;
 			children = (
+				74800AD72AEE5CBB00A96735 /* ViewModel */,
 				EEC3F7352AE0506F004D22C1 /* View */,
 			);
 			path = ProductDetails;
@@ -1422,6 +1433,7 @@
 				EEE3A0B72AE157BA009956BC /* ProfileViewController.swift in Sources */,
 				59DDBDBC2AE539ED00898513 /* HomeModel.swift in Sources */,
 				59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */,
+				74800AD92AEE5CE500A96735 /* ProductDetailsViewModel.swift in Sources */,
 				456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */,
 				459A79712AE64E2C00474738 /* APIManager.swift in Sources */,
 				59DDBDB22AE538DC00898513 /* TargetType.swift in Sources */,
@@ -1637,7 +1649,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T96JD555QP;
+				DEVELOPMENT_TEAM = 94MB3RHVU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagicaVogue/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1668,7 +1680,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T96JD555QP;
+				DEVELOPMENT_TEAM = 94MB3RHVU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagicaVogue/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

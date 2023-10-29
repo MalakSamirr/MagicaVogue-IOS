@@ -50,3 +50,7 @@ struct Options:Codable{
     var isSelect:Bool?
 }
 
+struct ProductOption {
+    let name: String
+    var isSelected: Bool
+}
