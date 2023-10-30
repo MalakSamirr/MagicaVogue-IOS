@@ -13,3 +13,9 @@ struct Currency: Codable {
     let ms: Int?
     let updated: String?
 }
+struct CurrencyChange: Codable {
+    var result: [String: Double]?
+    let base: String?
+    let ms: Int?
+    let updated: String?
+}

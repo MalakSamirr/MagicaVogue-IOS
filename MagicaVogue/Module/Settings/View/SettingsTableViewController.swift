@@ -54,6 +54,10 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.row==1){
+            let currencyVC = CurrencyVC()
+            navigationController?.pushViewController(currencyVC, animated: true)
+        }
+    }
 }

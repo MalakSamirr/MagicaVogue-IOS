@@ -12,6 +12,7 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var currencies: Currency?
     var currencies2 : Currency?
     var currencySelected : String = ""
+    var changedCurrencyTo : CurrencyChange?
 
 
     @IBOutlet weak var currencySearchBar: UISearchBar!
@@ -112,7 +113,33 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBAction func DoneButton(_ sender: Any) {
         print(currencySelected)
+        changeCurrency()
+        print("------------------------------")
+        print(changedCurrencyTo?.result)
+        print("------------------------------")
+
         
+    }
+    
+    func changeCurrency(){
+        let api = "https://api.fastforex.io/fetch-one?api_key=e07402dc31-efa888e5a7-s3av7p&to=EGP&from=USD"
+        
+        AF.request(api).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let currencyResponse = try JSONDecoder().decode(CurrencyChange.self, from: data)
+                    // Handle the decoded data
+                    self.changedCurrencyTo = currencyResponse
+                    print(currencyResponse)
+                    print(self.changedCurrencyTo?.result)
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
+        }
     }
 
 }
