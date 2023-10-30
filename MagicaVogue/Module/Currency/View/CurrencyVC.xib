@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrencyVC" customModule="MagicaVogue" customModuleProvider="target">
+            <connections>
+                <outlet property="currencySearchBar" destination="ZuD-Qe-0k3" id="mCJ-nX-hgg"/>
+                <outlet property="currrencyTableView" destination="3tH-RJ-0o7" id="IzI-ae-nIK"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ZuD-Qe-0k3">
+                    <rect key="frame" x="0.0" y="69" width="393" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="yR0-M2-tkC"/>
+                    </connections>
+                </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3tH-RJ-0o7">
+                    <rect key="frame" x="0.0" y="135" width="393" height="587"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omV-DD-xvJ">
+                    <rect key="frame" x="23" y="742" width="347" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="WCS-Ph-SCi"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <backgroundConfiguration key="background" cornerRadius="16">
+                            <color key="backgroundColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </backgroundConfiguration>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Done">
+                                <attributes>
+                                    <font key="NSFont" size="24" name="Helvetica"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="DoneButton:" destination="-1" eventType="touchUpInside" id="fSA-b0-tb0"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ZuD-Qe-0k3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="419-iD-w6n"/>
+                <constraint firstItem="omV-DD-xvJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="23" id="MvQ-pw-CDS"/>
+                <constraint firstItem="ZuD-Qe-0k3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="PCv-OK-uVi"/>
+                <constraint firstItem="omV-DD-xvJ" firstAttribute="top" secondItem="3tH-RJ-0o7" secondAttribute="bottom" constant="20" id="Raz-gO-P6Z"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="omV-DD-xvJ" secondAttribute="bottom" constant="16" id="Y1a-CL-oof"/>
+                <constraint firstItem="ZuD-Qe-0k3" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="a69-Rq-QXK"/>
+                <constraint firstItem="3tH-RJ-0o7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="byN-cy-SqK"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3tH-RJ-0o7" secondAttribute="trailing" id="mCY-N4-QPA"/>
+                <constraint firstItem="3tH-RJ-0o7" firstAttribute="top" secondItem="ZuD-Qe-0k3" secondAttribute="bottom" constant="10" id="x9y-2F-fK5"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="omV-DD-xvJ" secondAttribute="trailing" constant="23" id="yIs-9t-zzy"/>
+            </constraints>
+            <point key="canvasLocation" x="-247" y="-7"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

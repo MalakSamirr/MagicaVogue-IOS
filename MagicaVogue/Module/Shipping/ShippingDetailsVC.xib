@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,6 +18,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShippingDetailsVC" customModule="MagicaVogue" customModuleProvider="target">
             <connections>
+                <outlet property="address" destination="dmv-X4-xSn" id="3Z1-iU-3xi"/>
+                <outlet property="city" destination="gYz-21-Cup" id="ZAn-4n-PhE"/>
+                <outlet property="country" destination="NaA-od-bVv" id="tcg-lH-Iai"/>
+                <outlet property="email" destination="F11-hT-qsF" id="gzk-yS-B6H"/>
+                <outlet property="firstName" destination="69Q-VY-4VG" id="Kp9-FS-lOE"/>
+                <outlet property="lastName" destination="Ieo-xx-tML" id="ihD-4Z-26V"/>
+                <outlet property="mobile" destination="gZh-LV-D0c" id="RyC-wn-rIu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -462,7 +468,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="District*" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngc-Aq-AKo">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country*" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngc-Aq-AKo">
                                                             <rect key="frame" x="10" y="-7" width="50" height="14"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -778,7 +784,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZM7-ek-jBB" secondAttribute="trailing" id="2uZ-UR-Mbf"/>
                 <constraint firstItem="ZM7-ek-jBB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qnc-7m-U9r"/>
             </constraints>
-            <point key="canvasLocation" x="-28" y="20"/>
+            <point key="canvasLocation" x="53" y="185"/>
         </view>
     </objects>
     <resources>
