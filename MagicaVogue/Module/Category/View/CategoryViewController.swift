@@ -322,7 +322,7 @@ extension CategoryViewController: FavoriteProtocol {
                     "note": "Wishlist",
                     "line_items": [
                         [
-                            "variant_id": myProduct.variants?[0].id,
+//                            "variant_id": myProduct.variants?[0].id,
                             "title": myProduct.title ?? "",
                             "price": myProduct.variants?[0].price,
                             "quantity": 1

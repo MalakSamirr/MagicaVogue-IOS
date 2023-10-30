@@ -12,23 +12,35 @@ import Kingfisher
 class CartViewController: UIViewController , UITableViewDataSource , UITableViewDelegate {
     
     var cart: [DraftOrder] = []
-
+    var totalPrice: Double = 0
     @IBOutlet weak var CartTableView: UITableView!
+    
+    @IBOutlet weak var totalPriceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Cart"
+        
         self.navigationController?.navigationBar.backgroundColor = .white
         CartTableView.delegate = self
         CartTableView.dataSource = self
         CartTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         getCart()
-        print(cart)
+        
+//        totalPrice = 0
+
         CartTableView.reloadData()
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getCart()
+//        totalPrice = 0
+//        for item in cart {
+//            let itemPrice = Double(item.line_items[0].price ?? "0") ?? 0
+//            totalPrice += itemPrice
+//        }
+//        totalPriceLabel.text = String(totalPrice)
     }
   
     
@@ -42,6 +54,10 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             let draftOrder = cart[indexPath.row]
             if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
                 cell.productNameLabel.text = lineItem.title
+                
+                cell.productPriceLabel.text = lineItem.price
+
+
             } else {
                 cell.productNameLabel.text = "Product Name Not Available"
             }
@@ -50,7 +66,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         } else {
             cell.productImageView.image = UIImage(named: "CouponBackground")
         }
-            
             return cell
     }
 
@@ -112,6 +127,13 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 //        }
 //        present(nav , animated: true , completion: nil)
         let checkoutVC = CheckoutVC()
+
+            checkoutVC.cart = self.cart
+            checkoutVC.totalPrice = totalPrice
+
+        
+
+                // Push or present the CheckoutViewController
           navigationController?.pushViewController(checkoutVC, animated: true)
         
     }
@@ -119,12 +141,19 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     
     func getCart() {
         if APIManager.shared.isOnline() {
-            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { (result: Result<DraftOrderResponse, Error>) in
+            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { [self] (result: Result<DraftOrderResponse, Error>) in
                 switch result {
                 case .success(let draftOrderResponse):
                     // Filter draft orders with note: "cart"
                     self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" }
+                    for item in cart {
+                        let itemPrice = Double(item.line_items[0].price ?? "0") ?? 0
+                        self.totalPrice += itemPrice
+}
+                    updateTotalPriceLabel()
+
                     DispatchQueue.main.async {
+                        self.totalPriceLabel.text = String(self.totalPrice)
                         self.CartTableView.reloadData()
                     }
                 case .failure(let error):
@@ -154,7 +183,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     if let index = self.cart.firstIndex(where: { $0.id == draftOrderId }) {
                         self.cart.remove(at: index)
                     }
-                    
+                    self.updateTotalPriceLabel()
+
                     DispatchQueue.main.async {
                         self.CartTableView.reloadData()
                     }
@@ -163,7 +193,16 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                 }
             }
     }
-
+    func updateTotalPriceLabel() {
+            // Calculate the total price based on the items in the cart
+            totalPrice = cart.reduce(0) { (total, draftOrder) in
+                if let itemPrice = Double(draftOrder.line_items.first?.price ?? "0") {
+                    return total + itemPrice
+                }
+                return total
+            }
+            totalPriceLabel.text = "\(totalPrice)"
+        }
 
 
 }

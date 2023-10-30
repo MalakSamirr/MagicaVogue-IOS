@@ -12,8 +12,10 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     
 
     @IBOutlet weak var addressTableView: UITableView!
-      
-       
+    var discountCodes: [DiscountCode]?
+    var priceRule: PriceMRuleModel?
+    var cart: [DraftOrder] = []
+    var totalPrice : Double = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Checkout"
@@ -24,6 +26,11 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         addressTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         addressTableView.register(UINib(nibName: "PromoCodeCell", bundle: nil), forCellReuseIdentifier: "PromoCodeCell")
         addressTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
+//        print("cartttttttt\(cart)")
+        getDiscountCodes()
+        getPriceRule()
+        
 
     }
     
@@ -53,7 +60,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         case 0:
             return 1
         case 1:
-            return 3
+            return cart.count
         case 2:
             return 1
         default:
@@ -68,15 +75,44 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
             cell.addressDelegate = self
                 return cell
         case 1:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
+//            cell.minus.isHidden = true
+//            cell.plus.isHidden = true
+//            cell.quantityLabel.isHidden = true
+//            cell.orderTotalLabel.isHidden = false
+//            cell.productPriceLabel.isHidden = true
+//
+//            return cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-            cell.minus.isHidden = true
-            cell.plus.isHidden = true
-            cell.quantityLabel.isHidden = true
-            cell.orderTotalLabel.isHidden = false
-            cell.productPriceLabel.isHidden = true
-            return cell
+                           
+                let draftOrder = cart[indexPath.row]
+                if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
+                    cell.productNameLabel.text = lineItem.title
+                    cell.quantityLabel.isHidden = true
+                    cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
+                    cell.productPriceLabel.text = lineItem.price
+                    cell.minus.isHidden = true
+                    cell.plus.isHidden = true
+                    
+
+                } else {
+                    cell.productNameLabel.text = "Product Name Not Available"
+                }
+            if let imageUrl = URL(string: draftOrder.applied_discount.description) {
+                cell.productImageView.kf.setImage(with: imageUrl)
+            } else {
+                cell.productImageView.image = UIImage(named: "CouponBackground")
+            }
+                return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PromoCodeCell", for: indexPath) as! PromoCodeCell
+            cell.totalPriceLabel.text = String(totalPrice)
+            if cell.Discount.text != "0%" {
+                let price = Double( cell.totalPriceLabel.text ?? "0" ) ?? 0
+                let PriceAfterDiscount = price*0.9
+                cell.priceAfterDiscount.text = String(PriceAfterDiscount)
+            }
+            cell.priceAfterDiscount.text = String(totalPrice)
             return cell
         default:
             return UITableViewCell()
@@ -141,5 +177,38 @@ extension CheckoutVC: AddressProtocol {
         navigationController?.pushViewController(myAddressesVC, animated: true)
     }
     
+    func getDiscountCodes() {
+        APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com//admin/api/2023-10/price_rules/1405087318332/discount_codes.json") { (result: Result<CouponModel, Error>) in
+            print(result)
+            switch result {
+            case .success(let couponModel):
+                self.discountCodes = couponModel.discount_codes
+                DispatchQueue.main.async {
+                    // Notify the view that data has been updated
+                    print(self.discountCodes)
+
+                    self.addressTableView.reloadData()
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
+        }
+    }
+    
+    func getPriceRule() {
+        APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com//admin/api/2023-10/price_rules/1405087318332.json") { (result: Result<PriceMRuleModel, Error>) in
+            switch result {
+            case .success(let priceRule):
+                self.priceRule = priceRule
+                DispatchQueue.main.async {
+                    // Notify the view that data has been updated
+                    print(self.priceRule)
+                    self.addressTableView.reloadData()
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
+        }
+    }
     
 }

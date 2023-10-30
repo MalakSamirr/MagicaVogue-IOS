@@ -330,6 +330,13 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		459DFB1B2AEE91EB00990BF4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		45A095CD2ADFE48D00C297C9 = {
 			isa = PBXGroup;
 			children = (
@@ -922,6 +929,7 @@
 		59F4E7A72AE2CACE002A5BFF /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
+				459DFB1B2AEE91EB00990BF4 /* Model */,
 				59F4E7A82AE2CACE002A5BFF /* CheckoutVC.xib */,
 				59F4E7A92AE2CACE002A5BFF /* CheckoutVC.swift */,
 			);

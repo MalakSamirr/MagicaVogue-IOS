@@ -23,8 +23,10 @@ struct DraftOrder: Codable {
 struct LineItem: Codable {
     let id: Int?
     let title: String
+    let price: String?
     let grams : Int?
     let name: String
+    let quantity: Int
 }
 
 struct Discount: Codable {

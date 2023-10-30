@@ -99,7 +99,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         print(arrOfColor)
-        productPrice.text = "EG\(myProduct.variants?[0].price ?? "0")"
+        productPrice.text = "\(myProduct.variants?[0].price ?? "0")"
         productName.text = myProduct.title
         productDetails.text = myProduct.body_html
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: 1000)
