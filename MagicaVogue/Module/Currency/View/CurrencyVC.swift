@@ -9,10 +9,9 @@ import UIKit
 import Alamofire
 
 class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var currencies: Currency?
-    var currencies2 : Currency?
-    var currencySelected : String = ""
-    var changedCurrencyTo : CurrencyChange?
+   
+    
+    let currencyViewModel : CurrencyViewModel = CurrencyViewModel()
 
 
     @IBOutlet weak var currencySearchBar: UISearchBar!
@@ -26,14 +25,37 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
        
         fetchCurrencies()
         self.currrencyTableView.reloadData()
-        print(currencies?.results?.count)
+        print(currencyViewModel.currencies?.results?.count)
 
        // print(currencies.count)
         print("---------")
 
     }
+    
+    func fetchCurrencies() {
+        let apiKey = "e07402dc31-efa888e5a7-s3av7p"
+        let apiUrl = "https://api.fastforex.io/fetch-all?api_key=\(apiKey)"
+        AF.request(apiUrl).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let currencyResponse = try JSONDecoder().decode(Currency.self, from: data)
+                    // Handle the decoded data
+                    self.currencyViewModel.currencies = currencyResponse
+                    self.currencyViewModel.currencies2 = currencyResponse
+                    print(self.currencyViewModel.currencies)
+                    self.currrencyTableView.reloadData()
+
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencies?.results?.count ?? 0
+        return currencyViewModel.currencies?.results?.count ?? 0
 
     }
     
@@ -41,7 +63,7 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as! CurrencyCell
 
         
-        if let results = currencies?.results {
+        if let results = currencyViewModel.currencies?.results {
             let keys = Array(results.keys)
             if indexPath.row < keys.count {
                 cell.currencyLabel.text = keys[indexPath.row]
@@ -65,7 +87,7 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             cell.isChecked = true
             cell.checkMark.image = UIImage(systemName: "checkmark.circle.fill")
             cell.checkMark.tintColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
-            currencySelected = cell.currencyLabel.text!
+            currencyViewModel.currencySelected = cell.currencyLabel.text!
         }
 //        else{
 //            cell.isChecked = false
@@ -87,60 +109,23 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     
-    func fetchCurrencies() {
-        let apiKey = "e07402dc31-efa888e5a7-s3av7p"
-        let apiUrl = "https://api.fastforex.io/fetch-all?api_key=\(apiKey)"
-        AF.request(apiUrl).responseData { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                    let currencyResponse = try JSONDecoder().decode(Currency.self, from: data)
-                    // Handle the decoded data
-                    self.currencies = currencyResponse
-                    self.currencies2 = currencyResponse
-                    print(self.currencies)
-                    self.currrencyTableView.reloadData()
-
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            case .failure(let error):
-                print("Request failed with error: \(error)")
-            }
-        }
-    }
+ 
 
     
     @IBAction func DoneButton(_ sender: Any) {
-        print(currencySelected)
-        changeCurrency()
+        print(currencyViewModel.currencySelected)
+        currencyViewModel.changeCurrency()
         print("------------------------------")
-        print(changedCurrencyTo?.result)
+        print(currencyViewModel.changedCurrencyTo?.result)
         print("------------------------------")
+        let tab = TabBarController()
+        
+        self.navigationController?.popViewController(animated: true)
 
         
     }
     
-    func changeCurrency(){
-        let api = "https://api.fastforex.io/fetch-one?api_key=e07402dc31-efa888e5a7-s3av7p&to=EGP&from=USD"
-        
-        AF.request(api).responseData { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                    let currencyResponse = try JSONDecoder().decode(CurrencyChange.self, from: data)
-                    // Handle the decoded data
-                    self.changedCurrencyTo = currencyResponse
-                    print(currencyResponse)
-                    print(self.changedCurrencyTo?.result)
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            case .failure(let error):
-                print("Request failed with error: \(error)")
-            }
-        }
-    }
+   
 
 }
 
@@ -148,9 +133,9 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 extension CurrencyVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            currencies?.results = currencies2?.results
+            currencyViewModel.currencies?.results = currencyViewModel.currencies2?.results
         } else {
-            currencies?.results = currencies2?.results?.filter { (key, _) in
+            currencyViewModel.currencies?.results = currencyViewModel.currencies2?.results?.filter { (key, _) in
                 return key.lowercased().contains(searchText.lowercased())
             }
         }
