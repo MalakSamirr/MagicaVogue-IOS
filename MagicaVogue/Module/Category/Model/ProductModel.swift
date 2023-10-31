@@ -29,6 +29,7 @@ struct Products: Codable {
     let image: ProductImage?
     let variants: [Variants]?
     var options:[Options]?
+    var currency : [String: Double]?
     
     
 }

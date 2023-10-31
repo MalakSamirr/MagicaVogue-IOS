@@ -9,6 +9,7 @@ import Foundation
 import Lottie
 
 class BrandViewModel {
+    var myProduct : Products!
 
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForSubCategory: IndexPath?

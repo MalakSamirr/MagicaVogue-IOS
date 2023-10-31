@@ -11,6 +11,7 @@ import FirebaseAuth
 import GoogleSignIn
 
 class LoginViewController: UIViewController {
+    weak var tabBar : TabBarController?
 
     let profile = ProfileViewController()
       
@@ -130,10 +131,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func skipButton(_ sender: Any) {
-       // let tab = TabBarController()
-      //  self.navigationController?.setViewControllers([tab], animated: true)
-       let home = HomeViewController()
-       self.navigationController?.pushViewController(home, animated: true)
+        let tab = TabBarController()
+        self.navigationController?.setViewControllers([tab], animated: true)
         
     }
 

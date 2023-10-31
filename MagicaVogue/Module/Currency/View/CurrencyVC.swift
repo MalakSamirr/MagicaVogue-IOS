@@ -10,9 +10,9 @@ import Alamofire
 
 class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
-    
     let currencyViewModel : CurrencyViewModel = CurrencyViewModel()
 
+    var brandViewModel : BrandViewModel = BrandViewModel()
 
     @IBOutlet weak var currencySearchBar: UISearchBar!
     @IBOutlet weak var currrencyTableView: UITableView!
@@ -115,10 +115,8 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBAction func DoneButton(_ sender: Any) {
         print(currencyViewModel.currencySelected)
         currencyViewModel.changeCurrency()
-        print("------------------------------")
         print(currencyViewModel.changedCurrencyTo?.result)
-        print("------------------------------")
-        let tab = TabBarController()
+        brandViewModel.myProduct.currency = currencyViewModel.changedCurrencyTo?.result
         
         self.navigationController?.popViewController(animated: true)
 

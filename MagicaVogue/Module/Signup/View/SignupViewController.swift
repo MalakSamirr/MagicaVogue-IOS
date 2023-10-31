@@ -292,8 +292,8 @@ class SignupViewController: UIViewController {
     
     
     @IBAction func skipButton(_ sender: Any) {
-        let home = HomeViewController()
-        self.navigationController?.pushViewController(home, animated: true)
+        let tab = TabBarController()
+        self.navigationController?.setViewControllers([tab], animated: true)
     }
     
 }

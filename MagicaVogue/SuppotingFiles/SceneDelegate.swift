@@ -10,8 +10,13 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var shouldResetNav = false
 
-
+    func resetAppNavigation() {
+            let newRootViewController = LoginViewController()
+            window?.rootViewController = UINavigationController(rootViewController: newRootViewController)
+        }
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
             guard let windowScene = (scene as? UIWindowScene) else { return }
 
@@ -22,6 +27,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             window?.rootViewController = UINavigationController(rootViewController: rootViewController)
             window?.makeKeyAndVisible()
+        
+        if shouldResetNav{
+            resetAppNavigation()
+        }
 
         }
 
