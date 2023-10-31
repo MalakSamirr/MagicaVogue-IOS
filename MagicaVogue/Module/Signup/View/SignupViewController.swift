@@ -36,6 +36,8 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
         print("ghjj")
         // Do any additional setup after loading the view.
+        navigationItem.backBarButtonItem?.isHidden = true
+
         
         confirmPasswordTextfield.isSecureTextEntry = true
         passwordTextfield.isSecureTextEntry = true
@@ -287,5 +289,11 @@ class SignupViewController: UIViewController {
         
     }
     
+    
+    
+    @IBAction func skipButton(_ sender: Any) {
+        let home = HomeViewController()
+        self.navigationController?.pushViewController(home, animated: true)
+    }
     
 }

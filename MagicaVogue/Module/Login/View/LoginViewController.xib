@@ -147,16 +147,35 @@
                         <constraint firstItem="urh-qw-6Tk" firstAttribute="top" secondItem="IaJ-As-Qrl" secondAttribute="top" constant="90" id="waf-mC-nMD"/>
                     </constraints>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dM-Iw-arW">
+                    <rect key="frame" x="308" y="49" width="58" height="32.666666666666657"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <attributedString key="attributedTitle">
+                            <fragment content="Skip">
+                                <attributes>
+                                    <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="skipButton:" destination="-1" eventType="touchUpInside" id="u5I-p4-70U"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="IaJ-As-Qrl" secondAttribute="trailing" constant="16" id="0yV-ok-wye"/>
                 <constraint firstItem="IaJ-As-Qrl" firstAttribute="top" secondItem="XGH-A5-LVT" secondAttribute="bottom" constant="30" id="3zF-7X-CiF"/>
+                <constraint firstItem="2dM-Iw-arW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="2" id="FKS-CP-FK9"/>
                 <constraint firstItem="XGH-A5-LVT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="69" id="G1y-zD-SH2"/>
                 <constraint firstItem="XGH-A5-LVT" firstAttribute="centerX" secondItem="IaJ-As-Qrl" secondAttribute="centerX" id="GSw-zR-duo"/>
                 <constraint firstItem="XGH-A5-LVT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ILp-vD-QiU"/>
                 <constraint firstItem="IaJ-As-Qrl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="iji-1G-GkN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2dM-Iw-arW" secondAttribute="trailing" constant="24" id="kJG-dV-1jX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="IaJ-As-Qrl" secondAttribute="bottom" constant="80" id="qWF-Pw-V4J"/>
             </constraints>
             <point key="canvasLocation" x="78.461538461538453" y="19.90521327014218"/>

@@ -231,6 +231,24 @@
                         <constraint firstItem="g6a-Ir-ou6" firstAttribute="top" secondItem="lqm-x1-xkR" secondAttribute="top" constant="75" id="yye-BW-fne"/>
                     </constraints>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Brp-Nt-ysn">
+                    <rect key="frame" x="311" y="61" width="58" height="32.666666666666657"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <attributedString key="attributedTitle">
+                            <fragment content="Skip">
+                                <attributes>
+                                    <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <attributedString key="attributedSubtitle"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="skipButton:" destination="-1" eventType="touchUpInside" id="Eyg-2V-Lua"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -239,8 +257,10 @@
                 <constraint firstItem="sEY-sY-Td4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KMK-va-bvz"/>
                 <constraint firstItem="sEY-sY-Td4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="OqC-Ip-R0g"/>
                 <constraint firstAttribute="trailing" secondItem="lqm-x1-xkR" secondAttribute="trailing" constant="16" id="Zwa-hw-Q64"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Brp-Nt-ysn" secondAttribute="trailing" constant="24" id="ik6-ag-wgj"/>
                 <constraint firstItem="lqm-x1-xkR" firstAttribute="top" secondItem="sEY-sY-Td4" secondAttribute="bottom" constant="30" id="mMe-UC-BMA"/>
                 <constraint firstAttribute="bottom" secondItem="lqm-x1-xkR" secondAttribute="bottom" constant="80" id="pMi-ta-nmc"/>
+                <constraint firstItem="Brp-Nt-ysn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="2" id="rIr-h3-rDm"/>
                 <constraint firstItem="lqm-x1-xkR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="rPO-xh-DMu"/>
                 <constraint firstItem="sEY-sY-Td4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="vv8-Vw-Ksf"/>
             </constraints>
