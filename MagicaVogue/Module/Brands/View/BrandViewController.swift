@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import Alamofire
 
+
 class BrandViewController: UIViewController{
     
     
@@ -145,7 +146,18 @@ extension BrandViewController: UICollectionViewDataSource {
                     cell.brandItemImage.image = UIImage(named: "CouponBackground")
                 }
                 cell.itemLabel.text = product.title
-                cell.itemPrice.text = product.variants?[0].price
+                
+                
+                if let intValue = Double(product.variants?[0].price ?? "0") {
+               //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
+                        // Check if you can cast the value from the dictionary as an Int.
+                        
+                    let result = intValue * GlobalData.shared.num
+                        let resultString = String(result)
+                    cell.itemPrice.text = "\(GlobalData.shared.country) \(resultString)"
+                    }
+                    
+                
                 cell.id = product.id
             }
             return cell

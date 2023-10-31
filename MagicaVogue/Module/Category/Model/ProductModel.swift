@@ -29,7 +29,6 @@ struct Products: Codable {
     let image: ProductImage?
     let variants: [Variants]?
     var options:[Options]?
-    var currency : [String: Double]?
     
     
 }
@@ -54,4 +53,12 @@ struct Options:Codable{
 struct ProductOption {
     let name: String
     var isSelected: Bool
+}
+
+
+struct GlobalData {
+    static var shared = GlobalData()
+    var NewCurrency: [String:Double] = ["USD":1]
+    var num : Double = 1
+    var country : String = "USD"
 }

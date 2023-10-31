@@ -57,6 +57,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             return
         }
             else{
+                print(Auth.auth().currentUser)
                 getCart()
             }
 //        totalPrice = 0

@@ -40,8 +40,6 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-      
-            
             if (Auth.auth().currentUser == nil){
                 let alert1 = UIAlertController(
                     title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)

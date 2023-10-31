@@ -81,7 +81,16 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         print(productDetailsViewModel.arrOfColor)
-        productPrice.text = "$\(productDetailsViewModel.myProduct.variants?[0].price ?? "0")"
+        
+        if let intValue = Double(productDetailsViewModel.myProduct.variants?[0].price ?? "0") {
+       //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
+                // Check if you can cast the value from the dictionary as an Int.
+                
+            let result = intValue * GlobalData.shared.num
+                let resultString = String(result)
+            productPrice.text = "\(GlobalData.shared.country) \(resultString)"
+            }
+        
         productName.text = productDetailsViewModel.myProduct.title
         productDetails.text = productDetailsViewModel.myProduct.body_html
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: 1000)
