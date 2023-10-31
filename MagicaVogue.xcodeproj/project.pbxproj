@@ -102,6 +102,13 @@
 		59F4E7C02AE2CAE0002A5BFF /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7BA2AE2CAE0002A5BFF /* CartModel.swift */; };
 		59F4E7C12AE2CAE0002A5BFF /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F4E7BC2AE2CAE0002A5BFF /* CartViewController.swift */; };
 		59F4E7C22AE2CAE0002A5BFF /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59F4E7BD2AE2CAE0002A5BFF /* CartViewController.xib */; };
+		747539EB2AEFABAE00F06520 /* CurrencyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747539E92AEFABAE00F06520 /* CurrencyVC.swift */; };
+		747539EC2AEFABAE00F06520 /* CurrencyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 747539EA2AEFABAE00F06520 /* CurrencyVC.xib */; };
+		747686942AF0EC3800CA268A /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747686932AF0EC3800CA268A /* CurrencyViewModel.swift */; };
+		74787CD72AEF9BA400ACE11B /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74787CD62AEF9BA400ACE11B /* CurrencyModel.swift */; };
+		74787CDB2AEFA3F900ACE11B /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74787CD92AEFA3F900ACE11B /* CurrencyCell.swift */; };
+		74787CDC2AEFA3F900ACE11B /* CurrencyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */; };
+		74800AD92AEE5CE500A96735 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */; };
 		84B82390EBD83582F4AAFE61 /* Pods_MagicaVogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */; };
 		B68F16CFA756CAA94E5BBCF5 /* Pods_MagicaVogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DD317D9C3B25ACBF11AE94 /* Pods_MagicaVogue.framework */; };
 		E7D64EB87DA477CD5E193BEF /* Pods_MagicaVogue_MagicaVogueUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */; };
@@ -249,6 +256,13 @@
 		59F4E7BA2AE2CAE0002A5BFF /* CartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
 		59F4E7BC2AE2CAE0002A5BFF /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		59F4E7BD2AE2CAE0002A5BFF /* CartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
+		747539E92AEFABAE00F06520 /* CurrencyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyVC.swift; sourceTree = "<group>"; };
+		747539EA2AEFABAE00F06520 /* CurrencyVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyVC.xib; sourceTree = "<group>"; };
+		747686932AF0EC3800CA268A /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
+		74787CD62AEF9BA400ACE11B /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
+		74787CD92AEFA3F900ACE11B /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
+		74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
+		74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogue_MagicaVogueUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogueTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4A4C6D8D0B902926941E81 /* Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue-MagicaVogueUITests/Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -579,6 +593,7 @@
 		5959D6B02AE2E60B00582F0F /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				74800ADA2AEEC8E400A96735 /* Currency */,
 				59610F5A2AEA7ACB0082117A /* Search */,
 				45D9B9132AE955730040BB0F /* Login4 */,
 				45E347132AE47D3100DD679B /* Extensions */,
@@ -980,6 +995,51 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		747686922AF0EC0300CA268A /* CurrencyViewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				747686932AF0EC3800CA268A /* CurrencyViewModel.swift */,
+			);
+			path = CurrencyViewmodel;
+			sourceTree = "<group>";
+		};
+		74787CD52AEF9B8800ACE11B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				74787CD62AEF9BA400ACE11B /* CurrencyModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		74787CD82AEFA3BB00ACE11B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				74787CD92AEFA3F900ACE11B /* CurrencyCell.swift */,
+				74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */,
+				747539E92AEFABAE00F06520 /* CurrencyVC.swift */,
+				747539EA2AEFABAE00F06520 /* CurrencyVC.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		74800AD72AEE5CBB00A96735 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		74800ADA2AEEC8E400A96735 /* Currency */ = {
+			isa = PBXGroup;
+			children = (
+				747686922AF0EC0300CA268A /* CurrencyViewmodel */,
+				74787CD82AEFA3BB00ACE11B /* View */,
+				74787CD52AEF9B8800ACE11B /* Model */,
+			);
+			path = Currency;
+			sourceTree = "<group>";
+		};
 		CFF90E282096CBA3171563AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1018,6 +1078,7 @@
 		EEC3F7342AE05062004D22C1 /* ProductDetails */ = {
 			isa = PBXGroup;
 			children = (
+				74800AD72AEE5CBB00A96735 /* ViewModel */,
 				EEC3F7352AE0506F004D22C1 /* View */,
 			);
 			path = ProductDetails;
@@ -1240,9 +1301,11 @@
 				59F4E7C22AE2CAE0002A5BFF /* CartViewController.xib in Resources */,
 				45E347122AE479FE00DD679B /* ShippingDetailsVC.xib in Resources */,
 				45A095E62ADFE48F00C297C9 /* Assets.xcassets in Resources */,
+				74787CDC2AEFA3F900ACE11B /* CurrencyCell.xib in Resources */,
 				45ECE7B32AE2F3EE00488682 /* PaymentCell.xib in Resources */,
 				59AF4EE82AE11DC900B4B8EE /* ItemCell.xib in Resources */,
 				59F4E7AC2AE2CACE002A5BFF /* NewAddressCell.xib in Resources */,
+				747539EC2AEFABAE00F06520 /* CurrencyVC.xib in Resources */,
 				45A095E12ADFE48E00C297C9 /* Main.storyboard in Resources */,
 				59610F5E2AEA7AEE0082117A /* SearchViewController.xib in Resources */,
 				45EADB942AE2845600943BE7 /* CopounsViewController.xib in Resources */,
@@ -1399,9 +1462,11 @@
 			files = (
 				59AF4EF32AE12D9400B4B8EE /* BrandViewController.swift in Sources */,
 				45D9B9162AE955B00040BB0F /* UserLoginViewController.swift in Sources */,
+				74787CDB2AEFA3F900ACE11B /* CurrencyCell.swift in Sources */,
 				59AF4EEF2AE122C100B4B8EE /* SubCategoryCell.swift in Sources */,
 				59DDBDCC2AE8314000898513 /* CategoryViewModel.swift in Sources */,
 				5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */,
+				747539EB2AEFABAE00F06520 /* CurrencyVC.swift in Sources */,
 				59DDBDC72AE6AC5700898513 /* MainCategoryModel.swift in Sources */,
 				457D68422AE96830008FB422 /* UserProfileViewController.swift in Sources */,
 				457D68462AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift in Sources */,
@@ -1420,6 +1485,7 @@
 				59F4E7BF2AE2CAE0002A5BFF /* CartCell.swift in Sources */,
 				59AF4EE72AE11DC900B4B8EE /* ItemCell.swift in Sources */,
 				45EADB932AE2845600943BE7 /* CopounsViewController.swift in Sources */,
+				74787CD72AEF9BA400ACE11B /* CurrencyModel.swift in Sources */,
 				45E347152AE47D5A00DD679B /* Inspectables.swift in Sources */,
 				EEC3F7382AE05089004D22C1 /* ProductDetailsViewController.swift in Sources */,
 				EEE356872AE01E8C000B8742 /* LoginViewController.swift in Sources */,
@@ -1430,6 +1496,7 @@
 				EEE3A0B72AE157BA009956BC /* ProfileViewController.swift in Sources */,
 				59DDBDBC2AE539ED00898513 /* HomeModel.swift in Sources */,
 				59BAF3722AE3130B00772630 /* CategoryViewController.swift in Sources */,
+				74800AD92AEE5CE500A96735 /* ProductDetailsViewModel.swift in Sources */,
 				456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */,
 				459A79712AE64E2C00474738 /* APIManager.swift in Sources */,
 				59DDBDB22AE538DC00898513 /* TargetType.swift in Sources */,
@@ -1439,6 +1506,7 @@
 				59DDBDB92AE5397200898513 /* Constants.swift in Sources */,
 				5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */,
 				59BAF36C2AE30BE000772630 /* TabBarController.swift in Sources */,
+				747686942AF0EC3800CA268A /* CurrencyViewModel.swift in Sources */,
 				45A095DE2ADFE48E00C297C9 /* ViewController.swift in Sources */,
 				457D684C2AE96E64008FB422 /* ProfileOrdersCollectionViewCell.swift in Sources */,
 				59DDBDCF2AE8668100898513 /* BrandViewModel.swift in Sources */,
@@ -1645,7 +1713,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T96JD555QP;
+				DEVELOPMENT_TEAM = 94MB3RHVU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagicaVogue/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1676,7 +1744,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T96JD555QP;
+				DEVELOPMENT_TEAM = 94MB3RHVU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagicaVogue/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

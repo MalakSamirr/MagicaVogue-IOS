@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -27,7 +26,7 @@
                     <rect key="frame" x="141" y="116" width="108" height="146"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="IaJ-As-Qrl">
-                    <rect key="frame" x="16" y="292" width="358" height="418"/>
+                    <rect key="frame" x="16" y="292" width="358" height="438"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwS-eo-aeS">
                             <rect key="frame" x="0.0" y="0.0" width="358" height="57"/>
@@ -55,7 +54,7 @@
                                     <rect key="frame" x="0.0" y="23" width="361" height="34"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SL2-oO-juG">
                                     <rect key="frame" x="0.0" y="0.0" width="70" height="20"/>
@@ -101,10 +100,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zeg-XI-F0F">
-                            <rect key="frame" x="154" y="316.33333333333337" width="50" height="40"/>
+                            <rect key="frame" x="149" y="316.33333333333337" width="60" height="60"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="50" id="TpF-kG-gER"/>
-                                <constraint firstAttribute="height" constant="40" id="nXr-Tl-Q8Z"/>
+                                <constraint firstAttribute="width" constant="60" id="TpF-kG-gER"/>
+                                <constraint firstAttribute="height" constant="60" id="nXr-Tl-Q8Z"/>
                             </constraints>
                             <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <buttonConfiguration key="configuration" style="plain" image="g.circle.fill" catalog="system"/>
@@ -113,7 +112,7 @@
                             </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXB-BS-Jz7">
-                            <rect key="frame" x="40" y="389.33333333333337" width="278" height="28.666666666666686"/>
+                            <rect key="frame" x="40" y="409.33333333333337" width="278" height="28.666666666666686"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doesn't have an account ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRm-rG-RxJ">
                                     <rect key="frame" x="0.0" y="0.0" width="200.66666666666666" height="28.666666666666668"/>
@@ -138,31 +137,52 @@
                         <constraint firstItem="cwS-eo-aeS" firstAttribute="leading" secondItem="IaJ-As-Qrl" secondAttribute="leading" id="89M-aq-HvO"/>
                         <constraint firstItem="urh-qw-6Tk" firstAttribute="leading" secondItem="IaJ-As-Qrl" secondAttribute="leading" id="AuP-jf-ZJP"/>
                         <constraint firstItem="GAv-Oc-AmF" firstAttribute="top" secondItem="IaJ-As-Qrl" secondAttribute="top" constant="180" id="GB7-LI-IVD"/>
+                        <constraint firstItem="83F-s9-7Rl" firstAttribute="top" secondItem="GAv-Oc-AmF" secondAttribute="bottom" constant="33" id="GLj-Hp-uU0"/>
                         <constraint firstAttribute="trailing" secondItem="83F-s9-7Rl" secondAttribute="trailing" id="L3M-nQ-dFm"/>
                         <constraint firstAttribute="trailing" secondItem="GAv-Oc-AmF" secondAttribute="trailing" id="dW9-NQ-JpP"/>
                         <constraint firstAttribute="trailing" secondItem="urh-qw-6Tk" secondAttribute="trailing" id="gBV-TR-yKG"/>
+                        <constraint firstItem="Zeg-XI-F0F" firstAttribute="top" secondItem="83F-s9-7Rl" secondAttribute="bottom" constant="33" id="joR-uL-xI6"/>
                         <constraint firstItem="GAv-Oc-AmF" firstAttribute="leading" secondItem="IaJ-As-Qrl" secondAttribute="leading" id="pw2-t1-hMI"/>
                         <constraint firstAttribute="trailing" secondItem="cwS-eo-aeS" secondAttribute="trailing" id="vQy-wm-gYa"/>
                         <constraint firstItem="urh-qw-6Tk" firstAttribute="top" secondItem="IaJ-As-Qrl" secondAttribute="top" constant="90" id="waf-mC-nMD"/>
                     </constraints>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dM-Iw-arW">
+                    <rect key="frame" x="308" y="49" width="58" height="32.666666666666657"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <attributedString key="attributedTitle">
+                            <fragment content="Skip">
+                                <attributes>
+                                    <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="skipButton:" destination="-1" eventType="touchUpInside" id="u5I-p4-70U"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="IaJ-As-Qrl" secondAttribute="trailing" constant="16" id="0yV-ok-wye"/>
                 <constraint firstItem="IaJ-As-Qrl" firstAttribute="top" secondItem="XGH-A5-LVT" secondAttribute="bottom" constant="30" id="3zF-7X-CiF"/>
+                <constraint firstItem="2dM-Iw-arW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="2" id="FKS-CP-FK9"/>
                 <constraint firstItem="XGH-A5-LVT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="69" id="G1y-zD-SH2"/>
                 <constraint firstItem="XGH-A5-LVT" firstAttribute="centerX" secondItem="IaJ-As-Qrl" secondAttribute="centerX" id="GSw-zR-duo"/>
                 <constraint firstItem="XGH-A5-LVT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ILp-vD-QiU"/>
                 <constraint firstItem="IaJ-As-Qrl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="iji-1G-GkN"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="IaJ-As-Qrl" secondAttribute="bottom" constant="100" id="qWF-Pw-V4J"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2dM-Iw-arW" secondAttribute="trailing" constant="24" id="kJG-dV-1jX"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="IaJ-As-Qrl" secondAttribute="bottom" constant="80" id="qWF-Pw-V4J"/>
             </constraints>
             <point key="canvasLocation" x="78.461538461538453" y="19.90521327014218"/>
         </view>
     </objects>
     <resources>
-        <image name="eye.slash.fill" catalog="system" width="128" height="96"/>
+        <image name="eye.slash.fill" catalog="system" width="128" height="85"/>
         <image name="g.circle.fill" catalog="system" width="128" height="123"/>
         <image name="logo4" width="108" height="146"/>
         <systemColor name="systemBackgroundColor">

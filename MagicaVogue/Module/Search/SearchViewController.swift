@@ -67,7 +67,7 @@ extension SearchViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let product = viewModel.productArray?[indexPath.row]{
             let productDetailsVC = ProductDetailsViewController()
-            productDetailsVC.myProduct = product
+            productDetailsVC.productDetailsViewModel.myProduct = product
             
             self.navigationController?.pushViewController(productDetailsVC, animated: true)
         }

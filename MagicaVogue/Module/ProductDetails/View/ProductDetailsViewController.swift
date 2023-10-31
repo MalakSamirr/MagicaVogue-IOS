@@ -7,34 +7,20 @@
 
 import UIKit
 import Alamofire
+import Kingfisher
+
 
 protocol saveItemsToCart : AnyObject{
     func addItemsToCart()
 }
-import Kingfisher
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
+    
+    
     @IBOutlet weak var optionsCollectionView: UICollectionView!
     @IBOutlet weak var sliderControlPage: UIPageControl!
-    var currentCell = 0
-    var customerid = 7471279866172
-    private var timer: Timer?
-    var selectedIndexPathForSize: IndexPath?
-    var selectedIndexPathForColor: IndexPath?
-    static let sectionHeaderElementKind = "section-header-element-kind"
-    
-    struct ProductOption {
-        let name: String
-        var isSelected: Bool
-    }
-    
-    var productSizes: [ProductOption] = []
-    var productColors: [ProductOption] = []
-    
-    var arrOfProductImgs: [String] = []
-    var arrOfSize: [String] = []
-    var arrOfColor: [String] = []
+  
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -42,33 +28,29 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var productDetails: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     
-    @IBOutlet weak var small: UIButton!
+  
     
-    @IBOutlet weak var medium: UIButton!
+    var productDetailsViewModel: ProductDetailsViewModel = ProductDetailsViewModel()
+    static let sectionHeaderElementKind = "section-header-element-kind"
     
-    
-    @IBOutlet weak var large: UIButton!
-    
-    var myProduct : Products!
-    var cart: [Products] = []
-    
-    
+   // private var timer: Timer?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // sliderControlPage.numberOfPages = arrOfProductImgs.count
-        for image in myProduct.images! {
-            arrOfProductImgs.append(image.src ?? "")
+        for image in productDetailsViewModel.myProduct.images! {
+            productDetailsViewModel.arrOfProductImgs.append(image.src ?? "")
         }
         
         self.optionsCollectionView.register(SectionHeader.self, forSupplementaryViewOfKind: ProductDetailsViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)
         
         
-        if let values = myProduct.options?[0].values, !values.isEmpty {
+        if let values = productDetailsViewModel.myProduct.options?[0].values, !values.isEmpty {
             var isFirstSize = true
             
             for size in values {
-                arrOfSize.append(size)
+                productDetailsViewModel.arrOfSize.append(size)
                 var productOption: ProductOption
                 if isFirstSize {
                     productOption = ProductOption(name: size, isSelected: true)
@@ -78,15 +60,15 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     productOption = ProductOption(name: size, isSelected: false)
                 }
                 
-                productSizes.append(productOption)
+                productDetailsViewModel.productSizes.append(productOption)
             }
         }
-        print(arrOfSize)
+        print(productDetailsViewModel.arrOfSize)
         print("--------------------")
-        if let values = myProduct.options?[1].values, !values.isEmpty {
+        if let values = productDetailsViewModel.myProduct.options?[1].values, !values.isEmpty {
             var isFirstColor = true
             for color in values {
-                arrOfColor.append(color)
+                productDetailsViewModel.arrOfColor.append(color)
                 var productOption: ProductOption
                 if isFirstColor {
                     productOption = ProductOption(name: color, isSelected: true)
@@ -95,13 +77,13 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     productOption = ProductOption(name: color, isSelected: false)
                     
                 }
-                productColors.append(productOption)
+                productDetailsViewModel.productColors.append(productOption)
             }
         }
-        print(arrOfColor)
-        productPrice.text = "\(myProduct.variants?[0].price ?? "0")"
-        productName.text = myProduct.title
-        productDetails.text = myProduct.body_html
+        print(productDetailsViewModel.arrOfColor)
+        productPrice.text = "$\(productDetailsViewModel.myProduct.variants?[0].price ?? "0")"
+        productName.text = productDetailsViewModel.myProduct.title
+        productDetails.text = productDetailsViewModel.myProduct.body_html
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: 1000)
         
         optionsCollectionView.dataSource = self
@@ -139,7 +121,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         optionsCollectionView.setCollectionViewLayout(layout1, animated: true)
-        sliderControlPage.numberOfPages = arrOfProductImgs.count
+        sliderControlPage.numberOfPages = productDetailsViewModel.arrOfProductImgs.count
         
     }
     
@@ -156,16 +138,16 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     private func automaticSlide() {
-        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(slide), userInfo: nil, repeats: true)
+        productDetailsViewModel.timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(slide), userInfo: nil, repeats: true)
     }
     
     @objc func slide() {
-        if currentCell < arrOfProductImgs.count - 1 {
-            currentCell += 1
+        if productDetailsViewModel.currentCell < productDetailsViewModel.arrOfProductImgs.count - 1 {
+            productDetailsViewModel.currentCell += 1
         } else {
-            currentCell = 0
+            productDetailsViewModel.currentCell = 0
         }
-        sliderControlPage.currentPage = currentCell
+        sliderControlPage.currentPage = productDetailsViewModel.currentCell
         let indexPath = IndexPath(row: sliderControlPage.currentPage, section: 0)
         if let frame = collectionView?.layoutAttributesForItem(at: indexPath)?.frame {
             collectionView?.scrollRectToVisible(frame, animated: true)
@@ -195,15 +177,15 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.collectionView:
-            sliderControlPage.numberOfPages = arrOfProductImgs.count
+            sliderControlPage.numberOfPages = productDetailsViewModel.arrOfProductImgs.count
             
-            return arrOfProductImgs.count
+            return productDetailsViewModel.arrOfProductImgs.count
         case optionsCollectionView:
             switch section {
             case 0:
-                return arrOfSize.count
+                return productDetailsViewModel.arrOfSize.count
             case 1:
-                return arrOfColor.count
+                return productDetailsViewModel.arrOfColor.count
             default:
                 return 0
             }
@@ -217,7 +199,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         switch collectionView {
         case self.collectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
-            let img = arrOfProductImgs[indexPath.row]
+            let img = productDetailsViewModel.arrOfProductImgs[indexPath.row]
             if let imageUrl = URL(string: img) {
                 cell.img.kf.setImage(with: imageUrl)
             }
@@ -226,20 +208,20 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
             switch indexPath.section {
             case 0:
-                cell.mainCategoryLabel.text = arrOfSize[indexPath.row]
-                if (productSizes[indexPath.row].isSelected) {
+                cell.mainCategoryLabel.text = productDetailsViewModel.arrOfSize[indexPath.row]
+                if (productDetailsViewModel.productSizes[indexPath.row].isSelected) {
                     cell.mainCategoryLabel.textColor = .white
                     cell.mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
                     
                 }
             case 1:
-                if (productColors[indexPath.row].isSelected) {
+                if (productDetailsViewModel.productColors[indexPath.row].isSelected) {
                     cell.mainCategoryLabel.textColor = .white
                     cell.mainCategoryBackgroundView.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
                     
                 }
                 
-                cell.mainCategoryLabel.text = arrOfColor[indexPath.row]
+                cell.mainCategoryLabel.text = productDetailsViewModel.arrOfColor[indexPath.row]
             default:
                 cell.mainCategoryLabel.text = "empty"
             }
@@ -272,18 +254,18 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCategoryCell", for: indexPath) as! MainCategoryCell
             
             if indexPath.section == 0 {
-                for index in 0..<productSizes.count {
-                    productSizes[index].isSelected = false
+                for index in 0..<productDetailsViewModel.productSizes.count {
+                    productDetailsViewModel.productSizes[index].isSelected = false
                 }
                 
-                productSizes[indexPath.row].isSelected = true
+                productDetailsViewModel.productSizes[indexPath.row].isSelected = true
             }
             else {
-                for index in 0..<productColors.count {
-                    productColors[index].isSelected = false
+                for index in 0..<productDetailsViewModel.productColors.count {
+                    productDetailsViewModel.productColors[index].isSelected = false
                 }
                 
-                productColors[indexPath.row].isSelected = true
+                productDetailsViewModel.productColors[indexPath.row].isSelected = true
             }
             collectionView.reloadData()
         }
@@ -372,7 +354,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
         
-        let imageSrc = myProduct.image?.src ?? "SHOES"
+        let imageSrc = productDetailsViewModel.myProduct.image?.src ?? "SHOES"
         
         // Request body data
         let draftOrderData: [String: Any] = [
@@ -380,8 +362,8 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 "note": "cart",
                 "line_items": [
                     [
-                        "title": myProduct.title ?? "SHOES",
-                        "price": myProduct.variants?[0].price ?? "0.0",
+                        "title": productDetailsViewModel.myProduct.title ?? "SHOES",
+                        "price": productDetailsViewModel.myProduct.variants?[0].price ?? "0.0",
                         "quantity": 1
                     ]
                 ],
@@ -407,7 +389,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     self.showSuccessAlert()
                     
                     // Append the product to the cart array
-                    self.cart.append(self.myProduct)
+                    self.productDetailsViewModel.cart.append(self.productDetailsViewModel.myProduct)
                     
                 case .failure(let error):
                     print("Failed to add the product to the cart. Error: \(error)")
@@ -417,7 +399,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     func isProductInCart() -> Bool {
         // Check if the product with the same ID is already in the cart
-        if let existingProduct = cart.first(where: { $0.id == myProduct.id }) {
+        if let existingProduct = productDetailsViewModel.cart.first(where: { $0.id == productDetailsViewModel.myProduct.id }) {
             return true
         }
         return false

@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.backBarButtonItem?.isHidden = true
         // Do any additional setup after loading the view.
     }
 
@@ -125,6 +126,14 @@ class LoginViewController: UIViewController {
                 self.navigationController?.setViewControllers([tab], animated: true)
             }
         }
+        
+    }
+    
+    @IBAction func skipButton(_ sender: Any) {
+       // let tab = TabBarController()
+      //  self.navigationController?.setViewControllers([tab], animated: true)
+       let home = HomeViewController()
+       self.navigationController?.pushViewController(home, animated: true)
         
     }
 
