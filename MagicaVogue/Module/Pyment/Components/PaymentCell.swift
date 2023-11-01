@@ -12,6 +12,7 @@ class PaymentCell: UITableViewCell {
     
     @IBOutlet weak var payementImage: UIImageView!
     @IBOutlet weak var cashBackgroundView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -10,6 +10,9 @@
 		454EE3EF2AE9818F001967B2 /* MoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */; };
 		456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */; };
 		456C39812AE9CA0700892660 /* CouponModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C39802AE9CA0700892660 /* CouponModel.swift */; };
+		457A16842AF2D06B009A6409 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457A16822AF2D06B009A6409 /* PaymentTableViewCell.swift */; };
+		457A16852AF2D06B009A6409 /* PaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457A16832AF2D06B009A6409 /* PaymentTableViewCell.xib */; };
+		457A16872AF2EA9A009A6409 /* SuccessAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 457A16862AF2EA99009A6409 /* SuccessAnimation.json */; };
 		457D68422AE96830008FB422 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D68402AE96830008FB422 /* UserProfileViewController.swift */; };
 		457D68432AE96830008FB422 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457D68412AE96830008FB422 /* UserProfileViewController.xib */; };
 		457D68462AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D68442AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift */; };
@@ -160,6 +163,9 @@
 		454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreProtocol.swift; sourceTree = "<group>"; };
 		456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRuleModel.swift; sourceTree = "<group>"; };
 		456C39802AE9CA0700892660 /* CouponModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponModel.swift; sourceTree = "<group>"; };
+		457A16822AF2D06B009A6409 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
+		457A16832AF2D06B009A6409 /* PaymentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentTableViewCell.xib; sourceTree = "<group>"; };
+		457A16862AF2EA99009A6409 /* SuccessAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessAnimation.json; sourceTree = "<group>"; };
 		457D68402AE96830008FB422 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		457D68412AE96830008FB422 /* UserProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
 		457D68442AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndButtonCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -346,6 +352,15 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		457A16812AF2D052009A6409 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				457A16822AF2D06B009A6409 /* PaymentTableViewCell.swift */,
+				457A16832AF2D06B009A6409 /* PaymentTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		459DFB1B2AEE91EB00990BF4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -485,6 +500,8 @@
 		45ECE7AF2AE2F3C900488682 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				457A16862AF2EA99009A6409 /* SuccessAnimation.json */,
+				457A16812AF2D052009A6409 /* Cell */,
 				45ECE7B02AE2F3EE00488682 /* PaymentCell.swift */,
 				45ECE7B12AE2F3EE00488682 /* PaymentCell.xib */,
 			);
@@ -1320,12 +1337,14 @@
 				45A095E12ADFE48E00C297C9 /* Main.storyboard in Resources */,
 				59610F5E2AEA7AEE0082117A /* SearchViewController.xib in Resources */,
 				45EADB942AE2845600943BE7 /* CopounsViewController.xib in Resources */,
+				457A16872AF2EA9A009A6409 /* SuccessAnimation.json in Resources */,
 				59AF4EF42AE12D9400B4B8EE /* BrandViewController.xib in Resources */,
 				5947D92F2AE008EC0005E94C /* HomeViewController.xib in Resources */,
 				EE4CD2862AE7BA6900F2271E /* GoogleService-Info.plist in Resources */,
 				EEE3A0B82AE157BA009956BC /* ProfileViewController.xib in Resources */,
 				59F4E7BE2AE2CAE0002A5BFF /* CartCell.xib in Resources */,
 				45D9B9172AE955B00040BB0F /* UserLoginViewController.xib in Resources */,
+				457A16852AF2D06B009A6409 /* PaymentTableViewCell.xib in Resources */,
 				EEDE61E92AE11F19006565A5 /* ProductImageCell.xib in Resources */,
 				457D68472AE968D1008FB422 /* LabelAndButtonCollectionViewCell.xib in Resources */,
 				59F4E7B42AE2CACE002A5BFF /* CheckoutvViewController.xib in Resources */,
@@ -1483,6 +1502,7 @@
 				457D68462AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift in Sources */,
 				5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */,
 				59F4E7B02AE2CACE002A5BFF /* MyAddressesVC.swift in Sources */,
+				457A16842AF2D06B009A6409 /* PaymentTableViewCell.swift in Sources */,
 				EEACB6762AE80EA200B0A776 /* SignupViewModel.swift in Sources */,
 				59F4E7C02AE2CAE0002A5BFF /* CartModel.swift in Sources */,
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
