@@ -118,18 +118,57 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func googleLoginButton(_ sender: Any) {
-        if let email = emailTextfield.text , let password = passwordTextfield.text{
+        Task { @MainActor in
+            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
             
-            Auth.auth().signIn( withEmail: email, password: password) { result, error in
-                
-                // At this point, our user is signed in
-                let tab = TabBarController()
-                self.navigationController?.setViewControllers([tab], animated: true)
-            }
+            // Create Google Sign In configuration object.
+            let config = GIDConfiguration(clientID: clientID)
+            GIDSignIn.sharedInstance.configuration = config
+            
+            let gidSignResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: self)
+            
+            guard
+                    let idToken = gidSignResult.user.idToken?.tokenString
+                else {
+                    throw URLError(.badServerResponse)
+                }
+            let accessToken : String = gidSignResult.user.accessToken.tokenString
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: accessToken)
+            
+            Auth.auth().signIn(with: credential) {  authResult, error in
+                if let e = error {
+                    
+                    let alert1 = UIAlertController(
+                        title: "Invalid Login", message: e.localizedDescription , preferredStyle: UIAlertController.Style.alert)
+                    
+                    let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
+                        
+                    }
+                    
+                    
+                    alert1.addAction(OkAction)
+                    
+                    self.present(alert1, animated: true , completion: nil)
+                    
+                  
+                    return
+                    
+                    print(e.localizedDescription)
+                    
+                } else {
+                    
+                    let tab = TabBarController()
+                    self.navigationController?.setViewControllers([tab], animated: true)
+                }     }
         }
-        
     }
-    
+
+    func signInWithGoogle(credential: AuthCredential) async throws -> AuthDataResultModel {
+        let authDataResults = try await Auth.auth().signIn(with: credential)
+        return AuthDataResultModel(user: authDataResults.user)
+
+    }
     @IBAction func skipButton(_ sender: Any) {
         let tab = TabBarController()
         self.navigationController?.setViewControllers([tab], animated: true)
