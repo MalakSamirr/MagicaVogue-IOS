@@ -13,6 +13,11 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
     @IBOutlet weak var paymentBackgroundView: UIView!
     
     @IBOutlet weak var paymentTable: UITableView!
+    var payementMethodasArray: [Payement] = [
+        Payement(type: "Cash on delivery", image: "money-icon-cash-icon", isSelected: true),
+        Payement(type: "Apple pay", image: "apple-pay", isSelected: false)
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
@@ -31,17 +36,20 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
         // Do any additional setup after loading the view.
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentCell", for: indexPath) as! PaymentCell
         
+        cell.payementTypeLabel.text = payementMethodasArray[indexPath.row].type
+        cell.payementImage.image = UIImage(named: payementMethodasArray[indexPath.row].image)
+        
         return cell
 
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 70
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
@@ -65,7 +73,14 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
         return "Payment Options"
        
     }
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentCell", for: indexPath) as! PaymentCell
+        for index in 0 ..< payementMethodasArray.count {
+            payementMethodasArray[index].isSelected = false
+        }
+        payementMethodasArray[indexPath.row].isSelected = true
+        
+    }
     
 
 
