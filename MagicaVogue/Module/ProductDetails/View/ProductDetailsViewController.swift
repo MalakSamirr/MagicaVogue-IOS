@@ -16,8 +16,10 @@ protocol saveItemsToCart : AnyObject{
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
-    
-    
+    var cart: [DraftOrder] = []
+    var customer_id : Int = 7471279866172
+//    var draftOrder : DraftOrder?
+    var lineItemsArr: [LineItem]? = []
     @IBOutlet weak var optionsCollectionView: UICollectionView!
     @IBOutlet weak var sliderControlPage: UIPageControl!
   
@@ -285,64 +287,130 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     
     @IBAction func AddToCartButtonPressed(_ sender: UIButton) {
+        //customer id + note = "cart" , if we found -> we will add this item in line items array
         
-        add()
+        //        // if not , we post as default
+        //        getCart()
+        //        if !cart.isEmpty{
+        //          print("cart exist")
+        //        }else{
+        //            print("cart is empty")
+        //
+        //            add()
+        //        }
+        getCart { [self] in
+               if !cart.isEmpty {
+                   print("Cart exists")
+                   // Update your UI or perform any actions related to an existing cart
+                   updateDraftOrder()
+                                
+                   
+                   print(lineItemsArr)
+               } else {
+                   print("Cart is empty")
+                   // Perform the "add" action when the cart is empty
+                   add()
+               }
+           }
+    }
+    
+    func updateDraftOrder() {
+        lineItemsArr = [] // Initialize lineItemsArr as an empty array
+
+        if let firstDraftOrder = cart.first {
+            for lineItem in firstDraftOrder.line_items {
+                var lineitemPlaceholder = LineItem(id: lineItem.id, title: lineItem.title, price: lineItem.price, grams: lineItem.grams, name: lineItem.name, quantity: lineItem.quantity)
+                lineItemsArr?.append(lineitemPlaceholder)
+            }
+        }
         
+        // Add the new line item to lineItemsArr
+        var lineitemPlaceholder = LineItem(id: productDetailsViewModel.myProduct.id, title: productDetailsViewModel.myProduct.title ?? "", price: productDetailsViewModel.myProduct.variants?[0].price, grams: 1, name: productDetailsViewModel.myProduct.title ?? "", quantity: 3)
+        lineItemsArr?.append(lineitemPlaceholder)
+
+        // Prepare the lineItems array for the PUT request
+        var lineItems: [[String: Any]] = []
+        for lineItem in lineItemsArr ?? [] {
+            let lineItemData: [String: Any] = [
+                "title": lineItem.title,
+                "price": lineItem.price,
+                "quantity": lineItem.quantity
+            ]
+            lineItems.append(lineItemData)
+            
+            
+        }
         
+        print("hhhhhhhhhhhhhh\(lineItems)")
+
+        edit(lineItem: lineItems)
+        
+        // Now you can use the 'lineItems' array in your PUT request.
+        // Call the updateDraftOrder function with the 'lineItems' array to update the draft order.
     }
     
     
+
+
+
+
+    func getCart(completion: @escaping () -> Void) {
+        if APIManager.shared.isOnline() {
+            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { [weak self] (result: Result<DraftOrderResponse, Error>) in
+                if let self = self {
+                    switch result {
+                    case .success(let draftOrderResponse):
+                        // Filter draft orders with note: "cart"
+                        self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" && $0.customer?.id == self.customer_id }
+                        completion() // Call the completion handler after getting the response
+                    case .failure(let error):
+                        print("Request failed with error: \(error)")
+                    }
+                }
+            }
+        } else {
+            print("Not connected")
+            completion() // Call the completion handler even if there's no internet connection
+        }
+    }
+
     
-    //
-    //    func add() {
-    //        // Your Shopify API URL
-    //        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
-    //
-    //        // Request headers
-    //        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-    //
-    //        let imageSrc = myProduct.image?.src ?? "SHOES"
-    //        print(imageSrc)
-    //
-    //        // Request body data
-    //        let draftOrderData: [String: Any] = [
-    //               "draft_order": [
-    //                "note": "cart",
-    //                   "line_items": [
-    //                       [
-    //                           "title": myProduct.title,
-    //                           "price": myProduct.variants?[0].price ?? "0.0",
-    //                           "quantity": 1
-    //                       ]
-    //                   ],
-    //                   "applied_discount": [
-    //                       "description": imageSrc ,
-    //                       "value_type": "fixed_amount",
-    //                       "value": "10.0",
-    //                       "amount": "10.00",
-    //                       "title": "Custom"
-    //                   ],
-    //                   "customer": [
-    //                       "id": 7471279866172
-    //                   ],
-    //                   "use_customer_default_address": true
-    //               ]
-    //           ]
-    //
-    //        AF.request(baseURLString, method: .post, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
-    //            .response { response in
-    //                switch response.result {
-    //                case .success:
-    //
-    //                    print("Product added to cart successfully.")
-    //
-    //                    self.showSuccessAlert()
-    //
-    //                case .failure(let error):
-    //                    print("Failed to add the product to the cart. Error: \(error)")
-    //                }
-    //            }
-    //    }
+    func edit(lineItem : [[String: Any]]) {
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(cart[0].id).json"
+                
+        // Check if the product is already in the cart
+        if isProductInCart() {
+            showAlreadyInCartAlert()
+            return
+        }
+        
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+        
+        let imageSrc = productDetailsViewModel.myProduct.image?.src ?? "SHOES"
+        
+        // Request body data
+        let draftOrderData: [String: Any] = [
+            "draft_order": [
+                "line_items": lineItem
+            ]
+        ]
+        
+        AF.request(baseURLString, method: .put, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    print("Product added to cart successfully.")
+                    self.showSuccessAlert()
+                    
+                    // Append the product to the cart array
+                    self.productDetailsViewModel.cart.append(self.productDetailsViewModel.myProduct)
+                    
+                case .failure(let error):
+                    print("Failed to add the product to the cart. Error: \(error)")
+                }
+            }
+    }
+    
     func add() {
         let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
         
@@ -475,3 +543,53 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         
     
 }
+//
+//    func add() {
+//        // Your Shopify API URL
+//        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
+//
+//        // Request headers
+//        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+//
+//        let imageSrc = myProduct.image?.src ?? "SHOES"
+//        print(imageSrc)
+//
+//        // Request body data
+//        let draftOrderData: [String: Any] = [
+//               "draft_order": [
+//                "note": "cart",
+//                   "line_items": [
+//                       [
+//                           "title": myProduct.title,
+//                           "price": myProduct.variants?[0].price ?? "0.0",
+//                           "quantity": 1
+//                       ]
+//                   ],
+//                   "applied_discount": [
+//                       "description": imageSrc ,
+//                       "value_type": "fixed_amount",
+//                       "value": "10.0",
+//                       "amount": "10.00",
+//                       "title": "Custom"
+//                   ],
+//                   "customer": [
+//                       "id": 7471279866172
+//                   ],
+//                   "use_customer_default_address": true
+//               ]
+//           ]
+//
+//        AF.request(baseURLString, method: .post, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
+//            .response { response in
+//                switch response.result {
+//                case .success:
+//
+//                    print("Product added to cart successfully.")
+//
+//                    self.showSuccessAlert()
+//
+//                case .failure(let error):
+//                    print("Failed to add the product to the cart. Error: \(error)")
+//                }
+//            }
+//    }

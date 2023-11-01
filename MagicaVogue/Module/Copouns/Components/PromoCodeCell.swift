@@ -46,6 +46,7 @@ class PromoCodeCell: UITableViewCell {
                 }
             } else {
                 Discount.text = "0%"
+                priceAfterDiscount.text = totalPriceLabel.text
             }
     }
     
