@@ -37,6 +37,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getCart()
+        print("hhhfffffffffff\(cart)")
 //        totalPrice = 0
 //        for item in cart {
 //            let itemPrice = Double(item.line_items[0].price ?? "0") ?? 0
@@ -305,5 +306,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         present(alertController, animated: true, completion: nil)
     }
 
-
+    override func viewWillDisappear(_ animated: Bool) {
+        print("HHH")
+    }
+    
 }

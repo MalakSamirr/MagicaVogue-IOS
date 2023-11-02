@@ -15,7 +15,7 @@ protocol saveItemsToCart : AnyObject{
 }
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
-    
+    var variantId: Int?
     var cart: [DraftOrder] = []
     var customer_id : Int = 7471279866172
 //    var draftOrder : DraftOrder?
@@ -287,31 +287,71 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     
     @IBAction func AddToCartButtonPressed(_ sender: UIButton) {
-        //customer id + note = "cart" , if we found -> we will add this item in line items array
         
-        //        // if not , we post as default
-        //        getCart()
-        //        if !cart.isEmpty{
-        //          print("cart exist")
-        //        }else{
-        //            print("cart is empty")
-        //
-        //            add()
-        //        }
-        getCart { [self] in
-               if !cart.isEmpty {
-                   print("Cart exists")
-                   // Update your UI or perform any actions related to an existing cart
-                   updateDraftOrder()
+        var chosenColors = productDetailsViewModel.productColors
+            .filter { $0.isSelected }
+            .map { $0.name }
+            .joined(separator: ", ")
+            
+        var chosenSize = productDetailsViewModel.productSizes
+            .filter { $0.isSelected }
+            .map { $0.name }
+            .joined(separator: ", ")
+
+        var productTitle = "\(chosenSize) / \(chosenColors)"
+        print(productDetailsViewModel.myProduct.image?.src)
+
+        if let variant = productDetailsViewModel.myProduct.variants?.first(where: { $0.title == productTitle }) {
+            variantId = variant.id
+            let inventoryQuantity = variant.inventory_quantity
+            let productId = productDetailsViewModel.myProduct.id
+            
+            
+            
+            print("hhhhhhhh  \(inventoryQuantity)  \(variantId)")
+            
+            
+            
+            getCart { [self] in
+                
+                if let firstCart = cart.first {
+                    for item in firstCart.line_items {
+                        print("hiii")
+                        print(item.variant_id == variantId)
+                    }
+                }
+                
+                
+                if !(cart.first?.line_items.contains { $0.variant_id == variantId } ?? false) {
+                    
+                    if inventoryQuantity > 0 {
+                        
+                        
+                            if !cart.isEmpty {
+                                print("Cart exists")
+                                // Update your UI or perform any actions related to an existing cart
+                                updateDraftOrder()
                                 
-                   
-                   print(lineItemsArr)
-               } else {
-                   print("Cart is empty")
-                   // Perform the "add" action when the cart is empty
-                   add()
-               }
-           }
+                                
+                                print(lineItemsArr)
+                            } else {
+                                print("Cart is empty")
+                                // Perform the "add" action when the cart is empty
+                                add()
+                            }
+                        
+                    }
+                    else {
+                        show(messageAlert: "out of stock", message: "", actionTitle: "ok") { _ in
+                            
+                        }
+                    }
+                }
+                else {
+                    showAlreadyInCartAlert()
+                }
+            }
+        }
     }
     
     func updateDraftOrder() {
@@ -319,13 +359,13 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
 
         if let firstDraftOrder = cart.first {
             for lineItem in firstDraftOrder.line_items {
-                var lineitemPlaceholder = LineItem(id: lineItem.id, title: lineItem.title, price: lineItem.price, grams: lineItem.grams, name: lineItem.name, quantity: lineItem.quantity)
+                var lineitemPlaceholder = LineItem(id: lineItem.id,  variant_id: lineItem.variant_id ?? 0, title: lineItem.title, price: lineItem.price, grams: lineItem.grams, name: lineItem.name, quantity: lineItem.quantity)
                 lineItemsArr?.append(lineitemPlaceholder)
             }
         }
         
         // Add the new line item to lineItemsArr
-        var lineitemPlaceholder = LineItem(id: productDetailsViewModel.myProduct.id, title: productDetailsViewModel.myProduct.title ?? "", price: productDetailsViewModel.myProduct.variants?[0].price, grams: 1, name: productDetailsViewModel.myProduct.title ?? "", quantity: 3)
+        var lineitemPlaceholder = LineItem(id: productDetailsViewModel.myProduct.id, variant_id: variantId ?? 0, title: productDetailsViewModel.myProduct.title ?? "", price: productDetailsViewModel.myProduct.variants?[0].price, grams: 1, name: productDetailsViewModel.myProduct.title ?? "", quantity: 3)
         lineItemsArr?.append(lineitemPlaceholder)
 
         // Prepare the lineItems array for the PUT request
@@ -334,7 +374,9 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             let lineItemData: [String: Any] = [
                 "title": lineItem.title,
                 "price": lineItem.price,
-                "quantity": lineItem.quantity
+                "quantity": lineItem.quantity,
+                "variant_id": lineItem.variant_id,
+                
             ]
             lineItems.append(lineItemData)
             
@@ -432,7 +474,9 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     [
                         "title": productDetailsViewModel.myProduct.title ?? "SHOES",
                         "price": productDetailsViewModel.myProduct.variants?[0].price ?? "0.0",
-                        "quantity": 1
+                        "quantity": 1,
+                        "variant_id": variantId,
+                        "sku": productDetailsViewModel.myProduct.image?.src
                     ]
                 ],
                 "applied_discount": [

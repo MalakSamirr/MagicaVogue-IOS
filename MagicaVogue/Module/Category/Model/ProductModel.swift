@@ -42,7 +42,9 @@ enum ProductTypes {
 
 struct Variants: Codable {
     let id: Int
+    let title: String?
     let price: String?
+    var inventory_quantity: Int
 }
 struct Options:Codable{
     let name : String?
