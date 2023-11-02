@@ -114,6 +114,8 @@
 		74787CD72AEF9BA400ACE11B /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74787CD62AEF9BA400ACE11B /* CurrencyModel.swift */; };
 		74787CDB2AEFA3F900ACE11B /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74787CD92AEFA3F900ACE11B /* CurrencyCell.swift */; };
 		74787CDC2AEFA3F900ACE11B /* CurrencyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */; };
+		747B22F62AF3A5B20079A6C4 /* customerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747B22F52AF3A5B20079A6C4 /* customerModel.swift */; };
+		747B22F92AF3C8980079A6C4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747B22F82AF3C8980079A6C4 /* LoginViewModel.swift */; };
 		74800AD92AEE5CE500A96735 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */; };
 		748565C62AF2365300AFDA58 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748565C52AF2365300AFDA58 /* SignupModel.swift */; };
 		84B82390EBD83582F4AAFE61 /* Pods_MagicaVogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */; };
@@ -275,6 +277,8 @@
 		74787CD62AEF9BA400ACE11B /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		74787CD92AEFA3F900ACE11B /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
+		747B22F52AF3A5B20079A6C4 /* customerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customerModel.swift; path = MagicaVogue/Module/Signup/Model/customerModel.swift; sourceTree = SOURCE_ROOT; };
+		747B22F82AF3C8980079A6C4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		748565C52AF2365300AFDA58 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
 		839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogue_MagicaVogueUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -684,6 +688,7 @@
 		5959D6B42AE2E67500582F0F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				747B22F52AF3A5B20079A6C4 /* customerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1067,6 +1072,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		747B22F72AF3C8740079A6C4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				747B22F82AF3C8980079A6C4 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		74800AD72AEE5CBB00A96735 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,6 +1183,7 @@
 		EEE356832AE01E5B000B8742 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				747B22F72AF3C8740079A6C4 /* ViewModel */,
 				EEE356842AE01E65000B8742 /* View */,
 			);
 			path = Login;
@@ -1525,7 +1539,9 @@
 				59DDBDCC2AE8314000898513 /* CategoryViewModel.swift in Sources */,
 				5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */,
 				747539EB2AEFABAE00F06520 /* CurrencyVC.swift in Sources */,
+				747B22F92AF3C8980079A6C4 /* LoginViewModel.swift in Sources */,
 				59DDBDC72AE6AC5700898513 /* MainCategoryModel.swift in Sources */,
+				747B22F62AF3A5B20079A6C4 /* customerModel.swift in Sources */,
 				457D68422AE96830008FB422 /* UserProfileViewController.swift in Sources */,
 				457D68462AE968D1008FB422 /* LabelAndButtonCollectionViewCell.swift in Sources */,
 				5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */,
