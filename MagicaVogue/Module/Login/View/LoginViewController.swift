@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import GoogleSignIn
+import Alamofire
 
 class LoginViewController: UIViewController {
     weak var tabBar : TabBarController?
@@ -18,6 +19,7 @@ class LoginViewController: UIViewController {
       @IBOutlet weak var passwordImage: UIButton!
       
       var iconClick = true
+    var viewModel : LoginViewModel = LoginViewModel()
     
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var emailTextfield: UITextField!
@@ -49,38 +51,72 @@ class LoginViewController: UIViewController {
         }
         else {
             if let email = emailTextfield.text , let password = passwordTextfield.text {
-            
-            Auth.auth().signIn(withEmail: email, password: password) {  authResult, error in
-                if let e = error {
-                    
-                    let alert1 = UIAlertController(
-                        title: "Invalid Login", message: e.localizedDescription , preferredStyle: UIAlertController.Style.alert)
-                    
-                    let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
+                
+                Auth.auth().signIn(withEmail: email, password: password) {  authResult, error in
+                    if let e = error {
                         
-                    }
-                    
-                    
-                    alert1.addAction(OkAction)
-                    
-                    self.present(alert1, animated: true , completion: nil)
-                    
-                  
-                    return
-                    
-                    print(e.localizedDescription)
-                    
-                } else {
-                   
-                    let tab = TabBarController()
-                    self.navigationController?.setViewControllers([tab], animated: true)
-                }
-                    
-                    
-                }
-              
-            }
-            
+                        let alert1 = UIAlertController(
+                            title: "Invalid Login", message: e.localizedDescription , preferredStyle: UIAlertController.Style.alert)
+                        
+                        let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
+                            
+                        }
+                        
+                        
+                        alert1.addAction(OkAction)
+                        
+                        self.present(alert1, animated: true , completion: nil)
+                        
+                        
+                        return
+                        
+                        print(e.localizedDescription)
+                        
+                    } else {
+                        
+                        
+                        
+                        self.viewModel.getCustomers(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(email)") { result in
+                            switch result {
+                            case .success(let customers):
+                                // Handle the fetched customers
+                                print(customers)
+                                if customers.isEmpty==false{
+                                    let tab = TabBarController()
+                                    self.navigationController?.setViewControllers([tab], animated: true)
+                                }else{
+                                    let alert1 = UIAlertController(
+                                    title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
+                                  let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
+                                 
+                                     }
+                                 
+                                alert1.addAction(OkAction)
+                               self.present(alert1, animated: true , completion: nil)
+                                 
+                                  return
+                                }
+                               
+                            case .failure(let error):
+                                // Handle the error
+                                print("Request failed with error: \(error.localizedDescription)")
+                                
+                                let alert1 = UIAlertController(
+                                title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
+                              let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
+                             
+                                 }
+                             
+                            alert1.addAction(OkAction)
+                           self.present(alert1, animated: true , completion: nil)
+                             
+                              return
+                            }
+                        }
+
+                        
+
+                    }}}
             }
         }
         
@@ -136,39 +172,60 @@ class LoginViewController: UIViewController {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: accessToken)
             
-            Auth.auth().signIn(with: credential) {  authResult, error in
-                if let e = error {
+            let authResult = try await signInWithGoogle(credential: credential)
+                    
+            
+            self.viewModel.getCustomers(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(authResult.email ?? " ")") { result in
+                switch result {
+                case .success(let customers):
+                    // Handle the fetched customers
+                    print(customers)
+                    if customers.isEmpty==false{
+                        let tab = TabBarController()
+                        self.navigationController?.setViewControllers([tab], animated: true)
+                    }else{
+                        let alert1 = UIAlertController(
+                        title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
+                      let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
+                     
+                         }
+                     
+                    alert1.addAction(OkAction)
+                   self.present(alert1, animated: true , completion: nil)
+                     
+                      return
+                    }
+                   
+                case .failure(let error):
+                    // Handle the error
+                    print("Request failed with error: \(error.localizedDescription)")
                     
                     let alert1 = UIAlertController(
-                        title: "Invalid Login", message: e.localizedDescription , preferredStyle: UIAlertController.Style.alert)
-                    
-                    let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
-                        
-                    }
-                    
-                    
-                    alert1.addAction(OkAction)
-                    
-                    self.present(alert1, animated: true , completion: nil)
-                    
-                  
-                    return
-                    
-                    print(e.localizedDescription)
-                    
-                } else {
-                    
-                    let tab = TabBarController()
-                    self.navigationController?.setViewControllers([tab], animated: true)
+                    title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
+                  let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
+                 
+                     }
+                 
+                alert1.addAction(OkAction)
+               self.present(alert1, animated: true , completion: nil)
+                 
+                  return
+                }
+            }
+
+            
                 }     }
-        }
-    }
+        
+   
 
     func signInWithGoogle(credential: AuthCredential) async throws -> AuthDataResultModel {
         let authDataResults = try await Auth.auth().signIn(with: credential)
         return AuthDataResultModel(user: authDataResults.user)
 
     }
+    
+    
+                                   
     @IBAction func skipButton(_ sender: Any) {
         let tab = TabBarController()
         self.navigationController?.setViewControllers([tab], animated: true)
