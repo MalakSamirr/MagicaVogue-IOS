@@ -56,3 +56,11 @@ struct ProductOption {
     let name: String
     var isSelected: Bool
 }
+
+
+struct GlobalData {
+    static var shared = GlobalData()
+    var NewCurrency: [String:Double] = ["USD":1]
+    var num : Double = 1
+    var country : String = "USD"
+}

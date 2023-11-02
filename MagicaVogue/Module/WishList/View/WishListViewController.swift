@@ -7,12 +7,18 @@
 
 import UIKit
 import Alamofire
+import Firebase
+import FirebaseAuth
 
 class WishListViewController: UIViewController {
+   
+    
 
     @IBOutlet weak var wishListCollectionView: UICollectionView!
     var wishlist: [DraftOrder] = []
-
+    
+   
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Wishlist"
@@ -26,11 +32,8 @@ class WishListViewController: UIViewController {
         
         wishListCollectionView.delegate = self
         wishListCollectionView.dataSource = self
-        getWishlist()
         let layout = UICollectionViewCompositionalLayout { sectionIndex, enviroment in
             
-           
- 
                 return self.items()
 
             
@@ -43,8 +46,38 @@ class WishListViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getWishlist()
-        print(wishlist)
+       
+        
+        
+      if (Auth.auth().currentUser == nil){
+          let alert1 = UIAlertController(
+              title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
+          
+          let loginAction = UIAlertAction(title: "Login Now" , style : .default) { (action) in
+              
+              if let sceneDelegate = UIApplication.shared.connectedScenes
+                          .first?.delegate as? SceneDelegate {
+                          sceneDelegate.resetAppNavigation()
+                      }
+          }
+              alert1.addAction(loginAction)
+              
+              
+              present(alert1, animated: true , completion: nil)
+              
+              
+              return
+          }
+          else{
+              getWishlist()
+              print(wishlist)
+          }
+          
+          
+          
+         
+      
+      
     }
   
     func deleteDraftOrder(draftOrderId: Int) {

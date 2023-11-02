@@ -19,7 +19,9 @@ class CategoryViewController: UIViewController {
     
     var viewModel: CategoryViewModel = CategoryViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
-    
+    override func viewWillAppear(_ animated: Bool) {
+        categoryCollectionView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -106,7 +108,14 @@ extension CategoryViewController: UICollectionViewDataSource {
                     cell.brandItemImage.image = UIImage(named: "CouponBackground")
                 }
                 cell.itemLabel.text = product.title
-                cell.itemPrice.text = product.variants?[0].price
+                if let intValue = Double(product.variants?[0].price ?? "0") {
+               //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
+                        // Check if you can cast the value from the dictionary as an Int.
+                        
+                    let result = intValue * GlobalData.shared.num
+                        let resultString = String(result)
+                    cell.itemPrice.text = "\(GlobalData.shared.country) \(resultString)"
+                    }
                 cell.id = product.id
             }
             

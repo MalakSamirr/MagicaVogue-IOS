@@ -106,8 +106,17 @@ class SignupViewController: UIViewController {
                         
                     }
                     else {
-                        var user = Auth.auth().currentUser
-                        add()
+                       // var user = Auth.auth().currentUser
+                        //add()
+                        CreateCustomer(userFirstName: username, userLastName: username, userPassword: password, userEmail: email, userPhoneNumber: phone){ error in
+                            if let error = error {
+                                // Handle the error here
+                                print("Error: \(error.localizedDescription)")
+                            } else {
+                                // The customer was created successfully
+                                print("Customer created successfully")
+                            }
+                        }
                         let address = ShippingDetailsVC()
                         self.navigationController?.setViewControllers([address], animated: true)
                         
@@ -126,36 +135,46 @@ class SignupViewController: UIViewController {
     
     
     @IBAction func googleSignUpButton(_ sender: Any) {
-        
-        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-        
-        // Create Google Sign In configuration object.
-        let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.configuration = config
-        
-        // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
-            guard error == nil else {
-                return
-            }
+        Task { @MainActor in
             
-            guard let user = result?.user,
-                  let idToken = user.idToken?.tokenString
+            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+            
+            // Create Google Sign In configuration object.
+            let config = GIDConfiguration(clientID: clientID)
+            GIDSignIn.sharedInstance.configuration = config
+            
+            // Start the sign in flow!
+            
+            let gidSignResult = try await  GIDSignIn.sharedInstance.signIn(withPresenting: self)
+            
+            guard
+                let idToken = gidSignResult.user.idToken?.tokenString
             else {
-                return
+                throw URLError(.badServerResponse)
             }
-            
+            let accessToken : String = gidSignResult.user.accessToken.tokenString
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                           accessToken: user.accessToken.tokenString)
+                                                           accessToken: accessToken)
+            
+            
+            let authResult = try await signInWithGoogle(credential: credential)
+            
+             saveUserSignedWithGoogleData()
             
             // ...
             let tab = TabBarController()
             self.navigationController?.setViewControllers([tab], animated: true)
             
-            saveUserSignedWithGoogleData()
         }
     }
     
+    
+   
+    func signInWithGoogle(credential: AuthCredential) async throws -> AuthDataResultModel {
+        let authDataResults = try await Auth.auth().signIn(with: credential)
+        return AuthDataResultModel(user: authDataResults.user)
+
+    }
     @IBAction func loginButtonPressed(_ sender: Any) {
         print("hhhh")
         let loginVC = LoginViewController()
@@ -212,6 +231,44 @@ class SignupViewController: UIViewController {
         
         
     }
+    
+    
+    
+    
+    
+    func CreateCustomer (userFirstName : String , userLastName : String , userPassword : String , userEmail : String , userPhoneNumber : String   ,Handler: @escaping (Error?) -> Void){
+            let urlFile = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers.json"
+            let body: [String: Any] =
+            ["customer":[
+                "first_name": userFirstName,
+                "last_name" : userLastName,
+                    "tags":  userPassword,
+                        "phone": userPhoneNumber,
+                        "email": userEmail,
+                        "country": "CA"
+              
+             ]]
+                print(body)
+            AF.request(urlFile, method: .post, parameters: body, encoding: JSONEncoding.default, headers: ["X-Shopify-Access-Token": "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"]).response { response in
+                            switch response.result {
+                            case .success(_):
+                                print("success from create customer api in network services")
+                                Handler(nil)
+                                break
+                            case .failure(let error):
+                                Handler(error)
+                                print(error.localizedDescription)
+                                print("error is from create customer api in network services")
+                            }
+                        }
+                    }
+    
+    
+    
+    
+    
+    
+    
     
     func add() {
         let baseURLString = "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/"
@@ -292,8 +349,8 @@ class SignupViewController: UIViewController {
     
     
     @IBAction func skipButton(_ sender: Any) {
-        let home = HomeViewController()
-        self.navigationController?.pushViewController(home, animated: true)
+        let tab = TabBarController()
+        self.navigationController?.setViewControllers([tab], animated: true)
     }
     
 }

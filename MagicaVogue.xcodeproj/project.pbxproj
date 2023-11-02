@@ -115,6 +115,7 @@
 		74787CDB2AEFA3F900ACE11B /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74787CD92AEFA3F900ACE11B /* CurrencyCell.swift */; };
 		74787CDC2AEFA3F900ACE11B /* CurrencyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */; };
 		74800AD92AEE5CE500A96735 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */; };
+		748565C62AF2365300AFDA58 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748565C52AF2365300AFDA58 /* SignupModel.swift */; };
 		84B82390EBD83582F4AAFE61 /* Pods_MagicaVogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */; };
 		B68F16CFA756CAA94E5BBCF5 /* Pods_MagicaVogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DD317D9C3B25ACBF11AE94 /* Pods_MagicaVogue.framework */; };
 		E7D64EB87DA477CD5E193BEF /* Pods_MagicaVogue_MagicaVogueUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */; };
@@ -275,6 +276,7 @@
 		74787CD92AEFA3F900ACE11B /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
 		74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
+		748565C52AF2365300AFDA58 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
 		839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogue_MagicaVogueUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogueTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4A4C6D8D0B902926941E81 /* Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue-MagicaVogueUITests/Pods-MagicaVogue-MagicaVogueUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1083,6 +1085,14 @@
 			path = Currency;
 			sourceTree = "<group>";
 		};
+		748565C42AF2363800AFDA58 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				748565C52AF2365300AFDA58 /* SignupModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		CFF90E282096CBA3171563AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1141,6 +1151,7 @@
 		EEE3567D2AE00BB6000B8742 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				748565C42AF2363800AFDA58 /* Model */,
 				EEACB6742AE80D3100B0A776 /* ViewModel */,
 				EEE356822AE01E23000B8742 /* View */,
 			);
@@ -1509,6 +1520,7 @@
 				59AF4EF32AE12D9400B4B8EE /* BrandViewController.swift in Sources */,
 				45D9B9162AE955B00040BB0F /* UserLoginViewController.swift in Sources */,
 				74787CDB2AEFA3F900ACE11B /* CurrencyCell.swift in Sources */,
+				748565C62AF2365300AFDA58 /* SignupModel.swift in Sources */,
 				59AF4EEF2AE122C100B4B8EE /* SubCategoryCell.swift in Sources */,
 				59DDBDCC2AE8314000898513 /* CategoryViewModel.swift in Sources */,
 				5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */,

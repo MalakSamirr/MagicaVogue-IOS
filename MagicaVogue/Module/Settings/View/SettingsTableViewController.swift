@@ -78,8 +78,10 @@ class SettingsTableViewController: UITableViewController {
                     if let error = error {
                         print(error.localizedDescription)
                     } else {
-                        let signup = SignupViewController()
-                        self.navigationController?.pushViewController(signup, animated: true)
+                        if let sceneDelegate = UIApplication.shared.connectedScenes
+                                    .first?.delegate as? SceneDelegate {
+                                    sceneDelegate.resetAppNavigation()
+                                }
                         
                     }
                 }
@@ -110,8 +112,10 @@ class SettingsTableViewController: UITableViewController {
                 let firebaseAuth = Auth.auth()
                 do {
                     try firebaseAuth.signOut()
-                    let login = LoginViewController()
-                    self.navigationController?.pushViewController(login, animated: true)
+                    if let sceneDelegate = UIApplication.shared.connectedScenes
+                                .first?.delegate as? SceneDelegate {
+                                sceneDelegate.resetAppNavigation()
+                            }
                 } catch let signOutError as NSError {
                     print("Error signing out: %@", signOutError)
                 }

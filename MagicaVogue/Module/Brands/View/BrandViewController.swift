@@ -9,18 +9,20 @@ import UIKit
 import Kingfisher
 import Alamofire
 
+
 class BrandViewController: UIViewController{
     
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var BrandCollectionViewDetails: UICollectionView!
-    var myProduct : Products!
 
     var viewModel: BrandViewModel = BrandViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        
         self.title = viewModel.brand?.title
         searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBar.frame.origin.y, width: searchBar.frame.size.width, height: 120)
         searchBar.delegate = self
@@ -144,7 +146,18 @@ extension BrandViewController: UICollectionViewDataSource {
                     cell.brandItemImage.image = UIImage(named: "CouponBackground")
                 }
                 cell.itemLabel.text = product.title
-                cell.itemPrice.text = product.variants?[0].price
+                
+                
+                if let intValue = Double(product.variants?[0].price ?? "0") {
+               //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
+                        // Check if you can cast the value from the dictionary as an Int.
+                        
+                    let result = intValue * GlobalData.shared.num
+                        let resultString = String(result)
+                    cell.itemPrice.text = "\(GlobalData.shared.country) \(resultString)"
+                    }
+                    
+                
                 cell.id = product.id
             }
             return cell
@@ -213,12 +226,12 @@ extension BrandViewController: FavoriteProtocol {
     
     func addToFavorite(_ id: Int) {
         if let product = viewModel.productArray?.first(where: { $0.id == id }) {
-            myProduct = product
+            viewModel.myProduct = product
             let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
             
             let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
            
-            let imageSrc = myProduct.image?.src ?? "SHOES"
+            let imageSrc = viewModel.myProduct.image?.src ?? "SHOES"
 
             // Body data
             let jsonData: [String: Any] = [
@@ -226,8 +239,8 @@ extension BrandViewController: FavoriteProtocol {
                     "note": "Wishlist",
                     "line_items": [
                         [
-                            "title": myProduct.title ?? "",
-                            "price": myProduct.variants?[0].price,
+                            "title": viewModel.myProduct.title ?? "",
+                            "price": viewModel.myProduct.variants?[0].price,
                             "quantity": 1,
                         ]
                     ],

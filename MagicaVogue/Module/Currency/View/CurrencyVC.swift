@@ -10,9 +10,9 @@ import Alamofire
 
 class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
-    
     let currencyViewModel : CurrencyViewModel = CurrencyViewModel()
 
+    var brandViewModel : BrandViewModel = BrandViewModel()
 
     @IBOutlet weak var currencySearchBar: UISearchBar!
     @IBOutlet weak var currrencyTableView: UITableView!
@@ -31,7 +31,33 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         print("---------")
 
     }
-    
+    func changeCurrency(to : String){
+        let from = "USD"
+       // let to = "EGP"
+        let api = "https://api.fastforex.io/fetch-one?api_key=e07402dc31-efa888e5a7-s3av7p&to=\(to)&from=\(from)"
+        
+        AF.request(api).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let currencyResponse = try JSONDecoder().decode(CurrencyChange.self, from: data)
+                    // Handle the decoded data
+                    self.currencyViewModel.changedCurrencyTo = currencyResponse
+                    print(currencyResponse)
+                    print(self.currencyViewModel.changedCurrencyTo?.result)
+                    let value = self.currencyViewModel.changedCurrencyTo?.result?.first?.value
+                    let key = self.currencyViewModel.changedCurrencyTo?.result?.first?.key
+                      
+                    GlobalData.shared.num = value ?? 0
+                    GlobalData.shared.country = key ?? " "
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
+        }
+    }
     func fetchCurrencies() {
         let apiKey = "e07402dc31-efa888e5a7-s3av7p"
         let apiUrl = "https://api.fastforex.io/fetch-all?api_key=\(apiKey)"
@@ -114,16 +140,19 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBAction func DoneButton(_ sender: Any) {
         print(currencyViewModel.currencySelected)
-        currencyViewModel.changeCurrency()
-        print("------------------------------")
+        changeCurrency(to: currencyViewModel.currencySelected)
         print(currencyViewModel.changedCurrencyTo?.result)
-        print("------------------------------")
-        let tab = TabBarController()
+        
+   
+        
+        
+      
         
         self.navigationController?.popViewController(animated: true)
 
         
     }
+    
     
    
 

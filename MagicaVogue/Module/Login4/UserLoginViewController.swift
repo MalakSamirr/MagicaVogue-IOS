@@ -5,6 +5,8 @@
 //  Created by Heba Elcc on 25.10.2023.
 //
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class UserLoginViewController: UIViewController, UICollectionViewDataSource , UITableViewDelegate ,UITableViewDataSource {
     
@@ -38,8 +40,33 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getCart()
-        getWishlist()
+        
+            if (Auth.auth().currentUser == nil){
+                let alert1 = UIAlertController(
+                    title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
+                
+                let loginAction = UIAlertAction(title: "Login Now" , style : .default) { (action) in
+                    
+                    if let sceneDelegate = UIApplication.shared.connectedScenes
+                                .first?.delegate as? SceneDelegate {
+                                sceneDelegate.resetAppNavigation()
+                            }
+                }
+            
+            
+            alert1.addAction(loginAction)
+            
+            
+            present(alert1, animated: true , completion: nil)
+            
+            
+            return
+        
+            }
+        else{
+            getCart()
+            getWishlist()
+        }
     }
     
     
