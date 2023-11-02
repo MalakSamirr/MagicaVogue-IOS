@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		452DA5CF2AF139C300E6C6CE /* OrderProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452DA5CD2AF139C300E6C6CE /* OrderProfileTableVC.swift */; };
+		452DA5D02AF139C300E6C6CE /* OrderProfileTableVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 452DA5CE2AF139C300E6C6CE /* OrderProfileTableVC.xib */; };
 		454EE3EF2AE9818F001967B2 /* MoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */; };
 		456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */; };
 		456C39812AE9CA0700892660 /* CouponModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C39802AE9CA0700892660 /* CouponModel.swift */; };
@@ -160,6 +162,8 @@
 
 /* Begin PBXFileReference section */
 		1320A6FDB84575D6D657B06E /* Pods-MagicaVogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogue.release.xcconfig"; path = "Target Support Files/Pods-MagicaVogue/Pods-MagicaVogue.release.xcconfig"; sourceTree = "<group>"; };
+		452DA5CD2AF139C300E6C6CE /* OrderProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProfileTableVC.swift; sourceTree = "<group>"; };
+		452DA5CE2AF139C300E6C6CE /* OrderProfileTableVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderProfileTableVC.xib; sourceTree = "<group>"; };
 		454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreProtocol.swift; sourceTree = "<group>"; };
 		456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRuleModel.swift; sourceTree = "<group>"; };
 		456C39802AE9CA0700892660 /* CouponModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponModel.swift; sourceTree = "<group>"; };
@@ -344,6 +348,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		452DA5CC2AF1395900E6C6CE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				452DA5CD2AF139C300E6C6CE /* OrderProfileTableVC.swift */,
+				452DA5CE2AF139C300E6C6CE /* OrderProfileTableVC.xib */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		454EE3ED2AE98173001967B2 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +406,7 @@
 		45A095D82ADFE48E00C297C9 /* MagicaVogue */ = {
 			isa = PBXGroup;
 			children = (
+				457A16802AF27E16009A6409 /* MagicaVogue.entitlements */,
 				59DDBDAE2AE538B600898513 /* Services */,
 				5959D6B52AE2E67D00582F0F /* ViewModel */,
 				5959D6B42AE2E67500582F0F /* Model */,
@@ -428,6 +442,7 @@
 		45D9B9132AE955730040BB0F /* Login4 */ = {
 			isa = PBXGroup;
 			children = (
+				452DA5CC2AF1395900E6C6CE /* Components */,
 				454EE3ED2AE98173001967B2 /* Navigation */,
 				45D9B9142AE955B00040BB0F /* UserLoginViewController.swift */,
 				45D9B9152AE955B00040BB0F /* UserLoginViewController.xib */,
@@ -1323,6 +1338,7 @@
 				457D68432AE96830008FB422 /* UserProfileViewController.xib in Resources */,
 				59AF4EEC2AE1212700B4B8EE /* MainCategoryCell.xib in Resources */,
 				5947D93C2AE0177C0005E94C /* CouponCell.xib in Resources */,
+				452DA5D02AF139C300E6C6CE /* OrderProfileTableVC.xib in Resources */,
 				5947D9412AE01DC60005E94C /* BrandCell.xib in Resources */,
 				45A095E92ADFE48F00C297C9 /* LaunchScreen.storyboard in Resources */,
 				59BAF3692AE2F35B00772630 /* OrderViewController.xib in Resources */,
@@ -1521,6 +1537,7 @@
 				EEC3F7382AE05089004D22C1 /* ProductDetailsViewController.swift in Sources */,
 				EEE356872AE01E8C000B8742 /* LoginViewController.swift in Sources */,
 				59DDBDB42AE538FE00898513 /* URLs.swift in Sources */,
+				452DA5CF2AF139C300E6C6CE /* OrderProfileTableVC.swift in Sources */,
 				457D68492AE96BC7008FB422 /* UserProfileViewModel.swift in Sources */,
 				EEB023452AE1A11D0069F998 /* PasswordManagerViewController.swift in Sources */,
 				59DDBDC52AE64B2900898513 /* ProductModel.swift in Sources */,
@@ -1743,6 +1760,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MagicaVogue/MagicaVogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 94MB3RHVU9;
@@ -1774,6 +1792,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MagicaVogue/MagicaVogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 94MB3RHVU9;

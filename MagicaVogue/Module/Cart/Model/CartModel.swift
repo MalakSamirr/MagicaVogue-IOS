@@ -8,25 +8,27 @@
 import Foundation
 struct DraftOrderResponse: Codable {
 
-    let draft_orders: [DraftOrder]
+    var draft_orders: [DraftOrder]
 }
 
 struct DraftOrder: Codable {
-    
+    let created_at : String?
     let id: Int
     let note: String?
-    let line_items: [LineItem]
+    var line_items: [LineItem]
     let applied_discount: Discount
+    let total_price: String?
+    let customer : customer?
 
 }
 
 struct LineItem: Codable {
-    let id: Int?
-    let title: String
-    let price: String?
-    let grams : Int?
-    let name: String
-    let quantity: Int
+    var id: Int?
+    var title: String
+    var price: String?
+    var grams : Int?
+    var name: String
+    var quantity: Int
 }
 
 struct Discount: Codable {
@@ -35,4 +37,9 @@ struct Discount: Codable {
     let value: String
     let amount: String
     let title: String
+}
+
+struct customer : Codable {
+    let id : Int?
+
 }

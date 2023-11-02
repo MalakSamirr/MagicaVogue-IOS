@@ -12,18 +12,18 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     @IBOutlet weak var profileWishlistViewController: UICollectionView!
     var cart: [DraftOrder] = []
     var wishlist: [DraftOrder] = []
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         profileWishlistViewController.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
-        loginOrdersTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
+        loginOrdersTableView.register(UINib(nibName: "OrderProfileTableVC", bundle: nil), forCellReuseIdentifier: "OrderProfileTableVC")
         
         profileWishlistViewController.dataSource = self
         loginOrdersTableView.dataSource = self
         loginOrdersTableView.delegate = self
-        
+        print("hebbbbba\(cart)")
         getCart()
         getWishlist()
         loginOrdersTableView.reloadData()
@@ -42,10 +42,10 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         getWishlist()
     }
     
-   
     
-
-
+    
+    
+    
     
     
     
@@ -66,13 +66,13 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         
         return section
     }
-   
+    
     
     @IBAction func moreOrdersButtonPressed(_ sender: Any) {
         let ordersVC = OrderViewController()
-
+        
         ordersVC.cart = self.cart
-
+        
         navigationController?.pushViewController(ordersVC, animated: true)
     }
     
@@ -106,9 +106,9 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
             cell.brandItemImage.image = UIImage(named: "CouponBackground")
         }
         cell.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-
+        
         cell.id = wishlist[indexPath.item].id
-
+        
         return cell
     }
     func getWishlist() {
@@ -139,34 +139,37 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 100, height: 50) // Adjust the height as needed
     }
-
+    
     // MARK: - loginOrdersTableView Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-                       
-            let draftOrder = cart[indexPath.row]
-            if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
-                cell.productNameLabel.text = lineItem.title
-                cell.quantityLabel.isHidden = true
-                cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
-                cell.productPriceLabel.text = lineItem.price
-                cell.minus.isHidden = true
-                cell.plus.isHidden = true
-                
-
-            } else {
-                cell.productNameLabel.text = "Product Name Not Available"
-            }
-        if let imageUrl = URL(string: draftOrder.applied_discount.description) {
-            cell.productImageView.kf.setImage(with: imageUrl)
-        } else {
-            cell.productImageView.image = UIImage(named: "CouponBackground")
-        }
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderProfileTableVC", for: indexPath) as! OrderProfileTableVC
+        
+        let draftOrder = cart[indexPath.row]
+        //            if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
+        //                cell.productNameLabel.text = lineItem.title
+        //                cell.quantityLabel.isHidden = true
+        //                cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
+        //                cell.productPriceLabel.text = lineItem.price
+        //                cell.minus.isHidden = true
+        //                cell.plus.isHidden = true
+        //
+        //
+        //            } else {
+        //                cell.productNameLabel.text = "Product Name Not Available"
+        //            }
+        //        if let imageUrl = URL(string: draftOrder.applied_discount.description) {
+        //            cell.productImageView.kf.setImage(with: imageUrl)
+        //        } else {
+        //            cell.productImageView.image = UIImage(named: "CouponBackground")
+        //        }
+        
+        cell.createdAttLabel.text = formatDate(draftOrder.created_at ?? " ")
+        
+        return cell
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return min(2, cart.count)
@@ -179,7 +182,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
                 case .success(let draftOrderResponse):
                     // Filter draft orders with note: "cart"
                     self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" }
-
+                    
                     // Reload the data in the loginOrdersTableView
                     DispatchQueue.main.async {
                         self.loginOrdersTableView.reloadData()
@@ -191,6 +194,21 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         } else {
             print("Not connected")
         }
+    }
+  
+    func formatDate(_ dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "MMMM d, yyyy, h:mm a"
+            outputFormatter.locale = Locale(identifier: "en_US_POSIX")
+            return outputFormatter.string(from: date)
+        }
+        
+        return dateString // Return the original string if date parsing fails.
     }
 }
 
