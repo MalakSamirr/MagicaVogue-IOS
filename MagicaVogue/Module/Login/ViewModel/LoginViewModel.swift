@@ -6,8 +6,13 @@
 //
 
 import Foundation
+import GoogleSignIn
+import Firebase
+import FirebaseAuth
+
 class LoginViewModel{
-    
+    var iconClick = true
+
     var CustomersArray: [customers]?
 
     func getCustomers(url: String, completion: @escaping (Result<[customers], Error>) -> Void) {
@@ -17,11 +22,18 @@ class LoginViewModel{
                 self.CustomersArray = customer.customers
                 completion(.success(self.CustomersArray ?? [])) // Return the fetched customers via completion handler
 
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(self.CustomersArray?[0].id, forKey: "customerID")
+                userDefaults.synchronize()
+                let customerID = userDefaults.integer(forKey: "customerID")
+                print(customerID)
+                
             case .failure(let error):
                 completion(.failure(error)) // Return the error via completion handler
             }
         }
     }
+    
 //
 //    func getCustomers(url: String) {
 //        APIManager.shared.request(.get, url) { (result: Result<Customer, Error>) in
@@ -37,20 +49,23 @@ class LoginViewModel{
 //        }
 //    }
 //    
-    func checkCustomerInfo(email : String) -> Bool {
-            var flag = false
+    func getCustomerID(email : String)  {
         for i in 0..<(CustomersArray?.count ?? 0){
             let Email : String = (CustomersArray?[i].email)!
             if (email == Email){
-                
-                    flag = true
-                  //  UserDefaultsHelper.shared.saveAPI(id: (CustomersArray.customers[i].id)!)
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(CustomersArray?[i].id, forKey: "customerID")
+                userDefaults.synchronize()
                     break
             }
         }
-        return flag
+        
     }
     
     
-    
+    func signInWithGoogle(credential: AuthCredential) async throws -> AuthDataResultModel {
+        let authDataResults = try await Auth.auth().signIn(with: credential)
+        return AuthDataResultModel(user: authDataResults.user)
+
+    }
 }

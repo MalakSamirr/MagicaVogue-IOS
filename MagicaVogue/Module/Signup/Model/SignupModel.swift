@@ -9,10 +9,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 
-struct GooogleSignUpModel{
-    let idToken : String
-    let accessToken : String
-}
+
 struct AuthDataResultModel{
     let uid : String?
     let email : String?

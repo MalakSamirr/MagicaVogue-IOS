@@ -12,13 +12,10 @@ import GoogleSignIn
 import Alamofire
 
 class LoginViewController: UIViewController {
-    weak var tabBar : TabBarController?
 
-    let profile = ProfileViewController()
       
       @IBOutlet weak var passwordImage: UIButton!
       
-      var iconClick = true
     var viewModel : LoginViewModel = LoginViewModel()
     
     @IBOutlet weak var passwordTextfield: UITextField!
@@ -132,7 +129,7 @@ class LoginViewController: UIViewController {
     @IBAction func passwordButton(_ sender: AnyObject) {
         var image:UIImage!
         
-        if iconClick
+        if viewModel.iconClick
         {
             passwordTextfield.isSecureTextEntry = false
              image = UIImage(systemName: "eye.fill")
@@ -145,7 +142,7 @@ class LoginViewController: UIViewController {
 
         }
         passwordImage.setImage(image, for: .normal)
-        iconClick = !iconClick
+        viewModel.iconClick = !viewModel.iconClick
         
     }
     
@@ -172,7 +169,7 @@ class LoginViewController: UIViewController {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: accessToken)
             
-            let authResult = try await signInWithGoogle(credential: credential)
+            let authResult = try await viewModel.signInWithGoogle(credential: credential)
                     
             
             self.viewModel.getCustomers(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(authResult.email ?? " ")") { result in
@@ -218,11 +215,7 @@ class LoginViewController: UIViewController {
         
    
 
-    func signInWithGoogle(credential: AuthCredential) async throws -> AuthDataResultModel {
-        let authDataResults = try await Auth.auth().signIn(with: credential)
-        return AuthDataResultModel(user: authDataResults.user)
-
-    }
+   
     
     
                                    
