@@ -60,9 +60,15 @@ extension SearchViewController: UICollectionViewDataSource {
                //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
                         // Check if you can cast the value from the dictionary as an Int.
                         
-                    let result = intValue * GlobalData.shared.num
+                    let userDefaults = UserDefaults.standard
+
+                    let customerID = userDefaults.integer(forKey: "customerID")
+                    let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
+                    let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
+                    
+                    let result = intValue * CurrencyValue
                         let resultString = String(result)
-                    cell.itemPrice.text = "\(GlobalData.shared.country) \(resultString)"
+                    cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
                     }            }
         return cell
     }

@@ -113,9 +113,20 @@ class SignupViewController: UIViewController {
                             switch result {
                             case .success:
                                 print("successsssss")
-                                loginViewModel.getCustomerID(email: email)
+                                self.loginViewModel.getCustomerID(email: email)
                                 let address = ShippingDetailsVC()
+                                address.email = email
                                 self.navigationController?.setViewControllers([address], animated: true)
+                              
+//                                let userDefaults = UserDefaults.standard
+//                                let customerID = userDefaults.integer(forKey: "customerID")
+//                                print("-----\(customerID)")
+//
+//                                userDefaults.set("USD", forKey: "CurrencyKey\(customerID)")
+//                                userDefaults.set(1, forKey: "CurrencyValue\(customerID)")
+
+                                
+//                                userDefaults.synchronize()
                                 break
                                 // Handle successful customer creation
                             case .failure(let error):
@@ -185,6 +196,8 @@ class SignupViewController: UIViewController {
                     self.loginViewModel.getCustomerID(email: authResult.email!)
                     print("successsssss")
                     let address = ShippingDetailsVC()
+                    address.email = authResult.email!
+
                     self.navigationController?.setViewControllers([address], animated: true)
                     break
                     // Handle successful customer creation

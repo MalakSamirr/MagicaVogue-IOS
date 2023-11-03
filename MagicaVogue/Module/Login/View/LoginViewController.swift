@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
                         
                         
                         
-                        self.viewModel.getCustomers(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(email)") { result in
+                        self.viewModel.getCustomer(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(email)") { result in
                             switch result {
                             case .success(let customers):
                                 // Handle the fetched customers
@@ -172,7 +172,7 @@ class LoginViewController: UIViewController {
             let authResult = try await viewModel.signInWithGoogle(credential: credential)
                     
             
-            self.viewModel.getCustomers(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(authResult.email ?? " ")") { result in
+            self.viewModel.getCustomer(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(authResult.email ?? " ")") { result in
                 switch result {
                 case .success(let customers):
                     // Handle the fetched customers

@@ -15,7 +15,7 @@ class LoginViewModel{
 
     var CustomersArray: [customers]?
 
-    func getCustomers(url: String, completion: @escaping (Result<[customers], Error>) -> Void) {
+    func getCustomer(url: String, completion: @escaping (Result<[customers], Error>) -> Void) {
         APIManager.shared.request(.get, url) { (result: Result<Customer, Error>) in
             switch result {
             case .success(let customer):
@@ -24,8 +24,16 @@ class LoginViewModel{
 
                 let userDefaults = UserDefaults.standard
                 userDefaults.set(self.CustomersArray?[0].id, forKey: "customerID")
+                userDefaults.set(self.CustomersArray?[0].first_name, forKey: "customerName")
+               
+                
                 userDefaults.synchronize()
                 let customerID = userDefaults.integer(forKey: "customerID")
+
+                userDefaults.set("USD", forKey: "CurrencyKey\(customerID)")
+                userDefaults.set(1, forKey: "CurrencyValue\(customerID)")
+                userDefaults.synchronize()
+
                 print(customerID)
                 
             case .failure(let error):

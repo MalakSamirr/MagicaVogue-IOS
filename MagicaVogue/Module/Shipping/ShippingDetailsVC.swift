@@ -9,7 +9,8 @@ import UIKit
 import Alamofire
 
 class ShippingDetailsVC: UIViewController {
-   
+    var loginViewModel : LoginViewModel = LoginViewModel()
+    var email : String = ""
     
     @IBOutlet weak var cityTextfield: UITextField!
     
@@ -75,7 +76,17 @@ class ShippingDetailsVC: UIViewController {
     
      @IBAction func saveAddressButton(_ sender: Any) {
          addAddress()
-         
+         self.loginViewModel.getCustomer(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(email)"){ result in
+             switch result {
+             case .success(let customers):
+                 // Handle the fetched customers
+                 print(customers)
+                 
+             case .failure(let error):
+                 // Handle the error
+                 print("Request failed with error: \(error.localizedDescription)")
+                 
+             }}
           let tab = TabBarController()
           self.navigationController?.setViewControllers([tab], animated: true)
      }

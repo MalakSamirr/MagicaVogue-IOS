@@ -9,15 +9,20 @@ import Firebase
 import FirebaseAuth
 
 class UserLoginViewController: UIViewController, UICollectionViewDataSource , UITableViewDelegate ,UITableViewDataSource {
+    @IBOutlet weak var helloUserLabel: UILabel!
     
     @IBOutlet weak var loginOrdersTableView: UITableView!
     @IBOutlet weak var profileWishlistViewController: UICollectionView!
     var cart: [DraftOrder] = []
     var wishlist: [DraftOrder] = []
+    var CustomersArray: [customers]?
+
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
         self.navigationController?.isNavigationBarHidden = true
         profileWishlistViewController.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
         loginOrdersTableView.register(UINib(nibName: "OrderProfileTableVC", bundle: nil), forCellReuseIdentifier: "OrderProfileTableVC")
@@ -26,8 +31,8 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         loginOrdersTableView.dataSource = self
         loginOrdersTableView.delegate = self
         print("hebbbbba\(cart)")
-        getCart()
-        getWishlist()
+//        getCart()
+//        getWishlist()
         loginOrdersTableView.reloadData()
         profileWishlistViewController.reloadData()
         
@@ -66,6 +71,17 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         else{
             getCart()
             getWishlist()
+            let userDefaults = UserDefaults.standard
+            let customerName = userDefaults.string(forKey: "customerName")
+            if let firstSpaceIndex = customerName?.firstIndex(of: " ") {
+                let firstName = customerName?[..<firstSpaceIndex]
+                print(firstName) // This will print "malak"
+               helloUserLabel.text = "Hello, \(firstName ?? "") 🫶"
+                 
+                
+                
+            }
+
         }
     }
     
@@ -237,7 +253,10 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         
         return dateString // Return the original string if date parsing fails.
     }
-}
+    
+  
+    }
+
 
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        guard let cell = loginOrdersTableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as? CartCell else { return UITableViewCell() }
