@@ -24,50 +24,21 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.backBarButtonItem?.isHidden = true
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func LoginButton(_ sender: Any) {
-       // self.view.endEditing(true)
         if emailTextfield.text!.isEmpty || passwordTextfield.text!.isEmpty
         {
-            let alert1 = UIAlertController(
-                title: "Invalid Login", message: "Please fill email and password to login", preferredStyle: UIAlertController.Style.alert)
-            
-            let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
-                
-            }
-            
-            
-            alert1.addAction(OkAction)
-            
-            present(alert1, animated: true , completion: nil)
-            
-          
-            return
+            self.displayAlert(title: "Invalid Login", message: "Please fill email and password to login")
+         
         }
         else {
             if let email = emailTextfield.text , let password = passwordTextfield.text {
                 
                 Auth.auth().signIn(withEmail: email, password: password) {  authResult, error in
                     if let e = error {
+                        self.displayAlert(title: "Invalid Login", message: e.localizedDescription)
                         
-                        let alert1 = UIAlertController(
-                            title: "Invalid Login", message: e.localizedDescription , preferredStyle: UIAlertController.Style.alert)
-                        
-                        let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
-                            
-                        }
-                        
-                        
-                        alert1.addAction(OkAction)
-                        
-                        self.present(alert1, animated: true , completion: nil)
-                        
-                        
-                        return
-                        
-                        print(e.localizedDescription)
                         
                     } else {
                         
@@ -82,32 +53,14 @@ class LoginViewController: UIViewController {
                                     let tab = TabBarController()
                                     self.navigationController?.setViewControllers([tab], animated: true)
                                 }else{
-                                    let alert1 = UIAlertController(
-                                    title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
-                                  let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
-                                 
-                                     }
-                                 
-                                alert1.addAction(OkAction)
-                               self.present(alert1, animated: true , completion: nil)
-                                 
-                                  return
+                                    self.displayAlert(title: "Invalid Login", message: "Customer does not exist, please signup first")
                                 }
                                
                             case .failure(let error):
                                 // Handle the error
                                 print("Request failed with error: \(error.localizedDescription)")
                                 
-                                let alert1 = UIAlertController(
-                                title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
-                              let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
-                             
-                                 }
-                             
-                            alert1.addAction(OkAction)
-                           self.present(alert1, animated: true , completion: nil)
-                             
-                              return
+                                self.displayAlert(title: "Invalid Login", message: "Customer does not exist, please signup first")
                             }
                         }
 
@@ -149,7 +102,6 @@ class LoginViewController: UIViewController {
     
     
     
-    
     @IBAction func googleLoginButton(_ sender: Any) {
         Task { @MainActor in
             guard let clientID = FirebaseApp.app()?.options.clientID else { return }
@@ -160,63 +112,42 @@ class LoginViewController: UIViewController {
             
             let gidSignResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: self)
             
-            guard
-                    let idToken = gidSignResult.user.idToken?.tokenString
-                else {
-                    throw URLError(.badServerResponse)
-                }
-            let accessToken : String = gidSignResult.user.accessToken.tokenString
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                           accessToken: accessToken)
+            guard let idToken = gidSignResult.user.idToken?.tokenString else {
+                throw URLError(.badServerResponse)
+            }
+            
+            let accessToken: String = gidSignResult.user.accessToken.tokenString
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
             
             let authResult = try await viewModel.signInWithGoogle(credential: credential)
-                    
             
             self.viewModel.getCustomer(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(authResult.email ?? " ")") { result in
                 switch result {
                 case .success(let customers):
                     // Handle the fetched customers
                     print(customers)
-                    if customers.isEmpty==false{
+                    if customers.isEmpty == false {
                         let tab = TabBarController()
                         self.navigationController?.setViewControllers([tab], animated: true)
-                    }else{
-                        let alert1 = UIAlertController(
-                        title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
-                      let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
-                     
-                         }
-                     
-                    alert1.addAction(OkAction)
-                   self.present(alert1, animated: true , completion: nil)
-                     
-                      return
+                    } else {
+                        self.displayAlert(title: "Invalid Login", message: "Customer does not exist, please signup first")
                     }
-                   
                 case .failure(let error):
                     // Handle the error
                     print("Request failed with error: \(error.localizedDescription)")
-                    
-                    let alert1 = UIAlertController(
-                    title: "Invalid Login", message: "Customer does not exist, please signup first" , preferredStyle: UIAlertController.Style.alert)
-                  let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
-                 
-                     }
-                 
-                alert1.addAction(OkAction)
-               self.present(alert1, animated: true , completion: nil)
-                 
-                  return
+                    self.displayAlert(title: "Invalid Login", message: "Customer does not exist, please signup first")
                 }
             }
-
-            
-                }     }
-        
-   
+        }
+    }
 
    
-    
+    func displayAlert(title: String, message: String) {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
     
                                    
     @IBAction func skipButton(_ sender: Any) {
