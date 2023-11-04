@@ -8,9 +8,11 @@
 import Foundation
 struct Customer: Codable {
     let customers: [customers]?
+    let addresses: [Address]?
 
     enum CodingKeys: String, CodingKey {
         case customers = "customers"
+        case addresses = "addresses"
     }
 }
 
@@ -36,30 +38,46 @@ struct customers: Codable {
     }
 }
 
-struct Address: Codable {
+struct Address: Codable , Equatable {
     let id: Int?
     let customer_id: Int?
     let first_name: String?
     let last_name: String?
+    let company: String?
     let address1: String?
-    let street: String?
+    let address2: String?
     let city: String?
+    let province: String?
     let country: String?
-
+    let zip: String?
+    let phone: String?
+    let name: String?
+    let province_code: String?
+    let country_code: String?
+    let country_name: String?
+    let isDefault: Bool
+    
     enum CodingKeys: String, CodingKey {
         case id
-        case customer_id = "customer_id"
-        case first_name = "first_name"
-        case last_name = "last_name"
+        case customer_id
+        case first_name
+        case last_name
+        case company
         case address1
-        case street
+        case address2
         case city
+        case province
         case country
+        case zip
+        case phone
+        case name
+        case province_code
+        case country_code
+        case country_name
+        case isDefault = "default"
     }
+    
 }
-
-
-
 //"addresses": [
 //                {
 //                    "id": 9672369471804,

@@ -12,6 +12,7 @@
 		454EE3EF2AE9818F001967B2 /* MoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */; };
 		456C397F2AE9C9FF00892660 /* PriceRuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */; };
 		456C39812AE9CA0700892660 /* CouponModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C39802AE9CA0700892660 /* CouponModel.swift */; };
+		4577C1E42AF42BAE00648589 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577C1E32AF42BAE00648589 /* ToastView.swift */; };
 		457A16842AF2D06B009A6409 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457A16822AF2D06B009A6409 /* PaymentTableViewCell.swift */; };
 		457A16852AF2D06B009A6409 /* PaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457A16832AF2D06B009A6409 /* PaymentTableViewCell.xib */; };
 		457A16872AF2EA9A009A6409 /* SuccessAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 457A16862AF2EA99009A6409 /* SuccessAnimation.json */; };
@@ -170,6 +171,7 @@
 		454EE3EE2AE9818F001967B2 /* MoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreProtocol.swift; sourceTree = "<group>"; };
 		456C397E2AE9C9FF00892660 /* PriceRuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRuleModel.swift; sourceTree = "<group>"; };
 		456C39802AE9CA0700892660 /* CouponModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponModel.swift; sourceTree = "<group>"; };
+		4577C1E32AF42BAE00648589 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		457A16822AF2D06B009A6409 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
 		457A16832AF2D06B009A6409 /* PaymentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentTableViewCell.xib; sourceTree = "<group>"; };
 		457A16862AF2EA99009A6409 /* SuccessAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessAnimation.json; sourceTree = "<group>"; };
@@ -412,7 +414,6 @@
 		45A095D82ADFE48E00C297C9 /* MagicaVogue */ = {
 			isa = PBXGroup;
 			children = (
-				457A16802AF27E16009A6409 /* MagicaVogue.entitlements */,
 				59DDBDAE2AE538B600898513 /* Services */,
 				5959D6B52AE2E67D00582F0F /* ViewModel */,
 				5959D6B42AE2E67500582F0F /* Model */,
@@ -468,6 +469,7 @@
 			children = (
 				45E3470F2AE479FD00DD679B /* ShippingDetailsVC.swift */,
 				45E347102AE479FD00DD679B /* ShippingDetailsVC.xib */,
+				4577C1E32AF42BAE00648589 /* ToastView.swift */,
 			);
 			path = Shipping;
 			sourceTree = "<group>";
@@ -1555,6 +1557,7 @@
 				59DDBDC92AE6FCB600898513 /* SubCategoryModel.swift in Sources */,
 				59DDBDD22AE867F200898513 /* BrandModel.swift in Sources */,
 				59F4E7B32AE2CACE002A5BFF /* CheckoutVC.swift in Sources */,
+				4577C1E42AF42BAE00648589 /* ToastView.swift in Sources */,
 				45ECE7B72AE3058D00488682 /* SuccessViewController.swift in Sources */,
 				456C39812AE9CA0700892660 /* CouponModel.swift in Sources */,
 				59F4E7BF2AE2CAE0002A5BFF /* CartCell.swift in Sources */,
