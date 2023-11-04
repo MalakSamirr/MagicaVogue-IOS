@@ -10,7 +10,7 @@ import Lottie
 
 class BrandViewModel {
     var myProduct : Products!
-
+    var wishlist: [DraftOrder] = []
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForSubCategory: IndexPath?
     var sortArray: [mainCategoryModel] = [
@@ -22,8 +22,17 @@ class BrandViewModel {
     var onDataUpdate: (() -> Void)?
     var brand: SmartCollection?
     var animationView: LottieAnimationView?
+    let customeriD = 7471279866172
     
-    func getCategories(url: String) {
+    init() {
+        getWishlist {
+            self.getCategories(url: "") {
+                self.onDataUpdate
+            }
+        }
+    }
+    
+    func getCategories(url: String, completion: @escaping () -> Void) {
         if let brandId = brand?.id {
             let stringId = String(brandId)
             
@@ -35,11 +44,31 @@ class BrandViewModel {
                     print(self.productArray?[0].variants ?? "")
                     DispatchQueue.main.async {
                         self.onDataUpdate?()
+                        completion()
                     }
                 case .failure(let error):
                     print("Request failed with error: \(error)")
                 }
             }
+        }
+    }
+
+    func getWishlist(completion: @escaping () -> Void) {
+        if APIManager.shared.isOnline() {
+            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { (result: Result<DraftOrderResponse, Error>) in
+                switch result {
+                case .success(let draftOrderResponse):
+                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" && $0.customer?.id == self.customeriD }
+                    DispatchQueue.main.async {
+                        // Call the completion handler when wishlist is fetched
+                        completion()
+                    }
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                }
+            }
+        } else {
+            print("Not connected")
         }
     }
     

@@ -29,10 +29,11 @@ class CartCell: UITableViewCell {
     var quantity: Double = 1.0
     var maxQuantity: Double?
     var inventoryItemId: Int?
+    var currentQuantity: Int = 2
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        quantityLabel.text = String(quantity)
+        quantityLabel.text = String(currentQuantity)
         
         plus.layer.cornerRadius = 8
         plus.layer.borderWidth = 1
@@ -53,7 +54,6 @@ class CartCell: UITableViewCell {
         
         let intQuantity = Int(quantity)
         quantityLabel.text = String(intQuantity)
-        // Configure the view for the selected state
     }
     
     @IBAction func didPressPlus(_ sender: Any) {

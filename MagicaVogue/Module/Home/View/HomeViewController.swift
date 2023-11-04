@@ -21,7 +21,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        ToastView.show(message: "HI", in: self.view, for: 1)
         viewModel.onDataUpdateBrand = { [weak self] in
             DispatchQueue.main.async {
                 self?.brandsCollectioView.reloadData()
@@ -178,7 +177,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         // Navigate to the SearchViewController
-        let searchViewController = SearchViewController() // Replace with your actual view controller
+        let searchViewController = SearchViewController()
         self.navigationController?.pushViewController(searchViewController, animated: true)
         
         return false
