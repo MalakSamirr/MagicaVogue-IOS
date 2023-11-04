@@ -10,6 +10,8 @@ import UIKit
 class MyAddressesCell: UITableViewCell {
     var addressDelegate: AddressProtocol?
 
+    @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var myAdressBackgrounView: UIView!
     @IBOutlet weak var changeButton: UIButton!
     override func awakeFromNib() {

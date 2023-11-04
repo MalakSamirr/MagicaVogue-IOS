@@ -62,7 +62,11 @@ class SettingsTableViewController: UITableViewController {
         return 60
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.row==1){
+        if(indexPath.row == 0){
+            let addressVC = MyAddressesVC()
+            navigationController?.pushViewController(addressVC, animated: true)
+        }
+        else if(indexPath.row==1){
             let currencyVC = CurrencyVC()
             navigationController?.pushViewController(currencyVC, animated: true)
         }
@@ -89,19 +93,10 @@ class SettingsTableViewController: UITableViewController {
             let NoAction = UIAlertAction(title: "No" , style : .default) { (action) in
                 
             }
-            
             alert1.addAction(YesAction)
             alert1.addAction(NoAction)
-            
-            
             present(alert1, animated: true , completion: nil)
-            
-            
             return
-            
-            
-            
-            
         }
         if(indexPath.row==3){
             

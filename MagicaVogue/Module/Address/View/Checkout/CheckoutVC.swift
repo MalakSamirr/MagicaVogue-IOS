@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate {
  
@@ -13,6 +14,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
 
     @IBOutlet weak var addressTableView: UITableView!
     var discountCodes: [DiscountCode]?
+    var address: Address?
     var priceRule: PriceMRuleModel?
     var cart: [DraftOrder] = []
     var totalPrice : Double = 0.0
@@ -30,8 +32,14 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
 //        print("cartttttttt\(cart)")
         getDiscountCodes()
         getPriceRule()
-        
+        getAddress()
 
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        getDiscountCodes()
+        getPriceRule()
+        getAddress()
     }
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
@@ -58,7 +66,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
+            return address != nil ? 1 : 0
         case 1:
             return cart.count
         case 2:
@@ -72,8 +80,18 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyAddressesCell", for: indexPath) as! MyAddressesCell
-            cell.addressDelegate = self
-                return cell
+                       cell.addressDelegate = self
+
+                       if let address = self.address {
+                           let address11 = address.address1 ?? ""
+                           let city = address.city ?? ""
+                           let location = "\(address11), \(city)"
+
+                           cell.addressLabel.text = address.address2 //Egypt
+                           cell.countryLabel.text = location
+                       }
+                       return cell
+      
         case 1:
 //            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
 //            cell.minus.isHidden = true
@@ -138,7 +156,40 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
 //        
 //        return headerView
 //    }
-    
+    func getAddress() {
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses.json"
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+
+        AF.request(baseURLString, method: .get, encoding: JSONEncoding.default, headers: headers)
+            .responseDecodable(of: Customer.self) { response in
+                switch response.result {
+                case .success(let customer):
+                    if let defaultAddress = customer.addresses?.first(where: { $0.isDefault == true }) {
+                        self.address = defaultAddress
+                        DispatchQueue.main.async {
+                            self.addressTableView.reloadData()
+                        }
+                    } else {
+                        self.showNoAddressesFoundMessage()
+                    }
+                case .failure(let error):
+                    print("Failed to fetch addresses. Error: \(error)")
+                }
+            }
+    }
+
+    func showNoAddressesFoundMessage() {
+        // Display a message to the user when no addresses are found
+        let alert = UIAlertController(
+            title: "No Addresses Found",
+            message: "There are no addresses associated with this customer.",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
