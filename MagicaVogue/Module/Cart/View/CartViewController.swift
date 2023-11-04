@@ -12,8 +12,10 @@ import Firebase
 import FirebaseAuth
 
 class CartViewController: UIViewController , UITableViewDataSource , UITableViewDelegate {
-    
+    var selctedProduct: Products?
     var cart: [DraftOrder] = []
+    var productDataArray: [SelectedProduct] = []
+    var cartRestItems: [DraftOrderCompleteItems] = []
     var totalPrice: Double = 0
     var customer_id : Int = 7471279866172
 
@@ -30,14 +32,13 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         CartTableView.dataSource = self
         CartTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         
-//        totalPrice = 0
-
-        CartTableView.reloadData()
 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        for item in productDataArray {
+            print("akhhhh\(item.product.image?.src)")
+        }
         if (Auth.auth().currentUser == nil){
             let alert1 = UIAlertController(
                 title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
@@ -60,14 +61,14 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         }
             else{
                 print(Auth.auth().currentUser)
-                getCart()
+                getCart {_ in 
+                    self.CartTableView.reloadData()
+                    for item in self.productDataArray {
+                        print("akhhhh\(item.product.image?.src)")
+                    }
+                }
             }
-//        totalPrice = 0
-//        for item in cart {
-//            let itemPrice = Double(item.line_items[0].price ?? "0") ?? 0
-//            totalPrice += itemPrice
-//        }
-//        totalPriceLabel.text = String(totalPrice)
+        
     }
   
     
@@ -78,24 +79,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                return 0
            }
     }
-    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-//        guard indexPath.row < cart[0].line_items.count else {
-//               return UITableViewCell()
-//           }
-//        let draftOrder = cart[0].line_items[indexPath.row]
-//                cell.productNameLabel.text = draftOrder.title
-//
-//                cell.productPriceLabel.text = draftOrder.price
-//
-////        if let imageUrl = URL(string: draftOrder[applied_discount.description) {
-////            cell.productImageView.kf.setImage(with: imageUrl)
-////        } else {
-////            cell.productImageView.image = UIImage(named: "CouponBackground")
-////        }
-//            return cell
-//    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
         
@@ -103,13 +87,30 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             let draftOrder = cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
             cell.productPriceLabel.text = draftOrder.price
+            
+            let targetProductId = cart[0].line_items[indexPath.row].product_id
+            
+            if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
+                let imageUrlString = filteredProduct.product.image?.src
+                if let imageUrl = URL(string: imageUrlString ?? "") {
+                    print("ewwwwwww \(filteredProduct)")
+                    cell.productImageView.kf.setImage(with: imageUrl)
+                }
+                
+                if let filteredVariant = filteredProduct.product.variants?.first(where: {
+                        $0.id == cart[0].line_items[indexPath.row].variant_id
+                }) {
+                    cell.maxQuantity = Double(filteredVariant.inventory_quantity)
+                    cell.inventoryItemId = filteredVariant.inventory_item_id
+                }
+                
+                
+                
+            } else {
+                // Handle the case when the product with the targetProductId is not found
+            }
+            
 
-            // Handle the image loading here (uncomment and adapt this part as needed)
-            // if let imageUrl = URL(string: draftOrder.applied_discount.description) {
-            //     cell.productImageView.kf.setImage(with: imageUrl)
-            // } else {
-            //     cell.productImageView.image = UIImage(named: "CouponBackground")
-            // }
         }
         
         return cell
@@ -163,16 +164,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
     
     @IBAction func Checkout(_ sender: UIButton) {
-//        let copounsViewController = CopounsViewController()
-//        let nav = UINavigationController(rootViewController: copounsViewController)
-//        nav.modalPresentationStyle = .pageSheet
-//
-//        if let sheet = nav.sheetPresentationController {
-//            sheet.detents = [.medium()]
-//            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-//            sheet.largestUndimmedDetentIdentifier = .medium
-//        }
-//        present(nav , animated: true , completion: nil)
+
         let checkoutVC = CheckoutVC()
 
             checkoutVC.cart = self.cart
@@ -186,29 +178,46 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     }
     
     
-    func getCart() {
+    func getCart(completion: @escaping ([SelectedProduct]) -> Void) {
         if APIManager.shared.isOnline() {
             APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { [self] (result: Result<DraftOrderResponse, Error>) in
                 switch result {
                 case .success(let draftOrderResponse):
-                    // Filter draft orders with note: "cart"
-                    self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart"  && $0.customer?.id == self.customer_id  }
-                    for item in cart {
-                        let itemPrice = Double(item.line_items[0].price ?? "0") ?? 0
+                    self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" && $0.customer?.id == self.customer_id }
+                    
+                    // Fetch product data for each item in the cart
+                    let dispatchGroup = DispatchGroup()
+                    productDataArray = []
+                    for item in cart[0].line_items {
+                        dispatchGroup.enter()
+                        let itemPrice = Double(item.price ?? "0") ?? 0
                         self.totalPrice += itemPrice
-}
-                    updateTotalPriceLabel()
-
-                    DispatchQueue.main.async {
+                        
+                        getProductData(productId: item.product_id ?? 0, variantId: item.variant_id ?? 0) { selectedProduct in
+                            if let selectedProduct = selectedProduct {
+                                productDataArray.append(selectedProduct)
+                            }
+                            dispatchGroup.leave()
+                        }
+                    }
+                    
+                    // Notify when all product data requests are completed
+                    dispatchGroup.notify(queue: DispatchQueue.main) {
+                        updateTotalPriceLabel()
                         self.totalPriceLabel.text = String(self.totalPrice)
                         self.CartTableView.reloadData()
+                        print("fuckkkkkkkkkkkk\(productDataArray.count)")
+                        completion(productDataArray)
                     }
+                    
                 case .failure(let error):
                     print("Request failed with error: \(error)")
+                    completion([])
                 }
             }
         } else {
             print("Not connected")
+            completion([])
         }
     }
 
@@ -219,26 +228,21 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
         
-        // Find the index of the draft order to update
         if let draftOrderIndex = cart.firstIndex(where: { $0.id == draftOrderId }) {
-            // Find the index of the line item to delete within the draft order
+
             if let lineItemIndex = cart[draftOrderIndex].line_items.firstIndex(where: { $0.id == lineItemId }) {
-                // Remove the line item from the draft order's line_items array
                 cart[draftOrderIndex].line_items.remove(at: lineItemIndex)
                 
-                // Create the updated draft order data
                 let draftOrderData: [String: Any] = [
                     "draft_order": [
                         "line_items": cart[draftOrderIndex].line_items
                     ]
                 ]
                 
-                // Send a PUT request to update the draft order
                 AF.request(baseURLString, method: .put, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
                     .response { response in
                         switch response.result {
                         case .success:
-                            // Successfully deleted the line item from the Draft Order
                             print("Line item with ID \(lineItemId) deleted from Draft Order with ID \(draftOrderId).")
                             
                             self.updateTotalPriceLabel()
@@ -308,10 +312,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                 case .success:
                     print("Product added to cart successfully.")
                     self.showSuccessAlert()
-                    
-                    // Append the product to the cart array
-//                    self.productDetailsViewModel.cart.append(self.productDetailsViewModel.myProduct)
-                    
                 case .failure(let error):
                     print("Failed to add the product to the cart. Error: \(error)")
                 }
@@ -333,5 +333,30 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     override func viewWillDisappear(_ animated: Bool) {
         print("HHH")
     }
+    
+}
+
+extension CartViewController {
+    func getProductDetails(url: String, completion: @escaping (Result<SelectedProduct, Error>) -> Void) {
+        APIManager.shared.request(.get, url) { result in
+            completion(result)
+        }
+    }
+
+    
+    func getProductData(productId: Int, variantId: Int, completion: @escaping (SelectedProduct?) -> Void) {
+        let url = "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/products/\(productId).json"
+        
+        getProductDetails(url: url) { result in
+            switch result {
+            case .success(let product):
+                completion(product)
+            case .failure:
+                completion(nil)
+            }
+        }
+    }
+
+
     
 }

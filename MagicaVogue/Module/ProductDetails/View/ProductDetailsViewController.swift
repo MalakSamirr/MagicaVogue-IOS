@@ -16,14 +16,16 @@ protocol saveItemsToCart : AnyObject{
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     var variantId: Int?
+    
+    var inventoryItemId: Int?
     var cart: [DraftOrder] = []
     var customer_id : Int = 7471279866172
-//    var draftOrder : DraftOrder?
     var lineItemsArr: [LineItem]? = []
     @IBOutlet weak var optionsCollectionView: UICollectionView!
     @IBOutlet weak var sliderControlPage: UIPageControl!
   
     
+    @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var productName: UILabel!
@@ -39,8 +41,10 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
 
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // sliderControlPage.numberOfPages = arrOfProductImgs.count
+        
         for image in productDetailsViewModel.myProduct.images! {
             productDetailsViewModel.arrOfProductImgs.append(image.src ?? "")
         }
@@ -65,8 +69,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 productDetailsViewModel.productSizes.append(productOption)
             }
         }
-        print(productDetailsViewModel.arrOfSize)
-        print("--------------------")
+      
         if let values = productDetailsViewModel.myProduct.options?[1].values, !values.isEmpty {
             var isFirstColor = true
             for color in values {
@@ -82,7 +85,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 productDetailsViewModel.productColors.append(productOption)
             }
         }
-        print(productDetailsViewModel.arrOfColor)
+       
         
         if let intValue = Double(productDetailsViewModel.myProduct.variants?[0].price ?? "0") {
        //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
@@ -130,9 +133,11 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             default:
                 return self.colorsLayout()
             }
+            
         }
         optionsCollectionView.setCollectionViewLayout(layout1, animated: true)
         sliderControlPage.numberOfPages = productDetailsViewModel.arrOfProductImgs.count
+        newItemSelected()
         
     }
     
@@ -270,6 +275,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 }
                 
                 productDetailsViewModel.productSizes[indexPath.row].isSelected = true
+                newItemSelected()
             }
             else {
                 for index in 0..<productDetailsViewModel.productColors.count {
@@ -277,6 +283,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 }
                 
                 productDetailsViewModel.productColors[indexPath.row].isSelected = true
+                newItemSelected()
             }
             collectionView.reloadData()
         }
@@ -297,70 +304,31 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     @IBAction func AddToCartButtonPressed(_ sender: UIButton) {
         
-        var chosenColors = productDetailsViewModel.productColors
-            .filter { $0.isSelected }
-            .map { $0.name }
-            .joined(separator: ", ")
-            
-        var chosenSize = productDetailsViewModel.productSizes
-            .filter { $0.isSelected }
-            .map { $0.name }
-            .joined(separator: ", ")
-
-        var productTitle = "\(chosenSize) / \(chosenColors)"
-        print(productDetailsViewModel.myProduct.image?.src)
-
-        if let variant = productDetailsViewModel.myProduct.variants?.first(where: { $0.title == productTitle }) {
-            variantId = variant.id
-            let inventoryQuantity = variant.inventory_quantity
-            let productId = productDetailsViewModel.myProduct.id
-            
-            
-            
-            print("hhhhhhhh  \(inventoryQuantity)  \(variantId)")
-            
-            
+        
             
             getCart { [self] in
-                
-                if let firstCart = cart.first {
-                    for item in firstCart.line_items {
-                        print("hiii")
-                        print(item.variant_id == variantId)
-                    }
-                }
-                
-                
-                if !(cart.first?.line_items.contains { $0.variant_id == variantId } ?? false) {
+                if !cart.contains(where: { $0.line_items.contains { $0.variant_id == variantId } }) {
+                    print("fuckkkk \(variantId)")
                     
-                    if inventoryQuantity > 0 {
+                    
+                   
                         
                         
                             if !cart.isEmpty {
-                                print("Cart exists")
-                                // Update your UI or perform any actions related to an existing cart
                                 updateDraftOrder()
                                 
                                 
-                                print(lineItemsArr)
                             } else {
-                                print("Cart is empty")
-                                // Perform the "add" action when the cart is empty
                                 add()
                             }
                         
-                    }
-                    else {
-                        show(messageAlert: "out of stock", message: "", actionTitle: "ok") { _ in
-                            
-                        }
-                    }
-                }
-                else {
+                        
+                    
+                        } else {
                     showAlreadyInCartAlert()
                 }
             }
-        }
+        
     }
     
     func updateDraftOrder() {
@@ -392,7 +360,6 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             
         }
         
-        print("hhhhhhhhhhhhhh\(lineItems)")
 
         edit(lineItem: lineItems)
         
@@ -420,8 +387,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 }
             }
         } else {
-            print("Not connected")
-            completion() // Call the completion handler even if there's no internet connection
+            completion()
         }
     }
 
@@ -429,11 +395,6 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     func edit(lineItem : [[String: Any]]) {
         let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(cart[0].id).json"
                 
-        // Check if the product is already in the cart
-        if isProductInCart() {
-            showAlreadyInCartAlert()
-            return
-        }
         
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
         
@@ -452,9 +413,10 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 case .success:
                     print("Product added to cart successfully.")
                     self.showSuccessAlert()
-                    
-                    // Append the product to the cart array
                     self.productDetailsViewModel.cart.append(self.productDetailsViewModel.myProduct)
+                    
+                    self.editVariantQuantity(inventory_item_id: self.inventoryItemId ?? 0, new_quantity: -1) {
+                    }
                     
                 case .failure(let error):
                     print("Failed to add the product to the cart. Error: \(error)")
@@ -506,11 +468,11 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             .response { response in
                 switch response.result {
                 case .success:
-                    print("Product added to cart successfully.")
                     self.showSuccessAlert()
                     
-                    // Append the product to the cart array
                     self.productDetailsViewModel.cart.append(self.productDetailsViewModel.myProduct)
+                    self.editVariantQuantity(inventory_item_id: self.inventoryItemId ?? 0, new_quantity: -1) {
+                    }
                     
                 case .failure(let error):
                     print("Failed to add the product to the cart. Error: \(error)")
@@ -519,7 +481,6 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func isProductInCart() -> Bool {
-        // Check if the product with the same ID is already in the cart
         if let existingProduct = productDetailsViewModel.cart.first(where: { $0.id == productDetailsViewModel.myProduct.id }) {
             return true
         }
@@ -596,53 +557,92 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         
     
 }
-//
-//    func add() {
-//        // Your Shopify API URL
-//        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
-//
-//        // Request headers
-//        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-//
-//        let imageSrc = myProduct.image?.src ?? "SHOES"
-//        print(imageSrc)
-//
-//        // Request body data
-//        let draftOrderData: [String: Any] = [
-//               "draft_order": [
-//                "note": "cart",
-//                   "line_items": [
-//                       [
-//                           "title": myProduct.title,
-//                           "price": myProduct.variants?[0].price ?? "0.0",
-//                           "quantity": 1
-//                       ]
-//                   ],
-//                   "applied_discount": [
-//                       "description": imageSrc ,
-//                       "value_type": "fixed_amount",
-//                       "value": "10.0",
-//                       "amount": "10.00",
-//                       "title": "Custom"
-//                   ],
-//                   "customer": [
-//                       "id": 7471279866172
-//                   ],
-//                   "use_customer_default_address": true
-//               ]
-//           ]
-//
-//        AF.request(baseURLString, method: .post, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
-//            .response { response in
-//                switch response.result {
-//                case .success:
-//
-//                    print("Product added to cart successfully.")
-//
-//                    self.showSuccessAlert()
-//
-//                case .failure(let error):
-//                    print("Failed to add the product to the cart. Error: \(error)")
-//                }
-//            }
-//    }
+
+
+extension ProductDetailsViewController {
+    func editVariantQuantity(inventory_item_id: Int, new_quantity : Int, Handler: @escaping () -> Void){
+        let urlFile = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/inventory_levels/adjust.json"
+        
+        let body: [String: Any] = [
+            
+            "location_id": 93685481788,
+            "inventory_item_id": inventory_item_id,
+            "available_adjustment": new_quantity
+        ]
+        
+        AF.request(urlFile,method: Alamofire.HTTPMethod.post, parameters: body, headers: ["X-Shopify-Access-Token":"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"]).response { data in
+            switch data.result {
+            case .success(_):
+                print("success from edit variant")
+                Handler()
+                break
+            case .failure(let error):
+                print("in edit varaint in network manager")
+                print(error)
+            }
+        }
+    }
+    func newItemSelected() {
+        var chosenColors = productDetailsViewModel.productColors
+            .filter { $0.isSelected }
+            .map { $0.name }
+            .joined(separator: ", ")
+        
+        var chosenSize = productDetailsViewModel.productSizes
+            .filter { $0.isSelected }
+            .map { $0.name }
+            .joined(separator: ", ")
+        
+        var productTitle = "\(chosenSize) / \(chosenColors)"
+        
+        if let variant = productDetailsViewModel.myProduct.variants?.first(where: { $0.title == productTitle }) {
+            variantId = variant.id
+            print("fuckkkk \(productTitle)\(variantId)")
+            inventoryItemId = variant.inventory_item_id
+            let inventoryQuantity = variant.inventory_quantity
+            let productId = productDetailsViewModel.myProduct.id
+            if inventoryQuantity <= 0 {
+                addToCartButton.isEnabled = false
+            }
+        }
+    }
+}
+
+protocol quantityChanged {
+    func plusButton (inventoryItemId: Int, varientId: Int)
+    func minusButton (inventoryItemId: Int, varientId: Int)
+}
+
+extension quantityChanged {
+    func plusButton (inventoryItemId: Int, varientId: Int) {
+        
+    }
+
+    
+    
+    
+    
+    
+    private func editVariantQuantity(inventory_item_id: Int, new_quantity : Int, Handler: @escaping () -> Void){
+            let urlFile = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/inventory_levels/adjust.json"
+            
+            let body: [String: Any] = [
+                
+                "location_id": 93685481788,
+                "inventory_item_id": inventory_item_id,
+                "available_adjustment": new_quantity
+            ]
+            
+            AF.request(urlFile,method: Alamofire.HTTPMethod.post, parameters: body, headers: ["X-Shopify-Access-Token":"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"]).response { data in
+                switch data.result {
+                case .success(_):
+                    print("success from edit variant")
+                    Handler()
+                    break
+                case .failure(let error):
+                    print("in edit varaint in network manager")
+                    print(error)
+                }
+            }
+        }
+}

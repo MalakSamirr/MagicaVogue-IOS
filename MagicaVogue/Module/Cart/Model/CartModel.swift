@@ -19,10 +19,10 @@ struct DraftOrder: Codable {
     let applied_discount: Discount
     let total_price: String?
     let customer : customer?
-
 }
 
 struct LineItem: Codable {
+    var product_id: Int?
     var id: Int?
     var variant_id: Int?
     var title: String
@@ -30,6 +30,7 @@ struct LineItem: Codable {
     var grams : Int?
     var name: String
     var quantity: Int
+        
 }
 
 struct Discount: Codable {
@@ -43,4 +44,10 @@ struct Discount: Codable {
 struct customer : Codable {
     let id : Int?
 
+}
+
+struct DraftOrderCompleteItems {
+    let variantId: Int?
+    let image: String?
+    let inventoryItemId: Int?
 }

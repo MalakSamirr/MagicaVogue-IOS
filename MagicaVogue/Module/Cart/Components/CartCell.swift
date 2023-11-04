@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class CartCell: UITableViewCell {
     
     @IBOutlet weak var productImageView: UIImageView!
@@ -26,7 +26,8 @@ class CartCell: UITableViewCell {
     @IBOutlet weak var orderTotalLabel: UILabel!
     
     var quantity: Double = 1.0
-    
+    var maxQuantity: Double?
+    var inventoryItemId: Int?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -57,14 +58,20 @@ class CartCell: UITableViewCell {
     @IBAction func didPressPlus(_ sender: Any) {
         
         let price = Double(productPriceLabel.text ?? "0")
+        if quantity < maxQuantity ?? 0 {
+            
+            let priceForItem = (price ?? 0)/quantity
+            quantity += 1
+            productPriceLabel.text = String(quantity*priceForItem)
+            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: -1) {
                 
-                let priceForItem = (price ?? 0)/quantity
-                quantity += 1
-                productPriceLabel.text = String(quantity*priceForItem)
-        
+            }
+
+            
+        }
+                
                 let intQuantity = Int(quantity)
                 quantityLabel.text = String(intQuantity)
-                print("New quantity: \(quantity)")
     }
     
     @IBAction func didPressMinus(_ sender: Any) {
@@ -76,18 +83,44 @@ class CartCell: UITableViewCell {
                     
                     quantity -= 1
                     productPriceLabel.text = String(quantity*priceForItem)
-                    print("New quantity: \(quantity)")
                     
-                    
-                    
-                    
+                    editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: 1) {
+                        
+                    }
+
                 }
+        
                 
                 
         let intQuantity = Int(quantity)
         quantityLabel.text = String(intQuantity)
     }
    
+    private func editVariantQuantity(inventory_item_id: Int, new_quantity : Int, Handler: @escaping () -> Void){
+            let urlFile = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/inventory_levels/adjust.json"
+            
+            let body: [String: Any] = [
+                
+                "location_id": 93685481788,
+                "inventory_item_id": inventory_item_id,
+                "available_adjustment": new_quantity
+            ]
+            
+            AF.request(urlFile,method: Alamofire.HTTPMethod.post, parameters: body, headers: ["X-Shopify-Access-Token":"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"]).response { data in
+                switch data.result {
+                case .success(_):
+                    print("success from edit variant")
+                    Handler()
+                    break
+                case .failure(let error):
+                    print("in edit varaint in network manager")
+                    print(error)
+                }
+            }
+        }
+    
+    
+    
     
     
 

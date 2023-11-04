@@ -32,6 +32,11 @@ struct Products: Codable {
     
     
 }
+
+struct SelectedProduct: Codable {
+    let product: Products
+}
+
 struct Product: Codable {
     let products: [Products]?
 }
@@ -45,6 +50,7 @@ struct Variants: Codable {
     let title: String?
     let price: String?
     var inventory_quantity: Int
+    let inventory_item_id: Int
 }
 struct Options:Codable{
     let name : String?
