@@ -21,6 +21,10 @@ class CategoryViewController: UIViewController {
     static let sectionHeaderElementKind = "section-header-element-kind"
     override func viewWillAppear(_ animated: Bool) {
         categoryCollectionView.reloadData()
+        viewModel.getWishlist {
+            self.viewModel.getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
+        
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +34,6 @@ class CategoryViewController: UIViewController {
                     self?.categoryCollectionView.reloadData()
                 }
             }
-        viewModel.getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
-
         let logoImageView = UIImageView(image: UIImage(named: "Logo"))
         logoImageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = logoImageView
@@ -57,6 +59,7 @@ class CategoryViewController: UIViewController {
         categoryCollectionView.setCollectionViewLayout(layout, animated: true)
         let indexPath = IndexPath(item: 0, section: 0)
     }
+    
 }
 
 
@@ -109,8 +112,6 @@ extension CategoryViewController: UICollectionViewDataSource {
                 }
                 cell.itemLabel.text = product.title
                 if let intValue = Double(product.variants?[0].price ?? "0") {
-               //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
-                        // Check if you can cast the value from the dictionary as             let userDefaults = UserDefaults.standard
                     let userDefaults = UserDefaults.standard
 
                     let customerID = userDefaults.integer(forKey: "customerID")
@@ -121,6 +122,14 @@ extension CategoryViewController: UICollectionViewDataSource {
                         let resultString = String(result)
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
                     }
+                var isFavorite = false
+                for item in viewModel.wishlistArray {
+                    if item.line_items[0].title == product.title {
+                        isFavorite = true
+                    }
+                }
+                    cell.favoriteButton?.isSelected = isFavorite
+                
                 cell.id = product.id
             }
             
@@ -264,57 +273,6 @@ extension CategoryViewController: FavoriteProtocol {
     }
     
  
-    
-//    func addToFavorite(_ id: Int) {
-//        if let product = viewModel.productArray?.first(where: { $0.id == id }) {
-//            myProduct = product
-//            let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
-//
-//            // Request headers
-//            let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-//
-//            let imageSrc = myProduct.image?.src ?? "SHOES"
-//
-//            // Request body data
-//            let jsonData: [String: Any] = [
-//                "draft_order": [
-//                    "note": "Wishlist",
-//                    "line_items": [
-//                        [
-//                            "variant_id": myProduct.variants?[0].id,
-//                            "title": myProduct.title ?? "",
-//                            "price": myProduct.variants?[0].price,
-//                            "quantity": 1
-////                            "grams": 8857914442044
-//                        ]
-//                    ],
-//                    "applied_discount": [
-//                        // image saved in api (description)
-//                        "description": imageSrc,
-//                        "value_type": "fixed_amount",
-//                        "value": "10.0",
-//                        "amount": "10.00",
-//                        "title": "Custom"
-//                    ],
-//                    "customer": [
-//                        "id": 7471279866172
-//                    ],
-//                    "use_customer_default_address": true
-//                ]
-//            ]
-//            print("///////////\(myProduct.variants?[0].id)vgbhjnkgh")
-//            AF.request(baseURLString, method: .post, parameters: jsonData, encoding: JSONEncoding.default, headers: headers)
-//                .response { response in
-//                    switch response.result {
-//                    case .success:
-//                        print("Product added to Wishlist successfully.")
-//                        self.showSuccessAlert()
-//                    case .failure(let error):
-//                        print("Failed to add the product to the Wishlist. Error: \(error)")
-//                    }
-//                }
-//        }
-//    }
     func addToFavorite(_ id: Int) {
         if isProductInWishlist(id) {
             showAlreadyInWishlistAlert()
@@ -329,8 +287,6 @@ extension CategoryViewController: FavoriteProtocol {
             let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
            
             let imageSrc = myProduct.image?.src ?? "SHOES"
-
-            // Request body data
             let jsonData: [String: Any] = [
                 "draft_order": [
                     "note": "Wishlist",
@@ -339,7 +295,8 @@ extension CategoryViewController: FavoriteProtocol {
 //                            "variant_id": myProduct.variants?[0].id,
                             "title": myProduct.title ?? "",
                             "price": myProduct.variants?[0].price,
-                            "quantity": 1
+                            "quantity": 1,
+                            "product_id": myProduct.id ?? 0
                         ]
                     ],
                     "applied_discount": [

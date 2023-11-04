@@ -78,6 +78,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
         cell.lineItemsDelegate = self
+        cell.currentQuantity = cart[0].line_items[indexPath.row].quantity
         if indexPath.row < cart[0].line_items.count {
             let draftOrder = cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
@@ -100,10 +101,11 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                 }
                 
                 var quantity = Int(cell.quantityLabel.text ?? "0")
-                
-                cart[0].line_items[indexPath.row].quantity = quantity ?? 0
-                
-                
+//                if cart[0].line_items[indexPath.row].quantity != quantity ?? 0 {
+//                    cart[0].line_items[indexPath.row].quantity = quantity ?? 0
+//                    updateDraftOrder(lineItemsArr: cart[0].line_items)
+//                }
+                cell.quantityLabel.text = String(cart[0].line_items[indexPath.row].quantity)
                 
                 
             } else {

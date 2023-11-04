@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Alamofire
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var searchCollectionView: UICollectionView!
     var viewModel: SearchViewModel = SearchViewModel()
+    var myProduct : Products!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -20,8 +23,6 @@ class SearchViewController: UIViewController {
                     self?.searchCollectionView.reloadData()
                 }
             }
-        viewModel.getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
-
         let logoImageView = UIImageView(image: UIImage(named: "Logo"))
         logoImageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = logoImageView
@@ -37,6 +38,12 @@ class SearchViewController: UIViewController {
         searchCollectionView.setCollectionViewLayout(layout, animated: true)
         let indexPath = IndexPath(item: 0, section: 0)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getWishlist {
+            self.viewModel.getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
+        }
+    }
 }
 
 
@@ -50,6 +57,7 @@ extension SearchViewController: UICollectionViewDataSource {
             let cell = searchCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
             cell.animationDelegate = self
             if let product = viewModel.productArray?[indexPath.row]{
+                cell.id = product.id
                 if let imageUrl = URL(string: product.image?.src ?? "heart") {
                     cell.brandItemImage.kf.setImage(with: imageUrl)
                 } else {
@@ -57,9 +65,6 @@ extension SearchViewController: UICollectionViewDataSource {
                 }
                 cell.itemLabel.text = product.title
                 if let intValue = Double(product.variants?[0].price ?? "0") {
-               //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
-                        // Check if you can cast the value from the dictionary as an Int.
-                        
                     let userDefaults = UserDefaults.standard
 
                     let customerID = userDefaults.integer(forKey: "customerID")
@@ -69,7 +74,15 @@ extension SearchViewController: UICollectionViewDataSource {
                     let result = intValue * CurrencyValue
                         let resultString = String(result)
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
-                    }            }
+                    }  
+                var isFavorite = false
+                for item in viewModel.wishlist {
+                    if item.line_items[0].title == product.title {
+                        isFavorite = true
+                    }
+                }
+                    cell.favoriteButton?.isSelected = isFavorite
+            }
         return cell
     }
     
@@ -117,16 +130,96 @@ extension SearchViewController {
     
 }
 
+
+// MARK: - Search
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            viewModel.productArray = viewModel.dataArray
+        } else {
+            viewModel.productArray = viewModel.dataArray?.filter { brand in
+                if let title = brand.title, title.lowercased().contains(searchText.lowercased()) {
+                    return true
+                }
+                return false
+            }
+        }
+        DispatchQueue.main.async {
+            self.searchCollectionView.reloadData()
+        }
+    }
+}
+
+
 // MARK: - Animation
 extension SearchViewController: FavoriteProtocol {
     func deleteFromFavorite(_ itemId: Int) {
-        print("cdfvgbhnjmkl")
-
+    print("hfvgbjnkm")
     }
     
-    func addToFavorite(_ id: Int ) {
-        print("cdfvgbhnjmkl")
+ 
+    func addToFavorite(_ id: Int) {
+        if let product = viewModel.productArray?.first(where: { $0.id == id }) {
+            myProduct = product
+            let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
+            
+            // Request headers
+            let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+           
+            let imageSrc = myProduct.image?.src ?? "SHOES"
+            let jsonData: [String: Any] = [
+                "draft_order": [
+                    "note": "Wishlist",
+                    "line_items": [
+                        [
+//                            "variant_id": myProduct.variants?[0].id,
+                            "title": myProduct.title ?? "",
+                            "price": myProduct.variants?[0].price,
+                            "quantity": 1,
+                            "product_id": myProduct.id ?? 0
+                        ]
+                    ],
+                    "applied_discount": [
+                        "description": imageSrc,
+                        "value_type": "fixed_amount",
+                        "value": "10.0",
+                        "amount": "10.00",
+                        "title": "Custom"
+                    ],
+                    "customer": [
+                        "id": 7471279866172
+                    ],
+                    "use_customer_default_address": true
+                ]
+            ]
+            
+            AF.request(baseURLString, method: .post, parameters: jsonData, encoding: JSONEncoding.default, headers: headers)
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        print("Product added to Wishlist successfully.")
+                        self.showSuccessAlert()
+                    case .failure(let error):
+                        print("Failed to add the product to the Wishlist. Error: \(error)")
+                    }
+                }
+        }
     }
+
+    func showSuccessAlert() {
+        let alertController = UIAlertController(
+            title: "Success",
+            message: "Product added to Wishlist successfully!",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+   
     
     func playAnimation() {
         viewModel.animationView = .init(name: "favorite")
@@ -146,23 +239,6 @@ extension SearchViewController: FavoriteProtocol {
             self?.viewModel.animationView?.removeFromSuperview()
         }
     }
-}
-
-// MARK: - Search
-extension SearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            viewModel.productArray = viewModel.dataArray
-        } else {
-            viewModel.productArray = viewModel.dataArray?.filter { brand in
-                if let title = brand.title, title.lowercased().contains(searchText.lowercased()) {
-                    return true
-                }
-                return false
-            }
-        }
-        DispatchQueue.main.async {
-            self.searchCollectionView.reloadData()
-        }
-    }
+    
+     
 }

@@ -31,7 +31,6 @@ class BrandViewController: UIViewController{
                 self?.BrandCollectionViewDetails.reloadData()
             }
         }
-        viewModel.getCategories(url: "")
         print(viewModel.productArray)
         
         BrandCollectionViewDetails.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
@@ -50,6 +49,11 @@ class BrandViewController: UIViewController{
             }
         }
         BrandCollectionViewDetails.setCollectionViewLayout(layout, animated: true)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getWishlist {
+            
+        }
     }
     
 }
@@ -149,10 +153,6 @@ extension BrandViewController: UICollectionViewDataSource {
                 
                 
                 if let intValue = Double(product.variants?[0].price ?? "0") {
-               //     let newCurrencyValue = GlobalData.shared.NewCurrency[0].value
-                        // Check if you can cast the value from the dictionary as an Int.
-                    
-                   
                     let userDefaults = UserDefaults.standard
                     let customerID = userDefaults.integer(forKey: "customerID")
                     let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
@@ -165,6 +165,14 @@ extension BrandViewController: UICollectionViewDataSource {
                     
                 
                 cell.id = product.id
+                var isFavorite = false
+                for item in viewModel.wishlist {
+                    if item.line_items[0].title == product.title {
+                        isFavorite = true
+                    }
+                }
+                    cell.favoriteButton?.isSelected = isFavorite
+            
             }
             return cell
         default:
