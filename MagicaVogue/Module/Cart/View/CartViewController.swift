@@ -50,13 +50,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                             sceneDelegate.resetAppNavigation()
                         }
             }
-            
             alert1.addAction(loginAction)
-            
-            
             present(alert1, animated: true , completion: nil)
-            
-            
             return
         }
             else{
@@ -82,7 +77,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-        
+        cell.lineItemsDelegate = self
         if indexPath.row < cart[0].line_items.count {
             let draftOrder = cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
@@ -103,6 +98,11 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
                     cell.inventoryItemId = filteredVariant.inventory_item_id
                 }
+                
+                var quantity = Int(cell.quantityLabel.text ?? "0")
+                
+                cart[0].line_items[indexPath.row].quantity = quantity ?? 0
+                
                 
                 
                 
@@ -164,19 +164,12 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
     
     @IBAction func Checkout(_ sender: UIButton) {
-
         let checkoutVC = CheckoutVC()
-
             checkoutVC.cart = self.cart
             checkoutVC.totalPrice = totalPrice
-
-        
-
-                // Push or present the CheckoutViewController
           navigationController?.pushViewController(checkoutVC, animated: true)
         
     }
-    
     
     func getCart(completion: @escaping ([SelectedProduct]) -> Void) {
         if APIManager.shared.isOnline() {
@@ -359,4 +352,20 @@ extension CartViewController {
 
 
     
+}
+
+protocol updateLineItemsProtocol {
+    func edit(lineItem : [[String: Any]])
+    func reloadTable()
+}
+
+extension CartViewController: updateLineItemsProtocol {
+    func reloadTable() {
+        DispatchQueue.main.async {
+            self.CartTableView.reloadData()
+            print("ewwwwwwwwwwwww\(self.cart[0].line_items[1].quantity)")
+        }
+
+        
+    }
 }

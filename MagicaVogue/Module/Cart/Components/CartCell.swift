@@ -25,6 +25,7 @@ class CartCell: UITableViewCell {
     
     @IBOutlet weak var orderTotalLabel: UILabel!
     
+    var lineItemsDelegate: updateLineItemsProtocol?
     var quantity: Double = 1.0
     var maxQuantity: Double?
     var inventoryItemId: Int?
@@ -72,6 +73,7 @@ class CartCell: UITableViewCell {
                 
                 let intQuantity = Int(quantity)
                 quantityLabel.text = String(intQuantity)
+                lineItemsDelegate?.reloadTable()
     }
     
     @IBAction func didPressMinus(_ sender: Any) {
@@ -94,6 +96,7 @@ class CartCell: UITableViewCell {
                 
         let intQuantity = Int(quantity)
         quantityLabel.text = String(intQuantity)
+        lineItemsDelegate?.reloadTable()
     }
    
     private func editVariantQuantity(inventory_item_id: Int, new_quantity : Int, Handler: @escaping () -> Void){
