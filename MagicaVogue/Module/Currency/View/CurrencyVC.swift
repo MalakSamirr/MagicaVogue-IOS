@@ -48,8 +48,22 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                     let value = self.currencyViewModel.changedCurrencyTo?.result?.first?.value
                     let key = self.currencyViewModel.changedCurrencyTo?.result?.first?.key
                       
+              
                     GlobalData.shared.num = value ?? 0
                     GlobalData.shared.country = key ?? " "
+                    
+                    
+                    let userDefaults = UserDefaults.standard
+                    let customerID = userDefaults.integer(forKey: "customerID")
+
+                    userDefaults.set(key, forKey: "CurrencyKey\(customerID)")
+                    userDefaults.set(value, forKey: "CurrencyValue\(customerID)")
+
+                    
+                    userDefaults.synchronize()
+                    print(customerID)
+                    
+
                 } catch {
                     print("Error decoding JSON: \(error)")
                 }
@@ -142,6 +156,9 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         print(currencyViewModel.currencySelected)
         changeCurrency(to: currencyViewModel.currencySelected)
         print(currencyViewModel.changedCurrencyTo?.result)
+        
+       // currencyViewModel.addCurrency()
+      
         
    
         

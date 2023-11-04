@@ -7,10 +7,12 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class TabBarController: UITabBarController, UITabBarControllerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
+
         let homeController = HomeViewController()
         let favoriteController = WishListViewController()
         let categoryController = CategoryViewController()
@@ -46,5 +48,17 @@ class TabBarController: UITabBarController {
         navigationController?.navigationBar.setNeedsLayout()
         navigationController?.isNavigationBarHidden = true
     }
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+          // Check if the selected tab is the "Home" tab
+          if let homeNavController = viewController as? UINavigationController,
+             let homeViewController = homeNavController.viewControllers.first,
+             homeViewController is HomeViewController {
+              // Check if the top view controller in the "Home" navigation stack is "BrandViewController"
+              if homeNavController.viewControllers.last is BrandViewController {
+                  // Pop "BrandViewController" to return to the "Home" view controller
+                  homeNavController.popToViewController(homeViewController, animated: false)
+              }
+          }
+      }
 }
 

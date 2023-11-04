@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserLoginViewController" customModule="MagicaVogue" customModuleProvider="target">
             <connections>
+                <outlet property="helloUserLabel" destination="3cS-2f-dzZ" id="tY7-CG-gpF"/>
                 <outlet property="loginOrdersTableView" destination="shX-EA-KOQ" id="tET-36-oPQ"/>
                 <outlet property="profileWishlistViewController" destination="i9q-4W-anc" id="99u-oL-0mc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -22,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, Heba 🫶" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cS-2f-dzZ">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cS-2f-dzZ">
                     <rect key="frame" x="15" y="74" width="216" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="216" id="NPw-WJ-9td"/>

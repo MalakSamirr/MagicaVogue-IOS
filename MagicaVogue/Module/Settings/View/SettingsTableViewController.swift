@@ -37,8 +37,8 @@ class SettingsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
         if(indexPath.row == 0){
             
-            cell.img.image = UIImage(systemName: "key")
-            cell.title.text = "Password Manager"
+            cell.img.image = UIImage(systemName: "homekit")
+            cell.title.text = "Your Addresses"
         }
         else if(indexPath.row == 1){
             

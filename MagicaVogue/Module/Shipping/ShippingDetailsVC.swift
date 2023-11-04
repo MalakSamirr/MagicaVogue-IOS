@@ -6,21 +6,21 @@
 //
 
 import UIKit
+import Alamofire
 
 class ShippingDetailsVC: UIViewController {
-    @IBOutlet weak var firstName: UITextField!
+    var loginViewModel : LoginViewModel = LoginViewModel()
+    var email : String = ""
     
-    @IBOutlet weak var lastName: UITextField!
+    @IBOutlet weak var cityTextfield: UITextField!
     
-    @IBOutlet weak var mobile: UITextField!
+    @IBOutlet weak var countryTextfield: UITextField!
     
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var city: UITextField!
-    
-    @IBOutlet weak var address: UITextField!
-    @IBOutlet weak var country: UITextField!
+    @IBOutlet weak var addressTextfield: UITextField!
     
     
+    
+    @IBOutlet weak var phoneTextfield: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +28,65 @@ class ShippingDetailsVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    func addAddress() {
+       let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses.json"
+       let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+       // Request body data
+       let addressData: [String: Any] = [
+           "address": [
+            "address1": addressTextfield.text ,
+                            "address2": "Suite 1234",
+            "city": cityTextfield.text,
+                            "company": "Fancy Co.",
+            
+            "phone": phoneTextfield.text,
+                            "province": "Quebec",
+            "country": countryTextfield.text,
+                            "zip": "G1R 4P5",
+                            "name": "Samuel de Champlain",
+                            "province_code": "QC",
+                            "country_code": "CA",
+                            "country_name": "Egypt",
+               "default": true
+           ]
+       ]
+//        "address1": "1 Rue",
+//                "address2": "Suite 1234",
+//                "city": "Montreal",
+//                "company": "Fancy Co.",
+//
+//                "phone": "819-555-5555",
+//                "province": "Quebec",
+//                "country": "Canada",
+//                "zip": "G1R 4P5",
+//                "name": "Samuel de Champlain",
+//                "province_code": "QC",
+//                "country_code": "CA",
+//                "country_name": "Canada"
+       AF.request(baseURLString, method: .post, parameters: addressData, encoding: JSONEncoding.default, headers: headers)
+           .response { response in
+               switch response.result {
+               case .success:
+                   print("Address added successfully.")
+                              case .failure(let error):
+                   print("Failed to add the address. Error: \(error)")
+              }
+           }
+    }
     
      @IBAction func saveAddressButton(_ sender: Any) {
-         
-         
+         addAddress()
+         self.loginViewModel.getCustomer(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(email)"){ result in
+             switch result {
+             case .success(let customers):
+                 // Handle the fetched customers
+                 print(customers)
+                 
+             case .failure(let error):
+                 // Handle the error
+                 print("Request failed with error: \(error.localizedDescription)")
+                 
+             }}
           let tab = TabBarController()
           self.navigationController?.setViewControllers([tab], animated: true)
      }
