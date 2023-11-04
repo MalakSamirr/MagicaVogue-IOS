@@ -14,7 +14,7 @@
             <connections>
                 <outlet property="helloUserLabel" destination="3cS-2f-dzZ" id="tY7-CG-gpF"/>
                 <outlet property="loginOrdersTableView" destination="shX-EA-KOQ" id="tET-36-oPQ"/>
-                <outlet property="profileWishlistViewController" destination="i9q-4W-anc" id="99u-oL-0mc"/>
+                <outlet property="profileWishlisCollectionView" destination="i9q-4W-anc" id="JYU-NU-mfK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

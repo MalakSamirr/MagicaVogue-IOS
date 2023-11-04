@@ -7,15 +7,16 @@
 
 import UIKit
 import Alamofire
+import RxCocoa
+import RxSwift
 
 class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
-    let currencyViewModel : CurrencyViewModel = CurrencyViewModel()
-
-    var brandViewModel : BrandViewModel = BrandViewModel()
-
+    let currencyViewModel = CurrencyViewModel()
     @IBOutlet weak var currencySearchBar: UISearchBar!
     @IBOutlet weak var currrencyTableView: UITableView!
+    let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         currrencyTableView.dataSource = self
@@ -23,77 +24,34 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         currencySearchBar.delegate = self
         currrencyTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "CurrencyCell")
        
-        fetchCurrencies()
+        currencyViewModel.fetchCurrencies()
         self.currrencyTableView.reloadData()
         print(currencyViewModel.currencies?.results?.count)
 
        // print(currencies.count)
         print("---------")
+        setupBindings()
 
     }
-    func changeCurrency(to : String){
-        let from = "USD"
-       // let to = "EGP"
-        let api = "https://api.fastforex.io/fetch-one?api_key=e07402dc31-efa888e5a7-s3av7p&to=\(to)&from=\(from)"
+  
+    func setupBindings() {
+        currencyViewModel.refresh
+            .bind { [weak self] _ in
+                DispatchQueue.main.async {[weak self] in
+                    self?.currrencyTableView.reloadData()
+                }
+            }
+            .disposed(by: disposeBag)
         
-        AF.request(api).responseData { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                    let currencyResponse = try JSONDecoder().decode(CurrencyChange.self, from: data)
-                    // Handle the decoded data
-                    self.currencyViewModel.changedCurrencyTo = currencyResponse
-                    print(currencyResponse)
-                    print(self.currencyViewModel.changedCurrencyTo?.result)
-                    let value = self.currencyViewModel.changedCurrencyTo?.result?.first?.value
-                    let key = self.currencyViewModel.changedCurrencyTo?.result?.first?.key
-                      
-              
-                    GlobalData.shared.num = value ?? 0
-                    GlobalData.shared.country = key ?? " "
-                    
-                    
-                    let userDefaults = UserDefaults.standard
-                    let customerID = userDefaults.integer(forKey: "customerID")
-
-                    userDefaults.set(key, forKey: "CurrencyKey\(customerID)")
-                    userDefaults.set(value, forKey: "CurrencyValue\(customerID)")
-
-                    
-                    userDefaults.synchronize()
-                    print(customerID)
-                    
-
-                } catch {
-                    print("Error decoding JSON: \(error)")
+        currencyViewModel.havingError.skip(1)
+            .bind { [weak self] error in
+                DispatchQueue.main.async {[weak self] in
+                    self?.showToast(message: error ?? "error")
                 }
-            case .failure(let error):
-                print("Request failed with error: \(error)")
             }
-        }
+            .disposed(by: disposeBag)
     }
-    func fetchCurrencies() {
-        let apiKey = "e07402dc31-efa888e5a7-s3av7p"
-        let apiUrl = "https://api.fastforex.io/fetch-all?api_key=\(apiKey)"
-        AF.request(apiUrl).responseData { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                    let currencyResponse = try JSONDecoder().decode(Currency.self, from: data)
-                    // Handle the decoded data
-                    self.currencyViewModel.currencies = currencyResponse
-                    self.currencyViewModel.currencies2 = currencyResponse
-                    print(self.currencyViewModel.currencies)
-                    self.currrencyTableView.reloadData()
-
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            case .failure(let error):
-                print("Request failed with error: \(error)")
-            }
-        }
-    }
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currencyViewModel.currencies?.results?.count ?? 0
 
@@ -154,7 +112,7 @@ class CurrencyVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBAction func DoneButton(_ sender: Any) {
         print(currencyViewModel.currencySelected)
-        changeCurrency(to: currencyViewModel.currencySelected)
+        currencyViewModel.changeCurrency(to: currencyViewModel.currencySelected)
         print(currencyViewModel.changedCurrencyTo?.result)
         
        // currencyViewModel.addCurrency()

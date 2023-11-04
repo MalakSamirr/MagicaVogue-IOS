@@ -82,7 +82,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             let draftOrder = cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
             cell.productPriceLabel.text = draftOrder.price
-            
+            cell.setupUI(lineItem: draftOrder)
+
             let targetProductId = cart[0].line_items[indexPath.row].product_id
             
             if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
@@ -98,14 +99,9 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
                     cell.inventoryItemId = filteredVariant.inventory_item_id
                 }
-                
-                var quantity = Int(cell.quantityLabel.text ?? "0")
-                
-                cart[0].line_items[indexPath.row].quantity = quantity ?? 0
-                
-                
-                
-                
+//                var quantity = Int(cell.quantityLabel.text ?? "0")
+//
+//                cart[0].line_items[indexPath.row].quantity = quantity ?? 0
             } else {
                 // Handle the case when the product with the targetProductId is not found
             }
@@ -356,14 +352,17 @@ extension CartViewController {
 
 protocol updateLineItemsProtocol {
     func edit(lineItem : [[String: Any]])
-    func reloadTable()
+    func updateQuantity(lineItemID: Int, quantity: Int)
 }
 
 extension CartViewController: updateLineItemsProtocol {
-    func reloadTable() {
+    func updateQuantity(lineItemID: Int, quantity: Int) {
         DispatchQueue.main.async {
-            self.CartTableView.reloadData()
-            print("ewwwwwwwwwwwww\(self.cart[0].line_items[1].quantity)")
+            // update array
+            if let index = self.cart[0].line_items.firstIndex(where: {$0.id == lineItemID}) {
+                self.cart[0].line_items[index].quantity = quantity
+                self.CartTableView.reloadData()
+            }
         }
 
         

@@ -4,6 +4,12 @@ PODS:
   - Cosmos (23.0.0)
   - Kingfisher (7.9.1)
   - lottie-ios (4.3.3)
+  - RxCocoa (6.6.0):
+    - RxRelay (= 6.6.0)
+    - RxSwift (= 6.6.0)
+  - RxRelay (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxSwift (6.6.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -11,6 +17,8 @@ DEPENDENCIES:
   - Cosmos
   - Kingfisher
   - lottie-ios
+  - RxCocoa
+  - RxSwift
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -19,6 +27,9 @@ SPEC REPOS:
     - Cosmos
     - Kingfisher
     - lottie-ios
+    - RxCocoa
+    - RxRelay
+    - RxSwift
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
@@ -26,7 +37,10 @@ SPEC CHECKSUMS:
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
+  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
+  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
+  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
 
-PODFILE CHECKSUM: 4d16625b6083a174f5917157468457d3b3bb2343
+PODFILE CHECKSUM: d1361c062e51a970c71615ab78fbb3bef45a969d
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.12.1

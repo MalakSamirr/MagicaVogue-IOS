@@ -7,33 +7,64 @@
 
 import UIKit
 import Alamofire
-
+import RxCocoa
+import RxSwift
 
 class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelegate , AddressDelegate {
 
+    let viewModel = MyAddressesViewModel()
+    let disposeBag = DisposeBag()
+//    var selectedAddress: Address?
+//    var selectedIndex: Int?
     
-    var addresses: [Address] = []
-    var selectedAddress: Address?
-    var selectedIndex: Int?
-    func didAddNewAddress(_ newAddress: Address) {
-          addresses.append(newAddress)
-          selectedIndex = addresses.count - 1
 
-          addressTable.reloadData()
-      }
-
+    func setupBindings() {
+        viewModel.refresh
+            .bind { [weak self] _ in
+                DispatchQueue.main.async {[weak self] in
+                    self?.addressTable.reloadData()
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.havingError.skip(1)
+            .bind { [weak self] _ in
+                DispatchQueue.main.async {[weak self] in
+                    self?.showToast(message: "Can't get addresses")
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        
+        viewModel.addressDeletedSuccessfully.skip(1)
+            .bind { [weak self] success in
+                if success {
+                    DispatchQueue.main.async {[weak self] in
+                        self?.addressTable.reloadData()
+                        self?.showToast(message: "Address deleted successfully")
+                    }
+                } else {
+                    self?.showRedToast(message: "Can't delete this address")
+                }
+             
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.defaultAddressSet.skip(1)
+            .bind { [weak self] index in
+                DispatchQueue.main.async {[weak self] in
+                    self?.setDefaultAdress(index: index ?? 0)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    
+    
     @IBOutlet weak var addressTable: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getAddress()
-        if let savedIndex = UserDefaults.standard.value(forKey: "SelectedAddressIndex") as? Int,
-            let selectedAddress = UserDefaults.standard.value(forKey: "SelectedAddress") as? Data,
-            let decodedAddress = try? JSONDecoder().decode(Address.self, from: selectedAddress) {
-
-             selectedIndex = savedIndex
-             self.selectedAddress = decodedAddress
-         }
+               
         self.title = "Shipping Address"
         self.navigationController?.navigationBar.backgroundColor = .white
         addressTable.delegate = self
@@ -41,45 +72,68 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
 //        addressTable.separatorStyle = .none
         addressTable.register(UINib(nibName: "NewAddressCell", bundle: nil), forCellReuseIdentifier: "NewAddressCell")
         addressTable.reloadData()
+        setupBindings()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         // Update the checkmark accessory on the last added address
-        if let selectedIndex = selectedIndex {
-            if selectedIndex < addresses.count {
-                selectedAddress = addresses[selectedIndex]
+        if let selectedIndex = viewModel.selectedIndex {
+            if selectedIndex < viewModel.addresses.count {
+                viewModel.selectedAddress = viewModel.addresses[selectedIndex]
                 addressTable.reloadData()
             }
         }
         
-        getAddress()
+        viewModel.getAddresses()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-            
-        getAddress()
-       
+        viewModel.getAddresses()
     }
 
+    func setDefaultAdress(index: Int) {
+//            if success {
+        viewModel.selectedAddress = viewModel.addresses[index]
+        viewModel.selectedIndex = index
+
+                // Save the selected address and index to UserDefaults
+        if let encodedAddress = try? JSONEncoder().encode(viewModel.selectedAddress) {
+                    UserDefaults.standard.set(encodedAddress, forKey: "SelectedAddress")
+                    UserDefaults.standard.set(index, forKey: "SelectedAddressIndex")
+                }
+            addressTable.reloadData()
+        
+
+//                 Update the checkmark for the selected row
+//                if let selectedCell = tableView.cellForRow(at: indexPath) {
+//                    selectedCell.accessoryType = .checkmark
+//                }
+//            }
+    }
+    
+    func didAddNewAddress(_ newAddress: Address) {
+        viewModel.addresses.append(newAddress)
+            viewModel.selectedIndex = viewModel.addresses.count - 1
+
+          addressTable.reloadData()
+      }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return addresses.count
+        return viewModel.addresses.count
         
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let address = addresses[indexPath.row]
+            let address = viewModel.addresses[indexPath.row]
 
-            deleteAddress(address)
+                viewModel.deleteAddress(address)
         }
     }
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewAddressCell", for: indexPath) as! NewAddressCell
-        let address = addresses[indexPath.row]
+        let address = viewModel.addresses[indexPath.row]
         
         let city = address.city ?? " "
         let country = address.address2 ?? ""
@@ -91,8 +145,8 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         cell.phoneLabel.text = address.phone
         if address.isDefault == true {
                 cell.accessoryType = .checkmark
-                selectedIndex = indexPath.row
-                selectedAddress = address
+                viewModel.selectedIndex = indexPath.row
+                viewModel.selectedAddress = address
             } else {
                 cell.accessoryType = .none
             }
@@ -101,36 +155,37 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedAddress = addresses[indexPath.row]
+        let selectedAddress = viewModel.addresses[indexPath.row]
         
-        if let previousSelectedIndex = selectedIndex {
+        if let previousSelectedIndex = viewModel.selectedIndex {
             // Clear the checkmark from the previously selected row
             if let previousSelectedCell = tableView.cellForRow(at: IndexPath(row: previousSelectedIndex, section: 0)) {
                 previousSelectedCell.accessoryType = .none
             }
         }
         
-        setDefaultAddressForCustomer(selectedAddress) { success in
-            if success {
-                self.selectedAddress = selectedAddress
-                self.selectedIndex = indexPath.row
-
-                // Save the selected address and index to UserDefaults
-                if let encodedAddress = try? JSONEncoder().encode(selectedAddress) {
-                    UserDefaults.standard.set(encodedAddress, forKey: "SelectedAddress")
-                    UserDefaults.standard.set(indexPath.row, forKey: "SelectedAddressIndex")
-                }
-
-                // Update the checkmark for the selected row
-                if let selectedCell = tableView.cellForRow(at: indexPath) {
-                    selectedCell.accessoryType = .checkmark
-                }
-            } else {
-                // Handle the case where setting the default address fails
-                // You can show an alert or take appropriate action
-                print("Failed to set the default address.")
-            }
-        }
+        viewModel.setDefaultAddressForCustomer(viewModel.addresses[indexPath.row], index: indexPath.item)
+//        setDefaultAddressForCustomer(selectedAddress) { success in
+//            if success {
+//                self.selectedAddress = selectedAddress
+//                self.selectedIndex = indexPath.row
+//
+//                // Save the selected address and index to UserDefaults
+//                if let encodedAddress = try? JSONEncoder().encode(selectedAddress) {
+//                    UserDefaults.standard.set(encodedAddress, forKey: "SelectedAddress")
+//                    UserDefaults.standard.set(indexPath.row, forKey: "SelectedAddressIndex")
+//                }
+//
+//                // Update the checkmark for the selected row
+//                if let selectedCell = tableView.cellForRow(at: indexPath) {
+//                    selectedCell.accessoryType = .checkmark
+//                }
+//            } else {
+//                // Handle the case where setting the default address fails
+//                // You can show an alert or take appropriate action
+//                print("Failed to set the default address.")
+//            }
+//        }
     }
 
 
@@ -138,29 +193,6 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
             return 120
         
     }
-
-
-    func getAddress() {
-           let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses.json"
-           let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-
-           AF.request(baseURLString, method: .get, encoding: JSONEncoding.default, headers: headers)
-               .responseDecodable(of: Customer.self) { response in
-                   switch response.result {
-                   case .success(let customer):
-                       if let addresses = customer.addresses {
-                           self.addresses = addresses
-                           DispatchQueue.main.async {
-                               self.addressTable.reloadData()
-                           }
-                       } else {
-                           self.showNoAddressesFoundMessage()
-                       }
-                   case .failure(let error):
-                       print("Failed to fetch addresses. Error: \(error)")
-                   }
-               }
-       }
 
        func showNoAddressesFoundMessage() {
            // Display a message to the user when no addresses are found
@@ -173,36 +205,7 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
            alert.addAction(okAction)
            present(alert, animated: true, completion: nil)
        }
-    
-    func deleteAddress(_ address: Address) {
-        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses/\(address.id ?? 0).json"
-        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-        
-        AF.request(baseURLString, method: .delete, headers: headers)
-            .response { response in
-                switch response.result {
-                case .success:
-                    // Successfully deleted the address from the server
-                
-                    if response.response?.statusCode ?? 400 >= 400 {
-                        self.showRedToast(message: "Cannot delete the customer’s address")
-                    } else {
-                        if let index = self.addresses.firstIndex(of: address) {
-                            self.addresses.remove(at: index)
-                            self.addressTable.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-                        }
-                        self.showDeleteSuccessAlert()
-
-                    }
-                    
-                case .failure(let error):
-                    // Handle error (e.g., show an alert)
-                    self.showToast(message: "Cannot delete the customer’s address")
-                    print("Failed to delete address. Error: \(error)")
-                }
-            }
-    }
-
+  
     func showDeleteSuccessAlert() {
         let alert = UIAlertController(
             title: "Address Deleted",
@@ -223,23 +226,23 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
     }
     
 
-    func setDefaultAddressForCustomer(_ address: Address, completion: @escaping (Bool) -> Void) {
-        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses/\(address.id ?? 0)/default.json"
-        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-
-        AF.request(baseURLString, method: .put, headers: headers)
-            .response { response in
-                switch response.result {
-                case .success:
-                    print("Default address set successfully")
-                    completion(true) // Notify success
-
-                case .failure(let error):
-                    print("Failed to set default address. Error: \(error)")
-                    completion(false) // Notify failure
-                }
-            }
-    }
+//    func setDefaultAddressForCustomer(_ address: Address, completion: @escaping (Bool) -> Void) {
+//        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses/\(address.id ?? 0)/default.json"
+//        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+//
+//        AF.request(baseURLString, method: .put, headers: headers)
+//            .response { response in
+//                switch response.result {
+//                case .success:
+//                    print("Default address set successfully")
+//                    completion(true) // Notify success
+//
+//                case .failure(let error):
+//                    print("Failed to set default address. Error: \(error)")
+//                    completion(false) // Notify failure
+//                }
+//            }
+//    }
    
 
 }

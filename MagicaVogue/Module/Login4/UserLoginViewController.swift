@@ -7,41 +7,38 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import RxCocoa
+import RxSwift
 
 class UserLoginViewController: UIViewController, UICollectionViewDataSource , UITableViewDelegate ,UITableViewDataSource {
     @IBOutlet weak var helloUserLabel: UILabel!
     
     @IBOutlet weak var loginOrdersTableView: UITableView!
-    @IBOutlet weak var profileWishlistViewController: UICollectionView!
-    var cart: [DraftOrder] = []
-    var wishlist: [DraftOrder] = []
-    var CustomersArray: [customers]?
+    @IBOutlet weak var profileWishlisCollectionView: UICollectionView!
+    var viewModel = UserLoginViewModel()
+    let disposeBag = DisposeBag()
 
-    
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
-        profileWishlistViewController.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
+        profileWishlisCollectionView.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
         loginOrdersTableView.register(UINib(nibName: "OrderProfileTableVC", bundle: nil), forCellReuseIdentifier: "OrderProfileTableVC")
         
-        profileWishlistViewController.dataSource = self
+        profileWishlisCollectionView.dataSource = self
         loginOrdersTableView.dataSource = self
         loginOrdersTableView.delegate = self
-        print("hebbbbba\(cart)")
-//        getCart()
-//        getWishlist()
         loginOrdersTableView.reloadData()
-        profileWishlistViewController.reloadData()
+        profileWishlisCollectionView.reloadData()
         
         // Configure the layout for your profileWishlistViewController
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
             return self.items()
         }
         
-        profileWishlistViewController.setCollectionViewLayout(layout, animated: true)
+        profileWishlisCollectionView.setCollectionViewLayout(layout, animated: true)
+        setupBindings()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -69,8 +66,8 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         
             }
         else{
-            getCart()
-            getWishlist()
+            viewModel.getCart()
+            viewModel.getWishlist()
             let userDefaults = UserDefaults.standard
             let customerName = userDefaults.string(forKey: "customerName")
             if let firstSpaceIndex = customerName?.firstIndex(of: " ") {
@@ -84,6 +81,33 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
 
         }
     }
+    
+    func setupBindings() {
+        viewModel.refreshOrdersTableView
+            .bind { [weak self] _ in
+                DispatchQueue.main.async {[weak self] in
+                    self?.loginOrdersTableView.reloadData()
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.refreshWishlistCollectionView
+            .bind { [weak self] _ in
+                DispatchQueue.main.async {[weak self] in
+                    self?.profileWishlisCollectionView.reloadData()
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.havingError.skip(1)
+            .bind { [weak self] error in
+                DispatchQueue.main.async {[weak self] in
+                    self?.showToast(message: error ?? "error")
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
     
     
     
@@ -114,7 +138,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     @IBAction func moreOrdersButtonPressed(_ sender: Any) {
         let ordersVC = OrderViewController()
         
-        ordersVC.cart = self.cart
+        ordersVC.cart = viewModel.cart
         
         navigationController?.pushViewController(ordersVC, animated: true)
     }
@@ -134,7 +158,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     // MARK: - profileWishlistViewController Methods
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
-        let draftOrder = wishlist[indexPath.row]
+        let draftOrder = viewModel.wishlist[indexPath.row]
         
         if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
             cell.itemLabel.text = lineItem.title
@@ -150,33 +174,16 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         }
         cell.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         
-        cell.id = wishlist[indexPath.item].id
+        cell.id = viewModel.wishlist[indexPath.item].id
         
         return cell
     }
-    func getWishlist() {
-        if APIManager.shared.isOnline() {
-            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { (result: Result<DraftOrderResponse, Error>) in
-                switch result {
-                case .success(let draftOrderResponse):
-                    // Filter draft orders with note: "Wishlist"
-                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" }
-                    DispatchQueue.main.async {
-                        self.profileWishlistViewController.reloadData()
-                    }
-                case .failure(let error):
-                    print("Request failed with error: \(error)")
-                }
-            }
-        } else {
-            print("Not connected")
-        }
-    }
+  
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(4, wishlist.count)
+        return min(4, viewModel.wishlist.count)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -187,7 +194,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderProfileTableVC", for: indexPath) as! OrderProfileTableVC
         
-        let draftOrder = cart[indexPath.row]
+        let draftOrder = viewModel.cart[indexPath.row]
         //            if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
         //                cell.productNameLabel.text = lineItem.title
         //                cell.quantityLabel.isHidden = true
@@ -215,29 +222,10 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(2, cart.count)
+        return min(2, viewModel.cart.count)
     }
     
-    func getCart() {
-        if APIManager.shared.isOnline() {
-            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { [self] (result: Result<DraftOrderResponse, Error>) in
-                switch result {
-                case .success(let draftOrderResponse):
-                    // Filter draft orders with note: "cart"
-                    self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" }
-                    
-                    // Reload the data in the loginOrdersTableView
-                    DispatchQueue.main.async {
-                        self.loginOrdersTableView.reloadData()
-                    }
-                case .failure(let error):
-                    print("Request failed with error: \(error)")
-                }
-            }
-        } else {
-            print("Not connected")
-        }
-    }
+ 
   
     func formatDate(_ dateString: String) -> String {
         let dateFormatter = DateFormatter()
