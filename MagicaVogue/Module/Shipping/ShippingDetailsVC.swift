@@ -17,6 +17,7 @@ protocol AddressDelegate: AnyObject {
 class ShippingDetailsVC: UIViewController {
     var loginViewModel : LoginViewModel = LoginViewModel()
     var email : String = ""
+    var x : Int = 0
     
     var onAddressAdded: ((Address) -> Void)?
     weak var addressDelegate: AddressDelegate?
@@ -53,7 +54,7 @@ class ShippingDetailsVC: UIViewController {
         let addressData: [String: Any] = [
             "address": [
                 "address1": addressTextfield.text ?? "" ,
-                "address2": countryTextfield.text,//country
+                "address2": countryTextfield.text ?? "",//country
                 "city": cityTextfield.text ?? "",
                 "company": "Fancy Co.",
                 "phone": phoneTextfield.text ?? "",
@@ -92,20 +93,44 @@ class ShippingDetailsVC: UIViewController {
     }
     
     @IBAction func saveAddressButton(_ sender: Any) {
-        addAddress()
-        showToast(message: "Address saved successfully")
-
-        self.loginViewModel.getCustomer(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(email)"){ result in
-            switch result {
-            case .success(let customers):
-                print(customers)
+        if cityTextfield.text!.isEmpty || countryTextfield.text!.isEmpty || addressTextfield.text!.isEmpty || phoneTextfield.text!.isEmpty
+        {
+            let alert1 = UIAlertController(
+                title: "Invalid Address", message: "Please fill these informations to complete your info", preferredStyle: UIAlertController.Style.alert)
+            
+            let OkAction = UIAlertAction(title: "OK" , style : .default) { (action) in
                 
-            case .failure(let error):
-                print("Request failed with error: \(error.localizedDescription)")
-                
-            }}
-        let tab = TabBarController()
-        self.navigationController?.setViewControllers([tab], animated: true)
+            }
+            
+            
+            alert1.addAction(OkAction)
+            
+            present(alert1, animated: true , completion: nil)
+            
+            
+            return
+        }
+        
+        
+        else{
+            addAddress()
+            if(x == 1){
+                self.loginViewModel.getCustomer(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/customers.json?email=\(email)"){ result in
+                    switch result {
+                    case .success(let customers):
+                        print(customers)
+                        
+                    case .failure(let error):
+                        print("Request failed with error: \(error.localizedDescription)")
+                        
+                    }}
+                let tab = TabBarController()
+                self.navigationController?.setViewControllers([tab], animated: true)
+            }
+            else if(x==2){
+                showToast(message: "Address saved successfully")
+            }
+        }
     }
     
 }
