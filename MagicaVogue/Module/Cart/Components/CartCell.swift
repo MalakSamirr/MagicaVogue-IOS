@@ -26,8 +26,8 @@ class CartCell: UITableViewCell {
     @IBOutlet weak var orderTotalLabel: UILabel!
     
     var lineItemsDelegate: updateLineItemsProtocol?
-    var quantity: Int = 1
-    var maxQuantity: Int? = 3
+    var quantity: Double = 1
+    var maxQuantity: Double? = 3.0
     var inventoryItemId: Int?
     var lineItem: LineItem?
     

@@ -59,8 +59,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             else{
                 let userDefaults = UserDefaults.standard
 
-                customer_id = userDefaults.integer(forKey: "customerID")
-                getCart {_ in 
+                customer_id = 7471279866172
+                getCart {_ in
                     self.CartTableView.reloadData()
                     for item in self.productDataArray {
                         print("akhhhh\(item.product.image?.src)")
@@ -108,7 +108,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                         $0.id == cart[0].line_items[indexPath.row].variant_id
                         
                 }) {
-                    cell.maxQuantity = Int(filteredVariant.inventory_quantity)
+                    cell.maxQuantity = Double(filteredVariant.inventory_quantity)
                     cell.inventoryItemId = filteredVariant.inventory_item_id
                     cell.sizeLabel.text = "Details: \(filteredVariant.title ?? "")"
                 }
