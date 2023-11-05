@@ -154,7 +154,7 @@ extension BrandViewController: UICollectionViewDataSource {
                 
                 if let intValue = Double(product.variants?[0].price ?? "0") {
                     let userDefaults = UserDefaults.standard
-                    let customerID = userDefaults.integer(forKey: "customerID")
+                    let customerID = 7471279866172
                     let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
                     let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
                     
@@ -169,6 +169,7 @@ extension BrandViewController: UICollectionViewDataSource {
                 for item in viewModel.wishlist {
                     if item.line_items[0].title == product.title {
                         isFavorite = true
+                        cell.draftOrder = item.id
                     }
                 }
                     cell.favoriteButton?.isSelected = isFavorite

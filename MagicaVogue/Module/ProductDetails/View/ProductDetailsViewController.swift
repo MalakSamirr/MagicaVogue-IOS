@@ -38,14 +38,9 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     var productDetailsViewModel: ProductDetailsViewModel = ProductDetailsViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
-    
-   // private var timer: Timer?
-
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        // sliderControlPage.numberOfPages = arrOfProductImgs.count
         rate.rating = Double.random(in: 0.0...5.0)
         
         for image in productDetailsViewModel.myProduct.images! {

@@ -44,7 +44,7 @@ class SearchViewController: UIViewController {
             self.viewModel.getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
         }
         let userDefaults = UserDefaults.standard
-        viewModel.customeriD = userDefaults.integer(forKey: "customerID")
+        viewModel.customeriD = 7471279866172
     }
 }
 
@@ -81,6 +81,7 @@ extension SearchViewController: UICollectionViewDataSource {
                 for item in viewModel.wishlist {
                     if item.line_items[0].title == product.title {
                         isFavorite = true
+                        cell.draftOrder = item.id
                     }
                 }
                     cell.favoriteButton?.isSelected = isFavorite

@@ -27,7 +27,7 @@ class CategoryViewController: UIViewController {
            
         }
         let userDefaults = UserDefaults.standard
-        viewModel.customeriD = userDefaults.integer(forKey: "customerID")
+        viewModel.customeriD = 7471279866172
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,6 +130,8 @@ extension CategoryViewController: UICollectionViewDataSource {
                 for item in viewModel.wishlistArray {
                     if item.line_items[0].title == product.title {
                         isFavorite = true
+                        cell.draftOrder = item.id
+                        print("ewwwwwwwwwwwwwwww \(item.id)")
                     }
                 }
                     cell.favoriteButton?.isSelected = isFavorite

@@ -19,7 +19,7 @@ class ItemCell: UICollectionViewCell {
     var animationDelegate: FavoriteProtocol?
     private var animationView: LottieAnimationView?
     var isFavourite: Bool?
-    
+    var draftOrder: Int?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,15 +37,10 @@ class ItemCell: UICollectionViewCell {
                 
             } else {
                 animationDelegate?.deleteFromFavorite(id ?? 0)
+                animationDelegate?.deleteFromFavorite2(draftOrder ?? 0)
             }
             favoriteButton?.isSelected = !(favoriteButton?.isSelected ?? false)
         }
-//        else{
-//            let alert = UIAlertController(title: "Can't add to favorite!", message: "you cannot add to favorite , Create an account first and try again!", preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//            alert.addAction(okAction)
-//            present(alert, animated: true, completion: nil)
-//        }
     }
     
 }

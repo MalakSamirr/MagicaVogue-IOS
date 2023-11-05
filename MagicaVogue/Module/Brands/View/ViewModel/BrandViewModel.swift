@@ -22,7 +22,7 @@ class BrandViewModel {
     var onDataUpdate: (() -> Void)?
     var brand: SmartCollection?
     var animationView: LottieAnimationView?
-    var customeriD :Int?
+    var customeriD = 7471279866172
     
     init() {
         getWishlist {
