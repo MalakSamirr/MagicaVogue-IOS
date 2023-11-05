@@ -23,8 +23,11 @@ class CategoryViewController: UIViewController {
         categoryCollectionView.reloadData()
         viewModel.getWishlist {
             self.viewModel.getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json")
-        
+            
+           
         }
+        let userDefaults = UserDefaults.standard
+        viewModel.customeriD = userDefaults.integer(forKey: "customerID")
     }
     override func viewDidLoad() {
         super.viewDidLoad()

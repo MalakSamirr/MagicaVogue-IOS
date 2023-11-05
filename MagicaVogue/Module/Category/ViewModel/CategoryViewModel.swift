@@ -14,7 +14,7 @@ class CategoryViewModel {
     var animationView: LottieAnimationView?
     var selectedIndexPath: IndexPath?
     var wishlistArray: [DraftOrder] = []
-    let customeriD = 7471279866172
+    var customeriD :Int?
     var mainCategoryArray: [mainCategoryModel] = [
         mainCategoryModel(id: 1, name: "All", isSelected: true, imageName: nil),
         mainCategoryModel(id: 2, name: "Men", isSelected: false, imageName: nil),

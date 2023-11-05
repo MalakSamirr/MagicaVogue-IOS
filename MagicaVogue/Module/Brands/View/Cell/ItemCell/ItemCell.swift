@@ -7,6 +7,8 @@
 
 import UIKit
 import Lottie
+import Firebase
+import FirebaseAuth
 class ItemCell: UICollectionViewCell {
 
     @IBOutlet weak var itemPrice: UILabel!
@@ -28,14 +30,22 @@ class ItemCell: UICollectionViewCell {
     
     
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-        if !(favoriteButton?.isSelected ?? false) {
-            animationDelegate?.playAnimation()
-            animationDelegate?.addToFavorite(id ?? 0)
-
-        } else {
-            animationDelegate?.deleteFromFavorite(id ?? 0)
+        if (Auth.auth().currentUser != nil) {
+            if !(favoriteButton?.isSelected ?? false) {
+                animationDelegate?.playAnimation()
+                animationDelegate?.addToFavorite(id ?? 0)
+                
+            } else {
+                animationDelegate?.deleteFromFavorite(id ?? 0)
+            }
+            favoriteButton?.isSelected = !(favoriteButton?.isSelected ?? false)
         }
-        favoriteButton?.isSelected = !(favoriteButton?.isSelected ?? false)
+//        else{
+//            let alert = UIAlertController(title: "Can't add to favorite!", message: "you cannot add to favorite , Create an account first and try again!", preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//            alert.addAction(okAction)
+//            present(alert, animated: true, completion: nil)
+//        }
     }
     
 }

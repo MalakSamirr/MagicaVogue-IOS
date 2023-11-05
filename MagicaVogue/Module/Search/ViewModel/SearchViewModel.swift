@@ -11,7 +11,7 @@ import Lottie
 class SearchViewModel {
     // MARK: - Variables
     var wishlist: [DraftOrder] = []
-    let customeriD = 7471279866172
+    var customeriD : Int?
     var animationView: LottieAnimationView?
     var productArray: [Products]?
     var dataArray: [Products]?
