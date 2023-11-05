@@ -108,7 +108,23 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
                     cell.productNameLabel.text = lineItem.title
                     cell.quantityLabel.isHidden = true
                     cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
-                    cell.productPriceLabel.text = lineItem.price
+                    
+                    //cell.productPriceLabel.text = lineItem.price
+                    
+                    
+                    if let intValue = Double(lineItem.price ?? "0") {
+                        let userDefaults = UserDefaults.standard
+                        let customerID = userDefaults.integer(forKey: "customerID")
+                        let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
+                        let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
+                        
+                        let result = intValue * CurrencyValue
+                        let resultString = String(format: "%.2f", result)
+                        cell.productPriceLabel.text = "\(CurrencyKey ?? "") \(resultString)"
+                        
+                    }
+                    
+                    
                     cell.minus.isHidden = true
                     cell.plus.isHidden = true
                     
