@@ -26,8 +26,8 @@ class CartCell: UITableViewCell {
     @IBOutlet weak var orderTotalLabel: UILabel!
     
     var lineItemsDelegate: updateLineItemsProtocol?
-    var quantity: Double = 1
-    var maxQuantity: Double? = 3.0
+    var quantity: Int = 1
+    var maxQuantity: Int? = 3
     var inventoryItemId: Int?
     var lineItem: LineItem?
     
@@ -59,7 +59,7 @@ class CartCell: UITableViewCell {
     
     func setupUI(lineItem: LineItem) {
         self.lineItem = lineItem
-        self.quantity = Double(lineItem.quantity)
+        self.quantity = Int(lineItem.quantity)
         quantityLabel.text = String(self.quantity)
         productNameLabel.text = lineItem.title
         productPriceLabel.text = lineItem.price
