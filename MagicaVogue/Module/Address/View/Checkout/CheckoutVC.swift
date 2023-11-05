@@ -70,7 +70,16 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         case 0:
             return address != nil ? 1 : 0
         case 1:
-            return cart[0].line_items.count
+            if !cart.isEmpty {
+                if let numberOfRows: Int? = cart[0].line_items.count {
+                    return numberOfRows ?? 0
+                } else {
+                    return 0
+                }
+            } else {
+                return 0
+            }
+            
         case 2:
             return 1
         default:
@@ -82,62 +91,15 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyAddressesCell", for: indexPath) as! MyAddressesCell
-                       cell.addressDelegate = self
-
-                       if let address = self.address {
-                           let address11 = address.address1 ?? ""
-                           let city = address.city ?? ""
-                           let location = "\(address11), \(city)"
-
-                           cell.addressLabel.text = address.address2 //Egypt
-                           cell.countryLabel.text = location
-                       }
-                       return cell
-      
-        case 1:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-//            cell.minus.isHidden = true
-//            cell.plus.isHidden = true
-//            cell.quantityLabel.isHidden = true
-//            cell.orderTotalLabel.isHidden = false
-//            cell.productPriceLabel.isHidden = true
-//
-//            return cell
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-                           
-                let draftOrder = cart[indexPath.row]
-                if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
-                    cell.productNameLabel.text = lineItem.title
-                    cell.quantityLabel.isHidden = true
-                    cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
-                    
-                    //cell.productPriceLabel.text = lineItem.price
-                    
-                    
-                    if let intValue = Double(lineItem.price ?? "0") {
-                        let userDefaults = UserDefaults.standard
-                        let customerID = userDefaults.integer(forKey: "customerID")
-                        let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
-                        let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
-                        
-                        let result = intValue * CurrencyValue
-                        let resultString = String(format: "%.2f", result)
-                        cell.productPriceLabel.text = "\(CurrencyKey ?? "") \(resultString)"
-                        
-                    }
-                    
-                    
-                    cell.minus.isHidden = true
-                    cell.plus.isHidden = true
-                    
-
-                } else {
-                    cell.productNameLabel.text = "Product Name Not Available"
-                }
-            if let imageUrl = URL(string: draftOrder.applied_discount.description) {
-                cell.productImageView.kf.setImage(with: imageUrl)
-            } else {
-                cell.productImageView.image = UIImage(named: "CouponBackground")
+            cell.addressDelegate = self
+            
+            if let address = self.address {
+                let address11 = address.address1 ?? ""
+                let city = address.city ?? ""
+                let location = "\(address11), \(city)"
+                
+                cell.addressLabel.text = address.address2 //Egypt
+                cell.countryLabel.text = location
             }
             return cell
             
@@ -199,18 +161,18 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let headerView = UIView()
-//        
+//
 //        let headerLabel = UILabel()
 //        headerLabel.font = UIFont.boldSystemFont(ofSize: 17)
 //        headerLabel.text = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: section)
-//        
+//
 //        headerView.addSubview(headerLabel)
 //        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-//        
+//
 //        let inset: CGFloat = 20.0
 //        let leftConstraint = headerLabel.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: inset)
 //        leftConstraint.isActive = true
-//        
+//
 //        return headerView
 //    }
     func getAddress() {

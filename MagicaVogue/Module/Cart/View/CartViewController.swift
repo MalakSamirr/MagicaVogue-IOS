@@ -67,12 +67,12 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     }
                 }
             }
-        if cart.isEmpty {
-            checkoutButton.isEnabled = false
-        } else {
-            checkoutButton.isEnabled = true
-
-        }
+//        if cart.isEmpty {
+//            checkoutButton.isEnabled = false
+//        } else {
+//            checkoutButton.isEnabled = true
+//
+//        }
     }
   
     
@@ -90,9 +90,9 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         if indexPath.row < cart[0].line_items.count {
             let draftOrder = cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
-            cell.productPriceLabel.text = draftOrder.price
+           // cell.productPriceLabel.text = draftOrder.price
             cell.setupUI(lineItem: draftOrder)
-            
+            cell.productPrice = Double(draftOrder.price ?? "0")
             
             
             let targetProductId = cart[0].line_items[indexPath.row].product_id
@@ -109,7 +109,9 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                         
                 }) {
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
+                    print("ewwwwwwwwwwww\(Double(filteredVariant.inventory_quantity))")
                     cell.inventoryItemId = filteredVariant.inventory_item_id
+                    cell.sizeLabel.isHidden = false
                     cell.sizeLabel.text = "Details: \(filteredVariant.title ?? "")"
                 }
             } else {
@@ -210,8 +212,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     if !cart.isEmpty {
                         for item in cart[0].line_items {
                             dispatchGroup.enter()
-                            let itemPrice = Double(item.price ?? "0") ?? 0
-                            self.totalPrice += itemPrice
+                            
                             
                             getProductData(productId: item.product_id ?? 0, variantId: item.variant_id ?? 0) { selectedProduct in
                                 if let selectedProduct = selectedProduct {
@@ -396,7 +397,7 @@ extension CartViewController: updateLineItemsProtocol {
             // update array
             if let index = self.cart[0].line_items.firstIndex(where: {$0.id == lineItemID}) {
                 self.cart[0].line_items[index].quantity = quantity
-                self.cart[0].line_items[index].price = totalPrice
+               // self.cart[0].line_items[index].price = totalPrice
                 print(self.cart[0].line_items[index].price)
                 self.CartTableView.reloadData()
                 self.updateDraftOrder(lineItemsArr: self.cart[0].line_items)

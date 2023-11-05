@@ -30,6 +30,7 @@ class CartCell: UITableViewCell {
     var maxQuantity: Double? = 3.0
     var inventoryItemId: Int?
     var lineItem: LineItem?
+    var productPrice: Double?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,18 +63,18 @@ class CartCell: UITableViewCell {
         self.quantity = Double(lineItem.quantity)
         quantityLabel.text = String(Int(self.quantity))
         productNameLabel.text = lineItem.title
-        productPriceLabel.text = lineItem.price
+        productPriceLabel.text = String ((Double(lineItem.price ?? "0") ?? 0)*quantity)
     }
     
     @IBAction func didPressPlus(_ sender: Any) {
         
         let price = Double(productPriceLabel.text ?? "0")
-        if quantity < maxQuantity ?? 0 {
+        if 0 < maxQuantity ?? 0 {
             
             let priceForItem = (price ?? 0)/Double(quantity)
             quantity += 1
             let intQuantity = Int(quantity)
-            productPriceLabel.text = String(Double(quantity)*priceForItem)
+            productPriceLabel.text = String(Double(quantity)*(productPrice ?? 0))
             editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: -1) {
             self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity, totalPrice: self.productPriceLabel.text ?? "0")
             }
@@ -87,7 +88,7 @@ class CartCell: UITableViewCell {
             let priceForItem = (price ?? 0)/Double(quantity)
 
             quantity -= 1
-            productPriceLabel.text = String(Double(quantity)*priceForItem)
+            productPriceLabel.text = String(Double(quantity)*(productPrice ?? 0) ?? 0)
             let intQuantity = Int(quantity)
 
             editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: 1) {

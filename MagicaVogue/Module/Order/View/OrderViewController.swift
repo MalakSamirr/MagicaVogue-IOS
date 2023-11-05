@@ -20,7 +20,7 @@ class OrderViewController: UIViewController {
         self.navigationItem.titleView = logoImageView
         orderTableView.dataSource = self
         orderTableView.delegate = self
-        orderTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
+        orderTableView.register(UINib(nibName: "OrderProfileTableVC", bundle: nil), forCellReuseIdentifier: "OrderProfileTableVC")
         // Do any additional setup after loading the view.
         print("cartttttttt\(cart)")
 
@@ -45,7 +45,7 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate, UICol
            return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 90
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Previous orders"
