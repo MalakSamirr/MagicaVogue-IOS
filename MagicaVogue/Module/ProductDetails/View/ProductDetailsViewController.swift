@@ -614,7 +614,23 @@ extension ProductDetailsViewController {
             let inventoryQuantity = variant.inventory_quantity
             let productId = productDetailsViewModel.myProduct.id
             if inventoryQuantity <= 0 {
+                
                 addToCartButton.isEnabled = false
+                showRedToast(message: "Out of Stock")
+//                showUnavilabeItemToast(message: "Out of Stock")
+
+                // Visual modifications
+                addToCartButton.backgroundColor = .lightGray
+
+                let boldFont = UIFont.boldSystemFont(ofSize: 16)
+                addToCartButton.titleLabel?.font = boldFont
+                addToCartButton.layer.borderColor = UIColor.lightGray.cgColor
+                addToCartButton.layer.borderWidth = 1.0
+
+//
+//                addToCartButton.setTitle("Out of Stock", for: .normal)
+                addToCartButton.setTitleColor(.black, for: .normal)
+                
             }
         }
     }

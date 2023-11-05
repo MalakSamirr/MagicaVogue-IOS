@@ -189,6 +189,7 @@
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZG-fg-RWk">
                     <rect key="frame" x="131" y="742" width="246" height="60"/>
+                    <color key="backgroundColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="l4s-ZC-6qk"/>
                     </constraints>
@@ -196,7 +197,7 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain">
                         <backgroundConfiguration key="background" cornerRadius="16">
-                            <color key="backgroundColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </backgroundConfiguration>
                         <attributedString key="attributedTitle">
                             <fragment content="Add To Cart">
@@ -206,6 +207,11 @@
                             </fragment>
                         </attributedString>
                     </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="AddToCartButtonPressed:" destination="-1" eventType="touchUpInside" id="HAS-pg-wYz"/>
                     </connections>
@@ -255,6 +261,11 @@
             <point key="canvasLocation" x="78.625954198473281" y="-58.450704225352112"/>
         </view>
     </objects>
+    <designables>
+        <designable name="3qf-de-aZV">
+            <size key="intrinsicContentSize" width="170" height="30"/>
+        </designable>
+    </designables>
     <resources>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <systemColor name="systemBackgroundColor">
