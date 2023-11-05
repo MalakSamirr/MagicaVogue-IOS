@@ -107,15 +107,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
             }
             .disposed(by: disposeBag)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     func items() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -137,8 +129,8 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     
     @IBAction func moreOrdersButtonPressed(_ sender: Any) {
         let ordersVC = OrderViewController()
-        
-        ordersVC.cart = viewModel.cart
+        ordersVC.orderArray = viewModel.orderArray
+       // ordersVC.cart = viewModel.cart
         
         navigationController?.pushViewController(ordersVC, animated: true)
     }
@@ -193,27 +185,8 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     // MARK: - loginOrdersTableView Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderProfileTableVC", for: indexPath) as! OrderProfileTableVC
-        
-        let draftOrder = viewModel.cart[indexPath.row]
-        //            if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
-        //                cell.productNameLabel.text = lineItem.title
-        //                cell.quantityLabel.isHidden = true
-        //                cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
-        //                cell.productPriceLabel.text = lineItem.price
-        //                cell.minus.isHidden = true
-        //                cell.plus.isHidden = true
-        //
-        //
-        //            } else {
-        //                cell.productNameLabel.text = "Product Name Not Available"
-        //            }
-        //        if let imageUrl = URL(string: draftOrder.applied_discount.description) {
-        //            cell.productImageView.kf.setImage(with: imageUrl)
-        //        } else {
-        //            cell.productImageView.image = UIImage(named: "CouponBackground")
-        //        }
-        
-        cell.createdAttLabel.text = formatDate(draftOrder.created_at ?? " ")
+        cell.createdAttLabel.text = formatDate(viewModel.orderArray[indexPath.row].customer?.created_at ?? " ")
+        cell.totalPriceLabel.text = viewModel.orderArray[indexPath.row].total_line_items_price
         
         return cell
     }
@@ -222,7 +195,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(2, viewModel.cart.count)
+        return min(2, viewModel.orderArray.count)
     }
     
  

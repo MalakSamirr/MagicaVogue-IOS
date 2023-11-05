@@ -8,12 +8,13 @@
 import UIKit
 import PassKit
 import Lottie
+import Alamofire
 
 class PaymentViewController: UIViewController , UITableViewDelegate , UITableViewDataSource {
     @IBOutlet var payementParentView: UIView!
     
     @IBOutlet weak var paymentBackgroundView: UIView!
-    
+    var draftOrderId: Int?
     var animationView: LottieAnimationView?
     
     var viewModel: BrandViewModel = BrandViewModel()
@@ -118,7 +119,19 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
 
                    let paymentAuthorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
                    paymentAuthorizationViewController?.delegate = self
-                   present(paymentAuthorizationViewController!, animated: true, completion: nil)
+                   present(paymentAuthorizationViewController!, animated: true, completion: {
+                       self.completeOrder(draftOrderId: self.draftOrderId ?? 0) { result in
+                           switch result {
+                           case .success:
+                               self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
+                               print("Order completed successfully.")
+                           case .failure(let error):
+                               // Handle failure
+                               print("Error completing the order: \(error)")
+                           }
+                       }
+
+                   })
                } else {
                    simulatePaymentProcess()
                }
@@ -126,6 +139,43 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                
            }
        }
+    
+    func completeOrder(draftOrderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(draftOrderId)/complete.json"
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+
+        AF.request(baseURLString, method: .put, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    print("Draft Order with ID \(draftOrderId) converted to order.")
+                    completion(.success(())) // Success case
+
+                case .failure(let error):
+                    print("Failed: \(error)")
+                    completion(.failure(error)) // Error case
+                }
+            }
+    }
+
+    
+    func deleteDraftOrder(draftOrderId: Int) {
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(draftOrderId).json"
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+        
+        AF.request(baseURLString, method: .delete, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    print("Draft Order with ID \(draftOrderId) id deleted.")
+
+                case .failure(let error):
+                    print("Failed")
+                }
+            }
+    }
+    
+    
        
        func simulatePaymentProcess() {
 

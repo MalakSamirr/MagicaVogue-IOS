@@ -15,18 +15,18 @@ class UserLoginViewModel {
     var refreshWishlistCollectionView: PublishRelay<Void> = PublishRelay()
     var havingError: BehaviorRelay<String?> = BehaviorRelay(value: nil)
     
-    var cart: [DraftOrder] = []
+    var orderArray: [OrderModel] = []
     var wishlist: [DraftOrder] = []
     var CustomersArray: [customers]?
 
     func getCart() {
         if APIManager.shared.isOnline() {
-            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { [self] (result: Result<DraftOrderResponse, Error>) in
+            APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/orders.json") { [self] (result: Result<order, Error>) in
                 switch result {
-                case .success(let draftOrderResponse):
+                case .success(let orderResponse):
                     // Filter draft orders with note: "cart"
-                    self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" }
-                    
+                   // self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" }
+                    self.orderArray = orderResponse.orders
                     // Reload the data in the loginOrdersTableView
                     DispatchQueue.main.async {
                         self.refreshOrdersTableView.accept(())
