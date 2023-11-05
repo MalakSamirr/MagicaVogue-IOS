@@ -314,7 +314,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                 switch response.result {
                 case .success:
                     print("Product added to cart successfully.")
-                    self.showSuccessAlert()
+//                    self.showSuccessAlert()
                 case .failure(let error):
                     print("Failed to add the product to the cart. Error: \(error)")
                 }

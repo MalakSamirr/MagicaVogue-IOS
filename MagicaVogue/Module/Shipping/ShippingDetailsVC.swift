@@ -103,6 +103,25 @@ extension UIViewController {
             toastView.removeFromSuperview()
         }
     }
+    func showUnavilabeItemToast(message: String) {
+        let toastView = ToastView1(message: message)
+        toastView.translatesAutoresizingMaskIntoConstraints = false
+        toastView.backgroundColor = .red
+        view.addSubview(toastView)
+        
+        NSLayoutConstraint.activate([
+            toastView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            toastView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+        
+        UIView.animate(withDuration: 8.0, animations: {
+            toastView.alpha = 0
+        }) { _ in
+            toastView.removeFromSuperview()
+        }
+    }
+
+
     
     
 }
