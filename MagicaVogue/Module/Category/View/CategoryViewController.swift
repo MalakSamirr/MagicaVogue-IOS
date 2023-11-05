@@ -120,7 +120,7 @@ extension CategoryViewController: UICollectionViewDataSource {
                     let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
                     
                     let result = intValue * CurrencyValue
-                        let resultString = String(result)
+                        let resultString = String(format: "%.2f", result)
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
                     }
                 var isFavorite = false

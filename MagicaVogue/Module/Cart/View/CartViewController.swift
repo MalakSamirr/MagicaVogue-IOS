@@ -18,7 +18,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     var productDataArray: [SelectedProduct] = []
     var cartRestItems: [DraftOrderCompleteItems] = []
     var totalPrice: Double = 0
-    var customer_id : Int = 7471279866172
+    var customer_id : Int?
     var price: Double? = 0.0
     @IBOutlet weak var CartTableView: UITableView!
     
@@ -57,7 +57,9 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             return
         }
             else{
-                print(Auth.auth().currentUser)
+                let userDefaults = UserDefaults.standard
+
+                customer_id = userDefaults.integer(forKey: "customerID")
                 getCart {_ in 
                     self.CartTableView.reloadData()
                     for item in self.productDataArray {
@@ -106,7 +108,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                         $0.id == cart[0].line_items[indexPath.row].variant_id
                         
                 }) {
-                    cell.maxQuantity = Double(filteredVariant.inventory_quantity)
+                    cell.maxQuantity = Int(filteredVariant.inventory_quantity)
                     cell.inventoryItemId = filteredVariant.inventory_item_id
                     cell.sizeLabel.text = "Details: \(filteredVariant.title ?? "")"
                 }
