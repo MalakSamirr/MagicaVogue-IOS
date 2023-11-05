@@ -85,6 +85,7 @@ class CategoryViewModel {
                 switch result {
                 case .success(let draftOrderResponse):
                     self.wishlistArray = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" && $0.customer?.id == self.customeriD }
+                    print("wishlist\(self.wishlistArray.count)")
                     DispatchQueue.main.async {
                         completion()
                     }
