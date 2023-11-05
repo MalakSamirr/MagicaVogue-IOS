@@ -53,7 +53,7 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         viewModel.defaultAddressSet.skip(1)
             .bind { [weak self] index in
                 DispatchQueue.main.async {[weak self] in
-                    self?.setDefaultAdress(index: index ?? 0)
+                   
                 }
             }
             .disposed(by: disposeBag)
@@ -64,12 +64,12 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
     @IBOutlet weak var addressTable: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-               
+        
         self.title = "Shipping Address"
         self.navigationController?.navigationBar.backgroundColor = .white
         addressTable.delegate = self
         addressTable.dataSource = self
-//        addressTable.separatorStyle = .none
+        //        addressTable.separatorStyle = .none
         addressTable.register(UINib(nibName: "NewAddressCell", bundle: nil), forCellReuseIdentifier: "NewAddressCell")
         addressTable.reloadData()
         setupBindings()
@@ -91,33 +91,13 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         super.viewWillAppear(animated)
         viewModel.getAddresses()
     }
-
-    func setDefaultAdress(index: Int) {
-//            if success {
-        viewModel.selectedAddress = viewModel.addresses[index]
-        viewModel.selectedIndex = index
-
-                // Save the selected address and index to UserDefaults
-        if let encodedAddress = try? JSONEncoder().encode(viewModel.selectedAddress) {
-                    UserDefaults.standard.set(encodedAddress, forKey: "SelectedAddress")
-                    UserDefaults.standard.set(index, forKey: "SelectedAddressIndex")
-                }
-            addressTable.reloadData()
-        
-
-//                 Update the checkmark for the selected row
-//                if let selectedCell = tableView.cellForRow(at: indexPath) {
-//                    selectedCell.accessoryType = .checkmark
-//                }
-//            }
-    }
     
     func didAddNewAddress(_ newAddress: Address) {
         viewModel.addresses.append(newAddress)
-            viewModel.selectedIndex = viewModel.addresses.count - 1
-
-          addressTable.reloadData()
-      }
+        viewModel.selectedIndex = viewModel.addresses.count - 1
+        
+        addressTable.reloadData()
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.addresses.count
         
@@ -126,11 +106,11 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         if editingStyle == .delete {
             
             let address = viewModel.addresses[indexPath.row]
-
-                viewModel.deleteAddress(address)
+            
+            viewModel.deleteAddress(address)
         }
     }
-  
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewAddressCell", for: indexPath) as! NewAddressCell
         let address = viewModel.addresses[indexPath.row]
@@ -139,25 +119,24 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         let country = address.address2 ?? ""
         
         let location = "\(city),\(country)."
-
+        
         cell.addressLabel.text = address.address1
         cell.CityAndCountryLabel.text = location
         cell.phoneLabel.text = address.phone
         if address.isDefault == true {
-                cell.accessoryType = .checkmark
-                viewModel.selectedIndex = indexPath.row
-                viewModel.selectedAddress = address
-            } else {
-                cell.accessoryType = .none
-            }
-    return cell
+            cell.accessoryType = .checkmark
+            viewModel.selectedIndex = indexPath.row
+            viewModel.selectedAddress = address
+        } else {
+            cell.accessoryType = .none
+        }
+        return cell
     }
-
-
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedAddress = viewModel.addresses[indexPath.row]
-        
         if let previousSelectedIndex = viewModel.selectedIndex {
+            
             // Clear the checkmark from the previously selected row
             if let previousSelectedCell = tableView.cellForRow(at: IndexPath(row: previousSelectedIndex, section: 0)) {
                 previousSelectedCell.accessoryType = .none
@@ -165,28 +144,21 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         }
         
         viewModel.setDefaultAddressForCustomer(viewModel.addresses[indexPath.row], index: indexPath.item)
-//        setDefaultAddressForCustomer(selectedAddress) { success in
-//            if success {
-//                self.selectedAddress = selectedAddress
-//                self.selectedIndex = indexPath.row
-//
-//                // Save the selected address and index to UserDefaults
-//                if let encodedAddress = try? JSONEncoder().encode(selectedAddress) {
-//                    UserDefaults.standard.set(encodedAddress, forKey: "SelectedAddress")
-//                    UserDefaults.standard.set(indexPath.row, forKey: "SelectedAddressIndex")
-//                }
-//
-//                // Update the checkmark for the selected row
-//                if let selectedCell = tableView.cellForRow(at: indexPath) {
-//                    selectedCell.accessoryType = .checkmark
-//                }
-//            } else {
-//                // Handle the case where setting the default address fails
-//                // You can show an alert or take appropriate action
-//                print("Failed to set the default address.")
-//            }
-//        }
+        viewModel.selectedAddress = viewModel.selectedAddress
+        viewModel.selectedIndex = indexPath.row
+        
+        // Save the selected address and index to UserDefaults
+        if let encodedAddress = try? JSONEncoder().encode(viewModel.selectedAddress) {
+            UserDefaults.standard.set(encodedAddress, forKey: "SelectedAddress")
+            UserDefaults.standard.set(indexPath.row, forKey: "SelectedAddressIndex")
+        }
+        
+        // Update the checkmark for the selected row
+        if let selectedCell = tableView.cellForRow(at: indexPath) {
+            selectedCell.accessoryType = .checkmark
+        }
     }
+
 
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
