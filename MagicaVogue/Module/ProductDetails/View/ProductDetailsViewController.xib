@@ -153,7 +153,7 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="bxh-S6-lCx"/>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZG-fg-RWk">
-                    <rect key="frame" x="133" y="742" width="244" height="60"/>
+                    <rect key="frame" x="131" y="742" width="246" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="l4s-ZC-6qk"/>
                     </constraints>
@@ -183,17 +183,17 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GC3-Qf-H2y">
-                    <rect key="frame" x="32.000000000000007" y="742" width="78.666666666666686" height="17"/>
+                    <rect key="frame" x="32.000000000000007" y="742" width="76.666666666666686" height="17"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                     <color key="textColor" red="0.66666668650000005" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$87.59" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHU-sE-mvV">
-                    <rect key="frame" x="32" y="767" width="101" height="25"/>
+                    <rect key="frame" x="5" y="767" width="129" height="19.333333333333371"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="101" id="YAj-cc-i22"/>
+                        <constraint firstAttribute="width" constant="129" id="YAj-cc-i22"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                     <color key="textColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -205,7 +205,7 @@
                 <constraint firstItem="GC3-Qf-H2y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="70n-EG-k0V"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Zgq-Q5-g9Q" secondAttribute="trailing" id="7eg-ZV-2d6"/>
                 <constraint firstItem="pZG-fg-RWk" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-16" id="CQC-ok-5GN"/>
-                <constraint firstItem="pZG-fg-RWk" firstAttribute="leading" secondItem="PHU-sE-mvV" secondAttribute="trailing" id="EpM-5w-IEV"/>
+                <constraint firstItem="pZG-fg-RWk" firstAttribute="leading" secondItem="PHU-sE-mvV" secondAttribute="trailing" constant="-3" id="EpM-5w-IEV"/>
                 <constraint firstItem="Njh-oy-XwJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="He4-zh-afu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Njh-oy-XwJ" secondAttribute="trailing" id="N2S-xB-EQf"/>
                 <constraint firstItem="GC3-Qf-H2y" firstAttribute="top" secondItem="Zgq-Q5-g9Q" secondAttribute="bottom" constant="16" id="PDg-ni-FiN"/>
@@ -213,11 +213,11 @@
                 <constraint firstItem="Zgq-Q5-g9Q" firstAttribute="top" secondItem="Njh-oy-XwJ" secondAttribute="bottom" id="bb8-Xi-SRo"/>
                 <constraint firstItem="PHU-sE-mvV" firstAttribute="top" secondItem="GC3-Qf-H2y" secondAttribute="bottom" constant="8" id="gKC-DE-ZmN"/>
                 <constraint firstItem="pZG-fg-RWk" firstAttribute="leading" secondItem="GC3-Qf-H2y" secondAttribute="trailing" constant="22.329999999999998" id="gQB-F4-IGp"/>
-                <constraint firstItem="PHU-sE-mvV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="kfU-7Y-ZGm"/>
+                <constraint firstItem="PHU-sE-mvV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="kfU-7Y-ZGm"/>
                 <constraint firstItem="Zgq-Q5-g9Q" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="lyy-CD-mPo"/>
                 <constraint firstItem="pZG-fg-RWk" firstAttribute="top" secondItem="Zgq-Q5-g9Q" secondAttribute="bottom" constant="16" id="mvo-hu-bv9"/>
             </constraints>
-            <point key="canvasLocation" x="43.511450381679388" y="63.380281690140848"/>
+            <point key="canvasLocation" x="78.625954198473281" y="-58.450704225352112"/>
         </view>
     </objects>
     <resources>
