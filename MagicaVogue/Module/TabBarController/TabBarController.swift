@@ -58,6 +58,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate{
                   // Pop "BrandViewController" to return to the "Home" view controller
                   homeNavController.popToViewController(homeViewController, animated: false)
               }
+              if homeNavController.viewControllers.last is ProductDetailsViewController {
+                  // Pop "BrandViewController" to return to the "Home" view controller
+                  homeNavController.popToViewController(homeViewController, animated: false)
+              }
           }
       }
 }

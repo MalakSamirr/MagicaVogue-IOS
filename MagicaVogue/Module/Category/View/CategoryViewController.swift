@@ -107,6 +107,7 @@ extension CategoryViewController: UICollectionViewDataSource {
         case 2:
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
             cell.animationDelegate = self
+            cell.id = viewModel.productArray?[indexPath.row].id
             if let product = viewModel.productArray?[indexPath.row]{
                 if let imageUrl = URL(string: product.image?.src ?? "heart") {
                     cell.brandItemImage.kf.setImage(with: imageUrl)
@@ -122,7 +123,7 @@ extension CategoryViewController: UICollectionViewDataSource {
                     let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
                     
                     let result = intValue * CurrencyValue
-                        let resultString = String(format: "%.2f",result)
+                        let resultString = String(format: "%.2f", result)
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
                     }
                 var isFavorite = false
@@ -272,9 +273,42 @@ extension CategoryViewController {
 // MARK: - Animation
 extension CategoryViewController: FavoriteProtocol {
     func deleteFromFavorite(_ itemId: Int) {
-    print("hfvgbjnkm")
+        deleteDraftOrder(draftOrderId: itemId)
     }
     
+    func deleteDraftOrder(draftOrderId: Int) {
+        // Your Shopify API URL
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(draftOrderId).json"
+        
+        // Request headers
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+        
+        AF.request(baseURLString, method: .delete, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    // Successfully deleted the Draft Order
+                    print("Draft Order with ID \(draftOrderId) deleted successfully.")
+                    
+                    if response.response?.statusCode ?? 400 >= 400 {
+                        print("failure")
+                    } else {
+                        //                     Update the local data source (remove the deleted item)
+                        if let index = self.viewModel.wishlistArray.firstIndex(where: { $0.id == draftOrderId }) {
+                            self.viewModel.wishlistArray.remove(at: index)
+                        }
+                        
+                        //                     Reload the table view data outside the response block
+                        DispatchQueue.main.async {
+                          self.categoryCollectionView.reloadData()
+                        }
+                    }
+                case .failure(let error):
+                    print("failure")
+//                    self.havingError.accept("Failed to delete Draft Order with ID \(draftOrderId). Error: \(error)")
+                }
+            }
+    }
  
     func addToFavorite(_ id: Int) {
         if isProductInWishlist(id) {
@@ -410,3 +444,4 @@ extension CategoryViewController: UISearchBarDelegate {
         }
     }
 }
+

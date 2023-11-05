@@ -101,7 +101,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
             
             let result = intValue * CurrencyValue
-                let resultString = String(format: "%.2f",result)
+                let resultString = String(format: "%.2f", result)
             productPrice.text = "\(CurrencyKey ?? "") \(resultString)"
             }
         

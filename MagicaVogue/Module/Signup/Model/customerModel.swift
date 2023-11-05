@@ -55,7 +55,7 @@ struct Address: Codable , Equatable {
     let province_code: String?
     let country_code: String?
     let country_name: String?
-    let isDefault: Bool
+    var isDefault: Bool
     
     enum CodingKeys: String, CodingKey {
         case id

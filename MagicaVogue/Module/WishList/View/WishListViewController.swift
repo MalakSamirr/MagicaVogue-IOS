@@ -134,6 +134,19 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
         
         if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
             cell.itemLabel.text = lineItem.title
+            
+            if let intValue = Double(lineItem.price ?? "0") {
+                let userDefaults = UserDefaults.standard
+                let customerID = userDefaults.integer(forKey: "customerID")
+                let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
+                let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
+                
+                let result = intValue * CurrencyValue
+                let resultString = String(format: "%.2f", result)
+                cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
+                
+            }
+            
         } else {
             cell.itemLabel.text = "Product Name Not Available"
         }

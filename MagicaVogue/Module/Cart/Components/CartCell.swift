@@ -60,7 +60,7 @@ class CartCell: UITableViewCell {
     func setupUI(lineItem: LineItem) {
         self.lineItem = lineItem
         self.quantity = Double(lineItem.quantity)
-        quantityLabel.text = String(self.quantity)
+        quantityLabel.text = String(Int(self.quantity))
         productNameLabel.text = lineItem.title
         productPriceLabel.text = lineItem.price
     }
@@ -74,8 +74,8 @@ class CartCell: UITableViewCell {
             quantity += 1
             let intQuantity = Int(quantity)
             productPriceLabel.text = String(Double(quantity)*priceForItem)
-            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: intQuantity) {
-            self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity)
+            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: -1) {
+            self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity, totalPrice: self.productPriceLabel.text ?? "0")
             }
         }
 }
@@ -84,15 +84,14 @@ class CartCell: UITableViewCell {
         print("Minus button pressed")
         if quantity > 1 {
             let price = Double(productPriceLabel.text ?? "0")
-            
             let priceForItem = (price ?? 0)/Double(quantity)
-            
+
             quantity -= 1
             productPriceLabel.text = String(Double(quantity)*priceForItem)
             let intQuantity = Int(quantity)
 
-            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: intQuantity) {
-            self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity)
+            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: 1) {
+                self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity, totalPrice: self.productPriceLabel.text ?? "0")
                 
             }
         }

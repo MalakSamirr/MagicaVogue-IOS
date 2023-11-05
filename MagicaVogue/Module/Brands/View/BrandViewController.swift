@@ -8,8 +8,6 @@
 import UIKit
 import Kingfisher
 import Alamofire
-import Firebase
-import FirebaseAuth
 
 
 class BrandViewController: UIViewController{
@@ -56,10 +54,6 @@ class BrandViewController: UIViewController{
         viewModel.getWishlist {
             
         }
-        
-        let userDefaults = UserDefaults.standard
-        viewModel.customeriD = userDefaults.integer(forKey: "customerID")
-
     }
     
 }
@@ -165,18 +159,17 @@ extension BrandViewController: UICollectionViewDataSource {
                     let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
                     
                     let result = intValue * CurrencyValue
-                        let resultString = String(format: "%.2f",result)
+                        let resultString = String(format: "%.2f", result)
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
                     }
                     
                 
                 cell.id = product.id
                 var isFavorite = false
-                if (Auth.auth().currentUser != nil) {
-                    for item in viewModel.wishlist {
-                        if item.line_items[0].title == product.title {
-                            isFavorite = true
-                        }}
+                for item in viewModel.wishlist {
+                    if item.line_items[0].title == product.title {
+                        isFavorite = true
+                    }
                 }
                     cell.favoriteButton?.isSelected = isFavorite
             

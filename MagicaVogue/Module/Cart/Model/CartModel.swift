@@ -30,7 +30,7 @@ struct LineItem: Codable {
     var grams : Int?
     var name: String
     var quantity: Int
-        
+    var isFavorite: Bool?
 }
 
 struct Discount: Codable {

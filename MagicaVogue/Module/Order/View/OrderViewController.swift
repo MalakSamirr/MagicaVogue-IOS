@@ -12,7 +12,7 @@ class OrderViewController: UIViewController {
 
     @IBOutlet weak var orderTableView: UITableView!
     var cart: [DraftOrder] = []
-
+    var orderArray: [OrderModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         let logoImageView = UIImageView(image: UIImage(named: "Logo"))
@@ -28,59 +28,21 @@ class OrderViewController: UIViewController {
     }
 
 
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
 // MARK: - TableView
 extension OrderViewController: UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegateFlowLayout {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cart.count
+        return orderArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = orderTableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as? CartCell else { return UITableViewCell() }
-//        cell.minus.isHidden = true
-//        cell.plus.isHidden = true
-//        cell.quantityLabel.isHidden = true
-//        cell.sizeLabel.text = "Size:XL || Qty:13"
-//        cell.productPriceLabel.isHidden = true
-//        cell.orderTotalLabel.isHidden = false
-//        cell.sizeLabel.textColor = .systemGray
-//        return cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-                       
-            let draftOrder = cart[indexPath.row]
-            if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
-                cell.productNameLabel.text = lineItem.title
-                cell.quantityLabel.isHidden = true
-                cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
-                cell.productPriceLabel.text = lineItem.price
-                cell.minus.isHidden = true
-                cell.plus.isHidden = true
-                
 
-            } else {
-                cell.productNameLabel.text = "Product Name Not Available"
-            }
-        if let imageUrl = URL(string: draftOrder.applied_discount.description) {
-            cell.productImageView.kf.setImage(with: imageUrl)
-        } else {
-            cell.productImageView.image = UIImage(named: "CouponBackground")
-        }
-            return cell
-           
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderProfileTableVC", for: indexPath) as! OrderProfileTableVC
+        cell.createdAttLabel.text = formatDate(orderArray[indexPath.row].customer?.created_at ?? " ")
+        cell.totalPriceLabel.text = orderArray[indexPath.row].total_line_items_price
+           return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
@@ -88,4 +50,21 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate, UICol
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Previous orders"
     }
+    
+    func formatDate(_ dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "MMMM d, yyyy, h:mm a"
+            outputFormatter.locale = Locale(identifier: "en_US_POSIX")
+            return outputFormatter.string(from: date)
+        }
+        
+        return dateString // Return the original string if date parsing fails.
+    }
+    
+    
 }

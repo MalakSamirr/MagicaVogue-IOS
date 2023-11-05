@@ -17,7 +17,9 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     var address: Address?
     var priceRule: PriceMRuleModel?
     var cart: [DraftOrder] = []
+    var productDataArray: [SelectedProduct] = []
     var totalPrice : Double = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Checkout"
@@ -44,7 +46,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
         let paymentViewController = PaymentViewController()
-            
+        paymentViewController.draftOrderId = cart[0].id
             let nav = UINavigationController(rootViewController: paymentViewController)
             
             nav.modalPresentationStyle = .pageSheet
@@ -68,7 +70,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         case 0:
             return address != nil ? 1 : 0
         case 1:
-            return cart.count
+            return cart[0].line_items.count
         case 2:
             return 1
         default:
@@ -108,7 +110,23 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
                     cell.productNameLabel.text = lineItem.title
                     cell.quantityLabel.isHidden = true
                     cell.sizeLabel.text = "Size:XL || Qty:\(lineItem.quantity)"
-                    cell.productPriceLabel.text = lineItem.price
+                    
+                    //cell.productPriceLabel.text = lineItem.price
+                    
+                    
+                    if let intValue = Double(lineItem.price ?? "0") {
+                        let userDefaults = UserDefaults.standard
+                        let customerID = userDefaults.integer(forKey: "customerID")
+                        let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
+                        let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
+                        
+                        let result = intValue * CurrencyValue
+                        let resultString = String(format: "%.2f", result)
+                        cell.productPriceLabel.text = "\(CurrencyKey ?? "") \(resultString)"
+                        
+                    }
+                    
+                    
                     cell.minus.isHidden = true
                     cell.plus.isHidden = true
                     
@@ -121,7 +139,46 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
             } else {
                 cell.productImageView.image = UIImage(named: "CouponBackground")
             }
-                return cell
+            return cell
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
+            
+            
+            if indexPath.row < cart[0].line_items.count {
+                let draftOrder = cart[0].line_items[indexPath.row]
+                cell.productNameLabel.text = draftOrder.title
+                cell.productPriceLabel.text = draftOrder.price
+                cell.setupUI(lineItem: draftOrder)
+                cell.minus.isHidden = true
+                cell.plus.isHidden = true
+                cell.quantityLabel.isHidden = true
+                cell.orderTotalLabel.isHidden = false
+                cell.orderTotalLabel.text = "Qty: \(draftOrder.quantity)"
+               
+                let targetProductId = cart[0].line_items[indexPath.row].product_id
+                
+                if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
+                    let imageUrlString = filteredProduct.product.image?.src
+                    if let imageUrl = URL(string: imageUrlString ?? "") {
+                        print("ewwwwwww \(filteredProduct)")
+                        cell.productImageView.kf.setImage(with: imageUrl)
+                    }
+                    
+                    if let filteredVariant = filteredProduct.product.variants?.first(where: {
+                        $0.id == cart[0].line_items[indexPath.row].variant_id
+                        
+                    }) {
+                        cell.maxQuantity = Double(filteredVariant.inventory_quantity)
+                        cell.inventoryItemId = filteredVariant.inventory_item_id
+                        cell.sizeLabel.text = "Details: \(filteredVariant.title ?? "")"
+                    }
+                } else {
+                    
+                }
+            }
+        
+    return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PromoCodeCell", for: indexPath) as! PromoCodeCell
             cell.totalPriceLabel.text = String(totalPrice)

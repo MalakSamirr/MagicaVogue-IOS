@@ -12,12 +12,13 @@ import Firebase
 import FirebaseAuth
 
 class CartViewController: UIViewController , UITableViewDataSource , UITableViewDelegate {
+    @IBOutlet weak var checkoutButton: UIButton!
     var selctedProduct: Products?
     var cart: [DraftOrder] = []
     var productDataArray: [SelectedProduct] = []
     var cartRestItems: [DraftOrderCompleteItems] = []
     var totalPrice: Double = 0
-    var customer_id : Int = 7471279866172
+    var customer_id : Int?
     var price: Double? = 0.0
     @IBOutlet weak var CartTableView: UITableView!
     
@@ -36,6 +37,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         for item in productDataArray {
             print("akhhhh\(item.product.image?.src)")
         }
@@ -55,15 +57,22 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             return
         }
             else{
-                print(Auth.auth().currentUser)
-                getCart {_ in 
+                let userDefaults = UserDefaults.standard
+
+                customer_id = 7471279866172
+                getCart {_ in
                     self.CartTableView.reloadData()
                     for item in self.productDataArray {
                         print("akhhhh\(item.product.image?.src)")
                     }
                 }
             }
-        
+        if cart.isEmpty {
+            checkoutButton.isEnabled = false
+        } else {
+            checkoutButton.isEnabled = true
+
+        }
     }
   
     
@@ -83,7 +92,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             cell.productNameLabel.text = draftOrder.title
             cell.productPriceLabel.text = draftOrder.price
             cell.setupUI(lineItem: draftOrder)
-
+            
             
             
             let targetProductId = cart[0].line_items[indexPath.row].product_id
@@ -97,9 +106,11 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                 
                 if let filteredVariant = filteredProduct.product.variants?.first(where: {
                         $0.id == cart[0].line_items[indexPath.row].variant_id
+                        
                 }) {
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
                     cell.inventoryItemId = filteredVariant.inventory_item_id
+                    cell.sizeLabel.text = "Details: \(filteredVariant.title ?? "")"
                 }
             } else {
                 
@@ -176,9 +187,12 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
     
     @IBAction func Checkout(_ sender: UIButton) {
+        
+        
         let checkoutVC = CheckoutVC()
             checkoutVC.cart = self.cart
-            checkoutVC.totalPrice = totalPrice
+            checkoutVC.productDataArray = self.productDataArray
+        checkoutVC.totalPrice = price ?? 0
           navigationController?.pushViewController(checkoutVC, animated: true)
         
     }
@@ -282,10 +296,13 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         var lineItems: [[String: Any]] = []
 
         for lineItem in lineItemsArr ?? [] {
+            print("ewwww \(lineItem.product_id)")
             let lineItemData: [String: Any] = [
                 "title": lineItem.title,
                 "price": lineItem.price,
-                "quantity": lineItem.quantity
+                "quantity": lineItem.quantity,
+                "variant_id": lineItem.variant_id,
+                "product_id": lineItem.product_id
             ]
             lineItems.append(lineItemData)
             
@@ -370,16 +387,19 @@ extension CartViewController {
 
 protocol updateLineItemsProtocol {
     func edit(lineItem : [[String: Any]])
-    func updateQuantity(lineItemID: Int, quantity: Int)
+    func updateQuantity(lineItemID: Int, quantity: Int, totalPrice: String)
 }
 
 extension CartViewController: updateLineItemsProtocol {
-    func updateQuantity(lineItemID: Int, quantity: Int) {
+    func updateQuantity(lineItemID: Int, quantity: Int, totalPrice: String) {
         DispatchQueue.main.async {
             // update array
             if let index = self.cart[0].line_items.firstIndex(where: {$0.id == lineItemID}) {
                 self.cart[0].line_items[index].quantity = quantity
+                self.cart[0].line_items[index].price = totalPrice
+                print(self.cart[0].line_items[index].price)
                 self.CartTableView.reloadData()
+                self.updateDraftOrder(lineItemsArr: self.cart[0].line_items)
             }
         }
 
