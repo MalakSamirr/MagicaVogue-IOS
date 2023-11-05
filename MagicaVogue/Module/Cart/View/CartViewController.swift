@@ -67,14 +67,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     }
                 }
             }
-//        if cart.isEmpty {
-//            checkoutButton.isEnabled = false
-//        } else {
-//            checkoutButton.isEnabled = true
-//
-//        }
     }
-  
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !cart.isEmpty, let firstDraftOrder = cart.first {
@@ -90,23 +83,17 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         if indexPath.row < cart[0].line_items.count {
             let draftOrder = cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
-           // cell.productPriceLabel.text = draftOrder.price
             cell.setupUI(lineItem: draftOrder)
             cell.productPrice = Double(draftOrder.price ?? "0")
-            
-            
             let targetProductId = cart[0].line_items[indexPath.row].product_id
-            
             if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
                 let imageUrlString = filteredProduct.product.image?.src
                 if let imageUrl = URL(string: imageUrlString ?? "") {
                     print("ewwwwwww \(filteredProduct)")
                     cell.productImageView.kf.setImage(with: imageUrl)
                 }
-                
                 if let filteredVariant = filteredProduct.product.variants?.first(where: {
                         $0.id == cart[0].line_items[indexPath.row].variant_id
-                        
                 }) {
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
                     print("ewwwwwwwwwwww\(Double(filteredVariant.inventory_quantity))")
@@ -115,11 +102,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     cell.sizeLabel.text = "Details: \(filteredVariant.title ?? "")"
                 }
             } else {
-                
-            }
-            
-             // Initialize with a default value
 
+            }
             if indexPath.row == 0 {
                 price = Double(cell.productPriceLabel.text ?? "0") ?? 0
             } else {
@@ -155,7 +139,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                 message: "Are you sure you want to remove this item from your shopping bag?",
                 preferredStyle: .actionSheet
             )
-
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
                 if let draftOrderId = self?.cart[0].id,
                    let lineItemId = self?.cart[0].line_items[indexPath.row].id {
@@ -164,7 +147,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     DispatchQueue.main.async {
                         self?.CartTableView.reloadData()
                     }
-                    
                 }
             }
 
@@ -184,10 +166,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         }
     }
 
-
-
-
-    
     @IBAction func Checkout(_ sender: UIButton) {
         
         
