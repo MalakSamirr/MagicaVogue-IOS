@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import Cosmos
 
 
 protocol saveItemsToCart : AnyObject{
@@ -17,6 +18,7 @@ protocol saveItemsToCart : AnyObject{
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     var variantId: Int?
     
+    @IBOutlet weak var rate: CosmosView!
     var inventoryItemId: Int?
     var cart: [DraftOrder] = []
     var customer_id : Int = 7471279866172
@@ -44,6 +46,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         
         super.viewDidLoad()
         // sliderControlPage.numberOfPages = arrOfProductImgs.count
+        rate.rating = Double.random(in: 0.0...5.0)
         
         for image in productDetailsViewModel.myProduct.images! {
             productDetailsViewModel.arrOfProductImgs.append(image.src ?? "")
@@ -98,7 +101,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
             
             let result = intValue * CurrencyValue
-                let resultString = String(result)
+                let resultString = String(format: "%.2f",result)
             productPrice.text = "\(CurrencyKey ?? "") \(resultString)"
             }
         
