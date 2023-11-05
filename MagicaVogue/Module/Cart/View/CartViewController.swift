@@ -18,7 +18,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     var cartRestItems: [DraftOrderCompleteItems] = []
     var totalPrice: Double = 0
     var customer_id : Int = 7471279866172
-
+    var price: Double? = 0.0
     @IBOutlet weak var CartTableView: UITableView!
     
     @IBOutlet weak var totalPriceLabel: UILabel!
@@ -84,6 +84,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             cell.productPriceLabel.text = draftOrder.price
             cell.setupUI(lineItem: draftOrder)
 
+            
+            
             let targetProductId = cart[0].line_items[indexPath.row].product_id
             
             if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
@@ -99,13 +101,27 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
                     cell.inventoryItemId = filteredVariant.inventory_item_id
                 }
-//                var quantity = Int(cell.quantityLabel.text ?? "0")
-//
-//                cart[0].line_items[indexPath.row].quantity = quantity ?? 0
             } else {
-                // Handle the case when the product with the targetProductId is not found
+                
             }
             
+             // Initialize with a default value
+
+            if indexPath.row == 0 {
+                price = Double(cell.productPriceLabel.text ?? "0") ?? 0
+            } else {
+                if let cellPrice = Double(cell.productPriceLabel.text ?? "0") {
+                    price = (price ?? 0.0) + cellPrice
+                }
+            }
+
+            if indexPath.row == cart[0].line_items.count - 1 {
+                if let totalPrice = price {
+                    let stringPrice = String(totalPrice)
+                    totalPriceLabel.text = stringPrice
+                } else {
+                }
+            }
 
         }
         
