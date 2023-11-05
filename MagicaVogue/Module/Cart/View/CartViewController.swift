@@ -78,12 +78,12 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
         cell.lineItemsDelegate = self
-        cell.currentQuantity = cart[0].line_items[indexPath.row].quantity
         if indexPath.row < cart[0].line_items.count {
             let draftOrder = cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
             cell.productPriceLabel.text = draftOrder.price
-            
+            cell.setupUI(lineItem: draftOrder)
+
             let targetProductId = cart[0].line_items[indexPath.row].product_id
             
             if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
@@ -99,15 +99,9 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
                     cell.inventoryItemId = filteredVariant.inventory_item_id
                 }
-                
-                var quantity = Int(cell.quantityLabel.text ?? "0")
-//                if cart[0].line_items[indexPath.row].quantity != quantity ?? 0 {
-//                    cart[0].line_items[indexPath.row].quantity = quantity ?? 0
-//                    updateDraftOrder(lineItemsArr: cart[0].line_items)
-//                }
-                cell.quantityLabel.text = String(cart[0].line_items[indexPath.row].quantity)
-                
-                
+//                var quantity = Int(cell.quantityLabel.text ?? "0")
+//
+//                cart[0].line_items[indexPath.row].quantity = quantity ?? 0
             } else {
                 // Handle the case when the product with the targetProductId is not found
             }
@@ -183,16 +177,18 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                     // Fetch product data for each item in the cart
                     let dispatchGroup = DispatchGroup()
                     productDataArray = []
-                    for item in cart[0].line_items {
-                        dispatchGroup.enter()
-                        let itemPrice = Double(item.price ?? "0") ?? 0
-                        self.totalPrice += itemPrice
-                        
-                        getProductData(productId: item.product_id ?? 0, variantId: item.variant_id ?? 0) { selectedProduct in
-                            if let selectedProduct = selectedProduct {
-                                productDataArray.append(selectedProduct)
+                    if !cart.isEmpty {
+                        for item in cart[0].line_items {
+                            dispatchGroup.enter()
+                            let itemPrice = Double(item.price ?? "0") ?? 0
+                            self.totalPrice += itemPrice
+                            
+                            getProductData(productId: item.product_id ?? 0, variantId: item.variant_id ?? 0) { selectedProduct in
+                                if let selectedProduct = selectedProduct {
+                                    productDataArray.append(selectedProduct)
+                                }
+                                dispatchGroup.leave()
                             }
-                            dispatchGroup.leave()
                         }
                     }
                     
@@ -358,14 +354,17 @@ extension CartViewController {
 
 protocol updateLineItemsProtocol {
     func edit(lineItem : [[String: Any]])
-    func reloadTable()
+    func updateQuantity(lineItemID: Int, quantity: Int)
 }
 
 extension CartViewController: updateLineItemsProtocol {
-    func reloadTable() {
+    func updateQuantity(lineItemID: Int, quantity: Int) {
         DispatchQueue.main.async {
-            self.CartTableView.reloadData()
-            print("ewwwwwwwwwwwww\(self.cart[0].line_items[1].quantity)")
+            // update array
+            if let index = self.cart[0].line_items.firstIndex(where: {$0.id == lineItemID}) {
+                self.cart[0].line_items[index].quantity = quantity
+                self.CartTableView.reloadData()
+            }
         }
 
         

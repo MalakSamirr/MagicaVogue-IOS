@@ -7,37 +7,78 @@
 
 import Foundation
 import Alamofire
+import RxSwift
+import RxRelay
 
 class CurrencyViewModel {
     var currencies: Currency?
     var currencies2 : Currency?
     var currencySelected : String = ""
     var changedCurrencyTo : CurrencyChange?
-    
+    var refresh: PublishRelay<Void> = PublishRelay()
+    var havingError: BehaviorRelay<String?> = BehaviorRelay(value: nil)
 
+    func fetchCurrencies() {
+        let apiKey = "e07402dc31-efa888e5a7-s3av7p"
+        let apiUrl = "https://api.fastforex.io/fetch-all?api_key=\(apiKey)"
+        AF.request(apiUrl).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let currencyResponse = try JSONDecoder().decode(Currency.self, from: data)
+                    // Handle the decoded data
+                    self.currencies = currencyResponse
+                    self.currencies2 = currencyResponse
+                    self.refresh.accept(())
+
+                } catch {
+                    self.havingError.accept("Request failed with error: \(error.localizedDescription)")
+                }
+            case .failure(let error):
+                self.havingError.accept("Request failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
     
-//    func addCurrency() {
-//       let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292.json"
-//       let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-//       // Request body data
-//        let customerCurrency :[String:Any] = [
-//            "customer": [
-//                "last_name": "30.45",
-//                "currency": "SAR"
-//
-//            ]
-//
-//        ]
+    func changeCurrency(to : String){
+        let from = "USD"
+       // let to = "EGP"
+        let api = "https://api.fastforex.io/fetch-one?api_key=e07402dc31-efa888e5a7-s3av7p&to=\(to)&from=\(from)"
         
-//       AF.request(baseURLString, method: .put, parameters: customerCurrency, encoding: JSONEncoding.default, headers: headers)
-//           .response { response in
-//               switch response.result {
-//               case .success:
-//                   print("Currency added successfully.")
-//                              case .failure(let error):
-//                   print("Failed to add the address. Error: \(error)")
-//              }
-//           }
-//    }
+        AF.request(api).responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let currencyResponse = try JSONDecoder().decode(CurrencyChange.self, from: data)
+                    // Handle the decoded data
+                    self.changedCurrencyTo = currencyResponse
+                    print(currencyResponse)
+                    let value = self.changedCurrencyTo?.result?.first?.value
+                    let key = self.changedCurrencyTo?.result?.first?.key
+                      
+              
+                    GlobalData.shared.num = value ?? 0
+                    GlobalData.shared.country = key ?? " "
+                    
+                    
+                    let userDefaults = UserDefaults.standard
+                    let customerID = userDefaults.integer(forKey: "customerID")
+
+                    userDefaults.set(key, forKey: "CurrencyKey\(customerID)")
+                    userDefaults.set(value, forKey: "CurrencyValue\(customerID)")
+
+                    
+                    userDefaults.synchronize()
+                    print(customerID)
+                    
+
+                } catch {
+                    self.havingError.accept("Request failed with error: \(error.localizedDescription)")
+                }
+            case .failure(let error):
+                self.havingError.accept("Request failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
   
 }

@@ -26,14 +26,14 @@ class CartCell: UITableViewCell {
     @IBOutlet weak var orderTotalLabel: UILabel!
     
     var lineItemsDelegate: updateLineItemsProtocol?
-    var quantity: Double = 1.0
-    var maxQuantity: Double?
+    var quantity: Double = 1
+    var maxQuantity: Double? = 3.0
     var inventoryItemId: Int?
-    var currentQuantity: Int = 2
+    var lineItem: LineItem?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        quantityLabel.text = String(currentQuantity)
         
         plus.layer.cornerRadius = 8
         plus.layer.borderWidth = 1
@@ -52,8 +52,17 @@ class CartCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        let intQuantity = Int(quantity)
-        quantityLabel.text = String(intQuantity)
+//        let intQuantity = Int(quantity)
+//        quantityLabel.text = String(intQuantity)
+        // Configure the view for the selected state
+    }
+    
+    func setupUI(lineItem: LineItem) {
+        self.lineItem = lineItem
+        self.quantity = Double(lineItem.quantity)
+        quantityLabel.text = String(self.quantity)
+        productNameLabel.text = lineItem.title
+        productPriceLabel.text = lineItem.price
     }
     
     @IBAction func didPressPlus(_ sender: Any) {
@@ -61,42 +70,32 @@ class CartCell: UITableViewCell {
         let price = Double(productPriceLabel.text ?? "0")
         if quantity < maxQuantity ?? 0 {
             
-            let priceForItem = (price ?? 0)/quantity
+            let priceForItem = (price ?? 0)/Double(quantity)
             quantity += 1
-            productPriceLabel.text = String(quantity*priceForItem)
-            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: -1) {
-                
+            let intQuantity = Int(quantity)
+            productPriceLabel.text = String(Double(quantity)*priceForItem)
+            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: intQuantity) {
+            self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity)
             }
-
-            
         }
-                
-                let intQuantity = Int(quantity)
-                quantityLabel.text = String(intQuantity)
-                lineItemsDelegate?.reloadTable()
-    }
+}
     
     @IBAction func didPressMinus(_ sender: Any) {
         print("Minus button pressed")
-                if quantity > 1 {
-                    let price = Double(productPriceLabel.text ?? "0")
-                    
-                    let priceForItem = (price ?? 0)/quantity
-                    
-                    quantity -= 1
-                    productPriceLabel.text = String(quantity*priceForItem)
-                    
-                    editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: 1) {
-                        
-                    }
+        if quantity > 1 {
+            let price = Double(productPriceLabel.text ?? "0")
+            
+            let priceForItem = (price ?? 0)/Double(quantity)
+            
+            quantity -= 1
+            productPriceLabel.text = String(Double(quantity)*priceForItem)
+            let intQuantity = Int(quantity)
 
-                }
-        
+            editVariantQuantity(inventory_item_id: inventoryItemId ?? 0, new_quantity: intQuantity) {
+            self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity)
                 
-                
-        let intQuantity = Int(quantity)
-        quantityLabel.text = String(intQuantity)
-        lineItemsDelegate?.reloadTable()
+            }
+        }
     }
    
     private func editVariantQuantity(inventory_item_id: Int, new_quantity : Int, Handler: @escaping () -> Void){

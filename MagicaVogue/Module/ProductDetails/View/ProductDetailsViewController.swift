@@ -357,8 +357,9 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             let lineItemData: [String: Any] = [
                 "title": lineItem.title,
                 "price": lineItem.price,
-                "quantity": lineItem.quantity,
+                "quantity": 1,
                 "variant_id": lineItem.variant_id,
+                "product_id": lineItem.product_id
                 
             ]
             lineItems.append(lineItemData)
@@ -453,7 +454,9 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                         "price": productDetailsViewModel.myProduct.variants?[0].price ?? "0.0",
                         "quantity": 1,
                         "variant_id": variantId,
-                        "sku": productDetailsViewModel.myProduct.image?.src
+                        "sku": productDetailsViewModel.myProduct.image?.src,
+                        "product_details": productDetailsViewModel.myProduct.id
+                        
                     ]
                 ],
                 "applied_discount": [

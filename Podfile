@@ -12,7 +12,9 @@ target 'MagicaVogue' do
    pod "Connectivity"
    pod 'Kingfisher'
    pod 'Cosmos'
-
+   pod 'RxSwift'
+   pod 'RxCocoa'
+   
   target 'MagicaVogueTests' do
     inherit! :search_paths
     # Pods for testing
