@@ -17,7 +17,7 @@ protocol saveItemsToCart : AnyObject{
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     var variantId: Int?
-    
+    var reviewArray : [review] = [review(reviewer: "Heba Elsisy", review: "Amazing product with good quality"), review(reviewer: "Hoda Elnaghy", review: "Like it!!"),review(reviewer: "Malak Samir", review: "Not Bad")]
     @IBOutlet weak var rate: CosmosView!
     var inventoryItemId: Int?
     var cart: [DraftOrder] = []
@@ -117,6 +117,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.register(UINib(nibName: "ProductImageCell", bundle: nil), forCellWithReuseIdentifier: "ProductImageCell")
         
         optionsCollectionView.register(UINib(nibName: "MainCategoryCell", bundle: nil), forCellWithReuseIdentifier: "MainCategoryCell")
+        optionsCollectionView.register(UINib(nibName: "ReviewCell", bundle: nil), forCellWithReuseIdentifier: "ReviewCell")
         
         // Add a section header to optionsCollectionView
         
@@ -139,8 +140,11 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             switch sectionIndex {
             case 0:
                 return self.sizeLayout()
-            default:
+            case 1:
                 return self.colorsLayout()
+            default:
+                return self.reviewLayout()
+                
             }
             
         }
@@ -193,7 +197,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         case self.collectionView:
             return 1
         case optionsCollectionView:
-            return 2
+            return 3
         default:
             return 0
         }
@@ -212,7 +216,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             case 1:
                 return productDetailsViewModel.arrOfColor.count
             default:
-                return 0
+                return reviewArray.count
             }
             
         default:
@@ -248,7 +252,12 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 
                 cell.mainCategoryLabel.text = productDetailsViewModel.arrOfColor[indexPath.row]
             default:
-                cell.mainCategoryLabel.text = "empty"
+               let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
+                
+                cell2.reviewerLabel.text = reviewArray[indexPath.row].reviewer
+                cell2.reviewLabel.text = reviewArray[indexPath.row].review
+                return cell2
+                
             }
             return cell
         default:
@@ -300,7 +309,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if collectionView == optionsCollectionView {
-            let sectionHeaderArray: [String] = ["Size", "Color"]
+            let sectionHeaderArray: [String] = ["Size", "Color","Reviews"]
             if kind == ProductDetailsViewController.sectionHeaderElementKind {
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as! SectionHeader
                 headerView.label.text = sectionHeaderArray[indexPath.section]
@@ -564,6 +573,22 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
             section.boundarySupplementaryItems = [sectionHeader]
             return section
         }
+    func reviewLayout()-> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(70))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0)
+        //section.orthogonalScrollingBehavior = .continuous
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: BrandViewController.sectionHeaderElementKind, alignment: .top)
+        section.boundarySupplementaryItems = [sectionHeader]
+        return section
+    }
         
         
         

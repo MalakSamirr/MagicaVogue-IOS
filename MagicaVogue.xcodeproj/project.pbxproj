@@ -122,6 +122,9 @@
 		74787CDC2AEFA3F900ACE11B /* CurrencyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */; };
 		747B22F62AF3A5B20079A6C4 /* customerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747B22F52AF3A5B20079A6C4 /* customerModel.swift */; };
 		747B22F92AF3C8980079A6C4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747B22F82AF3C8980079A6C4 /* LoginViewModel.swift */; };
+		747B485B2AF83FCD0092A6C1 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747B48592AF83FCD0092A6C1 /* ReviewCell.swift */; };
+		747B485C2AF83FCD0092A6C1 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 747B485A2AF83FCD0092A6C1 /* ReviewCell.xib */; };
+		747B485F2AF846EF0092A6C1 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747B485E2AF846EF0092A6C1 /* ProductDetailsModel.swift */; };
 		74800AD92AEE5CE500A96735 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */; };
 		748565C62AF2365300AFDA58 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748565C52AF2365300AFDA58 /* SignupModel.swift */; };
 		84B82390EBD83582F4AAFE61 /* Pods_MagicaVogueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E38E074908A5C800E97A3F /* Pods_MagicaVogueTests.framework */; };
@@ -291,6 +294,9 @@
 		74787CDA2AEFA3F900ACE11B /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
 		747B22F52AF3A5B20079A6C4 /* customerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customerModel.swift; path = MagicaVogue/Module/Signup/Model/customerModel.swift; sourceTree = SOURCE_ROOT; };
 		747B22F82AF3C8980079A6C4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		747B48592AF83FCD0092A6C1 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		747B485A2AF83FCD0092A6C1 /* ReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
+		747B485E2AF846EF0092A6C1 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		74800AD82AEE5CE500A96735 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		748565C52AF2365300AFDA58 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
 		839BA19F4F800ABBCCA9A9D7 /* Pods_MagicaVogue_MagicaVogueUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MagicaVogue_MagicaVogueUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1121,6 +1127,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		747B48582AF83F9F0092A6C1 /* ReviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				747B48592AF83FCD0092A6C1 /* ReviewCell.swift */,
+				747B485A2AF83FCD0092A6C1 /* ReviewCell.xib */,
+			);
+			path = ReviewCell;
+			sourceTree = "<group>";
+		};
+		747B485D2AF846D20092A6C1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				747B485E2AF846EF0092A6C1 /* ProductDetailsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		74800AD72AEE5CBB00A96735 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1185,6 +1208,7 @@
 		EEC3F7342AE05062004D22C1 /* ProductDetails */ = {
 			isa = PBXGroup;
 			children = (
+				747B485D2AF846D20092A6C1 /* Model */,
 				74800AD72AEE5CBB00A96735 /* ViewModel */,
 				EEC3F7352AE0506F004D22C1 /* View */,
 			);
@@ -1194,6 +1218,7 @@
 		EEC3F7352AE0506F004D22C1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				747B48582AF83F9F0092A6C1 /* ReviewCell */,
 				EEC3F7362AE05089004D22C1 /* ProductDetailsViewController.swift */,
 				EEC3F7372AE05089004D22C1 /* ProductDetailsViewController.xib */,
 				EEDE61E62AE11F19006565A5 /* ProductImageCell.swift */,
@@ -1437,6 +1462,7 @@
 				45ECE7AE2AE2F3B800488682 /* PaymentViewController.xib in Resources */,
 				59DDBDD42AE87E1400898513 /* favorite.json in Resources */,
 				EEB023462AE1A11D0069F998 /* PasswordManagerViewController.xib in Resources */,
+				747B485C2AF83FCD0092A6C1 /* ReviewCell.xib in Resources */,
 				EEE3A0C22AE177B9009956BC /* SettingsTableViewController.xib in Resources */,
 				EEE356812AE00C0B000B8742 /* SignupViewController.xib in Resources */,
 				EEC3F7392AE05089004D22C1 /* ProductDetailsViewController.xib in Resources */,
@@ -1593,6 +1619,7 @@
 				45A095E42ADFE48E00C297C9 /* MagicaVogue.xcdatamodeld in Sources */,
 				45ECE7AD2AE2F3B800488682 /* PaymentViewController.swift in Sources */,
 				59F4E7C12AE2CAE0002A5BFF /* CartViewController.swift in Sources */,
+				747B485B2AF83FCD0092A6C1 /* ReviewCell.swift in Sources */,
 				59DDBDC92AE6FCB600898513 /* SubCategoryModel.swift in Sources */,
 				59DDBDD22AE867F200898513 /* BrandModel.swift in Sources */,
 				59F4E7B32AE2CACE002A5BFF /* CheckoutVC.swift in Sources */,
@@ -1609,6 +1636,7 @@
 				EEC3F7382AE05089004D22C1 /* ProductDetailsViewController.swift in Sources */,
 				EEE356872AE01E8C000B8742 /* LoginViewController.swift in Sources */,
 				59DDBDB42AE538FE00898513 /* URLs.swift in Sources */,
+				747B485F2AF846EF0092A6C1 /* ProductDetailsModel.swift in Sources */,
 				452DA5CF2AF139C300E6C6CE /* OrderProfileTableVC.swift in Sources */,
 				457D68492AE96BC7008FB422 /* UserProfileViewModel.swift in Sources */,
 				EEB023452AE1A11D0069F998 /* PasswordManagerViewController.swift in Sources */,

@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -67,11 +68,11 @@
                                     <cells/>
                                 </collectionView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light Brown Jacket" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdD-Ck-5HX">
-                                    <rect key="frame" x="8" y="276" width="385" height="60"/>
+                                    <rect key="frame" x="8" y="276" width="217" height="60"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="60" id="HoF-sG-Ciu"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -102,7 +103,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" scrollEnabled="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dDH-2X-h0f">
-                                    <rect key="frame" x="0.0" y="586" width="393" height="377"/>
+                                    <rect key="frame" x="0.0" y="586" width="393" height="409"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aYT-e9-mNO">
                                         <size key="itemSize" width="128" height="128"/>
@@ -111,27 +112,27 @@
                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </collectionViewFlowLayout>
                                 </collectionView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jn-e0-ewz">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Product Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jn-e0-ewz">
                                     <rect key="frame" x="8" y="362" width="111.33333333333333" height="25"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3qf-de-aZV" customClass="CosmosView" customModule="Cosmos">
-                                    <rect key="frame" x="179.33333333333337" y="341" width="205.66666666666663" height="31"/>
+                                    <rect key="frame" x="233" y="279" width="152" height="33"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="rating">
                                             <real key="value" value="2"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
-                                            <color key="value" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="value" name="AccentColor"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
                                             <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                            <real key="value" value="30"/>
+                                            <real key="value" value="25"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="emptyColor">
                                             <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -140,7 +141,7 @@
                                             <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
-                                            <color key="value" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="value" name="AccentColor"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
                                             <integer key="value" value="1"/>
@@ -155,20 +156,20 @@
                                 <constraint firstItem="VPi-Ji-ckR" firstAttribute="centerX" secondItem="dDH-2X-h0f" secondAttribute="centerX" id="6T5-6M-2fY"/>
                                 <constraint firstItem="0jn-e0-ewz" firstAttribute="top" secondItem="GdD-Ck-5HX" secondAttribute="bottom" constant="26" id="80j-df-j8z"/>
                                 <constraint firstItem="dDH-2X-h0f" firstAttribute="leading" secondItem="EJ0-P2-ZhY" secondAttribute="leading" id="9Ps-22-XQC"/>
-                                <constraint firstAttribute="trailing" secondItem="GdD-Ck-5HX" secondAttribute="trailing" id="EpM-og-LKd"/>
+                                <constraint firstAttribute="trailing" secondItem="GdD-Ck-5HX" secondAttribute="trailing" constant="168" id="EpM-og-LKd"/>
                                 <constraint firstAttribute="width" secondItem="EJ0-P2-ZhY" secondAttribute="height" multiplier="393:1000" id="HCe-Wp-SeX"/>
-                                <constraint firstItem="3qf-de-aZV" firstAttribute="top" secondItem="GdD-Ck-5HX" secondAttribute="bottom" constant="5" id="Hgi-bj-9By"/>
+                                <constraint firstItem="3qf-de-aZV" firstAttribute="top" secondItem="GdD-Ck-5HX" secondAttribute="bottom" constant="-57" id="Hgi-bj-9By"/>
                                 <constraint firstAttribute="trailing" secondItem="3qf-de-aZV" secondAttribute="trailing" constant="8" id="Ljd-qw-Pbl"/>
                                 <constraint firstItem="VPi-Ji-ckR" firstAttribute="top" secondItem="EJ0-P2-ZhY" secondAttribute="top" constant="387" id="OVz-b7-sND"/>
-                                <constraint firstItem="3qf-de-aZV" firstAttribute="leading" secondItem="0jn-e0-ewz" secondAttribute="trailing" constant="60" id="ROR-r8-6Do"/>
+                                <constraint firstItem="3qf-de-aZV" firstAttribute="leading" secondItem="0jn-e0-ewz" secondAttribute="trailing" constant="113.66666666666667" id="ROR-r8-6Do"/>
                                 <constraint firstItem="f0G-Ev-UJd" firstAttribute="top" secondItem="EJ0-P2-ZhY" secondAttribute="top" id="XUT-e2-wmh"/>
                                 <constraint firstAttribute="trailing" secondItem="dDH-2X-h0f" secondAttribute="trailing" id="a5w-xb-1AI"/>
                                 <constraint firstItem="bL0-Kq-Xfg" firstAttribute="bottom" secondItem="f0G-Ev-UJd" secondAttribute="bottom" id="dxY-ug-IDK"/>
                                 <constraint firstItem="VPi-Ji-ckR" firstAttribute="leading" secondItem="EJ0-P2-ZhY" secondAttribute="leadingMargin" id="f7x-ul-s6f"/>
                                 <constraint firstItem="f0G-Ev-UJd" firstAttribute="leading" secondItem="EJ0-P2-ZhY" secondAttribute="leading" id="hWD-0H-lLl"/>
-                                <constraint firstAttribute="bottom" secondItem="dDH-2X-h0f" secondAttribute="bottom" constant="37" id="hal-70-aD7"/>
+                                <constraint firstAttribute="bottom" secondItem="dDH-2X-h0f" secondAttribute="bottom" constant="5" id="hal-70-aD7"/>
                                 <constraint firstItem="bL0-Kq-Xfg" firstAttribute="centerX" secondItem="f0G-Ev-UJd" secondAttribute="centerX" id="ig7-LM-Aik"/>
-                                <constraint firstItem="VPi-Ji-ckR" firstAttribute="top" secondItem="3qf-de-aZV" secondAttribute="bottom" constant="15" id="jGx-mu-e7z"/>
+                                <constraint firstItem="VPi-Ji-ckR" firstAttribute="top" secondItem="3qf-de-aZV" secondAttribute="bottom" constant="75" id="jGx-mu-e7z"/>
                                 <constraint firstAttribute="height" constant="1000" id="oow-eT-bvZ"/>
                                 <constraint firstItem="VPi-Ji-ckR" firstAttribute="leading" secondItem="0jn-e0-ewz" secondAttribute="leading" id="rmR-ih-snV"/>
                                 <constraint firstItem="dDH-2X-h0f" firstAttribute="top" secondItem="VPi-Ji-ckR" secondAttribute="bottom" constant="8" id="rtu-fD-dSX"/>
@@ -255,8 +256,16 @@
             <point key="canvasLocation" x="78.625954198473281" y="-58.450704225352112"/>
         </view>
     </objects>
+    <designables>
+        <designable name="3qf-de-aZV">
+            <size key="intrinsicContentSize" width="145" height="25"/>
+        </designable>
+    </designables>
     <resources>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
+        <namedColor name="AccentColor">
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
