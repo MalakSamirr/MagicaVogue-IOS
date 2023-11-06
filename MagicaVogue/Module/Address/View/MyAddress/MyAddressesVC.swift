@@ -192,7 +192,6 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
     @IBAction func addNewAddress(_ sender: UIButton) {
 
         let addVC = ShippingDetailsVC()
-        addVC.x = 2
         navigationController?.pushViewController(addVC, animated: true)
 
     }

@@ -14,13 +14,12 @@ protocol AddressDelegate: AnyObject {
     func didAddNewAddress(_ newAddress: Address)
 }
 
-class ShippingDetailsVC: UIViewController {
+class ShippingDetailsVC: UIViewController , UITextFieldDelegate{
     var loginViewModel : LoginViewModel = LoginViewModel()
     var viewModel = ShippingDetailsViewModel()
     let disposeBag = DisposeBag()
     var email : String = ""
     var onAddressAdded: ((Address) -> Void)?
-    var x: Int?
     weak var addressDelegate: AddressDelegate?
     
     @IBOutlet weak var cityTextfield: UITextField!
@@ -31,12 +30,20 @@ class ShippingDetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        phoneTextfield.delegate = self
+
         if let previousVC = navigationController?.viewControllers.first, previousVC is SignupViewController {
             cameFromSignup = true
         }
         navigationItem.setHidesBackButton(cameFromSignup, animated: true)
         setupBindings()
     }
+
+    func isValidPhone(phone: String) -> Bool {
+            let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
+            let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+            return phoneTest.evaluate(with: phone)
+        }
     
     func setupBindings() {
         viewModel.addressAddeddSuccessfully.skip(1)
@@ -63,7 +70,20 @@ class ShippingDetailsVC: UIViewController {
     }
     
     @IBAction func saveAddressButton(_ sender: Any) {
-        viewModel.addAddress(address1: addressTextfield.text, address2: countryTextfield.text, city: cityTextfield.text, phone: phoneTextfield.text)
+        
+        if(isValidPhone(phone: phoneTextfield.text!)){
+            viewModel.addAddress(address1: addressTextfield.text, address2: countryTextfield.text, city: cityTextfield.text, phone: phoneTextfield.text)
+        }else{
+            let alert = UIAlertController(title: "Unvalid Phone Number", message: "Please add a valid phone number and try again!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
+        
+        if cameFromSignup{
+            let tab = TabBarController()
+            self.navigationController?.setViewControllers([tab], animated: true)
+        }
     }
     
 }
@@ -121,8 +141,6 @@ extension UIViewController {
         }
     }
 
-
-    
     
 }
 
