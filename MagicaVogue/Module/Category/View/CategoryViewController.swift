@@ -219,6 +219,15 @@ extension CategoryViewController: UICollectionViewDelegate {
             if let product = viewModel.productArray?[indexPath.row]{
                 let productDetailsVC = ProductDetailsViewController()
                 productDetailsVC.productDetailsViewModel.myProduct = product
+ 
+                
+                for item in viewModel.wishlistArray {
+                    if item.line_items[0].title == product.title {
+                        productDetailsVC.isFavourite = true
+                        productDetailsVC.draftOrderId = item.id
+                    }
+                }
+                
                 
                 self.navigationController?.pushViewController(productDetailsVC, animated: true)
             }
