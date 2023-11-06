@@ -9,21 +9,82 @@ import UIKit
 import Alamofire
 import Kingfisher
 import Cosmos
+import Lottie
 
 
 protocol saveItemsToCart : AnyObject{
     func addItemsToCart()
 }
 
-class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, FavoriteProtocol {
+    func addToFavorite(_ id: Int) {
+        if let product = productDetailsViewModel.myProduct {
+            
+            let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
+            
+            let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+            
+            let imageSrc = product.image?.src ?? "SHOES"
+            
+            // Body data
+            let jsonData: [String: Any] = [
+                "draft_order": [
+                    "note": "Wishlist",
+                    "line_items": [
+                        [
+                            "title": product.title ?? "",
+                            "price": product.variants?[0].price,
+                            "quantity": 1,
+                        ]
+                    ],
+                    "applied_discount": [
+                        "description": imageSrc,
+                        "value_type": "fixed_amount",
+                        "value": "10.0",
+                        "amount": "10.00",
+                        "title": "Custom"
+                    ],
+                    "customer": [
+                        "id": 7471279866172
+                    ],
+                    "use_customer_default_address": true
+                ]
+            ]
+            
+            AF.request(baseURLString, method: .post, parameters: jsonData, encoding: JSONEncoding.default, headers: headers)
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        print("Product added to Wishlist successfully.")
+                        //self.showSuccessAlert()
+                    case .failure(let error):
+                        print("Failed to add the product to the Wishlist. Error: \(error)")
+                    }
+                }
+        }
+    
+
+    }
+    
+    func deleteFromFavorite(_ itemId: Int) {
+        print("ew")
+    }
+    
+
+    
     var variantId: Int?
     var inventoryQuantityy : Int?
     var reviewArray : [review] = [review(reviewer: "Heba Elsisy", review: "Amazing product with good quality"), review(reviewer: "Hoda Elnaghy", review: "Like it!!"),review(reviewer: "Malak Samir", review: "Not Bad")]
     @IBOutlet weak var rate: CosmosView!
+    private var animationView: LottieAnimationView?
     var inventoryItemId: Int?
     var cart: [DraftOrder] = []
+    var isFavourite: Bool?
     var customer_id : Int = 7471279866172
     var lineItemsArr: [LineItem]? = []
+    var draftOrderId: Int?
+    var wishlist: [DraftOrder] = []
+    var wishlistDelegate: FavoriteProtocol?
     @IBOutlet weak var optionsCollectionView: UICollectionView!
     @IBOutlet weak var sliderControlPage: UIPageControl!
   
@@ -43,12 +104,14 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        rate.rating = Double.random(in: 0.0...5.0)
+        addFavouriteButton()
         OutOfStockLabel.isHidden = true
+        rate.rating = Double.random(in: 0.0...5.0)
         for image in productDetailsViewModel.myProduct.images! {
             productDetailsViewModel.arrOfProductImgs.append(image.src ?? "")
+            
         }
-        
+        wishlistDelegate = self
         self.optionsCollectionView.register(SectionHeader.self, forSupplementaryViewOfKind: ProductDetailsViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)
         
         
@@ -646,6 +709,90 @@ extension ProductDetailsViewController {
             }
         }
     }
+    
+    
+    
+    private func addFavouriteButton() {
+        let heartButton = UIButton(type: .custom)
+        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        heartButton.tintColor = UIColor.red
+        heartButton.addTarget(self, action: #selector(toggleFavourite), for: .touchUpInside)
+
+        if isFavourite ?? false{
+            heartButton.isSelected = true
+        }
+
+        let heartBarButtonItem = UIBarButtonItem(customView: heartButton)
+        navigationItem.rightBarButtonItem = heartBarButtonItem
+    }
+    
+    func playAnimation() {
+        animationView = .init(name: "favorite")
+        animationView!.frame = view.bounds
+        animationView!.contentMode = .scaleAspectFit
+        // 4. Set animation loop mode
+        animationView!.loopMode = .playOnce
+        view.addSubview(animationView!)
+        // 6. Play animation
+        animationView?.play { [weak self] _ in
+            self?.animationView?.removeFromSuperview()
+        }
+    }
+
+    @objc func toggleFavourite(sender: UIButton) {
+        // Toggle the selected state to change the button's image
+        sender.isSelected.toggle()
+        if sender.isSelected {
+            // add to coreData
+            addToCoreData()
+            playAnimation()
+        } else {
+            // remove from CoreData
+            removeFromCoreData()
+        }
+    }
+    
+    func addToCoreData() {
+        addToFavorite(productDetailsViewModel.myProduct.id ?? 0)
+
+    }
+
+    func removeFromCoreData() {
+        print("remove from core data")
+        
+        
+        if let draftOrderId = draftOrderId {
+            self.wishlistDelegate?.deleteFromFavorite2(self.draftOrderId ?? 0)
+        } else {
+            productDetailsViewModel.getWishlist {
+                for item in self.productDetailsViewModel.wishlist {
+                    if item.line_items[0].title == self.productDetailsViewModel.myProduct.title {
+                        self.draftOrderId = item.id
+                        print("ewwwwwwh \(self.draftOrderId)")
+                        self.wishlistDelegate?.deleteFromFavorite2(self.draftOrderId ?? 0)
+                        
+                    }
+                }
+                
+               
+            }
+        }
+    }
+        
+ 
+    func saveLeagueIntoCoreData() {
+        var data: Data? = Data()
+      
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 protocol quantityChanged {
@@ -685,4 +832,12 @@ extension quantityChanged {
                 }
             }
         }
+    
+    
+    
+    
+    
+    
+    
+    
 }
