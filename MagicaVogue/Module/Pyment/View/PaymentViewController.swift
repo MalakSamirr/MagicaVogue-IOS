@@ -15,7 +15,7 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
     
     @IBOutlet weak var paymentBackgroundView: UIView!
     var dismissalCompletion: (() -> Void)?
-    
+    var idDiscountApplied: Bool = false
     var draftOrderId: Int?
     var animationView: LottieAnimationView?
     //    var totalPrice: Double = 0.0
@@ -123,6 +123,20 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                 let paymentAuthorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
                 paymentAuthorizationViewController?.delegate = self
                 present(paymentAuthorizationViewController!, animated: true, completion: {
+                    if self.idDiscountApplied {
+                        self.editDraftOrder(draftOrderId: self.draftOrderId ?? 0) { _ in
+                            self.completeOrder(draftOrderId: self.draftOrderId ?? 0) { result in
+                                switch result {
+                                case .success:
+                                    self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
+                                    print("Order completed successfully.")
+                                case .failure(let error):
+                                    print("Error completing the order: \(error)")
+                                }
+                            }
+                        }
+                    } else {
+                    
                     self.completeOrder(draftOrderId: self.draftOrderId ?? 0) { result in
                         switch result {
                         case .success:
@@ -132,6 +146,7 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                             print("Error completing the order: \(error)")
                         }
                     }
+                }
                     
                 })
             } else {
@@ -159,6 +174,36 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                 }
             }
     }
+    
+
+    func editDraftOrder(draftOrderId: Int, completion: @escaping (Error?) -> Void) {
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(draftOrderId).json"
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+        
+        let draftOrderData: [String: Any] = [
+            "draft_order": [
+                "applied_discount": [
+                    "value_type": "percentage",
+                    "value": "20.0",
+                    "title": "Custom"
+                ]
+            ]
+        ]
+        
+        AF.request(baseURLString, method: .put, parameters: draftOrderData, encoding: JSONEncoding.default, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    print("Draft Order with ID \(draftOrderId) updated.")
+                    completion(nil) // Call the completion handler with no error
+                    
+                case .failure(let error):
+                    print("Failed")
+                    completion(error) // Call the completion handler with the error
+                }
+            }
+    }
+
     
     
     func deleteDraftOrder(draftOrderId: Int) {

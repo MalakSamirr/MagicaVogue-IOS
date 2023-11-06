@@ -476,8 +476,8 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                 "applied_discount": [
                     "description": imageSrc,
                     "value_type": "fixed_amount",
-                    "value": "10.0",
-                    "amount": "10.00",
+                    "value": "00.0",
+                    "amount": "00.00",
                     "title": "Custom"
                 ],
                 "customer": [
