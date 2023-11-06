@@ -42,7 +42,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-       
+        emptyCartImage.isHidden = true
+
         if (Auth.auth().currentUser == nil){
             let alert1 = UIAlertController(
                 title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
@@ -91,6 +92,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             .disposed(by: disposeBag)
     }
     func checkCartItems() {
+        
         if viewModel.cart.isEmpty {
                
             emptyCartImage.isHidden = false
@@ -99,15 +101,15 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             totalPriceLabel.isHidden = true
             totalLabel.isHidden = true
 
-           } else {
+        } else {
             
-               emptyCartImage.isHidden = true
-               CartTableView.isHidden = false
-               checkoutButton.isHidden = false
-               totalPriceLabel.isHidden = false
-               totalLabel.isHidden = false
-
-
+            emptyCartImage.isHidden = true
+            CartTableView.isHidden = false
+            checkoutButton.isHidden = false
+            totalPriceLabel.isHidden = false
+            totalLabel.isHidden = false
+            
+        
 
            }
        }

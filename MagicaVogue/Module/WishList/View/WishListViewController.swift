@@ -37,6 +37,7 @@ class WishListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        emptyImage.isHidden = true
       if (Auth.auth().currentUser == nil) {
           let alert1 = UIAlertController(
               title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)

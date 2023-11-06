@@ -80,6 +80,23 @@ class CartViewModel{
             }
         }
     }
+    func deleteDraftOrder(draftOrderId: Int, completion: @escaping (Error?) -> Void) {
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(draftOrderId).json"
+        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+        
+        AF.request(baseURLString, method: .delete, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    print("Draft Order with ID \(draftOrderId) is deleted.")
+                    completion(nil) // Call the completion handler with no error
+                case .failure(let error):
+                    print("Failed to delete Draft Order with ID \(draftOrderId). Error: \(error)")
+                    completion(error) // Call the completion handler with the error
+                }
+            }
+    }
+
 
     func getProductDetails(url: String, completion: @escaping (Result<SelectedProduct, Error>) -> Void) {
         APIManager.shared.request(.get, url) { result in
@@ -94,6 +111,21 @@ class CartViewModel{
         
         if let draftOrderIndex = cart.firstIndex(where: { $0.id == draftOrderId }) {
 
+            if (cart[draftOrderIndex].line_items.count==1){
+                deleteDraftOrder(draftOrderId: draftOrderId) { error in
+                    if let error = error {
+                        // Handle the error, such as showing an alert to the user
+                        print("Error deleting draft order: \(error)")
+                    } else {
+                        self.cart = []
+                        self.refresh.accept(())
+
+                    }
+                }
+                
+                
+            }
+            else{
             if let lineItemIndex = cart[draftOrderIndex].line_items.firstIndex(where: { $0.id == lineItemId }) {
                 cart[draftOrderIndex].line_items.remove(at: lineItemIndex)
                 
@@ -109,17 +141,19 @@ class CartViewModel{
                         case .success:
                             print("Line item with ID \(lineItemId) deleted from Draft Order with ID \(draftOrderId).")
                             self.refresh.accept(())
-                          //  self.updateTotalPriceLabel()
+                            //  self.updateTotalPriceLabel()
                             
                             DispatchQueue.main.async {
                                 self.refresh.accept(())
-                               // self.CartTableView.reloadData()
+                                // self.CartTableView.reloadData()
                             }
                         case .failure(let error):
                             print("Failed to delete Line item with ID \(lineItemId). Error: \(error)")
-                        }
+                        }}
                     }
             }
+            //self.refresh.accept(())
+           
         }
     }
 
