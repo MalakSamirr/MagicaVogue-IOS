@@ -11,6 +11,12 @@ import RxCocoa
 import RxSwift
 
 class UserLoginViewController: UIViewController, UICollectionViewDataSource , UITableViewDelegate ,UITableViewDataSource {
+    
+    @IBOutlet weak var emptyBoxImage: UIImageView!
+    
+    
+    @IBOutlet weak var emptyWishlistImage: UIImageView!
+    
     @IBOutlet weak var helloUserLabel: UILabel!
     
     @IBOutlet weak var loginOrdersTableView: UITableView!
@@ -46,7 +52,9 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-           
+        emptyBoxImage.isHidden = true
+        emptyWishlistImage.isHidden = true
+
             viewModel.getCart()
             viewModel.getWishlist()
             let userDefaults = UserDefaults.standard
@@ -60,11 +68,38 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         }
     }
     
+    func checkOrder() {
+        if viewModel.orderArray.isEmpty {
+               
+            emptyBoxImage.isHidden = false
+            loginOrdersTableView.isHidden = true
+           } else {
+            
+               emptyBoxImage.isHidden = true
+               loginOrdersTableView.isHidden = false
+           }
+       }
+    
+    
+    func checkFavoriteItems() {
+        if viewModel.wishlist.isEmpty {
+               
+            emptyWishlistImage.isHidden = false
+            profileWishlisCollectionView.isHidden = true
+           } else {
+            
+               emptyWishlistImage.isHidden = true
+               profileWishlisCollectionView.isHidden = false
+           }
+       }
+    
     func setupBindings() {
         viewModel.refreshOrdersTableView
             .bind { [weak self] _ in
                 DispatchQueue.main.async {[weak self] in
                     self?.loginOrdersTableView.reloadData()
+                    self?.checkOrder()
+                    self?.checkFavoriteItems()
                 }
             }
             .disposed(by: disposeBag)
@@ -73,6 +108,8 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
             .bind { [weak self] _ in
                 DispatchQueue.main.async {[weak self] in
                     self?.profileWishlisCollectionView.reloadData()
+                    self?.checkOrder()
+                    self?.checkFavoriteItems()
                 }
             }
             .disposed(by: disposeBag)
