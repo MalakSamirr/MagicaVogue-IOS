@@ -423,12 +423,7 @@ extension CategoryViewController: FavoriteProtocol {
         viewModel.animationView!.loopMode = .playOnce
         viewModel.animationView!.alpha = 1.0
         view.addSubview(viewModel.animationView!)
-        let startTime: CGFloat = 0.1
-        let endTime: CGFloat = 0.3
-        viewModel.animationView?.play(
-            fromProgress: startTime,
-            toProgress: endTime
-        ) { [weak self] _ in
+        viewModel.animationView?.play() { [weak self] _ in
             self?.viewModel.animationView?.removeFromSuperview()
         }
     }
