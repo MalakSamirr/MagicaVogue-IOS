@@ -150,7 +150,30 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                     
                 })
             } else {
-                simulatePaymentProcess()
+                if self.idDiscountApplied {
+                    self.editDraftOrder(draftOrderId: self.draftOrderId ?? 0) { _ in
+                        self.completeOrder(draftOrderId: self.draftOrderId ?? 0) { result in
+                            switch result {
+                            case .success:
+                                self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
+                                print("Order completed successfully.")
+                            case .failure(let error):
+                                print("Error completing the order: \(error)")
+                            }
+                        }
+                    }
+                } else {
+                
+                self.completeOrder(draftOrderId: self.draftOrderId ?? 0) { result in
+                    switch result {
+                    case .success:
+                        self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
+                        print("Order completed successfully.")
+                    case .failure(let error):
+                        print("Error completing the order: \(error)")
+                    }
+                }
+            }
             }
         } else {
             
@@ -224,21 +247,7 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
     
     
        
-       func simulatePaymentProcess() {
-
-           let success = true
-
-              if success {
-                  self.playAnimation {
-                      // This code will be executed when the animation is complete
-                      if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                          sceneDelegate.rootNavigation()
-                      }
-                  }
-              } else {
-                  showPaymentResultAlert(success: false)
-              }
-       }
+      
        
     func showPaymentResultAlert(success: Bool) {
         let title = success ? "Payment Successful" : "Payment Failed"
