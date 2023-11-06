@@ -14,6 +14,7 @@ class WishlistViewModel {
     var refresh: PublishRelay<Void> = PublishRelay()
     var havingError: BehaviorRelay<String?> = BehaviorRelay(value: nil)
     var wishlist: [DraftOrder] = []
+    let userDefaults = UserDefaults.standard
 
     func getWishlist() {
         if APIManager.shared.isOnline() {
@@ -21,7 +22,7 @@ class WishlistViewModel {
                 switch result {
                 case .success(let draftOrderResponse):
                     // Filter draft orders with note: "Wishlist"
-                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" }
+                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" && $0.customer?.id == self.userDefaults.integer(forKey: "customerID")}
                     DispatchQueue.main.async {
                         self.refresh.accept(())
                     }

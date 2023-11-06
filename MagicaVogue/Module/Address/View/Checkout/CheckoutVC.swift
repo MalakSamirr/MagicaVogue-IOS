@@ -13,7 +13,8 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     
     
     @IBOutlet weak var addressTableView: UITableView!
-    
+    let userDefaults = UserDefaults.standard
+
     var idDiscountApplied: Bool = false
     var discountCodes: [DiscountCode]?
     var address: Address?
@@ -143,7 +144,6 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
                 if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
                     let imageUrlString = filteredProduct.product.image?.src
                     if let imageUrl = URL(string: imageUrlString ?? "") {
-                        print("ewwwwwww \(filteredProduct)")
                         cell.productImageView.kf.setImage(with: imageUrl)
                     }
                     
@@ -183,7 +183,9 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     }
     
     func getAddress() {
-        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses.json"
+        let customerID = userDefaults.integer(forKey: "customerID")
+
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/\(customerID)/addresses.json"
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
         
         AF.request(baseURLString, method: .get, encoding: JSONEncoding.default, headers: headers)

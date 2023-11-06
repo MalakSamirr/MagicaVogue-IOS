@@ -16,7 +16,8 @@ class CategoryViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     // MARK: - Variables
     var myProduct : Products!
-    
+    let userDefaults = UserDefaults.standard
+
     var viewModel: CategoryViewModel = CategoryViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
     override func viewWillAppear(_ animated: Bool) {
@@ -26,8 +27,7 @@ class CategoryViewController: UIViewController {
             
            
         }
-        let userDefaults = UserDefaults.standard
-        viewModel.customeriD = 7471279866172
+        viewModel.customeriD = userDefaults.integer(forKey: "customerID")
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,7 +131,6 @@ extension CategoryViewController: UICollectionViewDataSource {
                     if item.line_items[0].title == product.title {
                         isFavorite = true
                         cell.draftOrder = item.id
-                        print("ewwwwwwwwwwwwwwww \(item.id)")
                     }
                 }
                     cell.favoriteButton?.isSelected = isFavorite
@@ -355,7 +354,7 @@ extension CategoryViewController: FavoriteProtocol {
                         "title": "Custom"
                     ],
                     "customer": [
-                        "id": 7471279866172
+                        "id": viewModel.customeriD
                     ],
                     "use_customer_default_address": true
                 ]

@@ -11,10 +11,14 @@ import RxRelay
 import Alamofire
 
 class ShippingDetailsViewModel {
+    let userDefaults = UserDefaults.standard
+
     var addressAddeddSuccessfully: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
+
     func addAddress(address1: String?, address2: String?, city: String?, phone: String?) {
-        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses.json"
+        let customerID = userDefaults.integer(forKey: "customerID")
+
+        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/\(customerID)/addresses.json"
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
         
         let addressData: [String: Any] = [

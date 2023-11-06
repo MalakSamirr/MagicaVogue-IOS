@@ -8,7 +8,7 @@
 import Foundation
 class ProductDetailsViewModel{
     var currentCell = 0
-    var customerid = 7471279866172
+    var customerid :Int?
     var selectedIndexPathForSize: IndexPath?
     var selectedIndexPathForColor: IndexPath?
     
@@ -31,7 +31,7 @@ class ProductDetailsViewModel{
             APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { (result: Result<DraftOrderResponse, Error>) in
                 switch result {
                 case .success(let draftOrderResponse):
-                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" && $0.customer?.id == 7471279866172 }
+                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" && $0.customer?.id == self.customerid }
                     DispatchQueue.main.async {
                         // Call the completion handler when wishlist is fetched
                         completion()

@@ -17,7 +17,8 @@ protocol saveItemsToCart : AnyObject{
 }
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, FavoriteProtocol {
-    
+    var productDetailsViewModel: ProductDetailsViewModel = ProductDetailsViewModel()
+    static let sectionHeaderElementKind = "section-header-element-kind"
     var variantId: Int?
     var inventoryQuantityy : Int?
     var reviewArray : [review] = [review(reviewer: "H***a", review: "Amazing product with good quality"), review(reviewer: "M**a", review: "Like it!!"),review(reviewer: "M****k", review: "Not Bad")]
@@ -26,11 +27,12 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     var inventoryItemId: Int?
     var cart: [DraftOrder] = []
     var isFavourite: Bool?
-    var customer_id : Int = 7471279866172
     var lineItemsArr: [LineItem]? = []
     var draftOrderId: Int?
     var wishlist: [DraftOrder] = []
     var wishlistDelegate: FavoriteProtocol?
+    let userDefaults = UserDefaults.standard
+
     @IBOutlet weak var optionsCollectionView: UICollectionView!
     @IBOutlet weak var sliderControlPage: UIPageControl!
   
@@ -43,10 +45,11 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var productDetails: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     
-  
+    override func viewWillAppear(_ animated: Bool) {
+        productDetailsViewModel.customerid = userDefaults.integer(forKey: "customerID")
+    }
     
-    var productDetailsViewModel: ProductDetailsViewModel = ProductDetailsViewModel()
-    static let sectionHeaderElementKind = "section-header-element-kind"
+ 
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -400,7 +403,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     switch result {
                     case .success(let draftOrderResponse):
                         // Filter draft orders with note: "cart"
-                        self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" && $0.customer?.id == self.customer_id }
+                        self.cart = draftOrderResponse.draft_orders.filter { $0.note == "cart" && $0.customer?.id == self.productDetailsViewModel.customerid }
                         completion() // Call the completion handler after getting the response
                     case .failure(let error):
                         print("Request failed with error: \(error)")
@@ -481,7 +484,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                     "title": "Custom"
                 ],
                 "customer": [
-                    "id": 7471279866172
+                    "id": productDetailsViewModel.customerid
                 ],
                 "use_customer_default_address": true
             ]
@@ -722,7 +725,6 @@ extension ProductDetailsViewController {
                 for item in self.productDetailsViewModel.wishlist {
                     if item.line_items[0].title == self.productDetailsViewModel.myProduct.title {
                         self.draftOrderId = item.id
-                        print("ewwwwwwh \(self.draftOrderId)")
                         self.wishlistDelegate?.deleteFromFavorite2(self.draftOrderId ?? 0)
                         
                     }
@@ -762,7 +764,7 @@ extension ProductDetailsViewController {
                         "title": "Custom"
                     ],
                     "customer": [
-                        "id": 7471279866172
+                        "id": productDetailsViewModel.customerid
                     ],
                     "use_customer_default_address": true
                 ]

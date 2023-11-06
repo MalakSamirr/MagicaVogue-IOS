@@ -14,7 +14,8 @@ class UserLoginViewModel {
     var refreshOrdersTableView: PublishRelay<Void> = PublishRelay()
     var refreshWishlistCollectionView: PublishRelay<Void> = PublishRelay()
     var havingError: BehaviorRelay<String?> = BehaviorRelay(value: nil)
-    
+    let userDefaults = UserDefaults.standard
+
     var orderArray: [OrderModel] = []
     var wishlist: [DraftOrder] = []
     var CustomersArray: [customers]?
@@ -25,7 +26,7 @@ class UserLoginViewModel {
                 switch result {
                 case .success(let orderResponse):
                     
-                    self.orderArray = orderResponse.orders
+                    self.orderArray = orderResponse.orders.filter {$0.customer?.id == self.userDefaults.integer(forKey: "customerID")}
                     DispatchQueue.main.async {
                         self.refreshOrdersTableView.accept(())
                     }
@@ -43,7 +44,7 @@ class UserLoginViewModel {
             APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { (result: Result<DraftOrderResponse, Error>) in
                 switch result {
                 case .success(let draftOrderResponse):
-                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" }
+                    self.wishlist = draftOrderResponse.draft_orders.filter { $0.note == "Wishlist" && $0.customer?.id == self.userDefaults.integer(forKey: "customerID") }
                     DispatchQueue.main.async {
                         self.refreshWishlistCollectionView.accept(())
                     }

@@ -16,6 +16,7 @@ import RxSwift
 class CartViewController: UIViewController , UITableViewDataSource , UITableViewDelegate {
     let viewModel : CartViewModel = CartViewModel()
     let disposeBag = DisposeBag()
+    let userDefaults = UserDefaults.standard
 
     @IBOutlet weak var totalLabel: UILabel!
     
@@ -60,9 +61,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             return
         }
             else{
-                let userDefaults = UserDefaults.standard
 
-                viewModel.customer_id = 7471279866172
+                viewModel.customer_id = userDefaults.integer(forKey: "customerID")
                 viewModel.getCart {_ in
                     self.CartTableView.reloadData()
                   
@@ -184,12 +184,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
                 if let draftOrderId = self?.viewModel.cart[0].id,
                    let lineItemId = self?.viewModel.cart[0].line_items[indexPath.row].id {
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     self?.viewModel.deleteLineItemFromDraftOrder(draftOrderId: draftOrderId, lineItemId: lineItemId)
                     self?.updateDraftOrder(lineItemsArr: (self?.viewModel.cart[0].line_items)!)
@@ -322,7 +316,6 @@ extension CartViewController: updateLineItemsProtocol {
             if let index = self.viewModel.cart[0].line_items.firstIndex(where: {$0.id == lineItemID}) {
                 self.viewModel.cart[0].line_items[index].quantity = quantity
                // self.cart[0].line_items[index].price = totalPrice
-                print(self.viewModel.cart[0].line_items[index].price)
                 self.CartTableView.reloadData()
                 self.updateDraftOrder(lineItemsArr: self.viewModel.cart[0].line_items)
             }

@@ -64,7 +64,22 @@ class CartCell: UITableViewCell {
         self.quantity = Double(lineItem.quantity)
         quantityLabel.text = String(Int(self.quantity))
         productNameLabel.text = lineItem.title
-        productPriceLabel.text = String ((Double(lineItem.price ?? "0") ?? 0)*quantity)
+        //productPriceLabel.text = String ((Double(lineItem.price ?? "0") ?? 0)*quantity)
+        
+        
+        if let intValue = Double(lineItem.price ?? "0"){
+
+            let userDefaults = UserDefaults.standard
+
+            let customerID = userDefaults.integer(forKey: "customerID")
+            let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
+            let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
+
+            let result = intValue * CurrencyValue * quantity
+                let resultString = String(format: "%.2f", result)
+            productPriceLabel.text = resultString
+            }
+        
     }
     
     @IBAction func didPressPlus(_ sender: Any) {

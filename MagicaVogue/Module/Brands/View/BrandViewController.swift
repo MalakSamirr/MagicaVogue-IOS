@@ -18,7 +18,8 @@ class BrandViewController: UIViewController{
     
     var viewModel: BrandViewModel = BrandViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
-    
+    let userDefaults = UserDefaults.standard
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +52,7 @@ class BrandViewController: UIViewController{
         BrandCollectionViewDetails.setCollectionViewLayout(layout, animated: true)
     }
     override func viewWillAppear(_ animated: Bool) {
+        viewModel.customeriD = userDefaults.integer(forKey: "customerID")
         viewModel.getWishlist {
             
         }
@@ -160,14 +162,15 @@ extension BrandViewController: UICollectionViewDataSource {
                 
                 if let intValue = Double(product.variants?[0].price ?? "0") {
                     let userDefaults = UserDefaults.standard
-                    let customerID = 7471279866172
+
+                    let customerID = userDefaults.integer(forKey: "customerID")
                     let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
                     let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
                     
                     let result = intValue * CurrencyValue
-                    let resultString = String(format: "%.2f", result)
+                        let resultString = String(format: "%.2f", result)
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
-                }
+                    }
                 
                 
                 
@@ -273,7 +276,7 @@ extension BrandViewController: FavoriteProtocol {
                         "title": "Custom"
                     ],
                     "customer": [
-                        "id": 7471279866172
+                        "id": viewModel.customeriD
                     ],
                     "use_customer_default_address": true
                 ]
