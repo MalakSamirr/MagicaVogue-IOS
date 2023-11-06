@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate{
     
@@ -17,18 +19,24 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate{
         let favoriteController = WishListViewController()
         let categoryController = CategoryViewController()
         let profileController = UserLoginViewController()
+        let notLoginController = NotLoginViewController()
         let cartController = CartViewController()
         cartController.title = "Cart"
         favoriteController.title = "Wishlist"
         homeController.title = "Home"
         categoryController.title = "Discover"
         profileController.title = "Me"
+        notLoginController.title = "Me"
         
         let homeNavController = UINavigationController(rootViewController: homeController)
         let favoriteNavController = UINavigationController(rootViewController: favoriteController)
         let categoryNavController = UINavigationController(rootViewController: categoryController)
-        let profileNavController = UINavigationController(rootViewController: profileController)
+        var profileNavController = UINavigationController(rootViewController: profileController)
         let cartNavController = UINavigationController(rootViewController: cartController)
+        
+        if (Auth.auth().currentUser == nil){
+            profileNavController = UINavigationController(rootViewController: notLoginController)
+        }
         
         // Set the view controllers for the tab bar controller
         self.setViewControllers([homeNavController, categoryNavController, favoriteNavController, cartNavController, profileNavController], animated: true)
