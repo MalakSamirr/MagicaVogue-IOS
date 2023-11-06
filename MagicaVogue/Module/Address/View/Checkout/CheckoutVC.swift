@@ -13,6 +13,8 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     
     
     @IBOutlet weak var addressTableView: UITableView!
+    
+    var idDiscountApplied: Bool = false
     var discountCodes: [DiscountCode]?
     var address: Address?
     var priceRule: PriceMRuleModel?
@@ -53,6 +55,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     @IBAction func paymentButtonPressed(_ sender: Any) {
         
         let paymentViewController = PaymentViewController()
+        paymentViewController.idDiscountApplied = self.idDiscountApplied
         paymentViewController.draftOrderId = cart[0].id
         
         paymentViewController.priceAfterDiscount = priceAfterDiscount ?? 0
@@ -284,6 +287,7 @@ extension CheckoutVC: AddressProtocol {
 extension CheckoutVC: PromoCodeUpdate {
     func updateTotalValue(priceAfterDiscount: Double) {
         self.priceAfterDiscount = priceAfterDiscount
+        self.idDiscountApplied = true
     }
     
     

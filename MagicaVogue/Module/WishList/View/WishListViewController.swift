@@ -169,7 +169,7 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
         }
         
         // Use Kingfisher to load an image. Replace 'imageUrl' with the appropriate URL.
-        if let imageUrl = URL(string: draftOrder.applied_discount.description) {
+        if let imageUrl = URL(string: draftOrder.applied_discount?.description ?? "") {
             cell.brandItemImage.kf.setImage(with: imageUrl)
         } else {
             cell.brandItemImage.image = UIImage(named: "CouponBackground")

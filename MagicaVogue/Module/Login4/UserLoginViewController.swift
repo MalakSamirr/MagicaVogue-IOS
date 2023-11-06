@@ -190,7 +190,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         }
         
         // Use Kingfisher to load an image. Replace 'imageUrl' with the appropriate URL.
-        if let imageUrl = URL(string: draftOrder.applied_discount.description) {
+        if let imageUrl = URL(string: draftOrder.applied_discount?.description ?? "") {
             cell.brandItemImage.kf.setImage(with: imageUrl)
         } else {
             cell.brandItemImage.image = UIImage(named: "CouponBackground")
@@ -219,7 +219,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         print(viewModel.orderArray[indexPath.row].created_at ?? "")
         cell.createdAttLabel.text = formatDate(inputDate: viewModel.orderArray[indexPath.row].created_at ?? " ")
         print(cell.createdAttLabel.text)
-        cell.totalPriceLabel.text = viewModel.orderArray[indexPath.row].total_line_items_price
+        cell.totalPriceLabel.text = viewModel.orderArray[indexPath.row].total_price
         
         return cell
     }
