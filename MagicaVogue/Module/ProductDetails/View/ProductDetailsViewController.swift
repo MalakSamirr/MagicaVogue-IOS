@@ -17,60 +17,6 @@ protocol saveItemsToCart : AnyObject{
 }
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, FavoriteProtocol {
-    func addToFavorite(_ id: Int) {
-        if let product = productDetailsViewModel.myProduct {
-            
-            let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
-            
-            let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-            
-            let imageSrc = product.image?.src ?? "SHOES"
-            
-            // Body data
-            let jsonData: [String: Any] = [
-                "draft_order": [
-                    "note": "Wishlist",
-                    "line_items": [
-                        [
-                            "title": product.title ?? "",
-                            "price": product.variants?[0].price,
-                            "quantity": 1,
-                        ]
-                    ],
-                    "applied_discount": [
-                        "description": imageSrc,
-                        "value_type": "fixed_amount",
-                        "value": "10.0",
-                        "amount": "10.00",
-                        "title": "Custom"
-                    ],
-                    "customer": [
-                        "id": 7471279866172
-                    ],
-                    "use_customer_default_address": true
-                ]
-            ]
-            
-            AF.request(baseURLString, method: .post, parameters: jsonData, encoding: JSONEncoding.default, headers: headers)
-                .response { response in
-                    switch response.result {
-                    case .success:
-                        print("Product added to Wishlist successfully.")
-                        //self.showSuccessAlert()
-                    case .failure(let error):
-                        print("Failed to add the product to the Wishlist. Error: \(error)")
-                    }
-                }
-        }
-    
-
-    }
-    
-    func deleteFromFavorite(_ itemId: Int) {
-        print("ew")
-    }
-    
-
     
     var variantId: Int?
     var inventoryQuantityy : Int?
@@ -389,6 +335,8 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                   addToCartButton.isEnabled = false
                   OutOfStockLabel.isHidden = false
               } else {
+                  addToCartButton.isEnabled = true
+                  OutOfStockLabel.isHidden = true
                   if !cart.contains(where: { $0.line_items.contains { $0.variant_id == variantId } }) {
                       if !cart.isEmpty {
                           updateDraftOrder()
@@ -689,10 +637,13 @@ extension ProductDetailsViewController {
         if let variant = productDetailsViewModel.myProduct.variants?.first(where: { $0.title == productTitle }) {
             variantId = variant.id
             inventoryItemId = variant.inventory_item_id
-            let inventoryQuantity = variant.inventory_quantity
-            inventoryQuantityy = inventoryQuantity
+            // let inventoryQuantity = variant.inventory_quantity
+            inventoryQuantityy = variant.inventory_quantity
+            
+            print(inventoryQuantityy ?? -1)
+            
             let productId = productDetailsViewModel.myProduct.id
-            if inventoryQuantity <= 0 {
+            if inventoryQuantityy ?? 0 <= 0 {
                 
                 addToCartButton.backgroundColor = .lightGray
 
@@ -701,11 +652,13 @@ extension ProductDetailsViewController {
                 addToCartButton.layer.borderColor = UIColor.lightGray.cgColor
                 addToCartButton.layer.borderWidth = 1.0
 
-//
-//                addToCartButton.setTitle("Out of Stock", for: .normal)
+
                 addToCartButton.setTitleColor(.black, for: .normal)
                 OutOfStockLabel.isHidden = false
 
+            } else {
+                addToCartButton.backgroundColor = UIColor(red: 0.36, green: 0.46, blue: 0.42, alpha: 1.0)
+                addToCartButton.setTitleColor(.white, for: .normal)
             }
         }
     }
@@ -781,10 +734,61 @@ extension ProductDetailsViewController {
     }
         
  
-    func saveLeagueIntoCoreData() {
-        var data: Data? = Data()
-      
+    func addToFavorite(_ id: Int) {
+        if let product = productDetailsViewModel.myProduct {
+            
+            let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
+            
+            let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
+            
+            let imageSrc = product.image?.src ?? "SHOES"
+            
+            // Body data
+            let jsonData: [String: Any] = [
+                "draft_order": [
+                    "note": "Wishlist",
+                    "line_items": [
+                        [
+                            "title": product.title ?? "",
+                            "price": product.variants?[0].price,
+                            "quantity": 1,
+                        ]
+                    ],
+                    "applied_discount": [
+                        "description": imageSrc,
+                        "value_type": "fixed_amount",
+                        "value": "10.0",
+                        "amount": "10.00",
+                        "title": "Custom"
+                    ],
+                    "customer": [
+                        "id": 7471279866172
+                    ],
+                    "use_customer_default_address": true
+                ]
+            ]
+            
+            AF.request(baseURLString, method: .post, parameters: jsonData, encoding: JSONEncoding.default, headers: headers)
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        print("Product added to Wishlist successfully.")
+                        //self.showSuccessAlert()
+                    case .failure(let error):
+                        print("Failed to add the product to the Wishlist. Error: \(error)")
+                    }
+                }
+        }
+    
+
     }
+    
+    func deleteFromFavorite(_ itemId: Int) {
+        print("ew")
+    }
+    
+
+    
     
     
     

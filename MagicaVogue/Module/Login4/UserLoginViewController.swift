@@ -22,6 +22,9 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         
         super.viewDidLoad()
         
+
+
+        
         self.navigationController?.isNavigationBarHidden = true
         profileWishlisCollectionView.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
         loginOrdersTableView.register(UINib(nibName: "OrderProfileTableVC", bundle: nil), forCellReuseIdentifier: "OrderProfileTableVC")
@@ -202,7 +205,9 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     // MARK: - loginOrdersTableView Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderProfileTableVC", for: indexPath) as! OrderProfileTableVC
-        cell.createdAttLabel.text = formatDate(viewModel.orderArray[indexPath.row].customer?.created_at ?? " ")
+        print(viewModel.orderArray[indexPath.row].created_at ?? "")
+        cell.createdAttLabel.text = formatDate(inputDate: viewModel.orderArray[indexPath.row].created_at ?? " ")
+        print(cell.createdAttLabel.text)
         cell.totalPriceLabel.text = viewModel.orderArray[indexPath.row].total_line_items_price
         
         return cell
@@ -217,37 +222,22 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     
  
   
-    func formatDate(_ dateString: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+    func formatDate(inputDate: String) -> String? {
+        let inputDateFormat = DateFormatter()
+        inputDateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         
-        if let date = dateFormatter.date(from: dateString) {
-            let outputFormatter = DateFormatter()
-            outputFormatter.dateFormat = "MMMM d, yyyy, h:mm a"
-            outputFormatter.locale = Locale(identifier: "en_US_POSIX")
-            return outputFormatter.string(from: date)
+        if let date = inputDateFormat.date(from: inputDate) {
+            let outputDateFormat = DateFormatter()
+            outputDateFormat.dateFormat = "MMM d, yyyy, h:mm a"
+            return outputDateFormat.string(from: date)
         }
         
-        return dateString // Return the original string if date parsing fails.
+        return nil
     }
+
     
   
     }
 
 
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = loginOrdersTableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as? CartCell else { return UITableViewCell() }
-//        cell.minus.isHidden = true
-//        cell.plus.isHidden = true
-//        cell.quantityLabel.isHidden = true
-//        cell.sizeLabel.text = "Size:XL || Qty:13"
-//        cell.productPriceLabel.isHidden = true
-//        cell.orderTotalLabel.isHidden = false
-//        cell.sizeLabel.textColor = .systemGray
-//        return cell
-        
-     
-        
-//    }
    

@@ -11,6 +11,7 @@ struct OrderModel: Codable {
     let id: Int
     let total_line_items_price: String?
     let customer: customerOrders?
+    let created_at: String?
 }
 
 struct customerOrders: Codable {
