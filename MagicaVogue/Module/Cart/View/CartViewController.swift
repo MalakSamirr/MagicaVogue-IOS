@@ -79,6 +79,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
+        cell.viewController = self 
         cell.lineItemsDelegate = self
         if indexPath.row < cart[0].line_items.count {
             let draftOrder = cart[0].line_items[indexPath.row]
@@ -89,14 +90,12 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
                 let imageUrlString = filteredProduct.product.image?.src
                 if let imageUrl = URL(string: imageUrlString ?? "") {
-                    print("ewwwwwww \(filteredProduct)")
                     cell.productImageView.kf.setImage(with: imageUrl)
                 }
                 if let filteredVariant = filteredProduct.product.variants?.first(where: {
                         $0.id == cart[0].line_items[indexPath.row].variant_id
                 }) {
                     cell.maxQuantity = Double(filteredVariant.inventory_quantity)
-                    print("ewwwwwwwwwwww\(Double(filteredVariant.inventory_quantity))")
                     cell.inventoryItemId = filteredVariant.inventory_item_id
                     cell.sizeLabel.isHidden = false
                     cell.sizeLabel.text = "Details: \(filteredVariant.title ?? "")"
@@ -206,7 +205,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
                         updateTotalPriceLabel()
                         self.totalPriceLabel.text = String(self.totalPrice)
                         self.CartTableView.reloadData()
-                        print("fuckkkkkkkkkkkk\(productDataArray.count)")
                         completion(productDataArray)
                     }
                     
@@ -223,7 +221,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
     
     func deleteLineItemFromDraftOrder(draftOrderId: Int, lineItemId: Int) {
-        // Your Shopify API URL
         let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(draftOrderId).json"
         
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
@@ -261,7 +258,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
 
     func updateTotalPriceLabel() {
-            // Calculate the total price based on the items in the cart
             totalPrice = cart.reduce(0) { (total, draftOrder) in
                 if let itemPrice = Double(draftOrder.line_items.first?.price ?? "0") {
                     return total + itemPrice
@@ -275,7 +271,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         var lineItems: [[String: Any]] = []
 
         for lineItem in lineItemsArr ?? [] {
-            print("ewwww \(lineItem.product_id)")
             let lineItemData: [String: Any] = [
                 "title": lineItem.title,
                 "price": lineItem.price,
@@ -288,12 +283,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
             
         }
         
-        print("hhhhhhhhhhhhhh\(lineItems)")
 
         edit(lineItem: lineItems)
-        
-        // Now you can use the 'lineItems' array in your PUT request.
-        // Call the updateDraftOrder function with the 'lineItems' array to update the draft order.
     }
     func edit(lineItem : [[String: Any]]) {
         let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(cart[0].id).json"
@@ -333,10 +324,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         present(alertController, animated: true, completion: nil)
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        print("HHH")
-    }
-    
+  
 }
 
 extension CartViewController {
@@ -372,10 +360,8 @@ protocol updateLineItemsProtocol {
 extension CartViewController: updateLineItemsProtocol {
     func updateQuantity(lineItemID: Int, quantity: Int, totalPrice: String) {
         DispatchQueue.main.async {
-            // update array
             if let index = self.cart[0].line_items.firstIndex(where: {$0.id == lineItemID}) {
                 self.cart[0].line_items[index].quantity = quantity
-               // self.cart[0].line_items[index].price = totalPrice
                 print(self.cart[0].line_items[index].price)
                 self.CartTableView.reloadData()
                 self.updateDraftOrder(lineItemsArr: self.cart[0].line_items)

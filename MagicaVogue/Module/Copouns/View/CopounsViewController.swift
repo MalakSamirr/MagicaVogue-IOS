@@ -18,16 +18,7 @@ class CopounsViewController: UIViewController {
     
     @IBAction func checkoutPressed(_ sender: UIButton) {
 
-//        let checkoutVC = CheckoutVC()
-//        let nav = UINavigationController(rootViewController: checkoutVC)
-//        nav.modalPresentationStyle = .pageSheet
-//        
-//        if let sheet = nav.sheetPresentationController {
-//            sheet.detents = [.large()]
-//            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-//            sheet.largestUndimmedDetentIdentifier = .medium
-//        }
-//        present(nav , animated: true , completion: nil)
+
         let checkoutVC = CheckoutVC()
           navigationController?.pushViewController(checkoutVC, animated: true)
     }

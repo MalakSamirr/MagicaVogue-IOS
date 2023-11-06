@@ -31,24 +31,24 @@ class ShippingDetailsVC: UIViewController , UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneTextfield.delegate = self
-
+        
         if let previousVC = navigationController?.viewControllers.first, previousVC is SignupViewController {
             cameFromSignup = true
         }
         navigationItem.setHidesBackButton(cameFromSignup, animated: true)
         setupBindings()
     }
-
+    
     func isValidPhone(phone: String) -> Bool {
-            let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
-            let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
-            return phoneTest.evaluate(with: phone)
-        }
+        let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: phone)
+    }
     
     func setupBindings() {
         viewModel.addressAddeddSuccessfully.skip(1)
             .bind { [weak self] success in
-//                self.addressDelegate?.didAddNewAddress(newAddress)
+                //                self.addressDelegate?.didAddNewAddress(newAddress)
                 DispatchQueue.main.async {[weak self] in
                     if success {
                         self?.showToast(message: "Address saved successfully")
@@ -71,21 +71,50 @@ class ShippingDetailsVC: UIViewController , UITextFieldDelegate{
     
     @IBAction func saveAddressButton(_ sender: Any) {
         
-        if(isValidPhone(phone: phoneTextfield.text!)){
-            viewModel.addAddress(address1: addressTextfield.text, address2: countryTextfield.text, city: cityTextfield.text, phone: phoneTextfield.text)
-        }else{
-            let alert = UIAlertController(title: "Unvalid Phone Number", message: "Please add a valid phone number and try again!", preferredStyle: .alert)
+        if isValidCity(city: cityTextfield.text) && isValidCountry(country: countryTextfield.text) && isValidAddress(address: addressTextfield.text) {
+            if isValidPhone(phone: phoneTextfield.text!) {
+                // Both city and country are valid, so you can add the address
+                viewModel.addAddress(address1: addressTextfield.text, address2: countryTextfield.text, city: cityTextfield.text, phone: phoneTextfield.text)
+            } else {
+                // Display an error message for invalid phone number
+                let alert = UIAlertController(title: "Invalid Phone Number", message: "Please add a valid phone number and try again!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(okAction)
+                present(alert, animated: true, completion: nil)
+            }
+        } else {
+            // Display an error message for invalid city or country
+            let alert = UIAlertController(title: "Invalid City or Country or Address", message: "Please enter a valid city ,country and address and try again!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
         }
         
-        if cameFromSignup{
+        if cameFromSignup {
             let tab = TabBarController()
             self.navigationController?.setViewControllers([tab], animated: true)
         }
     }
-    
+    func isValidAddress(address: String?) -> Bool {
+        return address?.isEmpty == false
+    }
+    func isValidCity(city: String?) -> Bool {
+        if let city = city, !city.isEmpty {
+            let letters = CharacterSet.letters
+            let cityCharacterSet = CharacterSet(charactersIn: city)
+            return cityCharacterSet.isSubset(of: letters)
+        }
+        return false
+    }
+
+    func isValidCountry(country: String?) -> Bool {
+        if let country = country, !country.isEmpty {
+            let letters = CharacterSet.letters
+            let countryCharacterSet = CharacterSet(charactersIn: country)
+            return countryCharacterSet.isSubset(of: letters)
+        }
+        return false
+    }
 }
 
 extension UIViewController {
