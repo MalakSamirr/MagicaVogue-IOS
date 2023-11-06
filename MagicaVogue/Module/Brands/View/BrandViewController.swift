@@ -15,13 +15,13 @@ class BrandViewController: UIViewController{
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var BrandCollectionViewDetails: UICollectionView!
-
+    
     var viewModel: BrandViewModel = BrandViewModel()
     static let sectionHeaderElementKind = "section-header-element-kind"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         
         self.title = viewModel.brand?.title
         searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBar.frame.origin.y, width: searchBar.frame.size.width, height: 120)
@@ -62,7 +62,7 @@ class BrandViewController: UIViewController{
 extension BrandViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: 100, height: 50) // Adjust the height as needed
+        return CGSize(width: 100, height: 50)
     }
 }
 
@@ -98,7 +98,7 @@ extension BrandViewController: UICollectionViewDelegate {
                     collectionView.reloadData()
                 }
             }
-                
+            
         default:
             if let product = viewModel.productArray?[indexPath.row]{
                 let productDetailsVC = ProductDetailsViewController()
@@ -165,10 +165,10 @@ extension BrandViewController: UICollectionViewDataSource {
                     let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
                     
                     let result = intValue * CurrencyValue
-                        let resultString = String(format: "%.2f", result)
+                    let resultString = String(format: "%.2f", result)
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
-                    }
-                    
+                }
+                
                 
                 
                 cell.id = product.id
@@ -179,8 +179,8 @@ extension BrandViewController: UICollectionViewDataSource {
                         cell.draftOrder = item.id
                     }
                 }
-                    cell.favoriteButton?.isSelected = isFavorite
-            
+                cell.favoriteButton?.isSelected = isFavorite
+                
             }
             return cell
         default:
@@ -252,10 +252,9 @@ extension BrandViewController: FavoriteProtocol {
             let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json"
             
             let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-           
+            
             let imageSrc = viewModel.myProduct.image?.src ?? "SHOES"
-
-            // Body data
+            
             let jsonData: [String: Any] = [
                 "draft_order": [
                     "note": "Wishlist",
@@ -267,7 +266,6 @@ extension BrandViewController: FavoriteProtocol {
                         ]
                     ],
                     "applied_discount": [
-                        // image saved in api (description)
                         "description": imageSrc,
                         "value_type": "fixed_amount",
                         "value": "10.0",
@@ -280,32 +278,19 @@ extension BrandViewController: FavoriteProtocol {
                     "use_customer_default_address": true
                 ]
             ]
-
+            
             AF.request(baseURLString, method: .post, parameters: jsonData, encoding: JSONEncoding.default, headers: headers)
                 .response { response in
                     switch response.result {
                     case .success:
                         print("Product added to Wishlist successfully.")
-                        self.showSuccessAlert()
                     case .failure(let error):
                         print("Failed to add the product to the Wishlist. Error: \(error)")
                     }
                 }
         }
     }
-
-    func showSuccessAlert() {
-        let alertController = UIAlertController(
-            title: "Success",
-            message: "Product added to Wishlist successfully!",
-            preferredStyle: .alert
-        )
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
+    
     
     func playAnimation() {
         viewModel.animationView = .init(name: "favorite")

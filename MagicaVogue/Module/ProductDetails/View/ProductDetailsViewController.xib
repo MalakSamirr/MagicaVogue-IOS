@@ -68,7 +68,7 @@
                                     <cells/>
                                 </collectionView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="C5s-Wg-5Ja">
-                                    <rect key="frame" x="8" y="276" width="377" height="81.666666666666686"/>
+                                    <rect key="frame" x="8" y="276" width="377" height="51.666666666666686"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light Brown Jacket" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdD-Ck-5HX">
                                             <rect key="frame" x="0.0" y="0.0" width="157.66666666666666" height="21.666666666666668"/>
@@ -77,7 +77,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3qf-de-aZV" customClass="CosmosView" customModule="Cosmos">
-                                            <rect key="frame" x="0.0" y="31.666666666666686" width="120" height="50"/>
+                                            <rect key="frame" x="0.0" y="31.666666666666686" width="120" height="20"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="rating">
@@ -266,6 +266,11 @@
             <point key="canvasLocation" x="78.625954198473281" y="-58.450704225352112"/>
         </view>
     </objects>
+    <designables>
+        <designable name="3qf-de-aZV">
+            <size key="intrinsicContentSize" width="120" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <systemColor name="systemBackgroundColor">

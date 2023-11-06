@@ -24,7 +24,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate{
         cartController.title = "Cart"
         favoriteController.title = "Wishlist"
         homeController.title = "Home"
-        categoryController.title = "Discover"
+        categoryController.title = "Category"
         profileController.title = "Me"
         notLoginController.title = "Me"
         
@@ -42,7 +42,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate{
         self.setViewControllers([homeNavController, categoryNavController, favoriteNavController, cartNavController, profileNavController], animated: true)
         
         guard let items = self.tabBar.items else {return}
-        let images = ["house", "magnifyingglass","heart","cart","person.crop.circle"]
+        let images = ["house", "square.grid.2x2","heart","cart","person.crop.circle"]
         
         for i in 0...4 {
             items[i].image = UIImage(systemName: images[i])

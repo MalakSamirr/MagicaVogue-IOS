@@ -20,7 +20,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     var variantId: Int?
     var inventoryQuantityy : Int?
-    var reviewArray : [review] = [review(reviewer: "Heba Elsisy", review: "Amazing product with good quality"), review(reviewer: "Hoda Elnaghy", review: "Like it!!"),review(reviewer: "Malak Samir", review: "Not Bad")]
+    var reviewArray : [review] = [review(reviewer: "H***a", review: "Amazing product with good quality"), review(reviewer: "M**a", review: "Like it!!"),review(reviewer: "M****k", review: "Not Bad")]
     @IBOutlet weak var rate: CosmosView!
     private var animationView: LottieAnimationView?
     var inventoryItemId: Int?

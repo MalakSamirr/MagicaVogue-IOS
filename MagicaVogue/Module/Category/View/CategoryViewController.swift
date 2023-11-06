@@ -323,7 +323,7 @@ extension CategoryViewController: FavoriteProtocol {
  
     func addToFavorite(_ id: Int) {
         if isProductInWishlist(id) {
-            showAlreadyInWishlistAlert()
+//            showAlreadyInWishlistAlert()
             return
         }
 
@@ -366,7 +366,7 @@ extension CategoryViewController: FavoriteProtocol {
                     switch response.result {
                     case .success:
                         print("Product added to Wishlist successfully.")
-                        self.showSuccessAlert()
+//                        self.showSuccessAlert()
                         
                         // Add the product to the wishlist
                         self.viewModel.wishlist.append(product)
@@ -386,33 +386,33 @@ extension CategoryViewController: FavoriteProtocol {
         return false
     }
 
-    func showAlreadyInWishlistAlert() {
-        let alertController = UIAlertController(
-            title: "Product Already in Wishlist",
-            message: "This product is already in your wishlist.",
-            preferredStyle: .alert
-        )
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
+//    func showAlreadyInWishlistAlert() {
+//        let alertController = UIAlertController(
+//            title: "Product Already in Wishlist",
+//            message: "This product is already in your wishlist.",
+//            preferredStyle: .alert
+//        )
+//
+//        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//        alertController.addAction(okAction)
+//
+//        present(alertController, animated: true, completion: nil)
+//    }
 
 
-    func showSuccessAlert() {
-        let alertController = UIAlertController(
-            title: "Success",
-            message: "Product added to Wishlist successfully!",
-            preferredStyle: .alert
-        )
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
+//    func showSuccessAlert() {
+//        let alertController = UIAlertController(
+//            title: "Success",
+//            message: "Product added to Wishlist successfully!",
+//            preferredStyle: .alert
+//        )
+//
+//        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//        alertController.addAction(okAction)
+//
+//        present(alertController, animated: true, completion: nil)
+//    }
+//
    
     
     func playAnimation() {

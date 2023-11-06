@@ -123,6 +123,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
+        cell.viewController = self 
         cell.lineItemsDelegate = self
         if indexPath.row < viewModel.cart[0].line_items.count {
             let draftOrder = viewModel.cart[0].line_items[indexPath.row]
@@ -256,9 +257,6 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         
 
         edit(lineItem: lineItems)
-        
-        // Now you can use the 'lineItems' array in your PUT request.
-        // Call the updateDraftOrder function with the 'lineItems' array to update the draft order.
     }
     func edit(lineItem : [[String: Any]]) {
         let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders/\(viewModel.cart[0].id).json"

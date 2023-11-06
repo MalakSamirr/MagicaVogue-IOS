@@ -24,7 +24,8 @@ class CartCell: UITableViewCell {
     @IBOutlet weak var plus: UIButton!
     
     @IBOutlet weak var orderTotalLabel: UILabel!
-    
+    weak var viewController: UIViewController?
+
     var lineItemsDelegate: updateLineItemsProtocol?
     var quantity: Double = 1
     var maxQuantity: Double? = 3.0
@@ -82,7 +83,6 @@ class CartCell: UITableViewCell {
 }
     
     @IBAction func didPressMinus(_ sender: Any) {
-        print("Minus button pressed")
         if quantity > 1 {
             let price = Double(productPriceLabel.text ?? "0")
             let priceForItem = (price ?? 0)/Double(quantity)
@@ -95,6 +95,28 @@ class CartCell: UITableViewCell {
                 self.lineItemsDelegate?.updateQuantity(lineItemID: self.lineItem?.id ?? 0, quantity: intQuantity, totalPrice: self.productPriceLabel.text ?? "0")
                 
             }
+        }else{
+            if let viewController = viewController {
+                       showRedToast(message: "Swipe left to delete this item", on: viewController)
+                   } else {
+                   }
+        }
+    }
+    
+    func showRedToast(message: String, on viewController: UIViewController) {
+        let toastView = ToastView2(message: message)
+        toastView.translatesAutoresizingMaskIntoConstraints = false
+        viewController.view.addSubview(toastView)
+        NSLayoutConstraint.activate([
+            toastView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 16),
+            toastView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -16),
+            toastView.bottomAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+        ])
+
+        UIView.animate(withDuration: 5.0, animations: {
+            toastView.alpha = 0
+        }) { _ in
+            toastView.removeFromSuperview()
         }
     }
    
