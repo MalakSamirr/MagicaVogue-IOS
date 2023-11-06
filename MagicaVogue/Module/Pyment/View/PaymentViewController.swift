@@ -141,7 +141,7 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                         switch result {
                         case .success:
                             self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
-                            print("Order completed successfully.")
+                            print("cash successfully.")
                         case .failure(let error):
                             print("Error completing the order: \(error)")
                         }
@@ -230,11 +230,13 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
 
               if success {
                   self.playAnimation {
-                      // This code will be executed when the animation is complete
-                      if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                          sceneDelegate.rootNavigation()
+                      let successVC = SuccessViewController()
+                      successVC.modalPresentationStyle = .fullScreen
+                      self.navigationController?.present(successVC, animated: true)
                       }
-                  }
+                  self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
+
+                  
               } else {
                   showPaymentResultAlert(success: false)
               }
@@ -259,10 +261,10 @@ extension PaymentViewController: PKPaymentAuthorizationViewControllerDelegate {
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true) {
             self.playAnimation {
-                // This code will be executed when the animation is complete
-                if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                    sceneDelegate.rootNavigation()
-                }
+                let successVC = SuccessViewController()
+                successVC.modalPresentationStyle = .fullScreen
+                self.navigationController?.present(successVC, animated: true)
+            
             }
         }
     }
@@ -293,7 +295,7 @@ extension PaymentViewController: PKPaymentAuthorizationViewControllerDelegate {
            
            UIView.animate(withDuration: 1.0, animations: {
                
-               self.viewModel.animationView = .init(name: "SuccessAnimation")
+               self.viewModel.animationView = .init(name: "PaymentSuccess")
                let animationSize = CGSize(width: 200, height: 200)
                
                let animationContainer = UIViewController()
