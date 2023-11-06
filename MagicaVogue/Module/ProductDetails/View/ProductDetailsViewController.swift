@@ -17,6 +17,7 @@ protocol saveItemsToCart : AnyObject{
 
 class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     var variantId: Int?
+    var inventoryQuantityy : Int?
     var reviewArray : [review] = [review(reviewer: "Heba Elsisy", review: "Amazing product with good quality"), review(reviewer: "Hoda Elnaghy", review: "Like it!!"),review(reviewer: "Malak Samir", review: "Not Bad")]
     @IBOutlet weak var rate: CosmosView!
     var inventoryItemId: Int?
@@ -27,6 +28,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var sliderControlPage: UIPageControl!
   
     
+    @IBOutlet weak var OutOfStockLabel: UILabel!
     @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -42,7 +44,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
         
         super.viewDidLoad()
         rate.rating = Double.random(in: 0.0...5.0)
-        
+        OutOfStockLabel.isHidden = true
         for image in productDetailsViewModel.myProduct.images! {
             productDetailsViewModel.arrOfProductImgs.append(image.src ?? "")
         }
@@ -317,30 +319,24 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     @IBAction func AddToCartButtonPressed(_ sender: UIButton) {
         
-        
-            
-            getCart { [self] in
-                if !cart.contains(where: { $0.line_items.contains { $0.variant_id == variantId } }) {
-                    print("fuckkkk \(variantId)")
-                    
-                    
-                   
-                        
-                        
-                            if !cart.isEmpty {
-                                updateDraftOrder()
-                                
-                                
-                            } else {
-                                add()
-                            }
-                        
-                        
-                    
-                        } else {
-                    showAlreadyInCartAlert()
-                }
-            }
+        getCart { [self] in
+              if inventoryQuantityy ?? 0 <= 0 {
+                  // Inventory is out of stock, show the toast and disable the button
+                  showRedToast(message: "Out Of Stock")
+                  addToCartButton.isEnabled = false
+                  OutOfStockLabel.isHidden = false
+              } else {
+                  if !cart.contains(where: { $0.line_items.contains { $0.variant_id == variantId } }) {
+                      if !cart.isEmpty {
+                          updateDraftOrder()
+                      } else {
+                          add()
+                      }
+                  } else {
+                      showAlreadyInCartAlert()
+                  }
+              }
+          }
         
     }
     
@@ -629,17 +625,12 @@ extension ProductDetailsViewController {
         
         if let variant = productDetailsViewModel.myProduct.variants?.first(where: { $0.title == productTitle }) {
             variantId = variant.id
-            print("fuckkkk \(productTitle)\(variantId)")
             inventoryItemId = variant.inventory_item_id
             let inventoryQuantity = variant.inventory_quantity
+            inventoryQuantityy = inventoryQuantity
             let productId = productDetailsViewModel.myProduct.id
             if inventoryQuantity <= 0 {
                 
-                addToCartButton.isEnabled = false
-                showRedToast(message: "Out of Stock")
-//                showUnavilabeItemToast(message: "Out of Stock")
-
-                // Visual modifications
                 addToCartButton.backgroundColor = .lightGray
 
                 let boldFont = UIFont.boldSystemFont(ofSize: 16)
@@ -650,7 +641,8 @@ extension ProductDetailsViewController {
 //
 //                addToCartButton.setTitle("Out of Stock", for: .normal)
                 addToCartButton.setTitleColor(.black, for: .normal)
-                
+                OutOfStockLabel.isHidden = false
+
             }
         }
     }

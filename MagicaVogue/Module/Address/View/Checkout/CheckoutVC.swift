@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate {
+class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate , UIAdaptivePresentationControllerDelegate, UISheetPresentationControllerDelegate   {
  
     
 
@@ -30,19 +30,25 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         addressTableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         addressTableView.register(UINib(nibName: "PromoCodeCell", bundle: nil), forCellReuseIdentifier: "PromoCodeCell")
         addressTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
-//        print("cartttttttt\(cart)")
         getDiscountCodes()
         getPriceRule()
         getAddress()
 
+
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.view.isUserInteractionEnabled = true
 
     }
     override func viewWillAppear(_ animated: Bool) {
+        self.view.isUserInteractionEnabled = true
+
         getDiscountCodes()
         getPriceRule()
         getAddress()
+        
     }
+ 
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
         let paymentViewController = PaymentViewController()
@@ -53,13 +59,20 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
 
             if let sheet = nav.presentationController as? UISheetPresentationController {
                 sheet.detents = [.medium()]
+                sheet.delegate = self
                 sheet.prefersScrollingExpandsWhenScrolledToEdge = false
                 sheet.largestUndimmedDetentIdentifier = .medium
             }
             
-            present(nav, animated: true, completion: nil)
+
+           present(nav, animated: true, completion: nil)
+
+           self.view.isUserInteractionEnabled = false
     }
-    // MARK: - TABLE VIEW FUNCTIONS
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        self.view.isUserInteractionEnabled = true
+    }
+            // MARK: - TABLE VIEW FUNCTIONS
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -158,23 +171,6 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
 
     }
     
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//
-//        let headerLabel = UILabel()
-//        headerLabel.font = UIFont.boldSystemFont(ofSize: 17)
-//        headerLabel.text = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: section)
-//
-//        headerView.addSubview(headerLabel)
-//        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let inset: CGFloat = 20.0
-//        let leftConstraint = headerLabel.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: inset)
-//        leftConstraint.isActive = true
-//
-//        return headerView
-//    }
     func getAddress() {
         let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses.json"
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
@@ -198,7 +194,6 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     }
 
     func showNoAddressesFoundMessage() {
-        // Display a message to the user when no addresses are found
         let alert = UIAlertController(
             title: "No Addresses Found",
             message: "There are no addresses associated with this customer.",
@@ -254,9 +249,6 @@ extension CheckoutVC: AddressProtocol {
             case .success(let couponModel):
                 self.discountCodes = couponModel.discount_codes
                 DispatchQueue.main.async {
-                    // Notify the view that data has been updated
-                    print(self.discountCodes)
-
                     self.addressTableView.reloadData()
                 }
             case .failure(let error):
@@ -271,8 +263,6 @@ extension CheckoutVC: AddressProtocol {
             case .success(let priceRule):
                 self.priceRule = priceRule
                 DispatchQueue.main.async {
-                    // Notify the view that data has been updated
-                    print(self.priceRule)
                     self.addressTableView.reloadData()
                 }
             case .failure(let error):

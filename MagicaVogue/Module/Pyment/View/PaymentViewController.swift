@@ -14,6 +14,8 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
     @IBOutlet var payementParentView: UIView!
     
     @IBOutlet weak var paymentBackgroundView: UIView!
+    var dismissalCompletion: (() -> Void)?
+
     var draftOrderId: Int?
     var animationView: LottieAnimationView?
     
@@ -213,7 +215,6 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
           
            let result = PKPaymentAuthorizationResult(status: .success, errors: nil)
            completion(result)
-//           playAnimation()
 
        }
        
@@ -245,7 +246,9 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                }
            }
        }
-
+//       override func viewDidDisappear(_ animated: Bool) {
+//           <#code#>
+//       }
    }
 
 

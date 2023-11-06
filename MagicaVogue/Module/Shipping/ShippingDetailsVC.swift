@@ -97,7 +97,7 @@ extension UIViewController {
             toastView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
         
-        UIView.animate(withDuration: 8.0, animations: {
+        UIView.animate(withDuration: 5.0, animations: {
             toastView.alpha = 0
         }) { _ in
             toastView.removeFromSuperview()
