@@ -323,6 +323,7 @@ extension CategoryViewController: FavoriteProtocol {
     func addToFavorite(_ id: Int) {
         if isProductInWishlist(id) {
 //            showAlreadyInWishlistAlert()
+            
             return
         }
 

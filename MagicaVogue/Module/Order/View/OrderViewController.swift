@@ -39,8 +39,8 @@ extension OrderViewController: UITableViewDataSource, UITableViewDelegate, UICol
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderProfileTableVC", for: indexPath) as! OrderProfileTableVC
-        cell.createdAttLabel.text = formatDate(orderArray[indexPath.row].customer?.created_at ?? " ")
-        cell.totalPriceLabel.text = orderArray[indexPath.row].total_price
+        cell.createdAttLabel.text = formatDate(orderArray[indexPath.row].created_at ?? " ")
+        cell.totalPriceLabel.text = orderArray[indexPath.row].subtotal_price
            return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

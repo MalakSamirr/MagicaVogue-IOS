@@ -9,7 +9,7 @@ import Foundation
 
 struct OrderModel: Codable {
     let id: Int
-    let total_price: String?
+    let subtotal_price: String?
     let customer: customerOrders?
     let created_at: String?
 }

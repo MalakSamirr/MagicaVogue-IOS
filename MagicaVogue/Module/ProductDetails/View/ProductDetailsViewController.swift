@@ -335,10 +335,10 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
               if inventoryQuantityy ?? 0 <= 0 {
                   // Inventory is out of stock, show the toast and disable the button
                   showRedToast(message: "Out Of Stock")
-                  addToCartButton.isEnabled = false
+                  // addToCartButton.isEnabled = false
                   OutOfStockLabel.isHidden = false
               } else {
-                  addToCartButton.isEnabled = true
+                 // addToCartButton.isEnabled = true
                   OutOfStockLabel.isHidden = true
                   if !cart.contains(where: { $0.line_items.contains { $0.variant_id == variantId } }) {
                       if !cart.isEmpty {
@@ -642,6 +642,13 @@ extension ProductDetailsViewController {
             inventoryItemId = variant.inventory_item_id
             // let inventoryQuantity = variant.inventory_quantity
             inventoryQuantityy = variant.inventory_quantity
+            
+            if inventoryQuantityy ?? 0 > 0 {
+                OutOfStockLabel.isHidden = true
+            }
+            else {
+                OutOfStockLabel.isHidden = false
+            }
             
             print(inventoryQuantityy ?? -1)
             

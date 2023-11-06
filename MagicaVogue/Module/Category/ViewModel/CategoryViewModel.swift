@@ -7,6 +7,7 @@
 
 import Foundation
 import Lottie
+import Alamofire
 
 class CategoryViewModel {
     // MARK: - Variables
@@ -40,21 +41,21 @@ class CategoryViewModel {
     
     
     func getCategories(url: String) {
-            APIManager.shared.request(.get, url) { (result: Result<Product, Error>) in
-                switch result {
-                case .success(let product):
-                    self.productArray = product.products
-                    self.dataArray = product.products
-                    print(self.productArray)
-                    DispatchQueue.main.async {
-                        // Notify the view that data has been updated
-                        self.onDataUpdate?()
-                    }
-                case .failure(let error):
-                    print("Request failed with error: \(error)")
+        APIManager.shared.request(.get, url) { (result: Result<Product, Error>) in
+            switch result {
+            case .success(let product):
+                self.productArray = product.products
+                self.dataArray = product.products
+                print(self.productArray)
+                DispatchQueue.main.async {
+                    // Notify the view that data has been updated
+                    self.onDataUpdate?()
                 }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
             }
         }
+    }
     
     func filterMainCategrories(_ productType: String = "") {
         let selectedMainCategoryName = mainCategoryArray.first(where: { $0.isSelected })?.name
@@ -65,7 +66,7 @@ class CategoryViewModel {
             }
             else {
                 getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?\(productType)")
-          
+                
             }
         case "Men":
             getCategories(url: "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-01/products.json?collection_id=470653141308\(productType)")
@@ -78,7 +79,7 @@ class CategoryViewModel {
             return
         }
     }
-
+    
     func getWishlist(completion: @escaping () -> Void) {
         if APIManager.shared.isOnline() {
             APIManager.shared.request(.get, "https://9ec35bc5ffc50f6db2fd830b0fd373ac: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@ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/draft_orders.json") { (result: Result<DraftOrderResponse, Error>) in
@@ -99,4 +100,49 @@ class CategoryViewModel {
     }
     
     
+//    func fillItems() {
+//        if let pr = productArray {
+//            for item in pr {
+//                if let variantArray = item.variants {
+//                    for variants in variantArray {
+//                        editVariantQuantity(inventory_item_id: variants.inventory_item_id, new_quantity: 40) {
+//                            print("HI")
+//                        }
+//                    }
+//                }
+//                else {
+//                    
+//                }
+//                
+//            }
+//        }
+//    }
+//    
+//    
+//    
+//    private func editVariantQuantity(inventory_item_id: Int, new_quantity : Int, Handler: @escaping () -> Void){
+//            let urlFile = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/inventory_levels/adjust.json"
+//            
+//            let body: [String: Any] = [
+//                
+//                "location_id": 93685481788,
+//                "inventory_item_id": inventory_item_id,
+//                "available_adjustment": new_quantity
+//            ]
+//            
+//            AF.request(urlFile,method: Alamofire.HTTPMethod.post, parameters: body, headers: ["X-Shopify-Access-Token":"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"]).response { data in
+//                switch data.result {
+//                case .success(_):
+//                    print("success from edit variant")
+//                    Handler()
+//                    break
+//                case .failure(let error):
+//                    print("in edit varaint in network manager")
+//                    print(error)
+//                }
+//            }
+//        }
+//    
+//    
+//    
 }

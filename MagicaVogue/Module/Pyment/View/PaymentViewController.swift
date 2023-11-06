@@ -150,7 +150,48 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
                     
                 })
             } else {
-                simulatePaymentProcess()
+                if self.idDiscountApplied {
+                    self.editDraftOrder(draftOrderId: self.draftOrderId ?? 0) { _ in
+                        self.completeOrder(draftOrderId: self.draftOrderId ?? 0) { result in
+                            switch result {
+                            case .success:
+                                self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
+                                
+                                self.playAnimation {
+                                    let successVC = SuccessViewController()
+                                    successVC.modalPresentationStyle = .fullScreen
+                                    self.navigationController?.present(successVC, animated: true)
+                                
+                                }
+                            case .failure(let error):
+                                print("Error completing the order: \(error)")
+                            }
+                        }
+                    }
+                } else {
+                
+                self.completeOrder(draftOrderId: self.draftOrderId ?? 0) { result in
+                    switch result {
+                    case .success:
+                        self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
+                        
+                        
+                        self.playAnimation {
+                            let successVC = SuccessViewController()
+                            successVC.modalPresentationStyle = .fullScreen
+                            self.navigationController?.present(successVC, animated: true)
+                        
+                        }
+                        
+                    case .failure(let error):
+                        print("Error completing the order: \(error)")
+                    }
+                }
+             }
+                
+                
+                
+                
             }
         } else {
             
@@ -224,24 +265,7 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
     
     
        
-       func simulatePaymentProcess() {
-
-           let success = true
-
-              if success {
-                  self.playAnimation {
-                      let successVC = SuccessViewController()
-                      successVC.modalPresentationStyle = .fullScreen
-                      self.navigationController?.present(successVC, animated: true)
-                      }
-                  self.deleteDraftOrder(draftOrderId: self.draftOrderId ?? 0)
-
-                  
-              } else {
-                  showPaymentResultAlert(success: false)
-              }
-       }
-       
+      
     func showPaymentResultAlert(success: Bool) {
         let title = success ? "Payment Successful" : "Payment Failed"
         let message = success ? "Your payment was successful." : "Your payment failed. Please try again."
