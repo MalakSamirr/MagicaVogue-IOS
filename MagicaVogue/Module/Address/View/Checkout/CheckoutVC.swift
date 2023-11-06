@@ -19,7 +19,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     var cart: [DraftOrder] = []
     var productDataArray: [SelectedProduct] = []
     var totalPrice : Double = 0.0
-    
+    var priceAfterDiscount: Double?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Checkout"
@@ -51,11 +51,12 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
     
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
+        
         let paymentViewController = PaymentViewController()
         paymentViewController.draftOrderId = cart[0].id
         
-        let priceAfterDiscount = totalPrice * 0.8
-        paymentViewController.priceAfterDiscount = priceAfterDiscount
+        paymentViewController.priceAfterDiscount = priceAfterDiscount ?? 0
+        print(priceAfterDiscount)
         let nav = UINavigationController(rootViewController: paymentViewController)
         
         nav.modalPresentationStyle = .pageSheet
@@ -159,6 +160,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PromoCodeCell", for: indexPath) as! PromoCodeCell
+            cell.promoCodeDelegate = self
             cell.totalPriceLabel.text = String(totalPrice)
             if cell.Discount.text != "0%" {
                 let price = Double( cell.totalPriceLabel.text ?? "0" ) ?? 0
@@ -275,3 +277,17 @@ extension CheckoutVC: AddressProtocol {
     }
     
 }
+
+extension CheckoutVC: PromoCodeUpdate {
+    func updateTotalValue(priceAfterDiscount: Double) {
+        self.priceAfterDiscount = priceAfterDiscount
+    }
+    
+    
+}
+
+protocol PromoCodeUpdate {
+    func updateTotalValue(priceAfterDiscount: Double)
+}
+
+

@@ -8,7 +8,7 @@
 import UIKit
 
 class PromoCodeCell: UITableViewCell {
-
+    var promoCodeDelegate: PromoCodeUpdate?
     @IBOutlet weak var promocodeBackgroundView: UIView!
     
     @IBOutlet weak var Discount: UILabel!
@@ -41,8 +41,9 @@ class PromoCodeCell: UITableViewCell {
         if let promoCodeText = promoCode.text, ["SALE", "SUMMER", "20OFF"].contains(promoCodeText) {
                 Discount.text = "-20%"
                 if let totalPrice = Double(totalPriceLabel.text ?? "0") {
-                    let priceAfterDiscountValue = totalPrice * 0.9
+                    let priceAfterDiscountValue = totalPrice * 0.8
                     priceAfterDiscount.text = String(format: "%.2f", priceAfterDiscountValue)
+                    promoCodeDelegate?.updateTotalValue(priceAfterDiscount: priceAfterDiscountValue)
                 }
             } else {
                 Discount.text = "0%"
