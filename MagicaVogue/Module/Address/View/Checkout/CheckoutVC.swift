@@ -166,8 +166,11 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
                 let price = Double( cell.totalPriceLabel.text ?? "0" ) ?? 0
                 let PriceAfterDiscount = price*0.8
                 cell.priceAfterDiscount.text = String(PriceAfterDiscount)
+                
             }
+            priceAfterDiscount = totalPrice
             cell.priceAfterDiscount.text = String(totalPrice)
+            
             return cell
         default:
             return UITableViewCell()

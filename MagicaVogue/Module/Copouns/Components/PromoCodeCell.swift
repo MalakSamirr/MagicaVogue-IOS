@@ -48,6 +48,7 @@ class PromoCodeCell: UITableViewCell {
             } else {
                 Discount.text = "0%"
                 priceAfterDiscount.text = totalPriceLabel.text
+                promoCodeDelegate?.updateTotalValue(priceAfterDiscount: Double(totalPriceLabel.text ?? "0") ?? 0)
             }
     }
     
