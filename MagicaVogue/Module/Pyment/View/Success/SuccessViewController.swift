@@ -16,13 +16,15 @@ class SuccessViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func ContinueButtonPressed(_ sender: Any) {
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-                         sceneDelegate.rootNavigation()
-                     }
-    }
-    
-    
 
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
 
 }

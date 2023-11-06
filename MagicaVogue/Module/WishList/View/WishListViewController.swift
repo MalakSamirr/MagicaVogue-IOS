@@ -40,7 +40,7 @@ class WishListViewController: UIViewController {
         emptyImage.isHidden = true
       if (Auth.auth().currentUser == nil) {
           let alert1 = UIAlertController(
-              title: "Login first", message: "you should login your account first!", preferredStyle: UIAlertController.Style.alert)
+              title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
           
           let loginAction = UIAlertAction(title: "Login Now" , style : .default) { (action) in
               
