@@ -178,19 +178,23 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
     }
     
     
-    
-    func simulatePaymentProcess() {
-        
-        let success = true
-        
-        if success {
-            playAnimation()
-            
-        } else {
-            showPaymentResultAlert(success: false)
-        }
-    }
-    
+       
+       func simulatePaymentProcess() {
+
+           let success = true
+
+              if success {
+                  self.playAnimation {
+                      // This code will be executed when the animation is complete
+                      if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                          sceneDelegate.rootNavigation()
+                      }
+                  }
+              } else {
+                  showPaymentResultAlert(success: false)
+              }
+       }
+       
     func showPaymentResultAlert(success: Bool) {
         let title = success ? "Payment Successful" : "Payment Failed"
         let message = success ? "Your payment was successful." : "Your payment failed. Please try again."
@@ -203,49 +207,80 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
     
 }
 
-// MARK: - PKPaymentAuthorizationViewControllerDelegate
+   
+
+   // MARK: - PKPaymentAuthorizationViewControllerDelegate
 extension PaymentViewController: PKPaymentAuthorizationViewControllerDelegate {
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true) {
-            self.playAnimation()
-        }
-    }
-    
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        
-        let result = PKPaymentAuthorizationResult(status: .success, errors: nil)
-        completion(result)
-        
-    }
-    
-    func playAnimation() {
-        viewModel.animationView = .init(name: "SuccessAnimation")
-        let animationSize = CGSize(width: 200, height: 200)
-        
-        let animationContainer = UIViewController()
-        animationContainer.modalPresentationStyle = .pageSheet
-        animationContainer.view.backgroundColor = .clear
-        
-        viewModel.animationView!.frame = CGRect(x: (animationContainer.view.bounds.width - animationSize.width) / 2,
-            y: (animationContainer.view.bounds.height - animationSize.height) / 2,
-            width: animationSize.width , height: animationSize.height)
-        viewModel.animationView!.contentMode = .scaleAspectFit
-        viewModel.animationView!.loopMode = .playOnce
-        viewModel.animationView!.alpha = 1.0
-        animationContainer.view.addSubview(viewModel.animationView!)
-        
-        present(animationContainer, animated: true) { [weak self] in
-            let startTime: CGFloat = 0.1
-            let endTime: CGFloat = 0.8
-            self?.viewModel.animationView?.play(
-                fromProgress: startTime,
-                toProgress: endTime
-            ) { _ in
-                animationContainer.dismiss(animated: true, completion: nil)
+            self.playAnimation {
+                // This code will be executed when the animation is complete
+                if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                    sceneDelegate.rootNavigation()
+                }
             }
         }
     }
-    
-}
+
+       func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+          
+           let result = PKPaymentAuthorizationResult(status: .success, errors: nil)
+           completion(result)
+
+       }
+       
+       
+       
+//       func playAnimation(completion: @escaping () -> Void) {
+//           // Your animation code here
+//
+//           UIView.animate(withDuration: 1.0, animations: {
+//               // Perform your animation
+//               // ...
+//           }, completion: { _ in
+//               // Animation is complete, call the completion handler
+//               completion()
+//           })
+//       }
+       
+       
+       func playAnimation(completion: @escaping () -> Void){
+           
+           UIView.animate(withDuration: 1.0, animations: {
+               
+               self.viewModel.animationView = .init(name: "SuccessAnimation")
+               let animationSize = CGSize(width: 200, height: 200)
+               
+               let animationContainer = UIViewController()
+               animationContainer.modalPresentationStyle = .pageSheet
+               animationContainer.view.backgroundColor = .clear
+               
+               self.viewModel.animationView!.frame = CGRect(x: (animationContainer.view.bounds.width - animationSize.width) / 2,
+                                                       y: (animationContainer.view.bounds.height - animationSize.height) / 2,
+                                                       width: animationSize.width,
+                                                       height: animationSize.height)
+               self.viewModel.animationView!.contentMode = .scaleAspectFit
+               self.viewModel.animationView!.loopMode = .playOnce
+               self.viewModel.animationView!.alpha = 1.0
+               animationContainer.view.addSubview(self.viewModel.animationView!)
+               
+               self.present(animationContainer, animated: true) { [weak self] in
+                   let startTime: CGFloat = 0.1
+                   let endTime: CGFloat = 0.8
+                   self?.viewModel.animationView!.play(fromProgress: startTime, toProgress: endTime) { finished in
+                       animationContainer.dismiss(animated: true, completion: nil)
+                       if finished {
+                           completion()
+                       } else {
+                           print("Animation did not finish successfully.")
+                       }
+                   }
+               }
+           }, completion: nil)
+       }
+   }
+   
+
+   
 
 

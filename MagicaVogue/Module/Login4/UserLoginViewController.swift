@@ -46,41 +46,16 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-            if (Auth.auth().currentUser == nil){
-                let alert1 = UIAlertController(
-                    title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
-                
-                let loginAction = UIAlertAction(title: "Login Now" , style : .default) { (action) in
-                    
-                    if let sceneDelegate = UIApplication.shared.connectedScenes
-                                .first?.delegate as? SceneDelegate {
-                                sceneDelegate.resetAppNavigation()
-                            }
-                }
-            
-            
-            alert1.addAction(loginAction)
-            
-            
-            present(alert1, animated: true , completion: nil)
-            
-            
-            return
-        
-            }
-        else{
+           
             viewModel.getCart()
             viewModel.getWishlist()
             let userDefaults = UserDefaults.standard
             let customerName = userDefaults.string(forKey: "customerName")
             if let firstSpaceIndex = customerName?.firstIndex(of: " ") {
                 let firstName = customerName?[..<firstSpaceIndex]
-                print(firstName) // This will print "malak"
                helloUserLabel.text = "Hello, \(firstName ?? "") 🫶"
-                 
                 
-                
-            }
+            
 
         }
     }
@@ -157,7 +132,6 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         
         if let lineItem = draftOrder.line_items.first, !lineItem.title.isEmpty {
             cell.itemLabel.text = lineItem.title
-           // cell.itemPrice.text = lineItem.price
             
             
             

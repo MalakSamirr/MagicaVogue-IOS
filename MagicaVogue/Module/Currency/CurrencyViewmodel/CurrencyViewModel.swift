@@ -19,7 +19,7 @@ class CurrencyViewModel {
     var havingError: BehaviorRelay<String?> = BehaviorRelay(value: nil)
 
     func fetchCurrencies() {
-        let apiKey = "e07402dc31-efa888e5a7-s3av7p"
+        let apiKey = "37cbe6b58f-f82cc2e6c5-s3p2k3"
         let apiUrl = "https://api.fastforex.io/fetch-all?api_key=\(apiKey)"
         AF.request(apiUrl).responseData { response in
             switch response.result {
@@ -42,8 +42,7 @@ class CurrencyViewModel {
     
     func changeCurrency(to : String){
         let from = "USD"
-       // let to = "EGP"
-        let api = "https://api.fastforex.io/fetch-one?api_key=e07402dc31-efa888e5a7-s3av7p&to=\(to)&from=\(from)"
+        let api = "https://api.fastforex.io/fetch-one?api_key=37cbe6b58f-f82cc2e6c5-s3p2k3&to=\(to)&from=\(from)"
         
         AF.request(api).responseData { response in
             switch response.result {

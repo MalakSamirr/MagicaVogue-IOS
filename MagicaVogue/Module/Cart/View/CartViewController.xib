@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,6 +12,8 @@
             <connections>
                 <outlet property="CartTableView" destination="rb3-li-H7Z" id="hfo-FZ-278"/>
                 <outlet property="checkoutButton" destination="yyq-EL-i30" id="O15-RS-sPN"/>
+                <outlet property="emptyCartImage" destination="6Qd-1T-BW4" id="mZl-1b-Gs1"/>
+                <outlet property="totalLabel" destination="Fkv-6X-m8J" id="m5F-nd-zYH"/>
                 <outlet property="totalPriceLabel" destination="XwP-Zk-lZI" id="2yL-WU-NED"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -68,6 +69,12 @@
                         <constraint firstAttribute="height" constant="3" id="nZL-fK-bxR"/>
                     </constraints>
                 </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="6Qd-1T-BW4">
+                    <rect key="frame" x="0.0" y="263.66666666666669" width="393" height="325.00000000000006"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="325" id="LXe-CB-JHR"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -75,6 +82,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="XwP-Zk-lZI" secondAttribute="bottom" constant="5" id="4uL-r0-ek7"/>
                 <constraint firstItem="rb3-li-H7Z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="59" id="5Sc-fR-4sU"/>
                 <constraint firstItem="XwP-Zk-lZI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="7ly-aO-Amp"/>
+                <constraint firstItem="6Qd-1T-BW4" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="A8u-xm-35S"/>
                 <constraint firstItem="rb3-li-H7Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="GRV-Vv-Cfy"/>
                 <constraint firstItem="Fkv-6X-m8J" firstAttribute="top" secondItem="KiU-xa-q1s" secondAttribute="bottom" constant="16" id="IE5-LN-Ke4"/>
                 <constraint firstItem="yyq-EL-i30" firstAttribute="leading" secondItem="XwP-Zk-lZI" secondAttribute="trailing" id="JIB-IW-FzM"/>
@@ -83,15 +91,18 @@
                 <constraint firstItem="KiU-xa-q1s" firstAttribute="top" secondItem="rb3-li-H7Z" secondAttribute="bottom" id="RkV-NQ-UKe"/>
                 <constraint firstItem="KiU-xa-q1s" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Rni-Dd-dQ5"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rb3-li-H7Z" secondAttribute="trailing" id="SoT-3f-80r"/>
+                <constraint firstItem="6Qd-1T-BW4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Wr0-pj-wtU"/>
                 <constraint firstItem="yyq-EL-i30" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-18" id="brC-Uq-jfI"/>
                 <constraint firstItem="Fkv-6X-m8J" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="gCW-yA-men"/>
                 <constraint firstItem="XwP-Zk-lZI" firstAttribute="top" secondItem="Fkv-6X-m8J" secondAttribute="top" constant="10" id="i2z-0i-9v2"/>
+                <constraint firstItem="6Qd-1T-BW4" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="tVi-hV-LyQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yyq-EL-i30" secondAttribute="trailing" constant="16" id="wV7-GW-u7a"/>
             </constraints>
             <point key="canvasLocation" x="43.511450381679388" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>
+        <image name="empty" width="564" height="423"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -15,6 +15,7 @@ class WishListViewController: UIViewController {
     let viewModel = WishlistViewModel()
     let disposeBag = DisposeBag()
 
+    @IBOutlet weak var emptyImage: UIImageView!
     @IBOutlet weak var wishListCollectionView: UICollectionView!
         override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +31,13 @@ class WishListViewController: UIViewController {
         }
         wishListCollectionView.setCollectionViewLayout(layout, animated: true)
         setupBindings()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        emptyImage.isHidden = true
       if (Auth.auth().currentUser == nil) {
           let alert1 = UIAlertController(
               title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
@@ -54,14 +57,28 @@ class WishListViewController: UIViewController {
           }
           else {
               viewModel.getWishlist()
+
           }
     }
+    func checkFavoriteItems() {
+        if viewModel.wishlist.isEmpty {
+               
+               emptyImage.isHidden = false
+            wishListCollectionView.isHidden = true
+           } else {
+            
+               emptyImage.isHidden = true
+               wishListCollectionView.isHidden = false
+           }
+       }
     
     func setupBindings() {
         viewModel.refresh
             .bind { [weak self] _ in
                 DispatchQueue.main.async {[weak self] in
                     self?.wishListCollectionView.reloadData()
+                    self?.checkFavoriteItems()
+
                 }
             }
             .disposed(by: disposeBag)
