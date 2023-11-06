@@ -66,7 +66,6 @@ class SignupViewController: UIViewController {
                                     self.loginViewModel.getCustomerID(email: email)
                                     let address = ShippingDetailsVC()
                                     address.email = email
-                                    address.x = 1
                                     self.navigationController?.setViewControllers([address], animated: true)
                                  
                                     break
@@ -128,7 +127,6 @@ class SignupViewController: UIViewController {
                         print("successsssss")
                         let address = ShippingDetailsVC()
                         address.email = authResult.email!
-                        address.x = 1
                         
                         self.navigationController?.setViewControllers([address], animated: true)
                         break
