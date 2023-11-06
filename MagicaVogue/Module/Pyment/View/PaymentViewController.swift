@@ -312,7 +312,9 @@ extension PaymentViewController: PKPaymentAuthorizationViewControllerDelegate {
                animationContainer.view.addSubview(self.viewModel.animationView!)
                
                self.present(animationContainer, animated: true) { [weak self] in
-                   self?.viewModel.animationView!.play() { finished in
+                   let startTime: CGFloat = 0.1
+                   let endTime: CGFloat = 0.8
+                   self?.viewModel.animationView!.play(fromProgress: startTime, toProgress: endTime) { finished in
                        animationContainer.dismiss(animated: true, completion: nil)
                        if finished {
                            completion()
