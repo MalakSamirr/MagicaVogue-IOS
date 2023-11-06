@@ -11,13 +11,13 @@ import RxCocoa
 import RxSwift
 
 class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelegate , AddressDelegate {
-
+    
     let viewModel = MyAddressesViewModel()
     let disposeBag = DisposeBag()
-//    var selectedAddress: Address?
-//    var selectedIndex: Int?
+    //    var selectedAddress: Address?
+    //    var selectedIndex: Int?
     
-
+    
     func setupBindings() {
         viewModel.refresh
             .bind { [weak self] _ in
@@ -39,21 +39,25 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         viewModel.addressDeletedSuccessfully.skip(1)
             .bind { [weak self] success in
                 if success {
-                    DispatchQueue.main.async {[weak self] in
-                        self?.addressTable.reloadData()
-                        self?.showToast(message: "Address deleted successfully")
+                    DispatchQueue.main.async { [weak self] in
+                        self?.showDeleteAddressAlert { shouldDelete in
+                            if shouldDelete {
+                                self?.addressTable.reloadData()
+                                self?.showToast(message: "Address deleted successfully")
+                            }
+                        }
                     }
                 } else {
                     self?.showRedToast(message: "Can't delete this address")
                 }
-             
+                
             }
             .disposed(by: disposeBag)
         
         viewModel.defaultAddressSet.skip(1)
             .bind { [weak self] index in
                 DispatchQueue.main.async {[weak self] in
-                   
+                    
                 }
             }
             .disposed(by: disposeBag)
@@ -76,7 +80,6 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Update the checkmark accessory on the last added address
         if let selectedIndex = viewModel.selectedIndex {
             if selectedIndex < viewModel.addresses.count {
                 viewModel.selectedAddress = viewModel.addresses[selectedIndex]
@@ -86,7 +89,7 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         
         viewModel.getAddresses()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getAddresses()
@@ -137,7 +140,6 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let previousSelectedIndex = viewModel.selectedIndex {
             
-            // Clear the checkmark from the previously selected row
             if let previousSelectedCell = tableView.cellForRow(at: IndexPath(row: previousSelectedIndex, section: 0)) {
                 previousSelectedCell.accessoryType = .none
             }
@@ -147,37 +149,34 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         viewModel.selectedAddress = viewModel.selectedAddress
         viewModel.selectedIndex = indexPath.row
         
-        // Save the selected address and index to UserDefaults
         if let encodedAddress = try? JSONEncoder().encode(viewModel.selectedAddress) {
             UserDefaults.standard.set(encodedAddress, forKey: "SelectedAddress")
             UserDefaults.standard.set(indexPath.row, forKey: "SelectedAddressIndex")
         }
         
-        // Update the checkmark for the selected row
         if let selectedCell = tableView.cellForRow(at: indexPath) {
             selectedCell.accessoryType = .checkmark
         }
     }
-
-
-
+    
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 120
+        return 100
         
     }
-
-       func showNoAddressesFoundMessage() {
-           // Display a message to the user when no addresses are found
-           let alert = UIAlertController(
-               title: "No Addresses Found",
-               message: "There are no addresses associated with this customer.",
-               preferredStyle: .alert
-           )
-           let okAction = UIAlertAction(title: "OK", style: .default)
-           alert.addAction(okAction)
-           present(alert, animated: true, completion: nil)
-       }
-  
+    
+    func showNoAddressesFoundMessage() {
+        let alert = UIAlertController(
+            title: "No Addresses Found",
+            message: "There are no addresses associated with this customer.",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     func showDeleteSuccessAlert() {
         let alert = UIAlertController(
             title: "Address Deleted",
@@ -188,33 +187,36 @@ class MyAddressesVC: ViewController  , UITableViewDataSource , UITableViewDelega
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
-
-    @IBAction func addNewAddress(_ sender: UIButton) {
-
-        let addVC = ShippingDetailsVC()
-        navigationController?.pushViewController(addVC, animated: true)
-
+    func showDeleteAddressAlert(completion: @escaping (Bool) -> Void) {
+        let alert = UIAlertController(
+            title: "Delete Address",
+            message: "Are you sure you want to delete this address?",
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            completion(false)
+        }
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            completion(true)
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
-
-//    func setDefaultAddressForCustomer(_ address: Address, completion: @escaping (Bool) -> Void) {
-//        let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses/\(address.id ?? 0)/default.json"
-//        let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-//
-//        AF.request(baseURLString, method: .put, headers: headers)
-//            .response { response in
-//                switch response.result {
-//                case .success:
-//                    print("Default address set successfully")
-//                    completion(true) // Notify success
-//
-//                case .failure(let error):
-//                    print("Failed to set default address. Error: \(error)")
-//                    completion(false) // Notify failure
-//                }
-//            }
-//    }
-   
-
+    
+    @IBAction func addNewAddress(_ sender: UIButton) {
+        
+        let addVC = ShippingDetailsVC()
+        navigationController?.pushViewController(addVC, animated: true)
+        
+    }
+    
+    
+    
 }
 

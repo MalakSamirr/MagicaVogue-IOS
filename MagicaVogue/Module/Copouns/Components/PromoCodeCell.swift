@@ -39,7 +39,7 @@ class PromoCodeCell: UITableViewCell {
 //            Discount.text = "0%"
 //        }
         if let promoCodeText = promoCode.text, ["SALE", "SUMMER", "20OFF"].contains(promoCodeText) {
-                Discount.text = "-10%"
+                Discount.text = "-20%"
                 if let totalPrice = Double(totalPriceLabel.text ?? "0") {
                     let priceAfterDiscountValue = totalPrice * 0.9
                     priceAfterDiscount.text = String(format: "%.2f", priceAfterDiscountValue)

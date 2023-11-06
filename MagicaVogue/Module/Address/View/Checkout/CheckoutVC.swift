@@ -9,9 +9,9 @@ import UIKit
 import Alamofire
 
 class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate , UIAdaptivePresentationControllerDelegate, UISheetPresentationControllerDelegate   {
- 
     
-
+    
+    
     @IBOutlet weak var addressTableView: UITableView!
     var discountCodes: [DiscountCode]?
     var address: Address?
@@ -33,46 +33,49 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         getDiscountCodes()
         getPriceRule()
         getAddress()
-
-
+        
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         self.view.isUserInteractionEnabled = true
-
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.view.isUserInteractionEnabled = true
-
+        
         getDiscountCodes()
         getPriceRule()
         getAddress()
         
     }
- 
+    
     
     @IBAction func paymentButtonPressed(_ sender: Any) {
         let paymentViewController = PaymentViewController()
         paymentViewController.draftOrderId = cart[0].id
-            let nav = UINavigationController(rootViewController: paymentViewController)
-            
-            nav.modalPresentationStyle = .pageSheet
-
-            if let sheet = nav.presentationController as? UISheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.delegate = self
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                sheet.largestUndimmedDetentIdentifier = .medium
-            }
-            
-
-           present(nav, animated: true, completion: nil)
-
-           self.view.isUserInteractionEnabled = false
+        
+        let priceAfterDiscount = totalPrice * 0.8
+        paymentViewController.priceAfterDiscount = priceAfterDiscount
+        let nav = UINavigationController(rootViewController: paymentViewController)
+        
+        nav.modalPresentationStyle = .pageSheet
+        
+        if let sheet = nav.presentationController as? UISheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.delegate = self
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.largestUndimmedDetentIdentifier = .medium
+        }
+        
+        
+        present(nav, animated: true, completion: nil)
+        
+        self.view.isUserInteractionEnabled = false
     }
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         self.view.isUserInteractionEnabled = true
     }
-            // MARK: - TABLE VIEW FUNCTIONS
+    // MARK: - TABLE VIEW FUNCTIONS
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -130,7 +133,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
                 cell.quantityLabel.isHidden = true
                 cell.orderTotalLabel.isHidden = false
                 cell.orderTotalLabel.text = "Qty: \(draftOrder.quantity)"
-               
+                
                 let targetProductId = cart[0].line_items[indexPath.row].product_id
                 
                 if let filteredProduct = productDataArray.first(where: { $0.product.id == targetProductId }) {
@@ -152,29 +155,29 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
                     
                 }
             }
-        
-    return cell
+            
+            return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PromoCodeCell", for: indexPath) as! PromoCodeCell
             cell.totalPriceLabel.text = String(totalPrice)
             if cell.Discount.text != "0%" {
                 let price = Double( cell.totalPriceLabel.text ?? "0" ) ?? 0
-                let PriceAfterDiscount = price*0.9
+                let PriceAfterDiscount = price*0.8
                 cell.priceAfterDiscount.text = String(PriceAfterDiscount)
             }
             cell.priceAfterDiscount.text = String(totalPrice)
             return cell
         default:
             return UITableViewCell()
-
+            
         }
-
+        
     }
     
     func getAddress() {
         let baseURLString = "https://ios-q1-new-capital-2023.myshopify.com/admin/api/2023-10/customers/7495027327292/addresses.json"
         let headers: HTTPHeaders = ["X-Shopify-Access-Token": "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"]
-
+        
         AF.request(baseURLString, method: .get, encoding: JSONEncoding.default, headers: headers)
             .responseDecodable(of: Customer.self) { response in
                 switch response.result {
@@ -192,7 +195,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
                 }
             }
     }
-
+    
     func showNoAddressesFoundMessage() {
         let alert = UIAlertController(
             title: "No Addresses Found",
@@ -203,7 +206,7 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
-
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
