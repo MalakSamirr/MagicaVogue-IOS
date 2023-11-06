@@ -50,11 +50,12 @@ class CartViewModel{
                     
                     // Notify when all product data requests are completed
                     dispatchGroup.notify(queue: DispatchQueue.main) {
-                        self.refresh.accept(())
 //                        updateTotalPriceLabel()
 //                        self.totalPriceLabel.text = String(self.viewModel.totalPrice)
 //                        self.CartTableView.reloadData()
-//                        completion(productDataArray)
+                        completion(self.productDataArray)
+                        self.refresh.accept(())
+
                     }
                     
                 case .failure(let error):
