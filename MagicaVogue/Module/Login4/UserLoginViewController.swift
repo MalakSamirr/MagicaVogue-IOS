@@ -219,7 +219,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         print(viewModel.orderArray[indexPath.row].created_at ?? "")
         cell.createdAttLabel.text = formatDate(inputDate: viewModel.orderArray[indexPath.row].created_at ?? " ")
         print(cell.createdAttLabel.text)
-        cell.totalPriceLabel.text = viewModel.orderArray[indexPath.row].subtotal_price
+        cell.totalPriceLabel.text = "USD \(viewModel.orderArray[indexPath.row].subtotal_price ?? "0")"
         
         return cell
     }

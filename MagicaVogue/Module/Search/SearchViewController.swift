@@ -26,6 +26,9 @@ class SearchViewController: UIViewController {
                     self?.searchCollectionView.reloadData()
                 }
             }
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = false
+        }
         let logoImageView = UIImageView(image: UIImage(named: "Logo"))
         logoImageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = logoImageView
