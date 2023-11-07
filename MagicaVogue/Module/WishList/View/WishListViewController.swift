@@ -43,6 +43,8 @@ class WishListViewController: UIViewController {
 
         emptyImage.isHidden = true
       if (Auth.auth().currentUser == nil) {
+          self.title = " "
+
           let alert1 = UIAlertController(
               title: "Login first", message: "you should login your account first!", preferredStyle: UIAlertController.Style.alert)
           

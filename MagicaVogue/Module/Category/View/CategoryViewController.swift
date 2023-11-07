@@ -8,6 +8,8 @@
 import UIKit
 import Alamofire
 import Lottie
+import Firebase
+import FirebaseAuth
 
 class CategoryViewController: UIViewController {
     
@@ -127,6 +129,9 @@ extension CategoryViewController: UICollectionViewDataSource {
                     cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
                     }
                 var isFavorite = false
+                
+            
+                if(Auth.auth().currentUser != nil){
                 for item in viewModel.wishlistArray {
                     if item.line_items[0].title == product.title {
                         isFavorite = true
@@ -134,7 +139,10 @@ extension CategoryViewController: UICollectionViewDataSource {
                     }
                 }
                     cell.favoriteButton?.isSelected = isFavorite
-                
+                }else{
+                    cell.favoriteButton?.isSelected = false
+
+                }
                 cell.id = product.id
             }
             

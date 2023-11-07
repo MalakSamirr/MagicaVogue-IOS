@@ -50,6 +50,10 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         emptyCartImage.isHidden = true
 
         if (Auth.auth().currentUser == nil){
+            self.title = " "
+            checkoutButton.isHidden = true
+            totalPriceLabel.isHidden = true
+            totalLabel.isHidden = true
             let alert1 = UIAlertController(
                 title: "Login first", message: "you should login you account first!", preferredStyle: UIAlertController.Style.alert)
             

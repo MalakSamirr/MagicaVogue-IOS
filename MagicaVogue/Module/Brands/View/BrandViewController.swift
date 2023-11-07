@@ -8,6 +8,8 @@
 import UIKit
 import Kingfisher
 import Alamofire
+import Firebase
+import FirebaseAuth
 
 
 class BrandViewController: UIViewController{
@@ -179,14 +181,19 @@ extension BrandViewController: UICollectionViewDataSource {
                 
                 cell.id = product.id
                 var isFavorite = false
-                for item in viewModel.wishlist {
-                    if item.line_items[0].title == product.title {
-                        isFavorite = true
-                        cell.draftOrder = item.id
+                if(Auth.auth().currentUser != nil){
+                    for item in viewModel.wishlist {
+                        if item.line_items[0].title == product.title {
+                            isFavorite = true
+                            cell.draftOrder = item.id
+                        }
                     }
+                    cell.favoriteButton?.isSelected = isFavorite
+                    
+                }else{
+                    cell.favoriteButton?.isSelected = false
+
                 }
-                cell.favoriteButton?.isSelected = isFavorite
-                
             }
             return cell
         default:

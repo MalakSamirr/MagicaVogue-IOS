@@ -7,6 +7,8 @@
 
 import UIKit
 import Alamofire
+import Firebase
+import FirebaseAuth
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
@@ -58,34 +60,37 @@ extension SearchViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = searchCollectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
             cell.animationDelegate = self
-            if let product = viewModel.productArray?[indexPath.row]{
-                cell.id = product.id
-                if let imageUrl = URL(string: product.image?.src ?? "heart") {
-                    cell.brandItemImage.kf.setImage(with: imageUrl)
-                } else {
-                    cell.brandItemImage.image = UIImage(named: "CouponBackground")
-                }
-                cell.itemLabel.text = product.title
-                if let intValue = Double(product.variants?[0].price ?? "0") {
-                    let userDefaults = UserDefaults.standard
-
-                    let customerID = userDefaults.integer(forKey: "customerID")
-                    let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
-                    let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
-                    
-                    let result = intValue * CurrencyValue
-                        let resultString = String(format: "%.2f", result)
-                    cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
-                    }  
-                var isFavorite = false
+        if let product = viewModel.productArray?[indexPath.row]{
+            cell.id = product.id
+            if let imageUrl = URL(string: product.image?.src ?? "heart") {
+                cell.brandItemImage.kf.setImage(with: imageUrl)
+            } else {
+                cell.brandItemImage.image = UIImage(named: "CouponBackground")
+            }
+            cell.itemLabel.text = product.title
+            if let intValue = Double(product.variants?[0].price ?? "0") {
+                let userDefaults = UserDefaults.standard
+                
+                let customerID = userDefaults.integer(forKey: "customerID")
+                let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
+                let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
+                
+                let result = intValue * CurrencyValue
+                let resultString = String(format: "%.2f", result)
+                cell.itemPrice.text = "\(CurrencyKey ?? "") \(resultString)"
+            }
+            var isFavorite = false
+            if(Auth.auth().currentUser != nil){
+            
                 for item in viewModel.wishlist {
                     if item.line_items[0].title == product.title {
                         isFavorite = true
                         cell.draftOrder = item.id
                     }
                 }
-                    cell.favoriteButton?.isSelected = isFavorite
+                cell.favoriteButton?.isSelected = isFavorite
             }
+        }
         return cell
     }
     
