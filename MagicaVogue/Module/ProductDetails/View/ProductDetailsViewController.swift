@@ -10,6 +10,9 @@ import Alamofire
 import Kingfisher
 import Cosmos
 import Lottie
+import Firebase
+
+import FirebaseAuth
 
 
 protocol saveItemsToCart : AnyObject{
@@ -331,6 +334,26 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
     
     @IBAction func AddToCartButtonPressed(_ sender: UIButton) {
         
+        if (Auth.auth().currentUser == nil) {
+            self.title = " "
+            
+            let alert1 = UIAlertController(
+                title: "Login first", message: "you should login your account first!", preferredStyle: UIAlertController.Style.alert)
+            
+            let loginAction = UIAlertAction(title: "Login Now" , style : .default) { (action) in
+                
+                if let sceneDelegate = UIApplication.shared.connectedScenes
+                    .first?.delegate as? SceneDelegate {
+                    sceneDelegate.resetAppNavigation()
+                }
+            }
+            alert1.addAction(loginAction)
+            present(alert1, animated: true , completion: nil)
+            
+            
+            return
+        }
+            else{
         getCart { [self] in
               if inventoryQuantityy ?? 0 <= 0 {
                   // Inventory is out of stock, show the toast and disable the button
@@ -338,7 +361,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                   // addToCartButton.isEnabled = false
                   OutOfStockLabel.isHidden = false
               } else {
-                 // addToCartButton.isEnabled = true
+                  // addToCartButton.isEnabled = true
                   OutOfStockLabel.isHidden = true
                   if !cart.contains(where: { $0.line_items.contains { $0.variant_id == variantId } }) {
                       if !cart.isEmpty {
@@ -348,7 +371,7 @@ class ProductDetailsViewController: UIViewController, UICollectionViewDelegate, 
                       }
                   } else {
                       showAlreadyInCartAlert()
-                  }
+                  }}
               }
           }
         
