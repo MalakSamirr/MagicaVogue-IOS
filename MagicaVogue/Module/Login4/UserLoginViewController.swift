@@ -219,7 +219,30 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
         print(viewModel.orderArray[indexPath.row].created_at ?? "")
         cell.createdAttLabel.text = formatDate(inputDate: viewModel.orderArray[indexPath.row].created_at ?? " ")
         print(cell.createdAttLabel.text)
-        cell.totalPriceLabel.text = "USD \(viewModel.orderArray[indexPath.row].subtotal_price ?? "0")"
+      
+        
+        
+        
+        if let intValue = Double(viewModel.orderArray[indexPath.row].subtotal_price ?? "0") {
+            let userDefaults = UserDefaults.standard
+            let customerID = userDefaults.integer(forKey: "customerID")
+            let CurrencyValue = userDefaults.double(forKey: "CurrencyValue\(customerID)")
+            let CurrencyKey = userDefaults.string(forKey: "CurrencyKey\(customerID)")
+            
+            let result = intValue * CurrencyValue
+            let resultString = String(format: "%.2f", result)
+            cell.totalPriceLabel.text = "\(CurrencyKey ?? "") \(resultString)"
+            
+        }
+        
+        
+       
+        
+        
+        
+        
+        
+        
         
         return cell
     }
