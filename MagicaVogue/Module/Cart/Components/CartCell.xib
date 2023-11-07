@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -99,6 +100,12 @@
                         <color key="textColor" red="0.27843138579999999" green="0.31764706970000001" blue="0.30196079609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRO-2U-UgW">
+                        <rect key="frame" x="389.66666666666669" y="109.33333333333333" width="35.333333333333314" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="SwK-rl-6aF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="78i-P3-PvU"/>
@@ -107,10 +114,12 @@
                     <constraint firstItem="SwK-rl-6aF" firstAttribute="leading" secondItem="OXi-ys-9Hn" secondAttribute="trailing" constant="15" id="HaW-Lt-HrE"/>
                     <constraint firstItem="wRV-Dr-tDR" firstAttribute="top" secondItem="SwK-rl-6aF" secondAttribute="bottom" constant="8.0000000000000142" id="Iqv-Hw-fsh"/>
                     <constraint firstItem="OXi-ys-9Hn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JYy-k0-32a"/>
+                    <constraint firstItem="vEz-YL-r3P" firstAttribute="leading" secondItem="cRO-2U-UgW" secondAttribute="trailing" constant="8" symbolic="YES" id="KfP-Lu-VjR"/>
                     <constraint firstItem="wRV-Dr-tDR" firstAttribute="leading" secondItem="SwK-rl-6aF" secondAttribute="leading" id="PKS-W6-Gzr"/>
                     <constraint firstAttribute="bottomMargin" secondItem="wRV-Dr-tDR" secondAttribute="bottom" constant="17.333333333333329" id="hfN-bh-AWl"/>
                     <constraint firstItem="vEz-YL-r3P" firstAttribute="centerY" secondItem="6Ba-5b-5uE" secondAttribute="centerY" id="kvT-ze-uVX"/>
                     <constraint firstItem="6Ba-5b-5uE" firstAttribute="top" secondItem="SwK-rl-6aF" secondAttribute="bottom" constant="6" id="mIX-mF-p5w"/>
+                    <constraint firstItem="cRO-2U-UgW" firstAttribute="centerY" secondItem="vEz-YL-r3P" secondAttribute="centerY" id="nkx-s5-vGa"/>
                     <constraint firstItem="OXi-ys-9Hn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="srd-xe-Gad"/>
                     <constraint firstItem="OXi-ys-9Hn" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.9" id="ufX-oW-psD"/>
                 </constraints>
@@ -124,6 +133,7 @@
                 <constraint firstItem="6Ba-5b-5uE" firstAttribute="width" secondItem="njF-e1-oar" secondAttribute="width" multiplier="0.2" id="ZbH-I6-Ng7"/>
             </constraints>
             <connections>
+                <outlet property="currencyLabel" destination="cRO-2U-UgW" id="ZsU-H3-old"/>
                 <outlet property="minus" destination="ulL-9r-egN" id="ZMw-GO-AoH"/>
                 <outlet property="orderTotalLabel" destination="wRV-Dr-tDR" id="ghI-bj-4cE"/>
                 <outlet property="plus" destination="Hov-Px-bat" id="s9y-6x-kMo"/>

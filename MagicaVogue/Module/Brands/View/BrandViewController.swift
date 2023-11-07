@@ -328,11 +328,12 @@ extension BrandViewController: FavoriteProtocol {
 // MARK: - Search
 extension BrandViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
+        var updatedSearchText = removeConsecutiveSpaces(searchText)
+        if updatedSearchText.isEmpty {
             viewModel.productArray = viewModel.dataArray
         } else {
             viewModel.productArray = viewModel.dataArray?.filter { brand in
-                if let title = brand.title, title.lowercased().contains(searchText.lowercased()) {
+                if let title = brand.title, title.lowercased().contains(updatedSearchText.lowercased()) {
                     return true
                 }
                 return false
@@ -341,5 +342,12 @@ extension BrandViewController: UISearchBarDelegate {
         DispatchQueue.main.async {
             self.BrandCollectionViewDetails.reloadData()
         }
+    }
+    func removeConsecutiveSpaces(_ input: String) -> String {
+        let regex = try! NSRegularExpression(pattern: " +", options: .caseInsensitive)
+        let range = NSMakeRange(0, input.count)
+        let modifiedString = regex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: " ")
+        
+        return modifiedString.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

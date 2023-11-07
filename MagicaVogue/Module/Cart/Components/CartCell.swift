@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 class CartCell: UITableViewCell {
     
+    @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
     
     @IBOutlet weak var productNameLabel: UILabel!
@@ -78,6 +79,7 @@ class CartCell: UITableViewCell {
             let result = intValue * CurrencyValue * quantity
                 let resultString = String(format: "%.2f", result)
             productPriceLabel.text = resultString
+            currencyLabel.text = CurrencyKey
             }
         
     }

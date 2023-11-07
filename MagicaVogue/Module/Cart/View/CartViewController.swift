@@ -133,6 +133,8 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
         cell.viewController = self 
         cell.lineItemsDelegate = self
+        
+        
         if indexPath.row < viewModel.cart[0].line_items.count {
             let draftOrder = viewModel.cart[0].line_items[indexPath.row]
             cell.productNameLabel.text = draftOrder.title
