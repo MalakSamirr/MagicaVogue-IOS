@@ -14,7 +14,7 @@ class HomeViewModel {
     var discountCodes: [DiscountCode]?
     var priceRule: PriceMRuleModel?
     var currentCell = 0
-    let arrOfImgs = ["couponBackground5","couponBackground5", "couponBackground5"]
+    let arrOfImgs = ["couponBackground6","couponBackground7", "couponBackground8"]
     var timer: Timer?
     var onDataUpdateBrand: (() -> Void)?
     var showAlert: (() -> Void)?
