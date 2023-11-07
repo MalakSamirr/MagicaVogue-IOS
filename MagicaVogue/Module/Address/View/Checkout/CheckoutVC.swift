@@ -36,7 +36,9 @@ class CheckoutVC: ViewController ,  UITableViewDataSource , UITableViewDelegate 
         getDiscountCodes()
         getPriceRule()
         getAddress()
-        
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = false
+            }
         
     }
     override func viewDidAppear(_ animated: Bool) {

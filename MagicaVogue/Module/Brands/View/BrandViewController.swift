@@ -25,6 +25,9 @@ class BrandViewController: UIViewController{
         
         
         self.title = viewModel.brand?.title
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = false
+        }
         searchBar.frame = CGRect(x: searchBar.frame.origin.x, y: searchBar.frame.origin.y, width: searchBar.frame.size.width, height: 120)
         searchBar.delegate = self
         viewModel.onDataUpdate = { [weak self] in

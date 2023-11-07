@@ -1902,7 +1902,7 @@
 				CODE_SIGN_ENTITLEMENTS = MagicaVogue/MagicaVogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 94MB3RHVU9;
+				DEVELOPMENT_TEAM = 5FS35954YJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagicaVogue/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1934,7 +1934,7 @@
 				CODE_SIGN_ENTITLEMENTS = MagicaVogue/MagicaVogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 94MB3RHVU9;
+				DEVELOPMENT_TEAM = 5FS35954YJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagicaVogue/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -31,7 +31,9 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Cart"
-        
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = true
+            }
         self.navigationController?.navigationBar.backgroundColor = .white
         CartTableView.delegate = self
         CartTableView.dataSource = self
@@ -42,7 +44,9 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = true
+            }
         emptyCartImage.isHidden = true
 
         if (Auth.auth().currentUser == nil){

@@ -19,7 +19,11 @@ class WishListViewController: UIViewController {
     @IBOutlet weak var wishListCollectionView: UICollectionView!
         override func viewDidLoad() {
         super.viewDidLoad()
+            
         self.title = "Wishlist"
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = true
+            }
         self.navigationController?.isNavigationBarHidden = false
         wishListCollectionView.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
                self.wishListCollectionView.register( SectionHeader.self, forSupplementaryViewOfKind: BrandViewController.sectionHeaderElementKind, withReuseIdentifier: SectionHeader.reuseIdentifier)

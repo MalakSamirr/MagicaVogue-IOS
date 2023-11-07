@@ -40,7 +40,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         automaticSlide()
         setupPageControl()
         searchBar.delegate = self
-        self.title = "Home"
+        title = "Home"
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = true
+        }
         couponCollectionView?.isPagingEnabled = true
         couponCollectionView?.decelerationRate = .fast
         brandsCollectioView.delegate = self
@@ -55,6 +58,9 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         super.viewWillAppear(animated)
         brandsCollectioView.reloadData()
         viewDidLayoutSubviews()
+        if let navigationController = navigationController {
+            navigationController.navigationBar.prefersLargeTitles = true
+        }
     }
     
     private func setupPageControl() {
