@@ -15,9 +15,7 @@ class OrderViewController: UIViewController {
     var orderArray: [OrderModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        let logoImageView = UIImageView(image: UIImage(named: "Logo"))
-        logoImageView.contentMode = .scaleAspectFit
-        self.navigationItem.titleView = logoImageView
+        self.navigationController?.isNavigationBarHidden = true
         orderTableView.dataSource = self
         orderTableView.delegate = self
         orderTableView.register(UINib(nibName: "OrderProfileTableVC", bundle: nil), forCellReuseIdentifier: "OrderProfileTableVC")

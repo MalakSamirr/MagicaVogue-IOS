@@ -126,7 +126,7 @@ extension UIViewController {
         NSLayoutConstraint.activate([
             toastView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             toastView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            toastView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            toastView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80)
         ])
         
         UIView.animate(withDuration: 8.0, animations: {

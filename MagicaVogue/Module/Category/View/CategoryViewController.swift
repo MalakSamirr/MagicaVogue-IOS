@@ -425,19 +425,13 @@ extension CategoryViewController: FavoriteProtocol {
     
     func playAnimation() {
         viewModel.animationView = .init(name: "favorite")
-        // Animation size
-        let animationSize = CGSize(width: 200, height: 200)
-        viewModel.animationView!.frame = CGRect(x: (view.bounds.width - animationSize.width) / 2, y: (view.bounds.height - animationSize.height) / 2, width: animationSize.width, height: animationSize.height)
+        viewModel.animationView!.frame = view.bounds
         viewModel.animationView!.contentMode = .scaleAspectFit
+        // 4. Set animation loop mode
         viewModel.animationView!.loopMode = .playOnce
-        viewModel.animationView!.alpha = 1.0
         view.addSubview(viewModel.animationView!)
-        let startTime: CGFloat = 0.1
-        let endTime: CGFloat = 0.3
-        viewModel.animationView?.play(
-            fromProgress: startTime,
-            toProgress: endTime
-        ) { [weak self] _ in
+        // 6. Play animation
+        viewModel.animationView?.play { [weak self] _ in
             self?.viewModel.animationView?.removeFromSuperview()
         }
     }

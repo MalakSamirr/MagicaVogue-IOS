@@ -18,6 +18,7 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     let disposeBag = DisposeBag()
     let userDefaults = UserDefaults.standard
 
+    @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var totalLabel: UILabel!
     
     @IBOutlet weak var emptyCartImage: UIImageView!
@@ -102,15 +103,16 @@ class CartViewController: UIViewController , UITableViewDataSource , UITableView
     func checkCartItems() {
         
         if viewModel.cart.isEmpty {
-               
+            seperatorView.isHidden = true
             emptyCartImage.isHidden = false
             CartTableView.isHidden = true
             checkoutButton.isHidden = true
             totalPriceLabel.isHidden = true
             totalLabel.isHidden = true
+            
 
         } else {
-            
+            seperatorView.isHidden = false
             emptyCartImage.isHidden = true
             CartTableView.isHidden = false
             checkoutButton.isHidden = false

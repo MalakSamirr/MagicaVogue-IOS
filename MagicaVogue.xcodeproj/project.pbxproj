@@ -56,7 +56,7 @@
 		45F8D3B22AE4F86000F950DE /* PromoCodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45F8D3B02AE4F86000F950DE /* PromoCodeCell.xib */; };
 		5906E0C52AE3C44E003A456C /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906E0C32AE3C44E003A456C /* WishListViewController.swift */; };
 		5906E0C62AE3C44E003A456C /* WishListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5906E0C42AE3C44E003A456C /* WishListViewController.xib */; };
-		5942E7962AF8652900D90BD7 /* Favorite.json in Resources */ = {isa = PBXBuildFile; fileRef = 5942E7952AF8652900D90BD7 /* Favorite.json */; };
+		591B44DC2B11610C00C54960 /* favoritee.json in Resources */ = {isa = PBXBuildFile; fileRef = 591B44DB2B11610C00C54960 /* favoritee.json */; };
 		5947D92E2AE008EC0005E94C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947D92C2AE008EC0005E94C /* HomeViewController.swift */; };
 		5947D92F2AE008EC0005E94C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5947D92D2AE008EC0005E94C /* HomeViewController.xib */; };
 		5947D9312AE016C70005E94C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947D9302AE016C70005E94C /* HomeViewModel.swift */; };
@@ -233,7 +233,7 @@
 		4FD0D2781A9FDC6222418069 /* Pods-MagicaVogueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicaVogueTests.debug.xcconfig"; path = "Target Support Files/Pods-MagicaVogueTests/Pods-MagicaVogueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5906E0C32AE3C44E003A456C /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		5906E0C42AE3C44E003A456C /* WishListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListViewController.xib; sourceTree = "<group>"; };
-		5942E7952AF8652900D90BD7 /* Favorite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Favorite.json; sourceTree = "<group>"; };
+		591B44DB2B11610C00C54960 /* favoritee.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favoritee.json; sourceTree = "<group>"; };
 		5947D92C2AE008EC0005E94C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5947D92D2AE008EC0005E94C /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		5947D9302AE016C70005E94C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -627,7 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				45794CEF2AF97B350031EE91 /* PaymentSuccess.json */,
-				5942E7952AF8652900D90BD7 /* Favorite.json */,
+				591B44DB2B11610C00C54960 /* favoritee.json */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -1454,7 +1454,6 @@
 			files = (
 				59F4E7AF2AE2CACE002A5BFF /* MyAddressesCell.xib in Resources */,
 				5906E0C62AE3C44E003A456C /* WishListViewController.xib in Resources */,
-				5942E7962AF8652900D90BD7 /* Favorite.json in Resources */,
 				59AF4EF02AE122C100B4B8EE /* SubCategoryCell.xib in Resources */,
 				45ECE7B82AE3058D00488682 /* SuccessViewController.xib in Resources */,
 				59F4E7B12AE2CACE002A5BFF /* MyAddressesVC.xib in Resources */,

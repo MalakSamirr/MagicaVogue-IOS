@@ -51,7 +51,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.isNavigationBarHidden = true
         emptyBoxImage.isHidden = true
         emptyWishlistImage.isHidden = true
 
@@ -61,7 +61,7 @@ class UserLoginViewController: UIViewController, UICollectionViewDataSource , UI
             let customerName = userDefaults.string(forKey: "customerName")
             if let firstSpaceIndex = customerName?.firstIndex(of: " ") {
                 let firstName = customerName?[..<firstSpaceIndex]
-               helloUserLabel.text = "Hello, \(firstName ?? "") 🫶"
+               helloUserLabel.text = "Hello, \(firstName ?? "")"
                 
             
 

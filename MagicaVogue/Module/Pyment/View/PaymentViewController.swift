@@ -36,8 +36,8 @@ class PaymentViewController: UIViewController , UITableViewDelegate , UITableVie
         request.supportedNetworks = [.visa, .masterCard, .quicPay , .vPay]
         request.supportedCountries = ["US", "EG", "QA", "AE", "SA"]
         request.merchantCapabilities = .capability3DS
-        request.countryCode = "EG"
-        request.currencyCode = "EGP"
+        request.countryCode = "US"
+        request.currencyCode = "USD"
         
         request.paymentSummaryItems = [PKPaymentSummaryItem(label: "MagicaVogue", amount: NSDecimalNumber(value: priceAfterDiscount))]
         
